@@ -9,7 +9,7 @@
 
     <name>Fractals</name>
 
-    <!-- Global settings for the project. Settings can be accessed in the pom
+     <!-- Global settings for the project. Settings can be accessed in the pom
     by placing the tag name in ${...} ex. ${endorsed.dir} -->
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
