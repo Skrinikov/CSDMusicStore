@@ -9,6 +9,23 @@
 
     <name>Fractals</name>
 
+    <!-- A description of the program -->
+    <description>A Music Store Web Project</description>
+
+    <!-- Identifies the programmer or programmers who worked on the project -->
+    <developers>
+        <developer>
+            <id>1242395</id>
+            <name>Alena Shulzhenko</name>
+            <email>chlgnko.aline@gmail.com</email>
+        </developer>
+    </developers>
+
+    <!-- The company or organization that the programmer(s) work for -->
+    <organization>
+        <name>Dawson College</name>
+    </organization>
+
      <!-- Global settings for the project. Settings can be accessed in the pom
     by placing the tag name in ${...} ex. ${endorsed.dir} -->
     <properties>
