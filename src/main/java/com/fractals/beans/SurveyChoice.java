@@ -121,7 +121,7 @@ public class SurveyChoice implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.SurveyChoices[ id=" + id + " ]";
+        return "com.fractals.beans.SurveyChoices[ id=" + id + " ]";
     }
     
 }

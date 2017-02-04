@@ -164,7 +164,7 @@ public class Review implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Reviews[ id=" + id + " ]";
+        return "com.fractals.beans.Reviews[ id=" + id + " ]";
     }
     
 }

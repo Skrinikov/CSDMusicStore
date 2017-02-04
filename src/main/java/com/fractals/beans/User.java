@@ -360,7 +360,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Users[ id=" + id + " ]";
+        return "com.fractals.beans.Users[ id=" + id + " ]";
     }
     
 }

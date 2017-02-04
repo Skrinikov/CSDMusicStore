@@ -179,7 +179,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Orders[ id=" + id + " ]";
+        return "com.fractals.beans.Orders[ id=" + id + " ]";
     }
     
 }

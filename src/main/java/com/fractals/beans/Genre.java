@@ -109,7 +109,7 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Genres[ id=" + id + " ]";
+        return "com.fractals.beans.Genres[ id=" + id + " ]";
     }
     
 }

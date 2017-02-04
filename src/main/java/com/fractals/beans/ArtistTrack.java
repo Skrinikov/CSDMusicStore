@@ -97,7 +97,7 @@ public class ArtistTrack implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.ArtistTrack[ id=" + id + " ]";
+        return "com.fractals.beans.ArtistTrack[ id=" + id + " ]";
     }
     
 }

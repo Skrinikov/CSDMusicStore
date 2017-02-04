@@ -123,7 +123,7 @@ public class NewsFeed implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.NewsFeeds[ id=" + id + " ]";
+        return "com.fractals.beans.NewsFeeds[ id=" + id + " ]";
     }
     
 }

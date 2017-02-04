@@ -123,7 +123,7 @@ public class BannerAd implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.BannerAds[ id=" + id + " ]";
+        return "com.fractals.beans.BannerAds[ id=" + id + " ]";
     }
     
 }

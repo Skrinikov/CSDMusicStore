@@ -250,7 +250,7 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Albums[ id=" + id + " ]";
+        return "com.fractals.beans.Albums[ id=" + id + " ]";
     }
     
 }

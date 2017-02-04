@@ -7,6 +7,7 @@ package com.fractals.beans;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -42,13 +46,22 @@ public class Artist implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artistId")
-    private Collection<ArtistTrack> artistTrackCollection;
+    
+    
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "artistId")
+    private Collection<ArtistTrack> artistTrackCollection;*/
+    @ManyToMany
+    @JoinTable(
+      name="artist_track",
+      joinColumns=@JoinColumn(name="artist_id", referencedColumnName="id"),
+      inverseJoinColumns=@JoinColumn(name="track_id", referencedColumnName="id"))
+    private Collection<Track> tracks;
 
     public Artist() {
     }
@@ -79,12 +92,12 @@ public class Artist implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ArtistTrack> getArtistTrackCollection() {
-        return artistTrackCollection;
+    public Collection<Track> getTracks() {
+        return tracks;
     }
 
-    public void setArtistTrackCollection(Collection<ArtistTrack> artistTrackCollection) {
-        this.artistTrackCollection = artistTrackCollection;
+    public void setTracks(Collection<Track> tracks) {
+        this.tracks = tracks;
     }
 
     @Override
@@ -109,7 +122,7 @@ public class Artist implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Artists[ id=" + id + " ]";
+        return "com.fractals.beans.Artists[ id=" + id + " ]";
     }
     
 }

@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -58,70 +59,89 @@ public class Track implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "title")
     private String title;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "songwriter")
     private String songwriter;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "duration")
     private String duration;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "album_num")
     private int albumNum;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cover_file")
     private String coverFile;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost_price")
     private float costPrice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "list_price")
     private float listPrice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "sale_price")
     private float salePrice;
+    
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedAt;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "available")
     private boolean available;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_individual")
     private boolean isIndividual;
+    
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Album albumId;
+    
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Genre genreId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trackId")
-    private Collection<Review> reviewsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trackId")
-    private Collection<ArtistTrack> artistTrackCollection;
+    private Collection<Review> reviews;
+    
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "trackId")
+    private Collection<ArtistTrack> artistTrackCollection;*/
+    @ManyToMany(mappedBy = "tracks")
+    private Collection<Artist> artists;
+    
     @OneToMany(mappedBy = "trackId")
-    private Collection<OrderItem> orderItemsCollection;
+    private Collection<OrderItem> orderItems;
 
     public Track() {
     }
@@ -267,29 +287,29 @@ public class Track implements Serializable {
 
     @XmlTransient
     public Collection<Review> getReviewsCollection() {
-        return reviewsCollection;
+        return reviews;
     }
 
     public void setReviewsCollection(Collection<Review> reviewsCollection) {
-        this.reviewsCollection = reviewsCollection;
+        this.reviews = reviewsCollection;
     }
 
     @XmlTransient
-    public Collection<ArtistTrack> getArtistTrackCollection() {
-        return artistTrackCollection;
+    public Collection<Artist> getArtists() {
+        return artists;
     }
 
-    public void setArtistTrackCollection(Collection<ArtistTrack> artistTrackCollection) {
-        this.artistTrackCollection = artistTrackCollection;
+    public void setArtists(Collection<Artist> artists) {
+        this.artists = artists;
     }
 
     @XmlTransient
     public Collection<OrderItem> getOrderItemsCollection() {
-        return orderItemsCollection;
+        return orderItems;
     }
 
     public void setOrderItemsCollection(Collection<OrderItem> orderItemsCollection) {
-        this.orderItemsCollection = orderItemsCollection;
+        this.orderItems = orderItemsCollection;
     }
 
     @Override
@@ -314,7 +334,7 @@ public class Track implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractal.beans.Tracks[ id=" + id + " ]";
+        return "com.fractals.beans.Tracks[ id=" + id + " ]";
     }
     
 }
