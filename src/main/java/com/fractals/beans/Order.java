@@ -47,31 +47,38 @@ public class Order implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "net_cost")
-    private float netCost;
+    private double netCost;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "pst")
-    private float pst;
+    private double pst;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "gst")
-    private float gst;
+    private double gst;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "hst")
-    private float hst;
+    private double hst;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "gross_cost")
-    private float grossCost;
+    private double grossCost;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
@@ -83,7 +90,7 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Order(Integer id, Date orderDate, float netCost, float pst, float gst, float hst, float grossCost) {
+    public Order(Integer id, Date orderDate, double netCost, double pst, double gst, double hst, double grossCost) {
         this.id = id;
         this.orderDate = orderDate;
         this.netCost = netCost;
@@ -109,43 +116,43 @@ public class Order implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public float getNetCost() {
+    public double getNetCost() {
         return netCost;
     }
 
-    public void setNetCost(float netCost) {
+    public void setNetCost(double netCost) {
         this.netCost = netCost;
     }
 
-    public float getPst() {
+    public double getPst() {
         return pst;
     }
 
-    public void setPst(float pst) {
+    public void setPst(double pst) {
         this.pst = pst;
     }
 
-    public float getGst() {
+    public double getGst() {
         return gst;
     }
 
-    public void setGst(float gst) {
+    public void setGst(double gst) {
         this.gst = gst;
     }
 
-    public float getHst() {
+    public double getHst() {
         return hst;
     }
 
-    public void setHst(float hst) {
+    public void setHst(double hst) {
         this.hst = hst;
     }
 
-    public float getGrossCost() {
+    public double getGrossCost() {
         return grossCost;
     }
 
-    public void setGrossCost(float grossCost) {
+    public void setGrossCost(double grossCost) {
         this.grossCost = grossCost;
     }
 

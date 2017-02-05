@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fractals.jpacontrollers;
+package com.fractals.controllers;
 
+import com.fractals.controllers.SearchJPAController;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
 import org.jboss.arquillian.junit.Arquillian;

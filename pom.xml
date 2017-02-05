@@ -77,6 +77,13 @@
             <version>5.1.40</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Jodd Mail Dependency -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-mail</artifactId>
+            <version>3.8.0</version>
+        </dependency>
 
         <!-- PrimeFaces dependency -->
         <dependency>

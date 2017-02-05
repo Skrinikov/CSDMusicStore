@@ -89,17 +89,17 @@ public class Album implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost_price")
-    private float costPrice;
+    private double costPrice;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "list_price")
-    private float listPrice;
+    private double listPrice;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "sale_price")
-    private float salePrice;
+    private double salePrice;
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedAt;
@@ -126,7 +126,7 @@ public class Album implements Serializable {
         this.id = id;
     }
 
-    public Album(Integer id, String title, Date releaseDate, String recordLabel, int numTracks, Date createdAt, float costPrice, float listPrice, float salePrice, boolean available) {
+    public Album(Integer id, String title, Date releaseDate, String recordLabel, int numTracks, Date createdAt, double costPrice, double listPrice, double salePrice, boolean available) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -187,27 +187,27 @@ public class Album implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public float getCostPrice() {
+    public double getCostPrice() {
         return costPrice;
     }
 
-    public void setCostPrice(float costPrice) {
+    public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
     }
 
-    public float getListPrice() {
+    public double getListPrice() {
         return listPrice;
     }
 
-    public void setListPrice(float listPrice) {
+    public void setListPrice(double listPrice) {
         this.listPrice = listPrice;
     }
 
-    public float getSalePrice() {
+    public double getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(float salePrice) {
+    public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 

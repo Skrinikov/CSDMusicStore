@@ -1,4 +1,4 @@
-package com.fractals.jpacontrollers;
+package com.fractals.controllers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;

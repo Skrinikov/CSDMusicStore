@@ -40,17 +40,21 @@ public class OrderItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_id")
     private int orderId;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost")
-    private float cost;
+    private double cost;
+    
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne
     private Album albumId;
+    
     @JoinColumn(name = "track_id", referencedColumnName = "id")
     @ManyToOne
     private Track trackId;
@@ -62,7 +66,7 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public OrderItem(Integer id, int orderId, float cost) {
+    public OrderItem(Integer id, int orderId, double cost) {
         this.id = id;
         this.orderId = orderId;
         this.cost = cost;
@@ -84,11 +88,11 @@ public class OrderItem implements Serializable {
         this.orderId = orderId;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
