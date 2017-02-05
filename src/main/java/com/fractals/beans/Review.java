@@ -32,12 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "reviews")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Reviews.findAll", query = "SELECT r FROM Reviews r")
-    , @NamedQuery(name = "Reviews.findById", query = "SELECT r FROM Reviews r WHERE r.id = :id")
-    , @NamedQuery(name = "Reviews.findByRating", query = "SELECT r FROM Reviews r WHERE r.rating = :rating")
-    , @NamedQuery(name = "Reviews.findByReviewDate", query = "SELECT r FROM Reviews r WHERE r.reviewDate = :reviewDate")
-    , @NamedQuery(name = "Reviews.findByText", query = "SELECT r FROM Reviews r WHERE r.text = :text")
-    , @NamedQuery(name = "Reviews.findByApproved", query = "SELECT r FROM Reviews r WHERE r.approved = :approved")})
+    @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r")
+    , @NamedQuery(name = "Review.findById", query = "SELECT r FROM Review r WHERE r.id = :id")
+    , @NamedQuery(name = "Review.findByRating", query = "SELECT r FROM Review r WHERE r.rating = :rating")
+    , @NamedQuery(name = "Review.findByReviewDate", query = "SELECT r FROM Review r WHERE r.reviewDate = :reviewDate")
+    , @NamedQuery(name = "Review.findByText", query = "SELECT r FROM Review r WHERE r.text = :text")
+    , @NamedQuery(name = "Review.findByApproved", query = "SELECT r FROM Review r WHERE r.approved = :approved")})
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -164,7 +164,7 @@ public class Review implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Reviews[ id=" + id + " ]";
+        return "com.fractals.beans.Review[ id=" + id + " ]";
     }
     
 }

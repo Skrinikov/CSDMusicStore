@@ -31,26 +31,26 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
-    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-    , @NamedQuery(name = "Users.findBySalt", query = "SELECT u FROM Users u WHERE u.salt = :salt")
-    , @NamedQuery(name = "Users.findByTitle", query = "SELECT u FROM Users u WHERE u.title = :title")
-    , @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName")
-    , @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName")
-    , @NamedQuery(name = "Users.findByCompany", query = "SELECT u FROM Users u WHERE u.company = :company")
-    , @NamedQuery(name = "Users.findByAddress1", query = "SELECT u FROM Users u WHERE u.address1 = :address1")
-    , @NamedQuery(name = "Users.findByAddress2", query = "SELECT u FROM Users u WHERE u.address2 = :address2")
-    , @NamedQuery(name = "Users.findByCity", query = "SELECT u FROM Users u WHERE u.city = :city")
-    , @NamedQuery(name = "Users.findByProvince", query = "SELECT u FROM Users u WHERE u.province = :province")
-    , @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country")
-    , @NamedQuery(name = "Users.findByPostalCode", query = "SELECT u FROM Users u WHERE u.postalCode = :postalCode")
-    , @NamedQuery(name = "Users.findByHomeTel", query = "SELECT u FROM Users u WHERE u.homeTel = :homeTel")
-    , @NamedQuery(name = "Users.findByCellTel", query = "SELECT u FROM Users u WHERE u.cellTel = :cellTel")
-    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
-    , @NamedQuery(name = "Users.findByLastGenre", query = "SELECT u FROM Users u WHERE u.lastGenre = :lastGenre")
-    , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
+    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt")
+    , @NamedQuery(name = "User.findByTitle", query = "SELECT u FROM User u WHERE u.title = :title")
+    , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
+    , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
+    , @NamedQuery(name = "User.findByCompany", query = "SELECT u FROM User u WHERE u.company = :company")
+    , @NamedQuery(name = "User.findByAddress1", query = "SELECT u FROM User u WHERE u.address1 = :address1")
+    , @NamedQuery(name = "User.findByAddress2", query = "SELECT u FROM User u WHERE u.address2 = :address2")
+    , @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city")
+    , @NamedQuery(name = "User.findByProvince", query = "SELECT u FROM User u WHERE u.province = :province")
+    , @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country")
+    , @NamedQuery(name = "User.findByPostalCode", query = "SELECT u FROM User u WHERE u.postalCode = :postalCode")
+    , @NamedQuery(name = "User.findByHomeTel", query = "SELECT u FROM User u WHERE u.homeTel = :homeTel")
+    , @NamedQuery(name = "User.findByCellTel", query = "SELECT u FROM User u WHERE u.cellTel = :cellTel")
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+    , @NamedQuery(name = "User.findByLastGenre", query = "SELECT u FROM User u WHERE u.lastGenre = :lastGenre")
+    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -360,7 +360,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Users[ id=" + id + " ]";
+        return "com.fractals.beans.User[ id=" + id + " ]";
     }
     
 }

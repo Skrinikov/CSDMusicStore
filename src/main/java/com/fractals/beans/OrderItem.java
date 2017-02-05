@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "order_items")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderItems.findAll", query = "SELECT o FROM OrderItems o")
-    , @NamedQuery(name = "OrderItems.findById", query = "SELECT o FROM OrderItems o WHERE o.id = :id")
-    , @NamedQuery(name = "OrderItems.findByOrderId", query = "SELECT o FROM OrderItems o WHERE o.orderId = :orderId")
-    , @NamedQuery(name = "OrderItems.findByCost", query = "SELECT o FROM OrderItems o WHERE o.cost = :cost")})
+    @NamedQuery(name = "OrderItem.findAll", query = "SELECT o FROM OrderItem o")
+    , @NamedQuery(name = "OrderItem.findById", query = "SELECT o FROM OrderItem o WHERE o.id = :id")
+    , @NamedQuery(name = "OrderItem.findByOrderId", query = "SELECT o FROM OrderItem o WHERE o.orderId = :orderId")
+    , @NamedQuery(name = "OrderItem.findByCost", query = "SELECT o FROM OrderItem o WHERE o.cost = :cost")})
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -130,7 +130,7 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.OrderItems[ id=" + id + " ]";
+        return "com.fractals.beans.OrderItem[ id=" + id + " ]";
     }
     
 }

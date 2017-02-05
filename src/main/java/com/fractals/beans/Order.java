@@ -31,14 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "orders")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
-    , @NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id")
-    , @NamedQuery(name = "Orders.findByOrderDate", query = "SELECT o FROM Orders o WHERE o.orderDate = :orderDate")
-    , @NamedQuery(name = "Orders.findByNetCost", query = "SELECT o FROM Orders o WHERE o.netCost = :netCost")
-    , @NamedQuery(name = "Orders.findByPst", query = "SELECT o FROM Orders o WHERE o.pst = :pst")
-    , @NamedQuery(name = "Orders.findByGst", query = "SELECT o FROM Orders o WHERE o.gst = :gst")
-    , @NamedQuery(name = "Orders.findByHst", query = "SELECT o FROM Orders o WHERE o.hst = :hst")
-    , @NamedQuery(name = "Orders.findByGrossCost", query = "SELECT o FROM Orders o WHERE o.grossCost = :grossCost")})
+    @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
+    , @NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id")
+    , @NamedQuery(name = "Order.findByOrderDate", query = "SELECT o FROM Order o WHERE o.orderDate = :orderDate")
+    , @NamedQuery(name = "Order.findByNetCost", query = "SELECT o FROM Order o WHERE o.netCost = :netCost")
+    , @NamedQuery(name = "Order.findByPst", query = "SELECT o FROM Order o WHERE o.pst = :pst")
+    , @NamedQuery(name = "Order.findByGst", query = "SELECT o FROM Order o WHERE o.gst = :gst")
+    , @NamedQuery(name = "Order.findByHst", query = "SELECT o FROM Order o WHERE o.hst = :hst")
+    , @NamedQuery(name = "Order.findByGrossCost", query = "SELECT o FROM Order o WHERE o.grossCost = :grossCost")})
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -179,7 +179,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Orders[ id=" + id + " ]";
+        return "com.fractals.beans.Order[ id=" + id + " ]";
     }
     
 }

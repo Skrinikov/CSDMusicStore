@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "artists")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Artists.findAll", query = "SELECT a FROM Artists a")
-    , @NamedQuery(name = "Artists.findById", query = "SELECT a FROM Artists a WHERE a.id = :id")
-    , @NamedQuery(name = "Artists.findByName", query = "SELECT a FROM Artists a WHERE a.name = :name")})
+    @NamedQuery(name = "Artist.findAll", query = "SELECT a FROM Artist a")
+    , @NamedQuery(name = "Artist.findById", query = "SELECT a FROM Artist a WHERE a.id = :id")
+    , @NamedQuery(name = "Artist.findByName", query = "SELECT a FROM Artist a WHERE a.name = :name")})
 public class Artist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,7 +122,7 @@ public class Artist implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Artists[ id=" + id + " ]";
+        return "com.fractals.beans.Artist[ id=" + id + " ]";
     }
     
 }

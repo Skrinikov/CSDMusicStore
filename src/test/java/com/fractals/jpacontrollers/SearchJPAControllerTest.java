@@ -74,10 +74,12 @@ public class SearchJPAControllerTest {
     
     @Test
     public void searchAlbumsAndTracksTest() throws SQLException {
+        //try{
         long t = System.nanoTime();
         List<Item> items = search.searchByAlbumTitle("no");
         assertThat(items).hasSize(9);
         double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
         System.out.println("search : " + seconds + " seconds.");
+        //}catch()
     }
 }

@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "survey_choices")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SurveyChoices.findAll", query = "SELECT s FROM SurveyChoices s")
-    , @NamedQuery(name = "SurveyChoices.findById", query = "SELECT s FROM SurveyChoices s WHERE s.id = :id")
-    , @NamedQuery(name = "SurveyChoices.findByChoice", query = "SELECT s FROM SurveyChoices s WHERE s.choice = :choice")
-    , @NamedQuery(name = "SurveyChoices.findByNumVotes", query = "SELECT s FROM SurveyChoices s WHERE s.numVotes = :numVotes")})
+    @NamedQuery(name = "SurveyChoice.findAll", query = "SELECT s FROM SurveyChoice s")
+    , @NamedQuery(name = "SurveyChoice.findById", query = "SELECT s FROM SurveyChoice s WHERE s.id = :id")
+    , @NamedQuery(name = "SurveyChoice.findByChoice", query = "SELECT s FROM SurveyChoice s WHERE s.choice = :choice")
+    , @NamedQuery(name = "SurveyChoice.findByNumVotes", query = "SELECT s FROM SurveyChoice s WHERE s.numVotes = :numVotes")})
 public class SurveyChoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -121,7 +121,7 @@ public class SurveyChoice implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.SurveyChoices[ id=" + id + " ]";
+        return "com.fractals.beans.SurveyChoice[ id=" + id + " ]";
     }
     
 }

@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "banner_ads")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "BannerAds.findAll", query = "SELECT b FROM BannerAds b")
-    , @NamedQuery(name = "BannerAds.findById", query = "SELECT b FROM BannerAds b WHERE b.id = :id")
-    , @NamedQuery(name = "BannerAds.findByLink", query = "SELECT b FROM BannerAds b WHERE b.link = :link")
-    , @NamedQuery(name = "BannerAds.findBySource", query = "SELECT b FROM BannerAds b WHERE b.source = :source")
-    , @NamedQuery(name = "BannerAds.findByVisible", query = "SELECT b FROM BannerAds b WHERE b.visible = :visible")})
+    @NamedQuery(name = "BannerAd.findAll", query = "SELECT b FROM BannerAd b")
+    , @NamedQuery(name = "BannerAd.findById", query = "SELECT b FROM BannerAd b WHERE b.id = :id")
+    , @NamedQuery(name = "BannerAd.findByLink", query = "SELECT b FROM BannerAd b WHERE b.link = :link")
+    , @NamedQuery(name = "BannerAd.findBySource", query = "SELECT b FROM BannerAd b WHERE b.source = :source")
+    , @NamedQuery(name = "BannerAd.findByVisible", query = "SELECT b FROM BannerAd b WHERE b.visible = :visible")})
 public class BannerAd implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -123,7 +123,7 @@ public class BannerAd implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.BannerAds[ id=" + id + " ]";
+        return "com.fractals.beans.BannerAd[ id=" + id + " ]";
     }
     
 }

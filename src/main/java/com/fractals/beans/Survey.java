@@ -30,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "surveys")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Surveys.findAll", query = "SELECT s FROM Surveys s")
-    , @NamedQuery(name = "Surveys.findById", query = "SELECT s FROM Surveys s WHERE s.id = :id")
-    , @NamedQuery(name = "Surveys.findByQuestion", query = "SELECT s FROM Surveys s WHERE s.question = :question")
-    , @NamedQuery(name = "Surveys.findByVisible", query = "SELECT s FROM Surveys s WHERE s.visible = :visible")})
+    @NamedQuery(name = "Survey.findAll", query = "SELECT s FROM Survey s")
+    , @NamedQuery(name = "Survey.findById", query = "SELECT s FROM Survey s WHERE s.id = :id")
+    , @NamedQuery(name = "Survey.findByQuestion", query = "SELECT s FROM Survey s WHERE s.question = :question")
+    , @NamedQuery(name = "Survey.findByVisible", query = "SELECT s FROM Survey s WHERE s.visible = :visible")})
 public class Survey implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,7 +122,7 @@ public class Survey implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Surveys[ id=" + id + " ]";
+        return "com.fractals.beans.Survey[ id=" + id + " ]";
     }
     
 }

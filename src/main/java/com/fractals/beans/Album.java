@@ -35,18 +35,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "albums")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Albums.findAll", query = "SELECT a FROM Albums a")
-    , @NamedQuery(name = "Albums.findById", query = "SELECT a FROM Albums a WHERE a.id = :id")
-    , @NamedQuery(name = "Albums.findByTitle", query = "SELECT a FROM Albums a WHERE a.title = :title")
-    , @NamedQuery(name = "Albums.findByReleaseDate", query = "SELECT a FROM Albums a WHERE a.releaseDate = :releaseDate")
-    , @NamedQuery(name = "Albums.findByRecordLabel", query = "SELECT a FROM Albums a WHERE a.recordLabel = :recordLabel")
-    , @NamedQuery(name = "Albums.findByNumTracks", query = "SELECT a FROM Albums a WHERE a.numTracks = :numTracks")
-    , @NamedQuery(name = "Albums.findByCreatedAt", query = "SELECT a FROM Albums a WHERE a.createdAt = :createdAt")
-    , @NamedQuery(name = "Albums.findByCostPrice", query = "SELECT a FROM Albums a WHERE a.costPrice = :costPrice")
-    , @NamedQuery(name = "Albums.findByListPrice", query = "SELECT a FROM Albums a WHERE a.listPrice = :listPrice")
-    , @NamedQuery(name = "Albums.findBySalePrice", query = "SELECT a FROM Albums a WHERE a.salePrice = :salePrice")
-    , @NamedQuery(name = "Albums.findByRemovedAt", query = "SELECT a FROM Albums a WHERE a.removedAt = :removedAt")
-    , @NamedQuery(name = "Albums.findByAvailable", query = "SELECT a FROM Albums a WHERE a.available = :available")})
+    @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a")
+    , @NamedQuery(name = "Album.findById", query = "SELECT a FROM Album a WHERE a.id = :id")
+    , @NamedQuery(name = "Album.findByTitle", query = "SELECT a FROM Album a WHERE a.title = :title")
+    , @NamedQuery(name = "Album.findByReleaseDate", query = "SELECT a FROM Album a WHERE a.releaseDate = :releaseDate")
+    , @NamedQuery(name = "Album.findByRecordLabel", query = "SELECT a FROM Album a WHERE a.recordLabel = :recordLabel")
+    , @NamedQuery(name = "Album.findByNumTracks", query = "SELECT a FROM Album a WHERE a.numTracks = :numTracks")
+    , @NamedQuery(name = "Album.findByCreatedAt", query = "SELECT a FROM Album a WHERE a.createdAt = :createdAt")
+    , @NamedQuery(name = "Album.findByCostPrice", query = "SELECT a FROM Album a WHERE a.costPrice = :costPrice")
+    , @NamedQuery(name = "Album.findByListPrice", query = "SELECT a FROM Album a WHERE a.listPrice = :listPrice")
+    , @NamedQuery(name = "Album.findBySalePrice", query = "SELECT a FROM Album a WHERE a.salePrice = :salePrice")
+    , @NamedQuery(name = "Album.findByRemovedAt", query = "SELECT a FROM Album a WHERE a.removedAt = :removedAt")
+    , @NamedQuery(name = "Album.findByAvailable", query = "SELECT a FROM Album a WHERE a.available = :available")})
 public class Album extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -251,7 +251,7 @@ public class Album extends Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Albums[ id=" + id + " ]";
+        return "com.fractals.beans.Album[ id=" + id + " ]";
     }
     
 }

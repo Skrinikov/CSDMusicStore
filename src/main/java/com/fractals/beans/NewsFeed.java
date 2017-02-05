@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "news_feeds")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "NewsFeeds.findAll", query = "SELECT n FROM NewsFeeds n")
-    , @NamedQuery(name = "NewsFeeds.findById", query = "SELECT n FROM NewsFeeds n WHERE n.id = :id")
-    , @NamedQuery(name = "NewsFeeds.findByLink", query = "SELECT n FROM NewsFeeds n WHERE n.link = :link")
-    , @NamedQuery(name = "NewsFeeds.findBySource", query = "SELECT n FROM NewsFeeds n WHERE n.source = :source")
-    , @NamedQuery(name = "NewsFeeds.findByVisible", query = "SELECT n FROM NewsFeeds n WHERE n.visible = :visible")})
+    @NamedQuery(name = "NewsFeed.findAll", query = "SELECT n FROM NewsFeed n")
+    , @NamedQuery(name = "NewsFeed.findById", query = "SELECT n FROM NewsFeed n WHERE n.id = :id")
+    , @NamedQuery(name = "NewsFeed.findByLink", query = "SELECT n FROM NewsFeed n WHERE n.link = :link")
+    , @NamedQuery(name = "NewsFeed.findBySource", query = "SELECT n FROM NewsFeed n WHERE n.source = :source")
+    , @NamedQuery(name = "NewsFeed.findByVisible", query = "SELECT n FROM NewsFeed n WHERE n.visible = :visible")})
 public class NewsFeed implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -123,7 +123,7 @@ public class NewsFeed implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.NewsFeeds[ id=" + id + " ]";
+        return "com.fractals.beans.NewsFeed[ id=" + id + " ]";
     }
     
 }

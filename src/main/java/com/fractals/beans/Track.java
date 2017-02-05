@@ -38,20 +38,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tracks")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tracks.findAll", query = "SELECT t FROM Tracks t")
-    , @NamedQuery(name = "Tracks.findById", query = "SELECT t FROM Tracks t WHERE t.id = :id")
-    , @NamedQuery(name = "Tracks.findByTitle", query = "SELECT t FROM Tracks t WHERE t.title = :title")
-    , @NamedQuery(name = "Tracks.findBySongwriter", query = "SELECT t FROM Tracks t WHERE t.songwriter = :songwriter")
-    , @NamedQuery(name = "Tracks.findByDuration", query = "SELECT t FROM Tracks t WHERE t.duration = :duration")
-    , @NamedQuery(name = "Tracks.findByAlbumNum", query = "SELECT t FROM Tracks t WHERE t.albumNum = :albumNum")
-    , @NamedQuery(name = "Tracks.findByCoverFile", query = "SELECT t FROM Tracks t WHERE t.coverFile = :coverFile")
-    , @NamedQuery(name = "Tracks.findByCreatedAt", query = "SELECT t FROM Tracks t WHERE t.createdAt = :createdAt")
-    , @NamedQuery(name = "Tracks.findByCostPrice", query = "SELECT t FROM Tracks t WHERE t.costPrice = :costPrice")
-    , @NamedQuery(name = "Tracks.findByListPrice", query = "SELECT t FROM Tracks t WHERE t.listPrice = :listPrice")
-    , @NamedQuery(name = "Tracks.findBySalePrice", query = "SELECT t FROM Tracks t WHERE t.salePrice = :salePrice")
-    , @NamedQuery(name = "Tracks.findByRemovedAt", query = "SELECT t FROM Tracks t WHERE t.removedAt = :removedAt")
-    , @NamedQuery(name = "Tracks.findByAvailable", query = "SELECT t FROM Tracks t WHERE t.available = :available")
-    , @NamedQuery(name = "Tracks.findByIsIndividual", query = "SELECT t FROM Tracks t WHERE t.isIndividual = :isIndividual")})
+    @NamedQuery(name = "Track.findAll", query = "SELECT t FROM Track t")
+    , @NamedQuery(name = "Track.findById", query = "SELECT t FROM Track t WHERE t.id = :id")
+    , @NamedQuery(name = "Track.findByTitle", query = "SELECT t FROM Track t WHERE t.title = :title")
+    , @NamedQuery(name = "Track.findBySongwriter", query = "SELECT t FROM Track t WHERE t.songwriter = :songwriter")
+    , @NamedQuery(name = "Track.findByDuration", query = "SELECT t FROM Track t WHERE t.duration = :duration")
+    , @NamedQuery(name = "Track.findByAlbumNum", query = "SELECT t FROM Track t WHERE t.albumNum = :albumNum")
+    , @NamedQuery(name = "Track.findByCoverFile", query = "SELECT t FROM Track t WHERE t.coverFile = :coverFile")
+    , @NamedQuery(name = "Track.findByCreatedAt", query = "SELECT t FROM Track t WHERE t.createdAt = :createdAt")
+    , @NamedQuery(name = "Track.findByCostPrice", query = "SELECT t FROM Track t WHERE t.costPrice = :costPrice")
+    , @NamedQuery(name = "Track.findByListPrice", query = "SELECT t FROM Track t WHERE t.listPrice = :listPrice")
+    , @NamedQuery(name = "Track.findBySalePrice", query = "SELECT t FROM Track t WHERE t.salePrice = :salePrice")
+    , @NamedQuery(name = "Track.findByRemovedAt", query = "SELECT t FROM Track t WHERE t.removedAt = :removedAt")
+    , @NamedQuery(name = "Track.findByAvailable", query = "SELECT t FROM Track t WHERE t.available = :available")
+    , @NamedQuery(name = "Track.findByIsIndividual", query = "SELECT t FROM Track t WHERE t.isIndividual = :isIndividual")})
 public class Track extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -335,7 +335,7 @@ public class Track extends Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Tracks[ id=" + id + " ]";
+        return "com.fractals.beans.Track[ id=" + id + " ]";
     }
     
 }
