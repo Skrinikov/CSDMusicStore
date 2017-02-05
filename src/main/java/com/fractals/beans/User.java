@@ -120,10 +120,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "postal_code")
     private String postalCode;
-    @Size(max = 12)
+    @Size(max = 20)
     @Column(name = "home_tel")
     private String homeTel;
-    @Size(max = 12)
+    @Size(max = 20)
     @Column(name = "cell_tel")
     private String cellTel;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation

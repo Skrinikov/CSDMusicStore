@@ -7,7 +7,6 @@ package com.fractals.jpacontrollers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
-import com.fractals.utilities.Item;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -73,11 +72,22 @@ public class SearchJPAControllerTest {
     private DataSource ds;
     
     @Test
-    public void searchAlbumsAndTracksTest() throws SQLException {
+    public void searchByAlbumTitleTest() throws SQLException {
         //try{
         long t = System.nanoTime();
-        List<Item> items = search.searchByAlbumTitle("no");
-        assertThat(items).hasSize(9);
+        List<Album> items = search.searchByAlbumTitle("no");
+        assertThat(items).hasSize(2);
+        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
+        System.out.println("search : " + seconds + " seconds.");
+        //}catch()
+    }
+    
+    @Test
+    public void searchByTrackNameTest() throws SQLException {
+        //try{
+        long t = System.nanoTime();
+        List<Track> items = search.searchByTrackName("no");
+        assertThat(items).hasSize(7);
         double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
         System.out.println("search : " + seconds + " seconds.");
         //}catch()

@@ -5,7 +5,6 @@
  */
 package com.fractals.beans;
 
-import com.fractals.utilities.Item;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,7 +48,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Album.findBySalePrice", query = "SELECT a FROM Album a WHERE a.salePrice = :salePrice")
     , @NamedQuery(name = "Album.findByRemovedAt", query = "SELECT a FROM Album a WHERE a.removedAt = :removedAt")
     , @NamedQuery(name = "Album.findByAvailable", query = "SELECT a FROM Album a WHERE a.available = :available")})
-public class Album extends Item implements Serializable {
+public class Album implements Serializable {
+
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Artist artistId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,38 +60,46 @@ public class Album extends Item implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "title")
     private String title;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "record_label")
     private String recordLabel;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "num_tracks")
     private int numTracks;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost_price")
     private float costPrice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "list_price")
     private float listPrice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "sale_price")
@@ -94,12 +107,15 @@ public class Album extends Item implements Serializable {
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedAt;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "available")
     private boolean available;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "albumId")
     private Collection<Track> tracksCollection;
+    
     @OneToMany(mappedBy = "albumId")
     private Collection<OrderItem> orderItemsCollection;
 
@@ -252,6 +268,14 @@ public class Album extends Item implements Serializable {
     @Override
     public String toString() {
         return "com.fractals.beans.Album[ id=" + id + " ]";
+    }
+
+    public Artist getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(Artist artistId) {
+        this.artistId = artistId;
     }
     
 }

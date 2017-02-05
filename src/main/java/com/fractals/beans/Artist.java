@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Artist.findByName", query = "SELECT a FROM Artist a WHERE a.name = :name")})
 public class Artist implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artistId")
+    private Collection<Album> albumCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,6 +126,15 @@ public class Artist implements Serializable {
     @Override
     public String toString() {
         return "com.fractals.beans.Artist[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Album> getAlbumCollection() {
+        return albumCollection;
+    }
+
+    public void setAlbumCollection(Collection<Album> albumCollection) {
+        this.albumCollection = albumCollection;
     }
     
 }

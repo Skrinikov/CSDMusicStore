@@ -2,7 +2,6 @@ package com.fractals.jpacontrollers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
-import com.fractals.utilities.Item;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,8 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  *
@@ -31,18 +32,34 @@ public class SearchJPAController implements Serializable {
     private EntityManager entityManager;
     
     
-    
-    public List<Item> searchByAlbumTitle(String title) {
+    public List<Album> searchByAlbumTitle(String title) {
         if(title == null)
             throw new NullPointerException();
         
-        List<Item> items = new ArrayList<>();
-        
-        Query q = entityManager.createQuery("select * from tracks where title like '%?1%' "
-                                    + "union select * from albums where title like %?1%'");
+        List<Album> items = new ArrayList<>();      
+        TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like %?1%'", Album.class);
         q.setParameter(1, title);
-        items = (List<Item>)q.getResultList();
-        
+        items = (List<Album>)q.getResultList();      
         return items;
     }
+    
+    public List<Track> searchByTrackName(String title) {
+        if(title == null)
+            throw new NullPointerException();
+        
+        List<Track> items = new ArrayList<>();      
+        TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like %?1%'", Track.class);
+        q.setParameter(1, title);
+        items = (List<Track>)q.getResultList();      
+        return items;
+    }
+    
+    public List<Track> searchByArtistName(String name) {
+        if(name == null)
+            throw new NullPointerException();
+
+        //TODO
+    }
+    
+    
 }
