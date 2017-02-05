@@ -2,7 +2,7 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
-import com.fractals.beans.Artist_;
+//import com.fractals.beans.Artist_;
 import com.fractals.beans.Track;
 import java.io.Serializable;
 import java.time.DateTimeException;
@@ -77,7 +77,7 @@ public class SearchJPAController implements Serializable {
         CriteriaQuery<Track> cq = cb.createQuery(Track.class);
         Root<Artist> artist = cq.from(Artist.class);
         cq.where(cb.like(artist.get("name"), "'%"+name+"%'"));
-        CollectionJoin<Artist, Track> artists = artist.join(Artist_.tracks);
+        Join<Artist, Track> artists = artist.join("tracks");
         CriteriaQuery<Track> cqT = cq.select(artists);
         TypedQuery<Track> query = entityManager.createQuery(cqT);
         List<Track> tracks = (List<Track>)query.getResultList();
