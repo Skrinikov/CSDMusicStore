@@ -50,10 +50,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Album.findByAvailable", query = "SELECT a FROM Album a WHERE a.available = :available")})
 public class Album implements Serializable {
 
-    @JoinColumn(name = "artist_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Artist artistId;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,6 +114,10 @@ public class Album implements Serializable {
     
     @OneToMany(mappedBy = "albumId")
     private Collection<OrderItem> orderItemsCollection;
+    
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Artist artist;
 
     public Album() {
     }
@@ -270,12 +270,12 @@ public class Album implements Serializable {
         return "com.fractals.beans.Album[ id=" + id + " ]";
     }
 
-    public Artist getArtistId() {
-        return artistId;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistId(Artist artistId) {
-        this.artistId = artistId;
+    public void setArtist(Artist artistId) {
+        this.artist = artistId;
     }
     
 }
