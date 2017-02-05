@@ -5,6 +5,7 @@
  */
 package com.fractals.beans;
 
+import com.fractals.utilities.Item;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -46,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Albums.findBySalePrice", query = "SELECT a FROM Albums a WHERE a.salePrice = :salePrice")
     , @NamedQuery(name = "Albums.findByRemovedAt", query = "SELECT a FROM Albums a WHERE a.removedAt = :removedAt")
     , @NamedQuery(name = "Albums.findByAvailable", query = "SELECT a FROM Albums a WHERE a.available = :available")})
-public class Album implements Serializable {
+public class Album extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

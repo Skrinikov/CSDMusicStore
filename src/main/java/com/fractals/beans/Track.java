@@ -5,6 +5,7 @@
  */
 package com.fractals.beans;
 
+import com.fractals.utilities.Item;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -51,7 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Tracks.findByRemovedAt", query = "SELECT t FROM Tracks t WHERE t.removedAt = :removedAt")
     , @NamedQuery(name = "Tracks.findByAvailable", query = "SELECT t FROM Tracks t WHERE t.available = :available")
     , @NamedQuery(name = "Tracks.findByIsIndividual", query = "SELECT t FROM Tracks t WHERE t.isIndividual = :isIndividual")})
-public class Track implements Serializable {
+public class Track extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
