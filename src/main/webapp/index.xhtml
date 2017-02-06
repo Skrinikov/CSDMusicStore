@@ -1,12 +1,54 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Fractals Music</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"  />
+        <h:outputStylesheet library="css" name="style.css"  />
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="navbar navbar-inverse navbar-twitch text-center" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <span class="small-nav"> <span class="logo">A</span> </span>
+                        <span class="full-nav">Test</span>
+                    </a>
+                </div>
+                <div class="">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">
+                                <span class="small-nav" data-toggle="tooltip" data-placement="right" title="Home"> 
+                                    <span class="fa fa-home"></span> 
+                                </span>
+                                <span class="full-nav"> Home </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about-us">
+                                <span class="small-nav" data-toggle="tooltip" data-placement="right" title="About Us"> 
+                                    <span class="fa fa-users"></span> 
+                                </span>
+                                <span class="full-nav"> About Us </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact-us">
+                                <span class="small-nav" data-toggle="tooltip" data-placement="right" title="Contact Us"> 
+                                    <span class="glyphicon glyphicon-comment"></span> 
+                                </span>
+                                <span class="full-nav"> Contact Us </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
     </h:body>
 </html>
 
