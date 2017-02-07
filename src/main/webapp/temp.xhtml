@@ -1,99 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>      
-        <title>Test supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <h:outputStylesheet library="css" name="style.css"/>
-        <h:outputScript library="js" name="jquery-3.1.1.min.js" />
-        <h:outputScript library="js" name="custom.js" />
-    </h:head>
-    <h:body>
-        <div class="navbar-more-overlay"></div>
-        <nav class="navbar navbar-inverse navbar-fixed-top animate">
-            <div class="container navbar-more visible-xs">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for..."/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="submit">Submit</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-                <ul class="nav navbar-nav" style="color: #fff">
-                    <li><a href="#"><span class="menu-icon fa fa-shopping-cart"></span>Shopping Cart</a></li>
-                    <li><a href="#"><span class="menu-icon fa fa-sign-out"></span>Disconnect</a></li>                  
-                </ul>
-            </div>
-            <div class="container">
-                <div class="navbar-header hidden-xs">
-                    <a class="navbar-brand" href="#">Fractals</a>
-                </div>
+    <ui:define name="windowTitle">
+        Bargh
+    </ui:define>
 
-                <ul class="nav navbar-nav navbar-right mobile-bar">
-                    <li>
-                        <a href="#">
-                            <span class="menu-icon fa fa-user"></span>
-                            Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="menu-icon fa fa-music"></span>
-                            <span class="hidden-xs">Browse</span>
-                            <span class="visible-xs">Browse</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="menu-icon fa fa-download"></span>
-                            Downloads
-                        </a>
-                    </li>
-                    <li class="hidden-xs">
-                        <a href="#">
-                            <span class="menu-icon fa fa-sign-out"></span>
-                            Sign out
-                        </a>
-                    </li>
-                    <li class="hidden-xs">
-                        <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for..."/>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger" type="submit">Submit</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </li>
-                    <li class="hidden-xs">
-                        <h:link outcome="index" >
-                            <span class="menu-icon fa fa-shopping-cart"></span>
-                            Items
-                        </h:link>
-                    </li>
-                    <li class="visible-xs">
-                        <a href="#navbar-more-show">
-                            <span class="menu-icon fa fa-bars"></span>
-                            More
-                        </a>                     
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </h:body>
-</html>
+    <ui:define name="content">
+        <p>Hello</p>
+    </ui:define>
+
+
+</ui:composition>
