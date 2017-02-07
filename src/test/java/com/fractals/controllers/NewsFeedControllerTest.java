@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
-import com.fractals.controllers.SearchJPAController;
-import com.fractals.beans.Album;
-import com.fractals.beans.Track;
+import com.fractals.controllers.NewsFeedController;
+import com.fractals.beans.NewsFeed;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -34,7 +28,7 @@ import org.junit.Ignore;
  * @author lynn
  */
 @RunWith(Arquillian.class)
-public class SearchJPAControllerTest {
+public class NewsFeedControllerTest {
     @Deployment
     public static WebArchive deploy() {
 
@@ -55,9 +49,8 @@ public class SearchJPAControllerTest {
         // The SQL script to create the database is also in this folder
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                .addPackage(SearchJPAController.class.getPackage())
-                .addPackage(Album.class.getPackage())
-                .addPackage(Track.class.getPackage())
+                .addPackage(NewsFeedController.class.getPackage())
+                .addPackage(NewsFeed.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
@@ -67,30 +60,20 @@ public class SearchJPAControllerTest {
     }
 
     @Inject
-    private SearchJPAController search;
+    private NewsFeedController newsFeed;
 
     @Resource(name = "java:app/jdbc/musicstore")
     private DataSource ds;
     
-    @Test
-    public void searchByAlbumTitleTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
-        List<Album> items = search.searchByAlbumTitle("no");
-        assertThat(items).hasSize(2);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
-    }
     
     @Test
-    public void searchByTrackNameTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
-        List<Track> items = search.searchByTrackName("no");
-        assertThat(items).hasSize(7);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
+    public void test1()
+    {
+        NewsFeed nf = newsFeed.getNewsFeed(6);
+        
+        System.out.println(nf.getLink()); 
+        
     }
+    
+
 }
