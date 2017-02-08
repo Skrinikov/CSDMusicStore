@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Ignore;
-@Ignore
+//@Ignore
 /**
  *
  * @author lynn
@@ -74,23 +74,13 @@ public class SearchJPAControllerTest {
     
     @Test
     public void searchByAlbumTitleTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
         List<Album> items = search.searchByAlbumTitle("no");
         assertThat(items).hasSize(2);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
     }
     
     @Test
     public void searchByTrackNameTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
         List<Track> items = search.searchByTrackName("no");
         assertThat(items).hasSize(7);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
     }
 }
