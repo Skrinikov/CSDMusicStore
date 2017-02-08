@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 
 /**
- *
+ * i did it
  * @author lynn
  */
 @Named("ShoppingCart")
