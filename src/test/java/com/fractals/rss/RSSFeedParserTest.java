@@ -5,6 +5,7 @@
  */
 package com.fractals.rss;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,8 +46,8 @@ public class RSSFeedParserTest {
         System.out.println("readFeed");
         RSSFeedParser instance = new RSSFeedParser("http://rss.cbc.ca/lineup/topstories.xml");
         Feed expResult = null;
-        Feed result = instance.readFeed();
-        System.out.println(result);
+        List<FeedMessage> result = instance.readFeed();
+        System.out.println(result.toString());
         fail("The test case is a prototype.");
     }
     

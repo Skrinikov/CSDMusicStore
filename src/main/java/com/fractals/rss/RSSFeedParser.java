@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -34,20 +36,16 @@ public class RSSFeedParser {
         }
     }
 
-    public Feed readFeed() {
-        Feed feed = null;
-        try {
-            boolean isFeedHeader = true;
-            // Set header values intial to the empty string
-            String description = "";
-            String title = "";
-            String link = "";
-            String language = "";
-            String copyright = "";
-            String author = "";
-            String pubdate = "";
-            String guid = "";
+    public List<FeedMessage> readFeed() {
+        XMLEvent e;
+        List<FeedMessage> feed = new ArrayList<>();
 
+        String title = "";
+        String description = "";
+        String link = "";
+        String guid = "";
+        String author = "";
+        try {
             // XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
@@ -57,85 +55,67 @@ public class RSSFeedParser {
             // read the XML document
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
+                //System.out.println(event.asStartElement().getName().getLocalPart());
                 if (event.isStartElement()) {
-                    
+
                     System.out.println(event.asStartElement().getName().getLocalPart());
-                    
+
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
-                    
+
                     switch (localPart) {
-                        case ITEM:
-                            if (isFeedHeader) {
-                                isFeedHeader = false;
-                                feed = new Feed(title, link, description, language,
-                                        copyright, pubdate);
-                            }
-                            event = eventReader.nextEvent();
-                            break;
-                            
                         case TITLE:
                             title = getCharacterData(event, eventReader);
+                            System.out.println("Title: " + title);
                             break;
-                            
+
                         case DESCRIPTION:
-                            description = getCharacterData(event, eventReader);
+                            eventReader.nextEvent();
+                            description = getCharacterData(event, eventReader).trim();
+                            System.out.println("Description: " + description);
                             break;
-                            
+
                         case LINK:
                             link = getCharacterData(event, eventReader);
+                            System.out.println("Link: " + link);
                             break;
-                            
+
                         case GUID:
                             guid = getCharacterData(event, eventReader);
                             break;
-                            
-                        case LANGUAGE:
-                            language = getCharacterData(event, eventReader);
-                            break;
-                            
+
                         case AUTHOR:
                             author = getCharacterData(event, eventReader);
                             break;
-                            
-                        case PUB_DATE:
-                            pubdate = getCharacterData(event, eventReader);
-                            break;
-                            
-                        case COPYRIGHT:
-                            copyright = getCharacterData(event, eventReader);
-                            break;
+
                     }
                 } else if (event.isEndElement()) {
-                    if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+                    if (event.asEndElement().getName().getLocalPart() == ITEM) {
+
                         FeedMessage message = new FeedMessage();
                         message.setAuthor(author);
                         message.setDescription(description);
                         message.setGuid(guid);
                         message.setLink(link);
                         message.setTitle(title);
-                        feed.getMessages().add(message);
+
+                        feed.add(message);
                         event = eventReader.nextEvent();
-                        continue;
                     }
                 }
             }
-        } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
+        } catch (XMLStreamException ex) {
+            System.out.println("Crashed");
         }
         return feed;
     }
 
-    private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
-            throws XMLStreamException {
+    private String getCharacterData(XMLEvent event, XMLEventReader eventReader) throws XMLStreamException {
         String result = "";
         event = eventReader.nextEvent();
-        /*
         if (event instanceof Characters) {
             result = event.asCharacters().getData();
         }
-        */
-        result = event.asCharacters().getData();
         return result;
     }
 
