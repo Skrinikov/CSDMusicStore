@@ -15,45 +15,31 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateAlbumLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{albumController.selected.id}" title="#{bundle.CreateAlbumTitle_id}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_title}" for="title" />
-                    <h:inputText id="title" value="#{albumController.selected.title}" title="#{bundle.CreateAlbumTitle_title}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_title}"/>
+                    <h:inputText id="title" value="#{album.title}" title="#{bundle.CreateAlbumTitle_title}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_title}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_releaseDate}" for="releaseDate" />
-                    <h:inputText id="releaseDate" value="#{albumController.selected.releaseDate}" title="#{bundle.CreateAlbumTitle_releaseDate}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_releaseDate}">
+                    <h:inputText id="releaseDate" value="#{album.releaseDate}" title="#{bundle.CreateAlbumTitle_releaseDate}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_releaseDate}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_recordLabel}" for="recordLabel" />
-                    <h:inputText id="recordLabel" value="#{albumController.selected.recordLabel}" title="#{bundle.CreateAlbumTitle_recordLabel}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_recordLabel}"/>
+                    <h:inputText id="recordLabel" value="#{album.recordLabel}" title="#{bundle.CreateAlbumTitle_recordLabel}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_recordLabel}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_numTracks}" for="numTracks" />
-                    <h:inputText id="numTracks" value="#{albumController.selected.numTracks}" title="#{bundle.CreateAlbumTitle_numTracks}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_numTracks}"/>
-                    <h:outputLabel value="#{bundle.CreateAlbumLabel_createdAt}" for="createdAt" />
-                    <h:inputText id="createdAt" value="#{albumController.selected.createdAt}" title="#{bundle.CreateAlbumTitle_createdAt}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_createdAt}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                    <h:inputText id="numTracks" value="#{album.numTracks}" title="#{bundle.CreateAlbumTitle_numTracks}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_numTracks}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_costPrice}" for="costPrice" />
-                    <h:inputText id="costPrice" value="#{albumController.selected.costPrice}" title="#{bundle.CreateAlbumTitle_costPrice}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_costPrice}"/>
+                    <h:inputText id="costPrice" value="#{album.costPrice}" title="#{bundle.CreateAlbumTitle_costPrice}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_costPrice}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_listPrice}" for="listPrice" />
-                    <h:inputText id="listPrice" value="#{albumController.selected.listPrice}" title="#{bundle.CreateAlbumTitle_listPrice}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_listPrice}"/>
+                    <h:inputText id="listPrice" value="#{album.listPrice}" title="#{bundle.CreateAlbumTitle_listPrice}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_listPrice}"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_salePrice}" for="salePrice" />
-                    <h:inputText id="salePrice" value="#{albumController.selected.salePrice}" title="#{bundle.CreateAlbumTitle_salePrice}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_salePrice}"/>
-                    <h:outputLabel value="#{bundle.CreateAlbumLabel_removedAt}" for="removedAt" />
-                    <h:inputText id="removedAt" value="#{albumController.selected.removedAt}" title="#{bundle.CreateAlbumTitle_removedAt}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                    <h:inputText id="salePrice" value="#{album.salePrice}" title="#{bundle.CreateAlbumTitle_salePrice}" required="false"/>
                     <h:outputLabel value="#{bundle.CreateAlbumLabel_available}" for="available" />
-                    <h:inputText id="available" value="#{albumController.selected.available}" title="#{bundle.CreateAlbumTitle_available}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_available}"/>
+                    <h:inputText id="available" value="#{album.available}" title="#{bundle.CreateAlbumTitle_available}" required="true" requiredMessage="#{bundle.CreateAlbumRequiredMessage_available}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{albumController.create}" value="#{bundle.CreateAlbumSaveLink}" />
                 <br />
-                <br />
-                <h:commandLink action="#{albumController.prepareList}" value="#{bundle.CreateAlbumShowAllLink}" immediate="true"/>
-                <br />
-                <br />
+                <br />        
                 <h:link outcome="/index" value="#{bundle.CreateAlbumIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

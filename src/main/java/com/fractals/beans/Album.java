@@ -8,6 +8,8 @@ package com.fractals.beans;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,6 +50,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Album.findBySalePrice", query = "SELECT a FROM Album a WHERE a.salePrice = :salePrice")
     , @NamedQuery(name = "Album.findByRemovedAt", query = "SELECT a FROM Album a WHERE a.removedAt = :removedAt")
     , @NamedQuery(name = "Album.findByAvailable", query = "SELECT a FROM Album a WHERE a.available = :available")})
+@Named("album")
+@RequestScoped
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
