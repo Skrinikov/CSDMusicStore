@@ -9,7 +9,7 @@ import jodd.mail.SmtpServer;
 import jodd.mail.SmtpSslServer;
 
 /**
- *
+ * i did it
  * @author lynn
  */
 public class EmailSender {

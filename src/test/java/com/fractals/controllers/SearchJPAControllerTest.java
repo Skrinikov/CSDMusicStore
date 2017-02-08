@@ -34,7 +34,7 @@ import static org.junit.Assert.fail;
 import org.junit.Ignore;
 
 /**
- *
+ * i did it
  * @author lynn
  */
 @RunWith(Arquillian.class)
