@@ -44,9 +44,9 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         
         List<Album> items = new ArrayList<>();      
-        TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like %?1%'", Album.class);
-        q.setParameter(1, title);
-        items = (List<Album>)q.getResultList();      
+        TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like ?1", Album.class);
+        q.setParameter(1, "%"+title+"%");
+        items = (List<Album>)q.getResultList();  
         return items;
     }
     
@@ -55,8 +55,8 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         
         List<Track> items = new ArrayList<>();      
-        TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like %?1%'", Track.class);
-        q.setParameter(1, title);
+        TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like ?1", Track.class);
+        q.setParameter(1, "%"+title+"%");
         items = (List<Track>)q.getResultList();      
         return items;
     }
@@ -70,13 +70,13 @@ public class SearchJPAController implements Serializable {
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
         Join artistJ = album.join("Artist");
-        cqA.where(cb.like(artistJ.get("name"), "'%"+name+"%'"));
+        cqA.where(cb.like(artistJ.get("name"), "%"+name+"%"));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
         
         CriteriaQuery<Track> cq = cb.createQuery(Track.class);
         Root<Artist> artist = cq.from(Artist.class);
-        cq.where(cb.like(artist.get("name"), "'%"+name+"%'"));
+        cq.where(cb.like(artist.get("name"), "%"+name+"%"));
         Join<Artist, Track> artists = artist.join("tracks");
         CriteriaQuery<Track> cqT = cq.select(artists);
         TypedQuery<Track> query = entityManager.createQuery(cqT);
