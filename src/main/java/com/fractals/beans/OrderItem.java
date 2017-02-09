@@ -34,6 +34,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "OrderItem.findByCost", query = "SELECT o FROM OrderItem o WHERE o.cost = :cost")})
 public class OrderItem implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cost")
+    private double cost;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,15 +46,11 @@ public class OrderItem implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "order_id")
-    private int orderId;
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @ManyToOne
+    private Order orderId;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cost")
-    private double cost;
     
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne
@@ -66,7 +67,7 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public OrderItem(Integer id, int orderId, double cost) {
+    public OrderItem(Integer id, Order orderId, double cost) {
         this.id = id;
         this.orderId = orderId;
         this.cost = cost;
@@ -80,21 +81,14 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public int getOrderId() {
+    public Order getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Order orderId) {
         this.orderId = orderId;
     }
 
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
 
     public Album getAlbumId() {
         return albumId;
@@ -135,6 +129,14 @@ public class OrderItem implements Serializable {
     @Override
     public String toString() {
         return "com.fractals.beans.OrderItem[ id=" + id + " ]";
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
     
 }
