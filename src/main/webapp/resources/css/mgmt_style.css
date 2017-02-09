@@ -1,6 +1,7 @@
 body {
     position: relative;
     overflow-x: hidden;
+    background-color: #edf0f5;
 }
 body,
 html { height: 100%;}

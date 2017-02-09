@@ -27,10 +27,10 @@
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="sidebar-brand">
-                        <h:link value="Fractals" outcome="index"/>
+                        <h:link value="Fractals" outcome="/index"/>
                     </li>
                     <li>
-                        <a href="#">Reports</a>
+                        <h:link value="Reports" outcome="/managment/reports.xhtml"/>
                     </li>
                     <li>
                         <a href="#">Albums</a>
@@ -39,17 +39,17 @@
                         <a href="#">Tracks</a>
                     </li>
                     <li>
-                        <a href="#">Reviews</a>
+                        <a href="#">Placeholder</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Dropdown heading</li>
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li class="dropdown-header">Reviews</li>
+                            <li><a href="#">Track Reviews</a></li>
+                            <li><a href="#">Approved reviews</a></li>
+                            <li><a href="#">Pending reviews</a></li>
+                            <li><a href="#">Deleted reviews</a></li>
+                            <li><a href="#">Reviews per user.</a></li>
                         </ul>
                     </li>
                     <li>
@@ -59,7 +59,7 @@
                         <a href="#">Survey</a>
                     </li>
                     <li>
-                        <h:link outcome="index.xhtml" value="Client Site" />
+                        <h:link outcome="/index.xhtml" value="Client Site" />
                     </li>
                 </ul>
             </nav>
