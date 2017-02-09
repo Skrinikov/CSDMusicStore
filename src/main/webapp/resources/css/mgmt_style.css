@@ -296,6 +296,7 @@ html { height: 100%;}
     z-index: 1;
 }
 
+/* Reports css */
 
 .box-item{
     padding:1em;
@@ -342,7 +343,7 @@ html { height: 100%;}
 }
 
 .initials{
-    float: left;
+    display: inline-block;
     width: 50%;
     box-sizing: border-box;
     height: 100%;
@@ -351,6 +352,36 @@ html { height: 100%;}
     background-color:#b4d455;
 }
 
-.box-item::after{
-    clear:both;
+.initials.blue{
+    background-color: #007be5;
+    color: #00448f;
 }
+
+.initials.red{
+    background-color: #ef6262;
+    color: #a83d3b;
+}
+
+.initials.green{
+    background-color: #20d077;
+    color: #038d4a;
+}
+
+.initials.yellow{
+    background-color: #f9c851;
+    color: #b58c2b;
+}
+
+.box-info{    
+    color: #a4a4a4;
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.box-item-2{
+    background-color:#fff;
+}
+
+.top-buffer { margin-top:20px; }
