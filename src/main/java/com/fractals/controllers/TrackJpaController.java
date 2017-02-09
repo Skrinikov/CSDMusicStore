@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -28,14 +29,13 @@ import javax.transaction.UserTransaction;
  *
  * @author 1710030
  */
+@Named("trackController")
 public class TrackJpaController implements Serializable {
-
    @Resource
     private UserTransaction utx;
    
    @PersistenceContext
     private EntityManager em;
-
 
     public void create(Track track) throws RollbackFailureException, Exception {
         if (track.getArtists() == null) {

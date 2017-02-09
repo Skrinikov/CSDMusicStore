@@ -1,28 +1,41 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Fractals</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <h:link outcome="/album/List" value="Show All Album Items"/>
-        <br/>
-        <h:link outcome="/artist/List" value="Show All Artist Items"/>
-        <br/>
-        <h:link outcome="/genre/List" value="Show All Genre Items"/>
-        <br/>  
-        <h:link outcome="/track/List" value="Show All Track Items"/>
-        <br/>
-        <h:link outcome="/album/Create" value="Create Album"/>
-        <br/>
-        <h:link outcome="/artist/Create" value="Create Artist"/>
-        <br/>
-        <h:link outcome="/genre/Create" value="Create Genre"/>
-        <br/>
-        <h:link outcome="/track/Create" value="Create Track"/>
-        
+
+        <h:form>          
+            <p:growl id="messages" showDetail="true" />
+
+            <p:tieredMenu style="width:200px">
+
+                <p:submenu label="Tracks" icon="ui-icon-extlink">
+                    <p:menuitem value="Create" outcome="/track/Create" />
+                    <p:menuitem value="List" outcome="/track/List" />
+                </p:submenu>
+
+                <p:submenu label="Albums" icon="ui-icon-extlink">
+                    <p:menuitem value="Create" outcome="/album/Create" />
+                    <p:menuitem value="List" outcome="/album/List" />
+                </p:submenu>
+
+                <p:submenu label="Genres" icon="ui-icon-extlink">
+                    <p:menuitem value="Create" outcome="/genre/Create" />
+                    <p:menuitem value="List" outcome="/genre/List" />
+                </p:submenu>
+
+                <p:submenu label="Artists" icon="ui-icon-extlink">
+                    <p:menuitem value="Create" outcome="/artist/Create" />
+                    <p:menuitem value="List" outcome="/artist/List" />
+                </p:submenu>
+            </p:tieredMenu>
+        </h:form>
+
     </h:body>
 </html>
 

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,86 +16,89 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{albumController.isEmpty()}"/>
-                
-                
+
+
                 <h:panelGroup rendered="#{!albumController.isEmpty()}">
-                   
-                    <h:dataTable value="#{albumController.findAlbumEntities()}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                       
-                        <h:column>
+
+                    <p:dataTable id="tbl" value="#{albumController.findAlbumEntities()}" var="item" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 paginator="true" rows="20" style="margin-bottom:20px">
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        
-                        <h:column>
+                        </p:column>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_title}"/>
                             </f:facet>
                             <h:outputText value="#{item.title}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_releaseDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.releaseDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_recordLabel}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordLabel}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_numTracks}"/>
                             </f:facet>
                             <h:outputText value="#{item.numTracks}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_createdAt}"/>
                             </f:facet>
                             <h:outputText value="#{item.createdAt}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_costPrice}"/>
                             </f:facet>
                             <h:outputText value="#{item.costPrice}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_listPrice}"/>
                             </f:facet>
                             <h:outputText value="#{item.listPrice}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_salePrice}"/>
                             </f:facet>
                             <h:outputText value="#{item.salePrice}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_removedAt}"/>
                             </f:facet>
                             <h:outputText value="#{item.removedAt}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_available}"/>
                             </f:facet>
                             <h:outputText value="#{item.available}"/>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+
+                    </p:dataTable>
                 </h:panelGroup>
                 <br />
                 <br />
