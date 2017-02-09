@@ -6,13 +6,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
+/**
+ *
+ * Reads a RSS feed xml from a provider and then parses it retrieve vital
+ * information for the purpose of adding it to a website.
+ *
+ * @author Danieil Skrinikov
+ * @version
+ * @since 2017-02-07
+ */
 public class RSSFeedParser {
 
     static final String TITLE = "title";
@@ -26,17 +34,52 @@ public class RSSFeedParser {
     static final String PUB_DATE = "pubDate";
     static final String GUID = "guid";
 
-    final URL url;
-
-    public RSSFeedParser(String feedUrl) {
-        try {
-            this.url = new URL(feedUrl);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * Creates the feed parser object.
+     *
+     * @param feedUrl URL to the RSS feed that you want to parse. Wwill throw an
+     * exception if the URL is malformed.
+     */
+    public RSSFeedParser() {
     }
 
-    public List<FeedMessage> readFeed() {
+    /**
+     * Takes an array of of urls from different RSS feeds and then reads the feed
+     * for each. 
+     * 
+     * @param links Array of rss feed links.
+     * @return feeds of all the provided valid urls in the order which it given to.
+     */
+    public List<FeedMessage> readFeed(String[] links) {
+        if (links == null || links.length < 1) {
+            throw new IllegalArgumentException("RSSFeedParser.readMessage() - Invalid array size.");
+        }
+
+        List<FeedMessage> fm = new ArrayList<>();
+        URL url;
+
+        for (String urlString : links) {
+            try {
+                url = new URL(urlString);
+                
+                //Calling the parseURL method to get a collection.
+                fm.addAll(parseURL(url));
+                
+            } catch (MalformedURLException e) {
+                //TODO Add log.
+            }
+        }
+
+        return fm;
+    }
+
+    /**
+     * Reads the feed from the given URL and then parses the response to select
+     * information about each <item> only.
+     *
+     * @return list which contains all the RSS items as FeedMessage beans.
+     */
+    private List<FeedMessage> parseURL(URL url) {
         XMLEvent e;
         List<FeedMessage> feed = new ArrayList<>();
 
@@ -49,58 +92,55 @@ public class RSSFeedParser {
             // XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
-            InputStream in = read();
-            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+            InputStream in = read(url);
 
-            // read the XML document
-            while (eventReader.hasNext()) {
-                XMLEvent event = eventReader.nextEvent();
-                //System.out.println(event.asStartElement().getName().getLocalPart());
-                if (event.isStartElement()) {
+            if (in != null) {
+                XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 
-                    System.out.println(event.asStartElement().getName().getLocalPart());
+                // read the XML document
+                while (eventReader.hasNext()) {
+                    XMLEvent event = eventReader.nextEvent();
+                    if (event.isStartElement()) {
 
-                    String localPart = event.asStartElement().getName()
-                            .getLocalPart();
+                        String localPart = event.asStartElement().getName()
+                                .getLocalPart();
 
-                    switch (localPart) {
-                        case TITLE:
-                            title = getCharacterData(event, eventReader);
-                            System.out.println("Title: " + title);
-                            break;
+                        switch (localPart) {
+                            case TITLE:
+                                title = getCharacterData(event, eventReader);
+                                break;
 
-                        case DESCRIPTION:
+                            case DESCRIPTION:
+                                description = getCharacterData(event, eventReader).trim();
+                                break;
+
+                            case LINK:
+                                link = getCharacterData(event, eventReader);
+                                break;
+
+                            case GUID:
+                                guid = getCharacterData(event, eventReader);
+                                break;
+
+                            case AUTHOR:
+                                author = getCharacterData(event, eventReader);
+                                break;
+
+                        }
+                    } // Basically if </tag>
+                    else if (event.isEndElement()) {
+                        if (event.asEndElement().getName().getLocalPart() == ITEM) {
+
+                            FeedMessage message = new FeedMessage();
+                            message.setAuthor(author);
+                            message.setDescription(description);
+                            message.setGuid(guid);
+                            message.setLink(link);
+                            message.setTitle(title);
+
+                            feed.add(message);
                             eventReader.nextEvent();
-                            description = getCharacterData(event, eventReader).trim();
-                            System.out.println("Description: " + description);
-                            break;
-
-                        case LINK:
-                            link = getCharacterData(event, eventReader);
-                            System.out.println("Link: " + link);
-                            break;
-
-                        case GUID:
-                            guid = getCharacterData(event, eventReader);
-                            break;
-
-                        case AUTHOR:
-                            author = getCharacterData(event, eventReader);
-                            break;
-
-                    }
-                } else if (event.isEndElement()) {
-                    if (event.asEndElement().getName().getLocalPart() == ITEM) {
-
-                        FeedMessage message = new FeedMessage();
-                        message.setAuthor(author);
-                        message.setDescription(description);
-                        message.setGuid(guid);
-                        message.setLink(link);
-                        message.setTitle(title);
-
-                        feed.add(message);
-                        event = eventReader.nextEvent();
+                        }
                     }
                 }
             }
@@ -110,20 +150,35 @@ public class RSSFeedParser {
         return feed;
     }
 
+    /**
+     * Parses the characters from an event into a String.
+     *
+     * @param event XML tag.
+     * @param eventReader XML tag reader.
+     * @return String which is inside the XML tag.
+     * @throws XMLStreamException if cannot read characters.
+     */
     private String getCharacterData(XMLEvent event, XMLEventReader eventReader) throws XMLStreamException {
         String result = "";
         event = eventReader.nextEvent();
-        if (event instanceof Characters) {
-            result = event.asCharacters().getData();
+        while (event instanceof Characters && !event.isEndElement()) {
+            result += event.asCharacters().getData();
+            event = eventReader.nextEvent();
         }
         return result;
     }
 
-    private InputStream read() {
+    /**
+     * Reads the XML from the RSS feed provider.
+     *
+     * @return InputStream which contains the XML from the RSS Feed.
+     */
+    private InputStream read(URL url) {
         try {
             return url.openStream();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //TODO
         }
+        return null;
     }
 }

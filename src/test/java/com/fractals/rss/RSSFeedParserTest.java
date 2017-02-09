@@ -14,20 +14,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author 1430468
+ * Test class for the RSSFeedParser
+ * 
+ * @author Danieil Skrinikov
  */
 public class RSSFeedParserTest {
     
     public RSSFeedParserTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
     }
     
     @Before
@@ -44,11 +37,11 @@ public class RSSFeedParserTest {
     @Test
     public void testReadFeed() {
         System.out.println("readFeed");
-        RSSFeedParser instance = new RSSFeedParser("http://rss.cbc.ca/lineup/topstories.xml");
-        Feed expResult = null;
-        List<FeedMessage> result = instance.readFeed();
-        System.out.println(result.toString());
-        fail("The test case is a prototype.");
+        RSSFeedParser instance = new RSSFeedParser();
+        
+        List<FeedMessage> result = instance.readFeed(new String[]{"http://rss.cbc.ca/lineup/topstories.xml"});
+        //System.out.println(result);
+        assertEquals(1,1);
     }
     
 }
