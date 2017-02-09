@@ -20,52 +20,12 @@
     </h:head>
     <h:body>
 
-        <div id="wrapper">
-            <div class="overlay"></div>
+        <div id="wrapper">          
 
-            <!-- Sidebar -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-                <ul class="nav sidebar-nav">
-                    <li class="sidebar-brand">
-                        <h:link value="Fractals" outcome="/index"/>
-                    </li>
-                    <li>
-                        <h:link value="Reports" outcome="/managment/reports.xhtml"/>
-                    </li>
-                    <li>
-                        <a href="#">Albums</a>
-                    </li>
-                    <li>
-                        <a href="#">Tracks</a>
-                    </li>
-                    <li>
-                        <a href="#">Placeholder</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Reviews</li>
-                            <li><a href="#">Track Reviews</a></li>
-                            <li><a href="#">Approved reviews</a></li>
-                            <li><a href="#">Pending reviews</a></li>
-                            <li><a href="#">Deleted reviews</a></li>
-                            <li><a href="#">Reviews per user.</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">RSS</a>
-                    </li>
-                    <li>
-                        <a href="#">Survey</a>
-                    </li>
-                    <li>
-                        <h:link outcome="/index.xhtml" value="Client Site" />
-                    </li>
-                </ul>
-            </nav>
-            <!-- /sidebar-wrapper -->
+            <ui:insert name="menu">
+                <ui:include src="../sections/mgmt_menu.xhtml"/>
+            </ui:insert>
 
-            
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
@@ -73,7 +33,7 @@
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
                 </button>
-                
+
                 <div class="custom-container">
 
                     <div id="content">
@@ -81,7 +41,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
             <!-- /#page-content-wrapper -->
         </div>
