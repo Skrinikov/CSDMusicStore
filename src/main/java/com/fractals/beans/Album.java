@@ -100,6 +100,7 @@ public class Album implements Serializable {
     @NotNull
     @Column(name = "sale_price")
     private double salePrice;
+    
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedAt;

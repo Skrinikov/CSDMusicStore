@@ -62,16 +62,16 @@ public class OrdersController {
         order.setNetCost(netCost);
         order.setUserId(user);
         order = createOrder(order);
-        saveOrderItems(order.getId(), items);
+        saveOrderItems(order, items);
         return order;
     }
     
-    private void saveOrderItems(int orderId, Object[] items) {
+    private void saveOrderItems(Order order, Object[] items) {
         try {
             userTransaction.begin();
             for(Object o : items) {
                 OrderItem oi = new OrderItem();
-                oi.setOrderId(orderId);
+                oi.setOrderId(order);
                 if(o instanceof Album) {
                     Album album = (Album)o;
                     double price = album.getSalePrice();

@@ -6,6 +6,7 @@
 package com.fractals.beans;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -82,6 +85,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    
+    @OneToMany(mappedBy = "orderId")
+    private Collection<OrderItem> orderItemsCollection;
 
     public Order() {
     }
@@ -187,6 +193,15 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         return "com.fractals.beans.Order[ id=" + id + " ]";
+    }
+    
+    @XmlTransient
+    public Collection<OrderItem> getOrderItemsCollection() {
+        return orderItemsCollection;
+    }
+
+    public void setOrderItemsCollection(Collection<OrderItem> orderItemsCollection) {
+        this.orderItemsCollection = orderItemsCollection;
     }
     
 }
