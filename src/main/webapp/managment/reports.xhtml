@@ -1,20 +1,61 @@
 <ui:composition
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="windowTitle">
         Bargh
     </ui:define>
 
     <ui:define name="content">
-        <div class="row">
-            
-            <div class="col-lg-4 col-md-6 col-xs-12" style="background:#b4d455; height: 20px;"></div>
-            <div class="col-lg-4 col-md-6 col-xs-12" style="background:#b4d455; margin-left:1px;"></div>
-            <div class="col-lg-4 col-md-6 col-xs-12" style="background:#b4d455; margin-left:1px;"></div>
-            
+
+        <!-- Top Reports -->
+        <div class="row">         
+            <div class="col-lg-4 col-md-4 col-xs-12 small-margin-bottom">
+                <p:outputPanel deferred="true" styleClass="box-item">
+                    <h3>Users <span class="count visitors">22</span></h3>
+                    <p class="subtitle">Number of visitors</p>
+                </p:outputPanel>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 small-margin-bottom">
+                <p:outputPanel deferred="true" styleClass="box-item">
+                    <h3>Sales <span class="count sales">534</span></h3>
+                    <p class="subtitle">Amount of sales today</p>
+                </p:outputPanel>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 small-margin-bottom">
+                <p:outputPanel deferred="true" styleClass="box-item">
+                    <h3>Revenue <span class="count income">$42,069</span></h3>
+                    <p class="subtitle">Total revenue for today</p>
+                </p:outputPanel>
+            </div>
         </div>
+
+        <!-- Secondary Reports -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-xs-12 small-margin-bottom">
+                <div >
+                    <div style="width:100%; height:56px; background-color:#20d077;">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12 small-margin-bottom">
+                <div class="box-item">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12 small-margin-bottom">
+                <div class="box-item">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12 small-margin-bottom">
+                <div class="box-item">
+                </div>
+            </div>
+        </div>
+
     </ui:define>
 
 </ui:composition>
