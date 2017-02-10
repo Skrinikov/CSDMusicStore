@@ -385,3 +385,46 @@ html { height: 100%;}
 }
 
 .top-buffer { margin-top:20px; }
+
+/* Overriding datepicker style */
+.ui-widget-content{
+    border: none;
+    box-shadow: 3px 3px 50px 5px grey;
+}
+.ui-widget-header, .ui-datepicker .ui-datepicker-header{
+    background: none;
+    border:none;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default{
+    text-align: center;
+    color:#545454;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight{
+    text-shadow:none;
+    text-decoration: underline;
+}
+
+.ui-datepicker td{
+    text-align: center;
+}
+
+.ui-datepicker-current-day{
+    border-radius: 4px;
+}
+
+.ui-datepicker-current-day .ui-state-default{
+    border-radius: 5px;
+    background-color: #20d077;
+}
+
+.ui-datepicker .ui-datepicker-current-day .ui-state-default{
+    background-color: #74C365;
+}
+
+/* End of datepick overrides */
+.daterange-link{
+    text-decoration: underline;
+    cursor: pointer;
+}
