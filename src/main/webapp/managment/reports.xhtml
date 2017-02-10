@@ -33,9 +33,32 @@
                 </p:outputPanel>
             </div>
         </div> 
-            
+
         <div id="sales_range_picker" class="row">
-            <div class="container top-buffer" style="background-color:#fff;padding:1em;">Test</div>
+            <div class="container top-buffer" style="background-color:#fff;padding:1em;">
+
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true" />
+
+                    <h:panelGrid columns="2" cellpadding="200">
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:outputLabel for="event" value="Start date:" />
+                            <p:calendar id="event" value="#{reportsController.date1}" mode="inline">
+                                <p:ajax event="dateSelect" listener="#{reportsController.onDateSelect}" update="msgs" />
+                            </p:calendar>
+
+                        </h:panelGrid>    
+
+                        <h:panelGrid columns="1" cellpadding="5" style="margin-left: 50px;">
+                            <p:outputLabel for="event" value="End date:" />
+                            <p:calendar id="end_date" value="#{reportsController.date1}" mode="inline">
+                                <p:ajax event="dateSelect" listener="#{reportsController.onDateSelect}" update="msgs" />
+                            </p:calendar>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+
+            </div>
         </div>
 
         <!-- Secondary Reports -->
@@ -80,30 +103,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true" />
-
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="event" value="Select Event:" />
-                    <p:calendar id="event" value="#{reportsController.date1}">
-                        <p:ajax event="dateSelect" listener="#{reportsController.onDateSelect}" update="msgs" />
-                    </p:calendar>
-                </h:panelGrid>
-
-                <p:commandButton value="Submit" update="msgs" actionListener="#{reportsController.click}" icon="ui-icon-check" />
-
-                <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-                    <p:panelGrid id="display" columns="2" columnClasses="label,value">
-                        <h:outputText value="Event:" />
-                        <h:outputText value="#{reportsCallendar.date1}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:panelGrid>    
-                </p:dialog>
-            </h:form>
         </div>
 
     </ui:define>
