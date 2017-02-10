@@ -38,9 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id")
     , @NamedQuery(name = "Order.findByOrderDate", query = "SELECT o FROM Order o WHERE o.orderDate = :orderDate")
     , @NamedQuery(name = "Order.findByNetCost", query = "SELECT o FROM Order o WHERE o.netCost = :netCost")
-    , @NamedQuery(name = "Order.findByPst", query = "SELECT o FROM Order o WHERE o.pst = :pst")
-    , @NamedQuery(name = "Order.findByGst", query = "SELECT o FROM Order o WHERE o.gst = :gst")
-    , @NamedQuery(name = "Order.findByHst", query = "SELECT o FROM Order o WHERE o.hst = :hst")
     , @NamedQuery(name = "Order.findByGrossCost", query = "SELECT o FROM Order o WHERE o.grossCost = :grossCost")})
 public class Order implements Serializable {
 
@@ -64,21 +61,6 @@ public class Order implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "pst")
-    private double pst;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "gst")
-    private double gst;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "hst")
-    private double hst;
-    
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "gross_cost")
     private double grossCost;
     
@@ -96,13 +78,10 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Order(Integer id, Date orderDate, double netCost, double pst, double gst, double hst, double grossCost) {
+    public Order(Integer id, Date orderDate, double netCost, double grossCost) {
         this.id = id;
         this.orderDate = orderDate;
         this.netCost = netCost;
-        this.pst = pst;
-        this.gst = gst;
-        this.hst = hst;
         this.grossCost = grossCost;
     }
 
@@ -128,30 +107,6 @@ public class Order implements Serializable {
 
     public void setNetCost(double netCost) {
         this.netCost = netCost;
-    }
-
-    public double getPst() {
-        return pst;
-    }
-
-    public void setPst(double pst) {
-        this.pst = pst;
-    }
-
-    public double getGst() {
-        return gst;
-    }
-
-    public void setGst(double gst) {
-        this.gst = gst;
-    }
-
-    public double getHst() {
-        return hst;
-    }
-
-    public void setHst(double hst) {
-        this.hst = hst;
     }
 
     public double getGrossCost() {
