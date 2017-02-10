@@ -16,47 +16,38 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewAlbumLabel_id}"/>
-                    <h:outputText value="#{albumController.selected.id}" title="#{bundle.ViewAlbumTitle_id}"/>
+                    <h:outputText value="#{album.id}" title="#{bundle.ViewAlbumTitle_id}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_title}"/>
-                    <h:outputText value="#{albumController.selected.title}" title="#{bundle.ViewAlbumTitle_title}"/>
+                    <h:outputText value="#{album.title}" title="#{bundle.ViewAlbumTitle_title}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_releaseDate}"/>
-                    <h:outputText value="#{albumController.selected.releaseDate}" title="#{bundle.ViewAlbumTitle_releaseDate}">
+                    <h:outputText value="#{album.releaseDate}" title="#{bundle.ViewAlbumTitle_releaseDate}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewAlbumLabel_recordLabel}"/>
-                    <h:outputText value="#{albumController.selected.recordLabel}" title="#{bundle.ViewAlbumTitle_recordLabel}"/>
+                    <h:outputText value="#{album.recordLabel}" title="#{bundle.ViewAlbumTitle_recordLabel}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_numTracks}"/>
-                    <h:outputText value="#{albumController.selected.numTracks}" title="#{bundle.ViewAlbumTitle_numTracks}"/>
+                    <h:outputText value="#{album.numTracks}" title="#{bundle.ViewAlbumTitle_numTracks}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_createdAt}"/>
-                    <h:outputText value="#{albumController.selected.createdAt}" title="#{bundle.ViewAlbumTitle_createdAt}">
+                    <h:outputText value="#{album.createdAt}" title="#{bundle.ViewAlbumTitle_createdAt}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewAlbumLabel_costPrice}"/>
-                    <h:outputText value="#{albumController.selected.costPrice}" title="#{bundle.ViewAlbumTitle_costPrice}"/>
+                    <h:outputText value="#{album.costPrice}" title="#{bundle.ViewAlbumTitle_costPrice}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_listPrice}"/>
-                    <h:outputText value="#{albumController.selected.listPrice}" title="#{bundle.ViewAlbumTitle_listPrice}"/>
+                    <h:outputText value="#{album.listPrice}" title="#{bundle.ViewAlbumTitle_listPrice}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_salePrice}"/>
-                    <h:outputText value="#{albumController.selected.salePrice}" title="#{bundle.ViewAlbumTitle_salePrice}"/>
+                    <h:outputText value="#{album.salePrice}" title="#{bundle.ViewAlbumTitle_salePrice}"/>
                     <h:outputText value="#{bundle.ViewAlbumLabel_removedAt}"/>
-                    <h:outputText value="#{albumController.selected.removedAt}" title="#{bundle.ViewAlbumTitle_removedAt}">
+                    <h:outputText value="#{album.removedAt}" title="#{bundle.ViewAlbumTitle_removedAt}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewAlbumLabel_available}"/>
-                    <h:outputText value="#{albumController.selected.available}" title="#{bundle.ViewAlbumTitle_available}"/>
+                    <h:outputText value="#{album.available}" title="#{bundle.ViewAlbumTitle_available}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{albumController.destroyAndView}" value="#{bundle.ViewAlbumDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewAlbumEditLink}"/>
-                <br />
-                <h:commandLink action="#{albumController.prepareCreate}" value="#{bundle.ViewAlbumCreateLink}" />
-                <br />
-                <h:commandLink action="#{albumController.prepareList}" value="#{bundle.ViewAlbumShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewAlbumIndexLink}"/>
-
             </h:form>
         </ui:define>
     </ui:composition>

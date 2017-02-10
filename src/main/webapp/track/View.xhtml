@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTrackTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTrackLabel_id}"/>
+                    <h:outputText value="#{trackController.selected.id}" title="#{bundle.ViewTrackTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_title}"/>
+                    <h:outputText value="#{trackController.selected.title}" title="#{bundle.ViewTrackTitle_title}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_songwriter}"/>
+                    <h:outputText value="#{trackController.selected.songwriter}" title="#{bundle.ViewTrackTitle_songwriter}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_duration}"/>
+                    <h:outputText value="#{trackController.selected.duration}" title="#{bundle.ViewTrackTitle_duration}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_albumNum}"/>
+                    <h:outputText value="#{trackController.selected.albumNum}" title="#{bundle.ViewTrackTitle_albumNum}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_coverFile}"/>
+                    <h:outputText value="#{trackController.selected.coverFile}" title="#{bundle.ViewTrackTitle_coverFile}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_createdAt}"/>
+                    <h:outputText value="#{trackController.selected.createdAt}" title="#{bundle.ViewTrackTitle_createdAt}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTrackLabel_costPrice}"/>
+                    <h:outputText value="#{trackController.selected.costPrice}" title="#{bundle.ViewTrackTitle_costPrice}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_listPrice}"/>
+                    <h:outputText value="#{trackController.selected.listPrice}" title="#{bundle.ViewTrackTitle_listPrice}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_salePrice}"/>
+                    <h:outputText value="#{trackController.selected.salePrice}" title="#{bundle.ViewTrackTitle_salePrice}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_removedAt}"/>
+                    <h:outputText value="#{trackController.selected.removedAt}" title="#{bundle.ViewTrackTitle_removedAt}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTrackLabel_available}"/>
+                    <h:outputText value="#{trackController.selected.available}" title="#{bundle.ViewTrackTitle_available}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_isIndividual}"/>
+                    <h:outputText value="#{trackController.selected.isIndividual}" title="#{bundle.ViewTrackTitle_isIndividual}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_albumId}"/>
+                    <h:outputText value="#{trackController.selected.albumId}" title="#{bundle.ViewTrackTitle_albumId}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_genreId}"/>
+                    <h:outputText value="#{trackController.selected.genreId}" title="#{bundle.ViewTrackTitle_genreId}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_reviewsCollection}"/>
+                    <h:outputText value="#{trackController.selected.reviewsCollection}" title="#{bundle.ViewTrackTitle_reviewsCollection}"/>
+                    <h:outputText value="#{bundle.ViewTrackLabel_orderItemsCollection}"/>
+                    <h:outputText value="#{trackController.selected.orderItemsCollection}" title="#{bundle.ViewTrackTitle_orderItemsCollection}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{trackController.destroyAndView}" value="#{bundle.ViewTrackDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTrackEditLink}"/>
+                <br />
+                <h:commandLink action="#{trackController.prepareCreate}" value="#{bundle.ViewTrackCreateLink}" />
+                <br />
+                <h:commandLink action="#{trackController.prepareList}" value="#{bundle.ViewTrackShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTrackIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

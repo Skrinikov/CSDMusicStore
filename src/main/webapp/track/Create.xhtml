@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTrackTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{trackController.selected.title}" title="#{bundle.CreateTrackTitle_title}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_title}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_songwriter}" for="songwriter" />
+                    <h:inputText id="songwriter" value="#{trackController.selected.songwriter}" title="#{bundle.CreateTrackTitle_songwriter}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_songwriter}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_duration}" for="duration" />
+                    <h:inputText id="duration" value="#{trackController.selected.duration}" title="#{bundle.CreateTrackTitle_duration}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_duration}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_albumNum}" for="albumNum" />
+                    <h:inputText id="albumNum" value="#{trackController.selected.albumNum}" title="#{bundle.CreateTrackTitle_albumNum}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_albumNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_coverFile}" for="coverFile" />
+                    <h:inputText id="coverFile" value="#{trackController.selected.coverFile}" title="#{bundle.CreateTrackTitle_coverFile}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_coverFile}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_createdAt}" for="createdAt" />
+                    <h:inputText id="createdAt" value="#{trackController.selected.createdAt}" title="#{bundle.CreateTrackTitle_createdAt}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_createdAt}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_costPrice}" for="costPrice" />
+                    <h:inputText id="costPrice" value="#{trackController.selected.costPrice}" title="#{bundle.CreateTrackTitle_costPrice}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_costPrice}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_listPrice}" for="listPrice" />
+                    <h:inputText id="listPrice" value="#{trackController.selected.listPrice}" title="#{bundle.CreateTrackTitle_listPrice}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_listPrice}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_salePrice}" for="salePrice" />
+                    <h:inputText id="salePrice" value="#{trackController.selected.salePrice}" title="#{bundle.CreateTrackTitle_salePrice}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_salePrice}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_removedAt}" for="removedAt" />
+                    <h:inputText id="removedAt" value="#{trackController.selected.removedAt}" title="#{bundle.CreateTrackTitle_removedAt}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_available}" for="available" />
+                    <h:inputText id="available" value="#{trackController.selected.available}" title="#{bundle.CreateTrackTitle_available}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_available}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_isIndividual}" for="isIndividual" />
+                    <h:inputText id="isIndividual" value="#{trackController.selected.isIndividual}" title="#{bundle.CreateTrackTitle_isIndividual}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_isIndividual}"/>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_albumId}" for="albumId" />
+                    <h:selectOneMenu id="albumId" value="#{trackController.selected.albumId}" title="#{bundle.CreateTrackTitle_albumId}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_albumId}">
+                        <f:selectItems value="#{albumController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_genreId}" for="genreId" />
+                    <h:selectOneMenu id="genreId" value="#{trackController.selected.genreId}" title="#{bundle.CreateTrackTitle_genreId}" required="true" requiredMessage="#{bundle.CreateTrackRequiredMessage_genreId}">
+                        <f:selectItems value="#{genreController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_reviewsCollection}" for="reviewsCollection" />
+                    <h:inputText id="reviewsCollection" value="#{trackController.selected.reviewsCollection}" title="#{bundle.CreateTrackTitle_reviewsCollection}" />
+                    <h:outputLabel value="#{bundle.CreateTrackLabel_orderItemsCollection}" for="orderItemsCollection" />
+                    <h:inputText id="orderItemsCollection" value="#{trackController.selected.orderItemsCollection}" title="#{bundle.CreateTrackTitle_orderItemsCollection}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{trackController.create}" value="#{bundle.CreateTrackSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{trackController.prepareList}" value="#{bundle.CreateTrackShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTrackIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
