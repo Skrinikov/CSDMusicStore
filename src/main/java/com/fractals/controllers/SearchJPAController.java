@@ -25,7 +25,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 
 /**
- *
+ * i did it
  * @author lynn
  */
 @Named
@@ -44,9 +44,9 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         
         List<Album> items = new ArrayList<>();      
-        TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like %?1%'", Album.class);
-        q.setParameter(1, title);
-        items = (List<Album>)q.getResultList();      
+        TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like ?1", Album.class);
+        q.setParameter(1, "%"+title+"%");
+        items = (List<Album>)q.getResultList();  
         return items;
     }
     
@@ -55,8 +55,8 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         
         List<Track> items = new ArrayList<>();      
-        TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like %?1%'", Track.class);
-        q.setParameter(1, title);
+        TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like ?1", Track.class);
+        q.setParameter(1, "%"+title+"%");
         items = (List<Track>)q.getResultList();      
         return items;
     }
@@ -69,14 +69,14 @@ public class SearchJPAController implements Serializable {
         
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
-        Join artistJ = album.join("Artist");
-        cqA.where(cb.like(artistJ.get("name"), "'%"+name+"%'"));
+        Join artistJ = album.join("artist");
+        cqA.where(cb.like(artistJ.get("name"), "%"+name+"%"));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
         
         CriteriaQuery<Track> cq = cb.createQuery(Track.class);
         Root<Artist> artist = cq.from(Artist.class);
-        cq.where(cb.like(artist.get("name"), "'%"+name+"%'"));
+        cq.where(cb.like(artist.get("name"), "%"+name+"%"));
         Join<Artist, Track> artists = artist.join("tracks");
         CriteriaQuery<Track> cqT = cq.select(artists);
         TypedQuery<Track> query = entityManager.createQuery(cqT);
@@ -90,20 +90,20 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         if(from.isAfter(to))
             throw new DateTimeException("From date is after to date");
-        
+        Date fromDate = Date.from(from.atZone(ZoneId.systemDefault()).toInstant());
+        Date toDate = Date.from(to.atZone(ZoneId.systemDefault()).toInstant());
+                
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();   
         
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
-        cqA.where(cb.between(album.<Date>get("createdAt"), Date.from(from.atZone(ZoneId.systemDefault()).toInstant()), 
-                                                           Date.from(to.atZone(ZoneId.systemDefault()).toInstant())));
+        cqA.where(cb.between(album.<Date>get("createdAt"), fromDate, toDate));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
               
         CriteriaQuery<Track> cqT = cb.createQuery(Track.class);      
         Root<Track> track = cqT.from(Track.class);       
-        cqA.where(cb.between(track.<Date>get("createdAt"), Date.from(from.atZone(ZoneId.systemDefault()).toInstant()), 
-                                                           Date.from(to.atZone(ZoneId.systemDefault()).toInstant())));
+        cqT.where(cb.between(track.<Date>get("createdAt"), fromDate, toDate));
         TypedQuery<Track> tqT = entityManager.createQuery(cqT);      
         List<Track> tracks = (List<Track>)tqT.getResultList(); 
         

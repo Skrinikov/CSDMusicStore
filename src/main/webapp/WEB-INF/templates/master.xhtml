@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title><ui:insert name="windowTitle" /></title>
+        <!-- Style inputs -->
+        <h:outputStylesheet library="webjars" name="bootstrap/3.3.7-1/css/bootstrap.min-jsf.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css" />
+        <h:outputStylesheet library="css" name="style.css" />
+
+    </h:head>
+    <h:body>
+
+        <!-- Menu -->
+        <ui:insert name="menu">
+            <ui:include src="../sections/menu.xhtml"/>
+        </ui:insert>
+
+        <div class="container">
+
+            <div id="content">
+                <ui:insert name="content"/>
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer">
+                <ui:include src="../sections/footer.xhtml" />
+            </ui:insert>
+        </div>
+
+        <!-- Scripts -->
+        <h:outputScript library="webjars" name="jquery/3.1.1-1/jquery.min.js"/>
+        <h:outputScript library="webjars" name="bootstrap/3.3.7-1/js/bootstrap.min.js" />
+        <h:outputScript library="js" name="custom.js"/>
+    </h:body>
+</html>

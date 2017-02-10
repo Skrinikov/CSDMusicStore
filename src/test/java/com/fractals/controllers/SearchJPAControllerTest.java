@@ -24,13 +24,18 @@ import javax.sql.DataSource;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 import org.junit.Ignore;
+
 @Ignore
 /**
- *
+ * i did it
  * @author lynn
  */
 @RunWith(Arquillian.class)
@@ -71,26 +76,51 @@ public class SearchJPAControllerTest {
 
     @Resource(name = "java:app/jdbc/musicstore")
     private DataSource ds;
-    
+
     @Test
     public void searchByAlbumTitleTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
         List<Album> items = search.searchByAlbumTitle("no");
         assertThat(items).hasSize(2);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
     }
-    
+
     @Test
     public void searchByTrackNameTest() throws SQLException {
-        //try{
-        long t = System.nanoTime();
         List<Track> items = search.searchByTrackName("no");
         assertThat(items).hasSize(7);
-        double seconds = (double) (System.nanoTime() - t) / 1000000000.0;
-        System.out.println("search : " + seconds + " seconds.");
-        //}catch()
+    }
+
+    @Test
+    public void searchByArtistNameTest() throws SQLException {
+        Object[] items = search.searchByArtistName("tu");
+        assertThat((List<Album>)items[0]).hasSize(3);
+        assertThat((List<Track>)items[1]).hasSize(8);
+    }
+
+    @Ignore
+    @Test
+    public void searchByDateTest_Albums() throws SQLException {
+        LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 31);
+        LocalDateTime to = LocalDateTime.now();
+        Object[] items = search.searchByDate(from, to);
+        assertThat((List<Album>)items[0]).hasSize(24);
+        assertThat((List<Track>)items[1]).hasSize(138);
+    }
+    
+    @Ignore
+    @Test
+    public void searchByDateTest_Tracks() throws SQLException {
+        LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 43);
+        LocalDateTime to = LocalDateTime.now();
+        Object[] items = search.searchByDate(from, to);
+        assertThat((List<Album>)items[0]).hasSize(0);
+        assertThat((List<Track>)items[1]).hasSize(33);
+    }
+
+    @Test(expected = DateTimeException.class)
+    public void searchByDateTest_Tracks_Invalid() throws SQLException {
+        LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 44);
+        LocalDateTime to = LocalDateTime.of(2017, 2, 4, 22, 34, 43);
+        Object[] items = search.searchByDate(from, to);
+        fail();
     }
 }
