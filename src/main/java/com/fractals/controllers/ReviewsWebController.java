@@ -110,8 +110,5 @@ public class ReviewsWebController implements Serializable {
             } 
             catch (IllegalStateException | SecurityException | SystemException re) {}            
         }
-    }
-    
-    
-    
+    }    
 }
