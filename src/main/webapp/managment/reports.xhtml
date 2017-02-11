@@ -42,17 +42,17 @@
 
                     <h:panelGrid columns="2" cellpadding="200">
                         <h:panelGrid columns="1" cellpadding="5">
-                            <p:outputLabel for="event" value="Start date:" />
-                            <p:calendar id="event" value="#{reportsController.date1}" mode="inline">
-                                <p:ajax event="dateSelect" listener="#{reportsController.onDateSelect}" update="msgs" />
+                            <p:outputLabel for="salesBegin" value="Start date:" />
+                            <p:calendar id="salesBegin" value="#{reportsBacking.salesBegin}" mode="inline">
+                                <p:ajax event="dateSelect" listener="#{reportsBacking.onDateSelect}" update="msgs" />
                             </p:calendar>
 
                         </h:panelGrid>    
 
                         <h:panelGrid columns="1" cellpadding="5" style="margin-left: 50px;">
-                            <p:outputLabel for="event" value="End date:" />
-                            <p:calendar id="end_date" value="#{reportsController.date1}" mode="inline">
-                                <p:ajax event="dateSelect" listener="#{reportsController.onDateSelect}" update="msgs" />
+                            <p:outputLabel for="salesEnd" value="End date:" />
+                            <p:calendar id="salesEnd" value="#{reportsBacking.salesEnd}" mode="inline">
+                                <p:ajax event="dateSelect" listener="#{reportsBacking.onDateSelect}" update="msgs" />
                             </p:calendar>
                         </h:panelGrid>
                     </h:panelGrid>
