@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,11 +44,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Album.findBySalePrice", query = "SELECT a FROM Album a WHERE a.salePrice = :salePrice")
     , @NamedQuery(name = "Album.findByRemovedAt", query = "SELECT a FROM Album a WHERE a.removedAt = :removedAt")
     , @NamedQuery(name = "Album.findByAvailable", query = "SELECT a FROM Album a WHERE a.available = :available")})
-@Named("album")
-@RequestScoped
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -71,7 +64,7 @@ public class Album implements Serializable {
     @NotNull
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
-    private Date releaseDate;
+    private LocalDate releaseDate;
     
     @Basic(optional = false)
     @NotNull
@@ -88,7 +81,7 @@ public class Album implements Serializable {
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
     
     @Basic(optional = false)
     @NotNull
@@ -107,18 +100,18 @@ public class Album implements Serializable {
     
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date removedAt;
+    private LocalDateTime removedAt;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "available")
     private boolean available;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "albumId")
-    private Collection<Track> tracksCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
+    private List<Track> tracks;
     
-    @OneToMany(mappedBy = "albumId")
-    private Collection<OrderItem> orderItemsCollection;
+    @OneToMany(mappedBy = "album")
+    private List<OrderItem> orderItems;
     
     @JoinColumn(name = "artist_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -131,7 +124,7 @@ public class Album implements Serializable {
         this.id = id;
     }
 
-    public Album(Integer id, String title, Date releaseDate, String recordLabel, int numTracks, Date createdAt, double costPrice, double listPrice, double salePrice, boolean available) {
+    public Album(Integer id, String title, LocalDate releaseDate, String recordLabel, int numTracks, LocalDateTime createdAt, double costPrice, double listPrice, double salePrice, boolean available) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -160,11 +153,11 @@ public class Album implements Serializable {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -184,11 +177,11 @@ public class Album implements Serializable {
         this.numTracks = numTracks;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -216,11 +209,11 @@ public class Album implements Serializable {
         this.salePrice = salePrice;
     }
 
-    public Date getRemovedAt() {
+    public LocalDateTime getRemovedAt() {
         return removedAt;
     }
 
-    public void setRemovedAt(Date removedAt) {
+    public void setRemovedAt(LocalDateTime removedAt) {
         this.removedAt = removedAt;
     }
 
@@ -233,21 +226,21 @@ public class Album implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Track> getTracksCollection() {
-        return tracksCollection;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setTracksCollection(Collection<Track> tracksCollection) {
-        this.tracksCollection = tracksCollection;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     @XmlTransient
-    public Collection<OrderItem> getOrderItemsCollection() {
-        return orderItemsCollection;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemsCollection(Collection<OrderItem> orderItemsCollection) {
-        this.orderItemsCollection = orderItemsCollection;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override
@@ -259,7 +252,6 @@ public class Album implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Album)) {
             return false;
         }

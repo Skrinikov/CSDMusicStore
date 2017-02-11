@@ -17,7 +17,6 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -45,17 +44,17 @@ public class TrackJpaController implements Serializable {
         try {
             utx.begin();
    
-            Album albumId = track.getAlbumId();
+            Album albumId = track.getAlbum();
             if (albumId != null) {
                 albumId = em.getReference(albumId.getClass(), albumId.getId());
-                track.setAlbumId(albumId);
+                track.setAlbum(albumId);
             }
-            Genre genreId = track.getGenreId();
+            Genre genreId = track.getGenre();
             if (genreId != null) {
                 genreId = em.getReference(genreId.getClass(), genreId.getId());
-                track.setGenreId(genreId);
+                track.setGenre(genreId);
             }
-            Collection<Artist> attachedArtists = new ArrayList<Artist>();
+            List<Artist> attachedArtists = new ArrayList<Artist>();
             for (Artist artistsArtistToAttach : track.getArtists()) {
                 artistsArtistToAttach = em.getReference(artistsArtistToAttach.getClass(), artistsArtistToAttach.getId());
                 attachedArtists.add(artistsArtistToAttach);
@@ -63,11 +62,11 @@ public class TrackJpaController implements Serializable {
             track.setArtists(attachedArtists);
             em.persist(track);
             if (albumId != null) {
-                albumId.getTracksCollection().add(track);
+                albumId.getTracks().add(track);
                 albumId = em.merge(albumId);
             }
             if (genreId != null) {
-                genreId.getTracksCollection().add(track);
+                genreId.getTracks().add(track);
                 genreId = em.merge(genreId);
             }
             for (Artist artistsArtist : track.getArtists()) {
@@ -89,21 +88,21 @@ public class TrackJpaController implements Serializable {
         try {
             utx.begin();
             Track persistentTrack = em.find(Track.class, track.getId());
-            Album albumIdOld = persistentTrack.getAlbumId();
-            Album albumIdNew = track.getAlbumId();
-            Genre genreIdOld = persistentTrack.getGenreId();
-            Genre genreIdNew = track.getGenreId();
-            Collection<Artist> artistsOld = persistentTrack.getArtists();
-            Collection<Artist> artistsNew = track.getArtists();
+            Album albumIdOld = persistentTrack.getAlbum();
+            Album albumIdNew = track.getAlbum();
+            Genre genreIdOld = persistentTrack.getGenre();
+            Genre genreIdNew = track.getGenre();
+            List<Artist> artistsOld = persistentTrack.getArtists();
+            List<Artist> artistsNew = track.getArtists();
             if (albumIdNew != null) {
                 albumIdNew = em.getReference(albumIdNew.getClass(), albumIdNew.getId());
-                track.setAlbumId(albumIdNew);
+                track.setAlbum(albumIdNew);
             }
             if (genreIdNew != null) {
                 genreIdNew = em.getReference(genreIdNew.getClass(), genreIdNew.getId());
-                track.setGenreId(genreIdNew);
+                track.setGenre(genreIdNew);
             }
-            Collection<Artist> attachedArtistsNew = new ArrayList<Artist>();
+            List<Artist> attachedArtistsNew = new ArrayList<Artist>();
             for (Artist artistsNewArtistToAttach : artistsNew) {
                 artistsNewArtistToAttach = em.getReference(artistsNewArtistToAttach.getClass(), artistsNewArtistToAttach.getId());
                 attachedArtistsNew.add(artistsNewArtistToAttach);
@@ -112,19 +111,19 @@ public class TrackJpaController implements Serializable {
             track.setArtists(artistsNew);
             track = em.merge(track);
             if (albumIdOld != null && !albumIdOld.equals(albumIdNew)) {
-                albumIdOld.getTracksCollection().remove(track);
+                albumIdOld.getTracks().remove(track);
                 albumIdOld = em.merge(albumIdOld);
             }
             if (albumIdNew != null && !albumIdNew.equals(albumIdOld)) {
-                albumIdNew.getTracksCollection().add(track);
+                albumIdNew.getTracks().add(track);
                 albumIdNew = em.merge(albumIdNew);
             }
             if (genreIdOld != null && !genreIdOld.equals(genreIdNew)) {
-                genreIdOld.getTracksCollection().remove(track);
+                genreIdOld.getTracks().remove(track);
                 genreIdOld = em.merge(genreIdOld);
             }
             if (genreIdNew != null && !genreIdNew.equals(genreIdOld)) {
-                genreIdNew.getTracksCollection().add(track);
+                genreIdNew.getTracks().add(track);
                 genreIdNew = em.merge(genreIdNew);
             }
             for (Artist artistsOldArtist : artistsOld) {
@@ -167,17 +166,17 @@ public class TrackJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The track with id " + id + " no longer exists.", enfe);
             }
-            Album albumId = track.getAlbumId();
+            Album albumId = track.getAlbum();
             if (albumId != null) {
-                albumId.getTracksCollection().remove(track);
+                albumId.getTracks().remove(track);
                 albumId = em.merge(albumId);
             }
-            Genre genreId = track.getGenreId();
+            Genre genreId = track.getGenre();
             if (genreId != null) {
-                genreId.getTracksCollection().remove(track);
+                genreId.getTracks().remove(track);
                 genreId = em.merge(genreId);
             }
-            Collection<Artist> artists = track.getArtists();
+            List<Artist> artists = track.getArtists();
             for (Artist artistsArtist : artists) {
                 artistsArtist.getTracks().remove(track);
                 artistsArtist = em.merge(artistsArtist);

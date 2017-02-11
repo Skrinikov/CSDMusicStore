@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,6 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Track implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -91,12 +87,6 @@ public class Track implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "cost_price")
     private double costPrice;
     
@@ -110,9 +100,16 @@ public class Track implements Serializable {
     @Column(name = "sale_price")
     private double salePrice;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
+    
+    
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date removedAt;
+    private LocalDateTime removedAt;
     
     @Basic(optional = false)
     @NotNull
@@ -126,22 +123,20 @@ public class Track implements Serializable {
     
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Album albumId;
+    private Album album;
     
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Genre genreId;
+    private Genre genre;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trackId")
-    private Collection<Review> reviews;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "track")
+    private List<Review> reviews;
     
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "trackId")
-    private Collection<ArtistTrack> artistTrackCollection;*/
     @ManyToMany(mappedBy = "tracks")
-    private Collection<Artist> artists;
+    private List<Artist> artists;
     
-    @OneToMany(mappedBy = "trackId")
-    private Collection<OrderItem> orderItems;
+    @OneToMany(mappedBy = "track")
+    private List<OrderItem> orderItems;
 
     public Track() {
     }
@@ -150,7 +145,7 @@ public class Track implements Serializable {
         this.id = id;
     }
 
-    public Track(Integer id, String title, String songwriter, String duration, int albumNum, String coverFile, Date createdAt, double costPrice, double listPrice, double salePrice, boolean available, boolean isIndividual) {
+    public Track(Integer id, String title, String songwriter, String duration, int albumNum, String coverFile, LocalDateTime createdAt, double costPrice, double listPrice, double salePrice, boolean available, boolean isIndividual) {
         this.id = id;
         this.title = title;
         this.songwriter = songwriter;
@@ -213,11 +208,11 @@ public class Track implements Serializable {
         this.coverFile = coverFile;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -245,11 +240,11 @@ public class Track implements Serializable {
         this.salePrice = salePrice;
     }
 
-    public Date getRemovedAt() {
+    public LocalDateTime getRemovedAt() {
         return removedAt;
     }
 
-    public void setRemovedAt(Date removedAt) {
+    public void setRemovedAt(LocalDateTime removedAt) {
         this.removedAt = removedAt;
     }
 
@@ -269,47 +264,47 @@ public class Track implements Serializable {
         this.isIndividual = isIndividual;
     }
 
-    public Album getAlbumId() {
-        return albumId;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAlbumId(Album albumId) {
-        this.albumId = albumId;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
-    public Genre getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(Genre genreId) {
-        this.genreId = genreId;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     @XmlTransient
-    public Collection<Review> getReviewsCollection() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviewsCollection(Collection<Review> reviewsCollection) {
-        this.reviews = reviewsCollection;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     @XmlTransient
-    public Collection<Artist> getArtists() {
+    public List<Artist> getArtists() {
         return artists;
     }
 
-    public void setArtists(Collection<Artist> artists) {
+    public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }
 
     @XmlTransient
-    public Collection<OrderItem> getOrderItemsCollection() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItemsCollection(Collection<OrderItem> orderItemsCollection) {
-        this.orderItems = orderItemsCollection;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override
@@ -321,7 +316,6 @@ public class Track implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Track)) {
             return false;
         }

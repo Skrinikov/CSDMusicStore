@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -52,7 +48,7 @@ public class Order implements Serializable {
     @NotNull
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;
+    private LocalDateTime orderDate;
     
     @Basic(optional = false)
     @NotNull
@@ -66,10 +62,10 @@ public class Order implements Serializable {
     
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
     
-    @OneToMany(mappedBy = "orderId")
-    private Collection<OrderItem> orderItemsCollection;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     public Order() {
     }
@@ -78,7 +74,7 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Order(Integer id, Date orderDate, double netCost, double grossCost) {
+    public Order(Integer id, LocalDateTime orderDate, double netCost, double grossCost) {
         this.id = id;
         this.orderDate = orderDate;
         this.netCost = netCost;
@@ -93,11 +89,11 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -117,12 +113,12 @@ public class Order implements Serializable {
         this.grossCost = grossCost;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -134,7 +130,6 @@ public class Order implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Order)) {
             return false;
         }
@@ -151,12 +146,12 @@ public class Order implements Serializable {
     }
     
     @XmlTransient
-    public Collection<OrderItem> getOrderItemsCollection() {
-        return orderItemsCollection;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemsCollection(Collection<OrderItem> orderItemsCollection) {
-        this.orderItemsCollection = orderItemsCollection;
+    public void setOrderItems(List<OrderItem> orderItemsCollection) {
+        this.orderItems = orderItemsCollection;
     }
     
 }

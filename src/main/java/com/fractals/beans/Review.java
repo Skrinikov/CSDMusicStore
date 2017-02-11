@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,35 +36,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "rating")
     private int rating;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "review_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date reviewDate;
+    private LocalDateTime reviewDate;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2000)
     @Column(name = "text")
     private String text;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "approved")
     private boolean approved;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
+    
     @JoinColumn(name = "track_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Track trackId;
+    private Track track;
 
     public Review() {
     }
@@ -78,7 +80,7 @@ public class Review implements Serializable {
         this.id = id;
     }
 
-    public Review(Integer id, int rating, Date reviewDate, String text, boolean approved) {
+    public Review(Integer id, int rating, LocalDateTime reviewDate, String text, boolean approved) {
         this.id = id;
         this.rating = rating;
         this.reviewDate = reviewDate;
@@ -102,11 +104,11 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public Date getReviewDate() {
+    public LocalDateTime getReviewDate() {
         return reviewDate;
     }
 
-    public void setReviewDate(Date reviewDate) {
+    public void setReviewDate(LocalDateTime reviewDate) {
         this.reviewDate = reviewDate;
     }
 
@@ -126,20 +128,20 @@ public class Review implements Serializable {
         this.approved = approved;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Track getTrackId() {
-        return trackId;
+    public Track getTrack() {
+        return track;
     }
 
-    public void setTrackId(Track trackId) {
-        this.trackId = trackId;
+    public void setTrack(Track track) {
+        this.track = track;
     }
 
     @Override
@@ -151,7 +153,6 @@ public class Review implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Review)) {
             return false;
         }

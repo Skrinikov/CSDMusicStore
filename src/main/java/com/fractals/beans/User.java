@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,8 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
     , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt")
     , @NamedQuery(name = "User.findByTitle", query = "SELECT u FROM User u WHERE u.title = :title")
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
@@ -55,100 +48,115 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
 public class User implements Serializable {
 
-    @JoinColumn(name = "province_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Province provinceId;
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
+    @JoinColumn(name = "province_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Province province;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "username")
     private String username;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "salt")
     private String salt;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "title")
     private String title;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "first_name")
     private String firstName;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "last_name")
     private String lastName;
+    
     @Size(max = 50)
     @Column(name = "company")
     private String company;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "address_1")
     private String address1;
+    
     @Size(max = 50)
     @Column(name = "address_2")
     private String address2;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "city")
     private String city;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "province")
-    private String province;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "country")
     private String country;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "postal_code")
     private String postalCode;
+    
     @Size(max = 20)
     @Column(name = "home_tel")
     private String homeTel;
+    
     @Size(max = 20)
     @Column(name = "cell_tel")
     private String cellTel;
+    
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+    
     @Size(max = 255)
     @Column(name = "last_genre")
     private String lastGenre;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_admin")
     private boolean isAdmin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Review> reviewsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Order> ordersCollection;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> orders;
 
     public User() {
     }
@@ -157,7 +165,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String salt, String title, String firstName, String lastName, String address1, String city, String province, String country, String postalCode, String email, boolean isAdmin) {
+    public User(Integer id, String username, String password, String salt, String title, String firstName, String lastName, String address1, String city, String country, String postalCode, String email, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -167,7 +175,6 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.address1 = address1;
         this.city = city;
-        this.province = province;
         this.country = country;
         this.postalCode = postalCode;
         this.email = email;
@@ -262,14 +269,6 @@ public class User implements Serializable {
         this.city = city;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -327,21 +326,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Review> getReviewsCollection() {
-        return reviewsCollection;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public void setReviewsCollection(Collection<Review> reviewsCollection) {
-        this.reviewsCollection = reviewsCollection;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     @XmlTransient
-    public Collection<Order> getOrdersCollection() {
-        return ordersCollection;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrdersCollection(Collection<Order> ordersCollection) {
-        this.ordersCollection = ordersCollection;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -353,7 +352,6 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }
@@ -369,12 +367,12 @@ public class User implements Serializable {
         return "com.fractals.beans.User[ id=" + id + " ]";
     }
 
-    public Province getProvinceId() {
-        return provinceId;
+    public Province getProvince() {
+        return province;
     }
 
-    public void setProvinceId(Province provinceId) {
-        this.provinceId = provinceId;
+    public void setProvince(Province province) {
+        this.province = province;
     }
     
 }

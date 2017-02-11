@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -40,10 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Artist.findByName", query = "SELECT a FROM Artist a WHERE a.name = :name")})
 public class Artist implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
-    private Collection<Album> albums;
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -55,16 +47,16 @@ public class Artist implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    
-    
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "artistId")
-    private Collection<ArtistTrack> artistTrackCollection;*/
+   
     @ManyToMany
     @JoinTable(
       name="artist_track",
       joinColumns=@JoinColumn(name="artist_id", referencedColumnName="id"),
       inverseJoinColumns=@JoinColumn(name="track_id", referencedColumnName="id"))
-    private Collection<Track> tracks;
+    private List<Track> tracks;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
+    private List<Album> albums;
 
     public Artist() {
     }
@@ -95,11 +87,11 @@ public class Artist implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Track> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(Collection<Track> tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
 
@@ -112,7 +104,6 @@ public class Artist implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Artist)) {
             return false;
         }
@@ -122,19 +113,19 @@ public class Artist implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "com.fractals.beans.Artist[ id=" + id + " ]";
-    }
-
+       
     @XmlTransient
-    public Collection<Album> getAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(Collection<Album> albumCollection) {
+    public void setAlbums(List<Album> albumCollection) {
         this.albums = albumCollection;
+    }
+    
+    @Override
+    public String toString() {
+        return "com.fractals.beans.Artist[ id=" + id + " ]";
     }
     
 }

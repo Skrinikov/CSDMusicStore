@@ -90,20 +90,18 @@ public class SearchJPAController implements Serializable {
             throw new NullPointerException();
         if(from.isAfter(to))
             throw new DateTimeException("From date is after to date");
-        Date fromDate = Date.from(from.atZone(ZoneId.systemDefault()).toInstant());
-        Date toDate = Date.from(to.atZone(ZoneId.systemDefault()).toInstant());
                 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();   
         
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
-        cqA.where(cb.between(album.<Date>get("createdAt"), fromDate, toDate));
+        cqA.where(cb.between(album.<LocalDateTime>get("createdAt"), from, to));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
               
         CriteriaQuery<Track> cqT = cb.createQuery(Track.class);      
         Root<Track> track = cqT.from(Track.class);       
-        cqT.where(cb.between(track.<Date>get("createdAt"), fromDate, toDate));
+        cqT.where(cb.between(track.<LocalDateTime>get("createdAt"), from, to));
         TypedQuery<Track> tqT = entityManager.createQuery(cqT);      
         List<Track> tracks = (List<Track>)tqT.getResultList(); 
         

@@ -37,7 +37,7 @@ public class ShoppingCart implements Serializable{
         }
         else if(o instanceof Track) {
             Track track = (Track)o;
-            Album album = track.getAlbumId();
+            Album album = track.getAlbum();
             if(!tracks.contains(track) && !albums.contains(album)) { 
                 resolveTrack(track, album);                
             }
@@ -57,7 +57,7 @@ public class ShoppingCart implements Serializable{
         int total = album.getNumTracks();
         int counter = 0;
         for(Track t : tracks)
-            if(t.getAlbumId().equals(album))
+            if(t.getAlbum().equals(album))
                 counter++;
 
         if(counter+1 == total) {
@@ -70,7 +70,7 @@ public class ShoppingCart implements Serializable{
     
     private void deleteTracks(Album album) {
         for(Track t : tracks)
-            if(t.getAlbumId().equals(album))
+            if(t.getAlbum().equals(album))
                 tracks.remove(t);
     }
     

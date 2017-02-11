@@ -14,7 +14,6 @@ import com.fractals.beans.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
@@ -51,13 +50,13 @@ public class ArtistJpaController implements Serializable {
         
         try {
             utx.begin();
-            Collection<Track> attachedTracks = new ArrayList<Track>();
+            List<Track> attachedTracks = new ArrayList<Track>();
             for (Track tracksTrackToAttach : artist.getTracks()) {
                 tracksTrackToAttach = em.getReference(tracksTrackToAttach.getClass(), tracksTrackToAttach.getId());
                 attachedTracks.add(tracksTrackToAttach);
             }
             artist.setTracks(attachedTracks);
-            Collection<Album> attachedAlbums = new ArrayList<Album>();
+            List<Album> attachedAlbums = new ArrayList<Album>();
             for (Album albumsAlbumToAttach : artist.getAlbums()) {
                 albumsAlbumToAttach = em.getReference(albumsAlbumToAttach.getClass(), albumsAlbumToAttach.getId());
                 attachedAlbums.add(albumsAlbumToAttach);
@@ -92,10 +91,10 @@ public class ArtistJpaController implements Serializable {
             utx.begin();
             try{
             Artist persistentArtist = em.find(Artist.class, artist.getId());
-            Collection<Track> tracksOld = persistentArtist.getTracks();
-            Collection<Track> tracksNew = artist.getTracks();
-            Collection<Album> albumsOld = persistentArtist.getAlbums();
-            Collection<Album> albumsNew = artist.getAlbums();
+            List<Track> tracksOld = persistentArtist.getTracks();
+            List<Track> tracksNew = artist.getTracks();
+            List<Album> albumsOld = persistentArtist.getAlbums();
+            List<Album> albumsNew = artist.getAlbums();
             List<String> illegalOrphanMessages = null;
             for (Album albumsOldAlbum : albumsOld) {
                 if (!albumsNew.contains(albumsOldAlbum)) {
@@ -108,14 +107,14 @@ public class ArtistJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Track> attachedTracksNew = new ArrayList<Track>();
+            List<Track> attachedTracksNew = new ArrayList<Track>();
             for (Track tracksNewTrackToAttach : tracksNew) {
                 tracksNewTrackToAttach = em.getReference(tracksNewTrackToAttach.getClass(), tracksNewTrackToAttach.getId());
                 attachedTracksNew.add(tracksNewTrackToAttach);
             }
             tracksNew = attachedTracksNew;
             artist.setTracks(tracksNew);
-            Collection<Album> attachedAlbumsNew = new ArrayList<Album>();
+            List<Album> attachedAlbumsNew = new ArrayList<Album>();
             for (Album albumsNewAlbumToAttach : albumsNew) {
                 albumsNewAlbumToAttach = em.getReference(albumsNewAlbumToAttach.getClass(), albumsNewAlbumToAttach.getId());
                 attachedAlbumsNew.add(albumsNewAlbumToAttach);
@@ -175,7 +174,7 @@ public class ArtistJpaController implements Serializable {
                 throw new NonexistentEntityException("The artist with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Album> albumsOrphanCheck = artist.getAlbums();
+            List<Album> albumsOrphanCheck = artist.getAlbums();
             for (Album albumsOrphanCheckAlbum : albumsOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
@@ -185,7 +184,7 @@ public class ArtistJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Track> tracks = artist.getTracks();
+            List<Track> tracks = artist.getTracks();
             for (Track tracksTrack : tracks) {
                 tracksTrack.getArtists().remove(artist);
                 tracksTrack = em.merge(tracksTrack);

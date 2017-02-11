@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
@@ -36,23 +31,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SurveyChoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "choice")
     private String choice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "num_votes")
     private int numVotes;
+    
     @JoinColumn(name = "survey_id", referencedColumnName = "id")
     @ManyToOne
-    private Survey surveyId;
+    private Survey survey;
 
     public SurveyChoice() {
     }
@@ -91,12 +90,12 @@ public class SurveyChoice implements Serializable {
         this.numVotes = numVotes;
     }
 
-    public Survey getSurveyId() {
-        return surveyId;
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public void setSurveyId(Survey surveyId) {
-        this.surveyId = surveyId;
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     @Override
@@ -108,7 +107,6 @@ public class SurveyChoice implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof SurveyChoice)) {
             return false;
         }

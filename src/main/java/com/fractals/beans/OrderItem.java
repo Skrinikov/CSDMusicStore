@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
@@ -30,35 +25,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OrderItem.findAll", query = "SELECT o FROM OrderItem o")
     , @NamedQuery(name = "OrderItem.findById", query = "SELECT o FROM OrderItem o WHERE o.id = :id")
-    , @NamedQuery(name = "OrderItem.findByOrderId", query = "SELECT o FROM OrderItem o WHERE o.orderId = :orderId")
+    , @NamedQuery(name = "OrderItem.findByOrderId", query = "SELECT o FROM OrderItem o WHERE o.order = :order")
     , @NamedQuery(name = "OrderItem.findByCost", query = "SELECT o FROM OrderItem o WHERE o.cost = :cost")})
 public class OrderItem implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cost")
-    private double cost;
-
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cost")
+    private double cost;   
+    
     @NotNull
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne
-    private Order orderId;
+    private Order order;
     
     
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne
-    private Album albumId;
+    private Album album;
     
     @JoinColumn(name = "track_id", referencedColumnName = "id")
     @ManyToOne
-    private Track trackId;
+    private Track track;
 
     public OrderItem() {
     }
@@ -67,9 +63,9 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public OrderItem(Integer id, Order orderId, double cost) {
+    public OrderItem(Integer id, Order order, double cost) {
         this.id = id;
-        this.orderId = orderId;
+        this.order = order;
         this.cost = cost;
     }
 
@@ -81,29 +77,29 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
 
-    public Album getAlbumId() {
-        return albumId;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAlbumId(Album albumId) {
-        this.albumId = albumId;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
-    public Track getTrackId() {
-        return trackId;
+    public Track getTrack() {
+        return track;
     }
 
-    public void setTrackId(Track trackId) {
-        this.trackId = trackId;
+    public void setTrack(Track track) {
+        this.track = track;
     }
 
     @Override
@@ -115,7 +111,6 @@ public class OrderItem implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof OrderItem)) {
             return false;
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
@@ -60,7 +55,7 @@ public class OrdersController {
         
         Order order = new Order();
         order.setNetCost(netCost);
-        order.setUserId(user);
+        order.setUser(user);
         order = createOrder(order);
         saveOrderItems(order, items);
         return order;
@@ -71,7 +66,7 @@ public class OrdersController {
             userTransaction.begin();
             for(Object o : items) {
                 OrderItem oi = new OrderItem();
-                oi.setOrderId(order);
+                oi.setOrder(order);
                 if(o instanceof Album) {
                     Album album = (Album)o;
                     double price = album.getSalePrice();
@@ -79,7 +74,7 @@ public class OrdersController {
                         oi.setCost(price);
                     else
                         oi.setCost(album.getListPrice());
-                    oi.setAlbumId(album);
+                    oi.setAlbum(album);
                 }
                 else if(o instanceof Track) {
                     Track track = (Track)o;
@@ -88,7 +83,7 @@ public class OrdersController {
                         oi.setCost(price);
                     else
                         oi.setCost(track.getListPrice());
-                    oi.setTrackId(track);
+                    oi.setTrack(track);
                 }
                 entityManager.persist(oi);        
             }          

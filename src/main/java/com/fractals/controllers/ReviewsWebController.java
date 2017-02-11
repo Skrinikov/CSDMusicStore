@@ -6,8 +6,8 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Collection;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -61,11 +61,11 @@ public class ReviewsWebController implements Serializable {
      */
     private Review createReview (String message, User user, int rating){
         Review review = new Review();
-        review.setUserId(user);
+        review.setUser(user);
         review.setText(message);
         review.setApproved(false);
         review.setRating(rating);
-        review.setReviewDate(Date.valueOf(LocalDate.now()));
+        review.setReviewDate(LocalDateTime.now());
         
         try{
             userTransaction.begin();
@@ -98,9 +98,9 @@ public class ReviewsWebController implements Serializable {
         try {
             
             userTransaction.begin();
-            Collection<Review> reviews = track.getReviewsCollection();
+            List<Review> reviews = track.getReviews();
             reviews.add(review);
-            track.setReviewsCollection(reviews);
+            track.setReviews(reviews);
             entityManager.persist(track);
             userTransaction.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 

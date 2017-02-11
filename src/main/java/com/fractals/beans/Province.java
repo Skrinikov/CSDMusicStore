@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Province implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -55,20 +51,20 @@ public class Province implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "pst")
-    private float pst;
+    private double pst;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "gst")
-    private float gst;
+    private double gst;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "hst")
-    private float hst;
+    private double hst;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provinceId")
-    private Collection<User> userCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "province")
+    private List<User> users;
 
     public Province() {
     }
@@ -77,7 +73,7 @@ public class Province implements Serializable {
         this.id = id;
     }
 
-    public Province(Integer id, String name, float pst, float gst, float hst) {
+    public Province(Integer id, String name, double pst, double gst, double hst) {
         this.id = id;
         this.name = name;
         this.pst = pst;
@@ -101,37 +97,37 @@ public class Province implements Serializable {
         this.name = name;
     }
 
-    public float getPst() {
+    public double getPst() {
         return pst;
     }
 
-    public void setPst(float pst) {
+    public void setPst(double pst) {
         this.pst = pst;
     }
 
-    public float getGst() {
+    public double getGst() {
         return gst;
     }
 
-    public void setGst(float gst) {
+    public void setGst(double gst) {
         this.gst = gst;
     }
 
-    public float getHst() {
+    public double getHst() {
         return hst;
     }
 
-    public void setHst(float hst) {
+    public void setHst(double hst) {
         this.hst = hst;
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setUsers(List<User> userCollection) {
+        this.users = userCollection;
     }
 
     @Override
@@ -143,7 +139,6 @@ public class Province implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Province)) {
             return false;
         }

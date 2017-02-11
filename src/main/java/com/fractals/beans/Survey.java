@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.beans;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,22 +33,26 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Survey implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "question")
     private String question;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "visible")
     private boolean visible;
-    @OneToMany(mappedBy = "surveyId")
-    private Collection<SurveyChoice> surveyChoicesCollection;
+    
+    @OneToMany(mappedBy = "survey")
+    private List<SurveyChoice> surveyChoices;
 
     public Survey() {
     }
@@ -92,12 +92,12 @@ public class Survey implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SurveyChoice> getSurveyChoicesCollection() {
-        return surveyChoicesCollection;
+    public List<SurveyChoice> getSurveyChoices() {
+        return surveyChoices;
     }
 
-    public void setSurveyChoicesCollection(Collection<SurveyChoice> surveyChoicesCollection) {
-        this.surveyChoicesCollection = surveyChoicesCollection;
+    public void setSurveyChoices(List<SurveyChoice> surveyChoices) {
+        this.surveyChoices = surveyChoices;
     }
 
     @Override
@@ -109,7 +109,6 @@ public class Survey implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Survey)) {
             return false;
         }

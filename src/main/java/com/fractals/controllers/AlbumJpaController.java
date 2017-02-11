@@ -18,7 +18,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
@@ -43,11 +42,11 @@ public class AlbumJpaController implements Serializable {
     private EntityManager em;
 
     public void create(Album album) throws RollbackFailureException, Exception {
-        if (album.getTracksCollection() == null) {
-            album.setTracksCollection(new ArrayList<Track>());
+        if (album.getTracks() == null) {
+            album.setTracks(new ArrayList<Track>());
         }
-        if (album.getOrderItemsCollection() == null) {
-            album.setOrderItemsCollection(new ArrayList<OrderItem>());
+        if (album.getOrderItems() == null) {
+            album.setOrderItems(new ArrayList<OrderItem>());
         }
         try {
             utx.begin();
@@ -56,38 +55,38 @@ public class AlbumJpaController implements Serializable {
                 artist = em.getReference(artist.getClass(), artist.getId());
                 album.setArtist(artist);
             }
-            Collection<Track> attachedTracksCollection = new ArrayList<Track>();
-            for (Track tracksCollectionTrackToAttach : album.getTracksCollection()) {
+            List<Track> attachedTracksCollection = new ArrayList<>();
+            for (Track tracksCollectionTrackToAttach : album.getTracks()) {
                 tracksCollectionTrackToAttach = em.getReference(tracksCollectionTrackToAttach.getClass(), tracksCollectionTrackToAttach.getId());
                 attachedTracksCollection.add(tracksCollectionTrackToAttach);
             }
-            album.setTracksCollection(attachedTracksCollection);
-            Collection<OrderItem> attachedOrderItemsCollection = new ArrayList<OrderItem>();
-            for (OrderItem orderItemsCollectionOrderItemToAttach : album.getOrderItemsCollection()) {
+            album.setTracks(attachedTracksCollection);
+            List<OrderItem> attachedOrderItemsCollection = new ArrayList<OrderItem>();
+            for (OrderItem orderItemsCollectionOrderItemToAttach : album.getOrderItems()) {
                 orderItemsCollectionOrderItemToAttach = em.getReference(orderItemsCollectionOrderItemToAttach.getClass(), orderItemsCollectionOrderItemToAttach.getId());
                 attachedOrderItemsCollection.add(orderItemsCollectionOrderItemToAttach);
             }
-            album.setOrderItemsCollection(attachedOrderItemsCollection);
+            album.setOrderItems(attachedOrderItemsCollection);
             em.persist(album);
             if (artist != null) {
                 artist.getAlbums().add(album);
                 artist = em.merge(artist);
             }
-            for (Track tracksCollectionTrack : album.getTracksCollection()) {
-                Album oldAlbumIdOfTracksCollectionTrack = tracksCollectionTrack.getAlbumId();
-                tracksCollectionTrack.setAlbumId(album);
+            for (Track tracksCollectionTrack : album.getTracks()) {
+                Album oldAlbumIdOfTracksCollectionTrack = tracksCollectionTrack.getAlbum();
+                tracksCollectionTrack.setAlbum(album);
                 tracksCollectionTrack = em.merge(tracksCollectionTrack);
                 if (oldAlbumIdOfTracksCollectionTrack != null) {
-                    oldAlbumIdOfTracksCollectionTrack.getTracksCollection().remove(tracksCollectionTrack);
+                    oldAlbumIdOfTracksCollectionTrack.getTracks().remove(tracksCollectionTrack);
                     oldAlbumIdOfTracksCollectionTrack = em.merge(oldAlbumIdOfTracksCollectionTrack);
                 }
             }
-            for (OrderItem orderItemsCollectionOrderItem : album.getOrderItemsCollection()) {
-                Album oldAlbumIdOfOrderItemsCollectionOrderItem = orderItemsCollectionOrderItem.getAlbumId();
-                orderItemsCollectionOrderItem.setAlbumId(album);
+            for (OrderItem orderItemsCollectionOrderItem : album.getOrderItems()) {
+                Album oldAlbumIdOfOrderItemsCollectionOrderItem = orderItemsCollectionOrderItem.getAlbum();
+                orderItemsCollectionOrderItem.setAlbum(album);
                 orderItemsCollectionOrderItem = em.merge(orderItemsCollectionOrderItem);
                 if (oldAlbumIdOfOrderItemsCollectionOrderItem != null) {
-                    oldAlbumIdOfOrderItemsCollectionOrderItem.getOrderItemsCollection().remove(orderItemsCollectionOrderItem);
+                    oldAlbumIdOfOrderItemsCollectionOrderItem.getOrderItems().remove(orderItemsCollectionOrderItem);
                     oldAlbumIdOfOrderItemsCollectionOrderItem = em.merge(oldAlbumIdOfOrderItemsCollectionOrderItem);
                 }
             }
@@ -108,10 +107,10 @@ public class AlbumJpaController implements Serializable {
             Album persistentAlbum = em.find(Album.class, album.getId());
             Artist artistOld = persistentAlbum.getArtist();
             Artist artistNew = album.getArtist();
-            Collection<Track> tracksCollectionOld = persistentAlbum.getTracksCollection();
-            Collection<Track> tracksCollectionNew = album.getTracksCollection();
-            Collection<OrderItem> orderItemsCollectionOld = persistentAlbum.getOrderItemsCollection();
-            Collection<OrderItem> orderItemsCollectionNew = album.getOrderItemsCollection();
+            List<Track> tracksCollectionOld = persistentAlbum.getTracks();
+            List<Track> tracksCollectionNew = album.getTracks();
+            List<OrderItem> orderItemsCollectionOld = persistentAlbum.getOrderItems();
+            List<OrderItem> orderItemsCollectionNew = album.getOrderItems();
             List<String> illegalOrphanMessages = null;
             for (Track tracksCollectionOldTrack : tracksCollectionOld) {
                 if (!tracksCollectionNew.contains(tracksCollectionOldTrack)) {
@@ -128,20 +127,20 @@ public class AlbumJpaController implements Serializable {
                 artistNew = em.getReference(artistNew.getClass(), artistNew.getId());
                 album.setArtist(artistNew);
             }
-            Collection<Track> attachedTracksCollectionNew = new ArrayList<Track>();
+            List<Track> attachedTracksCollectionNew = new ArrayList<Track>();
             for (Track tracksCollectionNewTrackToAttach : tracksCollectionNew) {
                 tracksCollectionNewTrackToAttach = em.getReference(tracksCollectionNewTrackToAttach.getClass(), tracksCollectionNewTrackToAttach.getId());
                 attachedTracksCollectionNew.add(tracksCollectionNewTrackToAttach);
             }
             tracksCollectionNew = attachedTracksCollectionNew;
-            album.setTracksCollection(tracksCollectionNew);
-            Collection<OrderItem> attachedOrderItemsCollectionNew = new ArrayList<OrderItem>();
+            album.setTracks(tracksCollectionNew);
+            List<OrderItem> attachedOrderItemsCollectionNew = new ArrayList<OrderItem>();
             for (OrderItem orderItemsCollectionNewOrderItemToAttach : orderItemsCollectionNew) {
                 orderItemsCollectionNewOrderItemToAttach = em.getReference(orderItemsCollectionNewOrderItemToAttach.getClass(), orderItemsCollectionNewOrderItemToAttach.getId());
                 attachedOrderItemsCollectionNew.add(orderItemsCollectionNewOrderItemToAttach);
             }
             orderItemsCollectionNew = attachedOrderItemsCollectionNew;
-            album.setOrderItemsCollection(orderItemsCollectionNew);
+            album.setOrderItems(orderItemsCollectionNew);
             album = em.merge(album);
             if (artistOld != null && !artistOld.equals(artistNew)) {
                 artistOld.getAlbums().remove(album);
@@ -153,28 +152,28 @@ public class AlbumJpaController implements Serializable {
             }
             for (Track tracksCollectionNewTrack : tracksCollectionNew) {
                 if (!tracksCollectionOld.contains(tracksCollectionNewTrack)) {
-                    Album oldAlbumIdOfTracksCollectionNewTrack = tracksCollectionNewTrack.getAlbumId();
-                    tracksCollectionNewTrack.setAlbumId(album);
+                    Album oldAlbumIdOfTracksCollectionNewTrack = tracksCollectionNewTrack.getAlbum();
+                    tracksCollectionNewTrack.setAlbum(album);
                     tracksCollectionNewTrack = em.merge(tracksCollectionNewTrack);
                     if (oldAlbumIdOfTracksCollectionNewTrack != null && !oldAlbumIdOfTracksCollectionNewTrack.equals(album)) {
-                        oldAlbumIdOfTracksCollectionNewTrack.getTracksCollection().remove(tracksCollectionNewTrack);
+                        oldAlbumIdOfTracksCollectionNewTrack.getTracks().remove(tracksCollectionNewTrack);
                         oldAlbumIdOfTracksCollectionNewTrack = em.merge(oldAlbumIdOfTracksCollectionNewTrack);
                     }
                 }
             }
             for (OrderItem orderItemsCollectionOldOrderItem : orderItemsCollectionOld) {
                 if (!orderItemsCollectionNew.contains(orderItemsCollectionOldOrderItem)) {
-                    orderItemsCollectionOldOrderItem.setAlbumId(null);
+                    orderItemsCollectionOldOrderItem.setAlbum(null);
                     orderItemsCollectionOldOrderItem = em.merge(orderItemsCollectionOldOrderItem);
                 }
             }
             for (OrderItem orderItemsCollectionNewOrderItem : orderItemsCollectionNew) {
                 if (!orderItemsCollectionOld.contains(orderItemsCollectionNewOrderItem)) {
-                    Album oldAlbumIdOfOrderItemsCollectionNewOrderItem = orderItemsCollectionNewOrderItem.getAlbumId();
-                    orderItemsCollectionNewOrderItem.setAlbumId(album);
+                    Album oldAlbumIdOfOrderItemsCollectionNewOrderItem = orderItemsCollectionNewOrderItem.getAlbum();
+                    orderItemsCollectionNewOrderItem.setAlbum(album);
                     orderItemsCollectionNewOrderItem = em.merge(orderItemsCollectionNewOrderItem);
                     if (oldAlbumIdOfOrderItemsCollectionNewOrderItem != null && !oldAlbumIdOfOrderItemsCollectionNewOrderItem.equals(album)) {
-                        oldAlbumIdOfOrderItemsCollectionNewOrderItem.getOrderItemsCollection().remove(orderItemsCollectionNewOrderItem);
+                        oldAlbumIdOfOrderItemsCollectionNewOrderItem.getOrderItems().remove(orderItemsCollectionNewOrderItem);
                         oldAlbumIdOfOrderItemsCollectionNewOrderItem = em.merge(oldAlbumIdOfOrderItemsCollectionNewOrderItem);
                     }
                 }
@@ -208,7 +207,7 @@ public class AlbumJpaController implements Serializable {
                 throw new NonexistentEntityException("The album with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Track> tracksCollectionOrphanCheck = album.getTracksCollection();
+            List<Track> tracksCollectionOrphanCheck = album.getTracks();
             for (Track tracksCollectionOrphanCheckTrack : tracksCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
@@ -223,9 +222,9 @@ public class AlbumJpaController implements Serializable {
                 artist.getAlbums().remove(album);
                 artist = em.merge(artist);
             }
-            Collection<OrderItem> orderItemsCollection = album.getOrderItemsCollection();
+            List<OrderItem> orderItemsCollection = album.getOrderItems();
             for (OrderItem orderItemsCollectionOrderItem : orderItemsCollection) {
-                orderItemsCollectionOrderItem.setAlbumId(null);
+                orderItemsCollectionOrderItem.setAlbum(null);
                 orderItemsCollectionOrderItem = em.merge(orderItemsCollectionOrderItem);
             }
             em.remove(album);

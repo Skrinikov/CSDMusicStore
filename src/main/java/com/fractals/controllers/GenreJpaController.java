@@ -40,24 +40,24 @@ public class GenreJpaController implements Serializable {
     private EntityManager em;
 
     public void create(Genre genre) throws RollbackFailureException, Exception {
-        if (genre.getTracksCollection() == null) {
-            genre.setTracksCollection(new ArrayList<Track>());
+        if (genre.getTracks() == null) {
+            genre.setTracks(new ArrayList<Track>());
         }
         try {
             utx.begin();
-            Collection<Track> attachedTracksCollection = new ArrayList<Track>();
-            for (Track tracksCollectionTrackToAttach : genre.getTracksCollection()) {
+            List<Track> attachedTracksCollection = new ArrayList<Track>();
+            for (Track tracksCollectionTrackToAttach : genre.getTracks()) {
                 tracksCollectionTrackToAttach = em.getReference(tracksCollectionTrackToAttach.getClass(), tracksCollectionTrackToAttach.getId());
                 attachedTracksCollection.add(tracksCollectionTrackToAttach);
             }
-            genre.setTracksCollection(attachedTracksCollection);
+            genre.setTracks(attachedTracksCollection);
             em.persist(genre);
-            for (Track tracksCollectionTrack : genre.getTracksCollection()) {
-                Genre oldGenreIdOfTracksCollectionTrack = tracksCollectionTrack.getGenreId();
-                tracksCollectionTrack.setGenreId(genre);
+            for (Track tracksCollectionTrack : genre.getTracks()) {
+                Genre oldGenreIdOfTracksCollectionTrack = tracksCollectionTrack.getGenre();
+                tracksCollectionTrack.setGenre(genre);
                 tracksCollectionTrack = em.merge(tracksCollectionTrack);
                 if (oldGenreIdOfTracksCollectionTrack != null) {
-                    oldGenreIdOfTracksCollectionTrack.getTracksCollection().remove(tracksCollectionTrack);
+                    oldGenreIdOfTracksCollectionTrack.getTracks().remove(tracksCollectionTrack);
                     oldGenreIdOfTracksCollectionTrack = em.merge(oldGenreIdOfTracksCollectionTrack);
                 }
             }
@@ -76,8 +76,8 @@ public class GenreJpaController implements Serializable {
         try {
             utx.begin();
             Genre persistentGenre = em.find(Genre.class, genre.getId());
-            Collection<Track> tracksCollectionOld = persistentGenre.getTracksCollection();
-            Collection<Track> tracksCollectionNew = genre.getTracksCollection();
+            List<Track> tracksCollectionOld = persistentGenre.getTracks();
+            List<Track> tracksCollectionNew = genre.getTracks();
             List<String> illegalOrphanMessages = null;
             for (Track tracksCollectionOldTrack : tracksCollectionOld) {
                 if (!tracksCollectionNew.contains(tracksCollectionOldTrack)) {
@@ -90,21 +90,21 @@ public class GenreJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Track> attachedTracksCollectionNew = new ArrayList<Track>();
+            List<Track> attachedTracksCollectionNew = new ArrayList<Track>();
             for (Track tracksCollectionNewTrackToAttach : tracksCollectionNew) {
                 tracksCollectionNewTrackToAttach = em.getReference(tracksCollectionNewTrackToAttach.getClass(), tracksCollectionNewTrackToAttach.getId());
                 attachedTracksCollectionNew.add(tracksCollectionNewTrackToAttach);
             }
             tracksCollectionNew = attachedTracksCollectionNew;
-            genre.setTracksCollection(tracksCollectionNew);
+            genre.setTracks(tracksCollectionNew);
             genre = em.merge(genre);
             for (Track tracksCollectionNewTrack : tracksCollectionNew) {
                 if (!tracksCollectionOld.contains(tracksCollectionNewTrack)) {
-                    Genre oldGenreIdOfTracksCollectionNewTrack = tracksCollectionNewTrack.getGenreId();
-                    tracksCollectionNewTrack.setGenreId(genre);
+                    Genre oldGenreIdOfTracksCollectionNewTrack = tracksCollectionNewTrack.getGenre();
+                    tracksCollectionNewTrack.setGenre(genre);
                     tracksCollectionNewTrack = em.merge(tracksCollectionNewTrack);
                     if (oldGenreIdOfTracksCollectionNewTrack != null && !oldGenreIdOfTracksCollectionNewTrack.equals(genre)) {
-                        oldGenreIdOfTracksCollectionNewTrack.getTracksCollection().remove(tracksCollectionNewTrack);
+                        oldGenreIdOfTracksCollectionNewTrack.getTracks().remove(tracksCollectionNewTrack);
                         oldGenreIdOfTracksCollectionNewTrack = em.merge(oldGenreIdOfTracksCollectionNewTrack);
                     }
                 }
@@ -138,7 +138,7 @@ public class GenreJpaController implements Serializable {
                 throw new NonexistentEntityException("The genre with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Track> tracksCollectionOrphanCheck = genre.getTracksCollection();
+            Collection<Track> tracksCollectionOrphanCheck = genre.getTracks();
             for (Track tracksCollectionOrphanCheckTrack : tracksCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
