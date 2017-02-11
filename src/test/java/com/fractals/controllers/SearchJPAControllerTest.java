@@ -90,7 +90,6 @@ public class SearchJPAControllerTest {
         assertThat((List<Track>)items[1]).hasSize(8);
     }
 
-    //@Ignore
     @Test
     public void searchByDateTest_Albums() throws SQLException {
         LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 31);

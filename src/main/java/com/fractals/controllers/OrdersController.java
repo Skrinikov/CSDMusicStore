@@ -6,13 +6,13 @@ import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.email.EmailSender;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.RollbackException;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -44,50 +44,38 @@ public class OrdersController {
     }
     
     private Order saveOrder(ShoppingCart cart, User user) {
-        Object[] items = cart.getAllItems();
-        double netCost = 0;
-        for(Object o : items) {
-            if(o instanceof Album)
-                netCost += ((Album)o).getListPrice();      
-            else if(o instanceof Track) 
-                netCost += ((Track)o).getListPrice();              
-        }
-        
         Order order = new Order();
-        order.setNetCost(netCost);
+        order.setNetCost(0);
         order.setUser(user);
-        order = createOrder(order);
-        saveOrderItems(order, items);
+        entityManager.persist(order);
+        
+        List<Album> albums = cart.getAllAlbums();
+        List<Track> tracks = cart.getAllTracks();
+        
+        double netCost = 0;
+        netCost = saveAlbumItems(albums, order);
+        netCost = saveTrackItems(tracks, order) + netCost;
+        
+        order.setNetCost(netCost);
+        entityManager.merge(order);
         return order;
     }
     
-    private void saveOrderItems(Order order, Object[] items) {
+    private double saveTrackItems(List<Track> tracks, Order order) {
+        double netCost = 0;
         try {
             userTransaction.begin();
-            for(Object o : items) {
+            for(Track track : tracks) {
                 OrderItem oi = new OrderItem();
                 oi.setOrder(order);
-                if(o instanceof Album) {
-                    Album album = (Album)o;
-                    double price = album.getSalePrice();
-                    if(price != 0)
-                        oi.setCost(price);
-                    else
-                        oi.setCost(album.getListPrice());
-                    oi.setAlbum(album);
-                }
-                else if(o instanceof Track) {
-                    Track track = (Track)o;
-                    double price = track.getSalePrice();
-                    if(price != 0)
-                        oi.setCost(price);
-                    else
-                        oi.setCost(track.getListPrice());
-                    oi.setTrack(track);
-                }
+                double price = track.getSalePrice() != 0 ? track.getSalePrice() : track.getListPrice();
+                oi.setCost(price);
+                oi.setTrack(track);
+                netCost += price;
                 entityManager.persist(oi);        
             }          
             userTransaction.commit();
+            return netCost;
         } 
         catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 
                HeuristicRollbackException | SecurityException | IllegalStateException ex) {
@@ -96,10 +84,43 @@ public class OrdersController {
                 userTransaction.rollback();
             } 
             catch (IllegalStateException | SecurityException | SystemException re) {}
+            return 0;
         }
     }
     
-    private Order createOrder(Order order) {
+    private double saveAlbumItems(List<Album> albums, Order order) {
+        double netCost = 0;
+        try {
+            userTransaction.begin();
+            for(Album album : albums) {
+                OrderItem oi = new OrderItem();
+                oi.setOrder(order);
+                double price = album.getSalePrice() != 0 ? album.getSalePrice() : album.getListPrice();
+                oi.setCost(price);
+                oi.setAlbum(album);
+                netCost += price;
+                entityManager.persist(oi);        
+            }          
+            userTransaction.commit();
+            return netCost;
+        } 
+        catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 
+               HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            try {
+                interrupted = true;
+                userTransaction.rollback();
+            } 
+            catch (IllegalStateException | SecurityException | SystemException re) {}
+            return 0;
+        }
+    }
+    
+    private void sendEmail(User u, ShoppingCart cart) {
+        EmailSender es = new EmailSender(u);
+        es.sendEmail(cart);
+    }
+    
+    /*private Order createOrder(Order order) {
         try {
             userTransaction.begin();
             entityManager.persist(order);           
@@ -117,10 +138,6 @@ public class OrdersController {
             catch (IllegalStateException | SecurityException | SystemException re) {}
             return null;
         }
-    }
+    }*/
     
-    private void sendEmail(User u, ShoppingCart cart) {
-        EmailSender es = new EmailSender(u);
-        es.sendEmail(cart.getAllItems());
-    }
 }

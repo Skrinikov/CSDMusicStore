@@ -1,4 +1,4 @@
-package com.fractals.controllers;
+/*package com.fractals.controllers;
 
 import com.fractals.controllers.NewsFeedController;
 import com.fractals.beans.NewsFeed;
@@ -73,4 +73,4 @@ public class NewsFeedControllerTest {
     }
     
 
-}
+}*/

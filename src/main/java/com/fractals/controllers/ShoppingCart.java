@@ -20,8 +20,12 @@ public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();
     private List<Track> tracks = new ArrayList<>();
     
-    public Object[] getAllItems() {
-        return new Object[]{albums, tracks};
+    public List<Track> getAllTracks() {
+        return tracks;
+    }
+    
+    public List<Album> getAllAlbums() {
+        return albums;
     }
     
     public void empty() {
