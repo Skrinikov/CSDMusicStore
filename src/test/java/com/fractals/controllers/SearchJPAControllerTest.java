@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.controllers.SearchJPAController;
@@ -33,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
 
-@Ignore
 /**
  * i did it
  * @author lynn
@@ -96,13 +90,13 @@ public class SearchJPAControllerTest {
         assertThat((List<Track>)items[1]).hasSize(8);
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void searchByDateTest_Albums() throws SQLException {
         LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 31);
         LocalDateTime to = LocalDateTime.now();
         Object[] items = search.searchByDate(from, to);
-        assertThat((List<Album>)items[0]).hasSize(24);
+        assertThat((List<Album>)items[0]).hasSize(73);
         assertThat((List<Track>)items[1]).hasSize(138);
     }
     

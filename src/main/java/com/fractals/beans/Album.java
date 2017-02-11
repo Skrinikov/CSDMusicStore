@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +24,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import org.eclipse.persistence.annotations.Converters;
 
 /**
  *
@@ -31,6 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "albums")
 @XmlRootElement
+@Converters({
+        @Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class),
+        @Converter(name="dateConverter", converterClass=com.fractals.beans.LocalDateAttributeConverter.class)})
 @NamedQueries({
     @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a")
     , @NamedQuery(name = "Album.findById", query = "SELECT a FROM Album a WHERE a.id = :id")
@@ -64,6 +71,7 @@ public class Album implements Serializable {
     @NotNull
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
+    @Convert("dateConverter")
     private LocalDate releaseDate;
     
     @Basic(optional = false)
@@ -81,6 +89,7 @@ public class Album implements Serializable {
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert("datetimeConverter")
     private LocalDateTime createdAt;
     
     @Basic(optional = false)
@@ -100,6 +109,7 @@ public class Album implements Serializable {
     
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert("datetimeConverter")
     private LocalDateTime removedAt;
     
     @Basic(optional = false)

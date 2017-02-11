@@ -22,11 +22,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Ignore;
+
 @Ignore
-/**
- *
- * @author lynn
- */
 @RunWith(Arquillian.class)
 public class NewsFeedControllerTest {
     @Deployment

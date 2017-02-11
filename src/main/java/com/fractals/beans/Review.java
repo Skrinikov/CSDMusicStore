@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "reviews")
+@Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r")
@@ -52,6 +55,7 @@ public class Review implements Serializable {
     @NotNull
     @Column(name = "review_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert("datetimeConverter")
     private LocalDateTime reviewDate;
     
     @Basic(optional = false)

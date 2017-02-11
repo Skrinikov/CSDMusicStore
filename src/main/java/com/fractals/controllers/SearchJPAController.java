@@ -2,14 +2,11 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
-//import com.fractals.beans.Artist_;
 import com.fractals.beans.Track;
 import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,7 +17,6 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 

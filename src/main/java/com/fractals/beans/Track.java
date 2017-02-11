@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
 /**
  *
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tracks")
+@Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Track.findAll", query = "SELECT t FROM Track t")
@@ -104,11 +107,13 @@ public class Track implements Serializable {
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert("datetimeConverter")
     private LocalDateTime createdAt;
     
     
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert("datetimeConverter")
     private LocalDateTime removedAt;
     
     @Basic(optional = false)
