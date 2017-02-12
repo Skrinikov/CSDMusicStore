@@ -6,6 +6,7 @@ import com.fractals.beans.User;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -44,12 +45,18 @@ public class LoginController implements Serializable {
             User userDb = getByUsername(currentUser.getUsername());
             byte[] db = userDb.getPassword().getBytes();
             byte[] login = security.hash(currentUser.getPassword(), userDb.getSalt());
-            System.out.println("DB " + new String(db));
-            System.out.println("LOGIN " + new String(login));
             if(!security.isHashValid(db, login)) {
                 FacesMessage message = new FacesMessage("Invalid username or password!");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 currentUser = null;
+            }
+            else {
+                try{
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+                }
+                catch(IOException io) {
+                    log.error("error when redirecting", io);
+                }
             }
         }
         catch(EntityNotFoundException | NonUniqueResultException | NoResultException ex) {
