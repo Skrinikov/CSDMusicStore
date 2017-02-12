@@ -1,5 +1,6 @@
 package com.fractals.backingbeans;
 
+import com.fractals.controllers.ReportsController;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 
@@ -19,7 +21,9 @@ import org.primefaces.event.SelectEvent;
 @SessionScoped
 public class ReportsBacking implements Serializable {
     
-    
+    // Controller
+    @Inject
+    private ReportsController reports;
 
     // Sales
     private Date salesBegin;
@@ -30,11 +34,14 @@ public class ReportsBacking implements Serializable {
     private Date revenueEnd;
     private String revenue;
     
+    /**
+     * Default constructor.
+     */
     public ReportsBacking(){
         // I am not quite sure it is the best way to get the date.
         salesBegin = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         
-        // Date objects may break if this website exists past 
+        // Date objects are not the most optimal way to store data, but PrimeFaces uses them
         salesEnd = new Date(salesBegin.getTime());
         revenueBegin = new Date(salesBegin.getTime());
         revenueEnd = new Date(salesBegin.getTime());
