@@ -19,6 +19,7 @@ import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,7 @@ import javax.transaction.UserTransaction;
  * @author 1710030
  */
 @Named("trackController")
+@RequestScoped
 public class TrackJpaController implements Serializable {
    @Resource
     private UserTransaction utx;
@@ -222,6 +224,10 @@ public class TrackJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    public boolean isEmpty(){
+        return getTrackCount() == 0;
     }
     
 }
