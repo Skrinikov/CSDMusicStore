@@ -1,12 +1,16 @@
 package com.fractals.controllers;
 
+import com.fractals.beans.User;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.primefaces.event.SelectEvent;
 
@@ -20,9 +24,7 @@ import org.primefaces.event.SelectEvent;
  */
 @Named("reportsController")
 @RequestScoped
-public class ReportsController implements Serializable {
-    
-    private Date date1;
+public class ReportsController implements Serializable {   
     
     @Resource
     private UserTransaction userTransaction;
@@ -30,20 +32,20 @@ public class ReportsController implements Serializable {
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
     
-    public void onDateSelect(SelectEvent event) {
-        Date date = (Date)event.getObject();
-        System.out.println(date+"argh");
-    }
-
-    public Date getDate1() {
-        return date1;
-    }
-
-    public void setDate1(Date date1) {
-        this.date1 = date1;
+    // Queries
+    private static final String zeroUserQuery = "SELECT u FROM User u LEFT JOIN u.ordersCollection o WHERE o.userId IS NULL";
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<User> getZeroClients(){
+        List<User> users = new ArrayList<>();
+        
+        TypedQuery<User> query = entityManager.createQuery(zeroUserQuery,User.class);
+        users = query.getResultList();
+        
+        return users;
     }
     
-    public void click(){
-        System.out.println("Ha");
-    }
 }

@@ -1,8 +1,9 @@
-/*package com.fractals.controllers;
+package com.fractals.controllers;
 
-import com.fractals.controllers.NewsFeedController;
-import com.fractals.beans.NewsFeed;
-import org.jboss.arquillian.junit.Arquillian;
+
+import com.fractals.beans.Album;
+import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -10,22 +11,20 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Before;
 import org.junit.Test;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Ignore;
-
-@Ignore
+import static org.junit.Assert.fail;
+/**
+ *
+ * @author Danieil Skrinikov
+ */
 @RunWith(Arquillian.class)
-public class NewsFeedControllerTest {
+public class ReportsControllerTest {
     @Deployment
     public static WebArchive deploy() {
 
@@ -46,8 +45,8 @@ public class NewsFeedControllerTest {
         // The SQL script to create the database is also in this folder
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                .addPackage(NewsFeedController.class.getPackage())
-                .addPackage(NewsFeed.class.getPackage())
+                .addPackage(ReportsController.class.getPackage())
+                .addPackage(User.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
@@ -57,20 +56,23 @@ public class NewsFeedControllerTest {
     }
 
     @Inject
-    private NewsFeedController newsFeed;
+    private ReportsController reports;
 
     @Resource(name = "java:app/jdbc/musicstore")
     private DataSource ds;
-    
-    
+
+    /**
+     * Test of getZeroClients method, of class ReportsController.
+     */
     @Test
-    public void test1()
-    {
-        NewsFeed nf = newsFeed.getNewsFeed(6);
-        
-        System.out.println(nf.getLink()); 
-        
+    public void testGetZeroClients() {
+        System.out.println("getZeroClients");
+        //List<User> expResult = null;
+        List<User> result = reports.getZeroClients();
+        //assertEquals(expResult, result);
+        System.out.println(result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
-
-}*/
+}
