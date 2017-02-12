@@ -21,8 +21,17 @@
                     <h:inputText id="link" value="#{newsFeedController.selected.link}" title="#{bundle.EditNewsFeedTitle_link}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_link}"/>
                     <h:outputLabel value="#{bundle.EditNewsFeedLabel_source}" for="source" />
                     <h:inputText id="source" value="#{newsFeedController.selected.source}" title="#{bundle.EditNewsFeedTitle_source}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_source}"/>
+                    
+                    
+                    <h:selectOneRadio value="#{newsFeedController.selected.visible}">
+                        <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
+                        <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
+                    </h:selectOneRadio>	
+                    
+                    <!--
                     <h:outputLabel value="#{bundle.EditNewsFeedLabel_visible}" for="visible" />
                     <h:inputText id="visible" value="#{newsFeedController.selected.visible}" title="#{bundle.EditNewsFeedTitle_visible}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_visible}"/>
+                    -->
                 </h:panelGrid>
                 <h:commandLink action="#{newsFeedController.update}" value="#{bundle.EditNewsFeedSaveLink}"/>
                 <br />
