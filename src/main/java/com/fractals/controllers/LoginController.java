@@ -43,9 +43,11 @@ public class LoginController implements Serializable {
         try{
             User userDb = getByUsername(currentUser.getUsername());
             byte[] db = userDb.getPassword().getBytes();
-            byte[] login = security.hash(currentUser.getPassword(), currentUser.getSalt());
+            byte[] login = security.hash(currentUser.getPassword(), userDb.getSalt());
+            System.out.println("DB " + new String(db));
+            System.out.println("LOGIN " + new String(login));
             if(!security.isHashValid(db, login)) {
-                FacesMessage message = new FacesMessage("Invalid username or password+!");
+                FacesMessage message = new FacesMessage("Invalid username or password!");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 currentUser = null;
             }
@@ -58,14 +60,13 @@ public class LoginController implements Serializable {
         }   
     }
     
-    public boolean register() {
+    public void register() {
         User newUser = userBacking.getUser();
         try{
             getByUsername(newUser.getUsername());
             log.error("this user already exists");
             FacesMessage message = new FacesMessage("Such user already exists!");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
         }
         catch(EntityNotFoundException | NoResultException ex) {
             String salt = security.getSalt();
@@ -74,12 +75,10 @@ public class LoginController implements Serializable {
             newUser.setPassword(new String(passHash));
             userBacking.saveUser();
             try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-                return true;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
             }
             catch(IOException io) {
                 log.error("error when redirecting", io);
-                return false;
             }
         }   
     }

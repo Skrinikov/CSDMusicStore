@@ -55,10 +55,8 @@
                 <h:message id="cityMessage" for="city" />
                 
                 <h:outputLabel for="province" value="Province:" />
-                <h:selectOneMenu id="province" value="#{User.user.province}">
-                    <ui:repeat value="#{Province.provinces}" var="value">
-                        <f:selectItem itemValue="#{value}" itemLabel="#{value.name}" />
-                    </ui:repeat>
+                <h:selectOneMenu id="province" value="#{User.user.province}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItems value="#{Province.provinces}" />
                 </h:selectOneMenu>
                 <h:message id="provinceMessage" for="province" />
                 

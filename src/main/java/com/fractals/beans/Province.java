@@ -151,7 +151,7 @@ public class Province implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Provinces[ id=" + id + " ]";
+        return name;
     }
     
 }

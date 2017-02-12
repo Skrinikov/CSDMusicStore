@@ -58,6 +58,7 @@ public class User implements Serializable {
     
     @JoinColumn(name = "province_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    //@NotNull
     private Province province;
     
     @Basic(optional = false)
@@ -364,7 +365,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.User[ id=" + id + " ]";
+        return "com.fractals.beans.User[ id=" + id + " ]" + province.getName();
     }
 
     public Province getProvince() {

@@ -26,7 +26,8 @@ public class SecurityHelper implements Serializable {
         try{
             SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
 
-            PBEKeySpec spec = new PBEKeySpec( password.toCharArray(), salt.getBytes(), 1024, 254 );
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), 
+                    salt.getBytes(), 1024, 254 );
             SecretKey key = skf.generateSecret( spec );
             byte[] hash = key.getEncoded();
             return hash;
