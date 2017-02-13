@@ -21,12 +21,21 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserBacking implements Serializable {
     private User user;
+    private String password;
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
     
     public User getUser() {
         return user == null ? new User() : user;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public void saveUser() {
@@ -37,6 +46,7 @@ public class UserBacking implements Serializable {
     @PostConstruct
     public void init() {
        user = new User();
+       password = "";
     }
    
 }

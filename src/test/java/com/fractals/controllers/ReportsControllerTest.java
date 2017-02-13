@@ -19,10 +19,12 @@ import java.io.*;
 import java.util.List;
 
 import static org.junit.Assert.fail;
+import org.junit.Ignore;
 /**
  *
  * @author Danieil Skrinikov
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class ReportsControllerTest {
     @Deployment

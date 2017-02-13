@@ -47,6 +47,9 @@ public class Genre implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
     private List<Track> tracks;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lastGenre")
+    private List<User> users;
 
     public Genre() {
     }
@@ -107,6 +110,15 @@ public class Genre implements Serializable {
     @Override
     public String toString() {
         return "com.fractals.beans.Genre[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
     
 }

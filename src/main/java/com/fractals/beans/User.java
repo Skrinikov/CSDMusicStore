@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -58,8 +59,18 @@ public class User implements Serializable {
     
     @JoinColumn(name = "province_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    //@NotNull
+    @NotNull
     private Province province;
+    
+    @JoinColumn(name = "last_genre", referencedColumnName = "id")
+    @ManyToOne
+    private Genre lastGenre;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "password")
+    private byte[] password;
     
     @Basic(optional = false)
     @NotNull
@@ -67,11 +78,6 @@ public class User implements Serializable {
     @Column(name = "username")
     private String username;
     
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "password")
-    private String password;
     
     @Basic(optional = false)
     @NotNull
@@ -143,11 +149,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
-    
-    @Size(max = 255)
-    @Column(name = "last_genre")
-    private String lastGenre;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_admin")
@@ -166,7 +168,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String salt, String title, String firstName, String lastName, String address1, String city, String country, String postalCode, String email, boolean isAdmin) {
+    public User(Integer id, String username, String salt, String title, String firstName, String lastName, String address1, String city, String country, String postalCode, String email, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -198,13 +200,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getSalt() {
         return salt;
@@ -310,14 +305,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getLastGenre() {
-        return lastGenre;
-    }
-
-    public void setLastGenre(String lastGenre) {
-        this.lastGenre = lastGenre;
-    }
-
     public boolean getIsAdmin() {
         return isAdmin;
     }
@@ -374,6 +361,22 @@ public class User implements Serializable {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public byte[] getPassword() {
+        return password;
+    }
+
+    public void setPassword(byte[] password) {
+        this.password = password;
+    }
+
+    public Genre getLastGenre() {
+        return lastGenre;
+    }
+
+    public void setLastGenre(Genre lastGenre) {
+        this.lastGenre = lastGenre;
     }
     
 }

@@ -24,11 +24,11 @@ public class SecurityHelper implements Serializable {
     //Takes a password and a salt a performs a one way hashing on them, returning an array of bytes.
     public byte[] hash(String password, String salt){
         try{
-            SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), 
-                    salt.getBytes(), 1024, 254 );
-            SecretKey key = skf.generateSecret( spec );
+                    salt.getBytes(), 1024, 256 );
+            SecretKey key = skf.generateSecret(spec);
             byte[] hash = key.getEncoded();
             return hash;
         }
