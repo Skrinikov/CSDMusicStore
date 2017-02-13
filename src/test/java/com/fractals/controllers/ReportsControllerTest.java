@@ -16,7 +16,9 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.junit.Assert.fail;
 /**
@@ -69,10 +71,17 @@ public class ReportsControllerTest {
         System.out.println("getZeroClients");
         //List<User> expResult = null;
         List<User> result = reports.getZeroClients();
-        //assertEquals(expResult, result);
+        assertThat(result).hasSize(62);
+        System.out.println(result.size()+" beh");
+    }
+    
+    @Test
+    public void testGetZeroTracks(){
+        System.out.println("getZeroTracks");
+        List<Track> result = reports.getZeroTracks(LocalDateTime.now().minusDays(2), LocalDateTime.now());
+        
+        assertThat(result).hasSize(62);
         System.out.println(result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
