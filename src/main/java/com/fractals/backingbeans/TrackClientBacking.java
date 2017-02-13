@@ -6,9 +6,15 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Artist;
+import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.controllers.ReviewsWebController;
+import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,7 +24,7 @@ import javax.inject.Named;
  * 
  * @author Thai-Vu Nguyen
  */
-@Named("TrackCLBack")
+@Named("trackCLBack")
 @RequestScoped
 public class TrackClientBacking implements Serializable {
     private Integer trackId;
@@ -27,6 +33,12 @@ public class TrackClientBacking implements Serializable {
     @Inject
     private TrackJpaController trackControl;
     
+    @Inject
+    private ReviewsWebController reviewsControl;
+    
+    @Inject
+    private SimilarTracksController similarControl;
+    
     /**
      * Initialize the Track entity based on the trackId
      */
@@ -34,8 +46,36 @@ public class TrackClientBacking implements Serializable {
         track = trackControl.findTrack(trackId);
     }
     
+    
     public void setTrackId(Integer trackId){
         this.trackId = trackId;
+    }
+    
+    public String getArtists(){
+        if (track == null)
+            return "";
+        List<Artist> artists = track.getArtists();
+        if (artists == null || artists.isEmpty()){
+            return "";
+        }
+        
+        String formattedArtists = "";
+        for (int i = 0; i < artists.size(); i++){
+            formattedArtists += artists.get(i).getName();
+            if (i < artists.size() - 1){
+                formattedArtists += ", ";
+            }
+        }
+        return formattedArtists;
+        
+    }
+    
+    public List<Track> getSimilarTracks(){
+        return similarControl.getSimilarTracks(track);
+    }
+    
+    public List<Review> getReviews(){
+        return (track != null)?track.getReviews():(new ArrayList<Review>());
     }
     
     public Integer getTrackId(){
