@@ -30,7 +30,7 @@ import javax.transaction.UserTransaction;
  * @author 1710030
  */
 
-@Named("artistController")
+@Named
 @SessionScoped
 public class ArtistJpaController implements Serializable {
     

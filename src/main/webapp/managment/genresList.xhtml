@@ -15,9 +15,9 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{genreController.isEmpty()}"/>
-            <h:panelGroup rendered="#{!genreController.isEmpty()}">
-                <p:dataTable id="tbl" value="#{genreController.findGenreEntities()}" var="item"
+            <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{theGenres.isEmpty()}"/>
+            <h:panelGroup rendered="#{!theGenres.isEmpty()}">
+                <p:dataTable id="tbl" value="#{theGenres.genres}" var="item"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" style="margin-bottom:20px">
 

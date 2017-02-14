@@ -11,7 +11,7 @@
         </ui:define>
         
         <ui:define name="content">
-
+            <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
@@ -23,7 +23,6 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  paginator="true" rows="10" style="margin-bottom:20px">
 
-                        
                         <p:column width="2%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAlbumTitle_id}"/>
@@ -96,9 +95,8 @@
                             </f:facet>
                             <h:outputText value="#{item.available}"/>
                         </p:column>
-                                                             
                     </p:dataTable>
                 </h:panelGroup>
-            
+            </h:form>
         </ui:define>
     </ui:composition>

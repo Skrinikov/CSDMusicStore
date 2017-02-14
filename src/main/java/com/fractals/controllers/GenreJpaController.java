@@ -29,7 +29,7 @@ import javax.transaction.UserTransaction;
  *
  * @author 1710030
  */
-@Named("genreController")
+@Named
 @SessionScoped
 public class GenreJpaController implements Serializable {
 

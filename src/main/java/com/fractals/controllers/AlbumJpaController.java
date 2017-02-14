@@ -31,7 +31,7 @@ import javax.transaction.UserTransaction;
  * @author 1710030
  */
 
-@Named("albumController")
+@Named
 @SessionScoped
 public class AlbumJpaController implements Serializable {
 

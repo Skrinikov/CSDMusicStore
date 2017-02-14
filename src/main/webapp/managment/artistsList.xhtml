@@ -15,11 +15,11 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
 
-                <h:outputText escape="false" value="#{bundle.ListArtistEmpty}" rendered="#{artistController.isEmpty()}"/>
+                <h:outputText escape="false" value="#{bundle.ListArtistEmpty}" rendered="#{theArtists.isEmpty()}"/>
 
-                <h:panelGroup rendered="#{!artistController.isEmpty()}">
+                <h:panelGroup rendered="#{!theArtists.isEmpty()}">
                     <f:view>
-                        <p:dataTable id="tbl" value="#{artistController.findArtistEntities()}" var="item"
+                        <p:dataTable id="tbl" value="#{theArtists.artists}" var="item"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginator="true" rows="10" style="margin-bottom:20px">
 
