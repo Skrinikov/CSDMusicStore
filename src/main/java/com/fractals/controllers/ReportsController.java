@@ -2,6 +2,7 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import java.io.Serializable;
@@ -145,7 +146,13 @@ public class ReportsController implements Serializable {
         return result.size();
     }
     
-    public List<Object[]> getTopSellers(LocalDateTime start, LocalDateTime end){
+    /**
+     * 
+     * @param start
+     * @param end
+     * @return 
+     */
+    public List<Object[]> getTopTrackSellers(LocalDateTime start, LocalDateTime end){
         if (start == null || end == null) {
             return null;
         }
@@ -159,8 +166,13 @@ public class ReportsController implements Serializable {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         
         CriteriaQuery<Tuple> query = cb.createTupleQuery();
-        Root<Order> root = query.from(Order.class);
-        Join orderItem = root.join("orderItems");
+        Root<OrderItem> root = query.from(OrderItem.class);
+        Join tack = root.join(OrderItem_.track);
+        Join order = root.join(OrderItem_.order);
+        query.multiselect(cb.count(root.get(OrderItem_.track)));
+        query.groupBy(root.get(OrderItem_.track));
+        query.where(cb.and(cb.between(root.<LocalDateTime>get("orderDate"), start, end)));
+        
         return null;
     }
 

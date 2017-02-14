@@ -72,7 +72,7 @@ public class ReportsControllerTest {
         System.out.println("getZeroClients");
         //List<User> expResult = null;
         List<User> result = reports.getZeroClients();
-        assertThat(result).hasSize(62);
+        assertThat(result).hasSize(61);
         System.out.println(result.size()+" beh");
     }
     
