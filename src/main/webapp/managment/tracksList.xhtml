@@ -11,15 +11,13 @@
             <h:outputText value="#{bundle.ListTrackTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+  
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{trackController.isEmpty()}" rendered="true"/>
                 
                 <f:view>
-
-
                     <h:form>
                         <h1><h:outputText value="List"/></h1>
                         <p:dataTable value="#{trackController.findTrackEntities()}" var="item">
@@ -59,14 +57,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.coverFile}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CreatedAt"/>
-                                </f:facet>
-                                <h:outputText value="#{item.createdAt}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </p:column>
+                     
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="CostPrice"/>
@@ -109,25 +100,25 @@
                                 <f:facet name="header">
                                     <h:outputText value="AlbumId"/>
                                 </f:facet>
-                                <h:outputText value="#{item.albumId}"/>
+                                <h:outputText value="#{item.album}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="GenreId"/>
                                 </f:facet>
-                                <h:outputText value="#{item.genreId}"/>
+                                <h:outputText value="#{item.genre}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="ReviewsCollection"/>
+                                    <h:outputText value="Reviews"/>
                                 </f:facet>
-                                <h:outputText value="#{item.reviewsCollection}"/>
+                                <h:outputText value="#{item.reviews}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="OrderItemsCollection"/>
+                                    <h:outputText value="OrderItems"/>
                                 </f:facet>
-                                <h:outputText value="#{item.orderItemsCollection}"/>
+                                <h:outputText value="#{item.orderItems}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>
@@ -138,7 +129,7 @@
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListTrackIndexLink}"/>
-            </h:form>
+
         </ui:define>
     </ui:composition>
 
