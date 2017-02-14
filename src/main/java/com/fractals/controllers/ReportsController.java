@@ -144,5 +144,24 @@ public class ReportsController implements Serializable {
         
         return result.size();
     }
+    
+    public List<Object[]> getTopSellers(LocalDateTime start, LocalDateTime end){
+        if (start == null || end == null) {
+            return null;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
+        CriteriaQuery<Tuple> query = cb.createTupleQuery();
+        Root<Order> root = query.from(Order.class);
+        Join orderItem = root.join("orderItems");
+        return null;
+    }
 
 }
