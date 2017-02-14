@@ -17,6 +17,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -82,8 +83,6 @@ public class ReportsController implements Serializable {
             end = temp;
         }
 
-        List<OrderItem> oItems = new ArrayList<>();
-
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         
         CriteriaQuery<Track> mainQuery = cb.createQuery(Track.class);
@@ -104,12 +103,46 @@ public class ReportsController implements Serializable {
     }
     
     /**
-     * Gets a list of clients in order of value of their total purchases.
+     * Fetches the top clients from the database between the given dates. Returns
+     * a list which contains all clients who have made a purchase. Each list item
+     * contains the client's id, username and the total purchase amount.
      * 
-     * @return 
+     * @param start Start of the date range period.
+     * @param end End of the date range period.
+     * @return List ordered in descending order of all the clients based on their purchase amount.
      */
-    public List<Object[]> getTopClients(){
-        return null;
+    public int getTopClients(LocalDateTime start, LocalDateTime end){
+        if (start == null || end == null) {
+            return 0;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
+        // Query
+        // SELECT username, SUM(gross_cost) FROM orders INNER JOIN users ON orders.user_id=users.id GROUP BY user_id ORDER BY SUM(gross_cost) DESC;
+        CriteriaQuery<Tuple> query = cb.createTupleQuery();
+        Root<Order> root = query.from(Order.class);
+        Join userJoin = root.join("user");
+        query.multiselect(cb.sum(root.get("grossCost")),userJoin.get("username"));
+        query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
+        query.groupBy(userJoin.get("id"));
+        query.orderBy(cb.desc(cb.sum(root.get("grossCost"))));
+        
+        List<Tuple> result = entityManager.createQuery(query).getResultList();
+        List<Object[]> convResult = new ArrayList<>();
+        
+        // Converting Tuple to an object array to facilitate data transmission.
+        for(Tuple t : result){
+            convResult.add(new Object[]{t.get(0),t.get(1)});
+        }
+        
+        return result.size();
     }
 
 }

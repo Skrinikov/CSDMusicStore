@@ -6,7 +6,7 @@
      
     <container qualifier="glassfish" default="true">
         <configuration>
-            <property name="adminPort">10828</property>
+            <property name="adminPort">4848</property>
         </configuration>
     </container>
  

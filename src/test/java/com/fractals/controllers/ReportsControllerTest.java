@@ -81,8 +81,16 @@ public class ReportsControllerTest {
         System.out.println("getZeroTracks");
         List<Track> result = reports.getZeroTracks(LocalDateTime.now().minusDays(2), LocalDateTime.now());
         
-        assertThat(result).hasSize(75);
+        assertThat(result).hasSize(60);
         System.out.println(result);
     }
     
+    @Test
+    public void testGetTopClients(){
+        System.out.println("getZeroTracks");
+        int result = reports.getTopClients(LocalDateTime.now().minusDays(2), LocalDateTime.now());
+        
+        assertThat(result).isEqualTo(35);
+        System.out.println(result);
+    }
 }
