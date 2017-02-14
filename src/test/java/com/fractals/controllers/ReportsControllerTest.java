@@ -49,6 +49,7 @@ public class ReportsControllerTest {
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addPackage(ReportsController.class.getPackage())
                 .addPackage(User.class.getPackage())
+                .addPackage(Track.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
@@ -80,7 +81,7 @@ public class ReportsControllerTest {
         System.out.println("getZeroTracks");
         List<Track> result = reports.getZeroTracks(LocalDateTime.now().minusDays(2), LocalDateTime.now());
         
-        assertThat(result).hasSize(62);
+        assertThat(result).hasSize(75);
         System.out.println(result);
     }
     
