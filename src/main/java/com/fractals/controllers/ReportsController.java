@@ -1,5 +1,6 @@
 package com.fractals.controllers;
 
+import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
@@ -66,9 +67,9 @@ public class ReportsController implements Serializable {
     }
 
     /**
-     * Finds all tracks that have never been sold.
+     * Finds all tracks that have never been sold between the given time range.
      *
-     * @return
+     * @return List of all the Tracks that never been sold.
      */
     public List<Track> getZeroTracks(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
@@ -86,29 +87,28 @@ public class ReportsController implements Serializable {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         
         CriteriaQuery<Track> mainQuery = cb.createQuery(Track.class);
-        Root<Track> mainRoot = mainQuery.from(Track.class);
-        
-        CriteriaQuery<OrderItem> c = cb.createQuery(OrderItem.class);        
-        Root<OrderItem> orderI = c.from(OrderItem.class);
+        Root<Track> mainRoot = mainQuery.from(Track.class);        
 
         // Subquery logic.
-        Subquery<OrderItem> subQuery =  mainQuery.subquery(OrderItem.class);
-        Root<OrderItem> subRoot = subQuery.from(OrderItem.class);
-        Join orderJoin  = subRoot.join("order");
-        subQuery.where(cb.between(orderJoin.<LocalDateTime>get("orderDate"), start, end));
+        Subquery<Track> subQuery =  mainQuery.subquery(Track.class);
+        Root<Track> subRoot = subQuery.from(Track.class);
+        Join orderJoin  = subRoot.join("orderItems").join("order");
+        subQuery.select(subRoot.get("id"));
+        subQuery.where(cb.between(orderJoin.<LocalDateTime>get("orderDate"), start, end)).distinct(true);
         
         // Main query
-        mainRoot.join(subQuery, JoinType.LEFT);
+        mainQuery.select(mainRoot);
+        mainQuery.where(mainRoot.get("id").in(subQuery)).distinct(true);     
         
-        Join orderJ = orderI.join("order");
-        c.where(cb.between(orderJ.<LocalDateTime>get("orderDate"), start, end));
-        
-        TypedQuery<OrderItem> tqOI = entityManager.createQuery(c);
-        oItems = (List<OrderItem>) tqOI.getResultList();
-        
-
-        System.out.println(oItems);
-        
+        return entityManager.createQuery(mainQuery).getResultList();
+    }
+    
+    /**
+     * Gets a list of clients in order of value of their total purchases.
+     * 
+     * @return 
+     */
+    public List<Object[]> getTopClients(){
         return null;
     }
 
