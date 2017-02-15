@@ -10,6 +10,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.controllers.ReviewsWebController;
+import com.fractals.controllers.ShoppingCart;
 import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
@@ -42,6 +43,9 @@ public class TrackClientBacking implements Serializable {
     @Inject
     private SimilarTracksController similarControl;
     
+    @Inject
+    private ShoppingCart cart;
+    
     /**
      * Initialize the Track entity based on the trackId
      */
@@ -52,6 +56,13 @@ public class TrackClientBacking implements Serializable {
     public void addReview(){
         //Won't work because we have to deal with the user
         this.reviewsControl.addReview(track, review, null, rating.intValue());
+    }
+    
+    /**
+     * Adding the current instance of the Track to the shopping cart
+     */
+    public void addToCart(){
+        this.cart.add(track);
     }
     
     public void setTrackId(Integer trackId){
