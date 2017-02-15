@@ -2,7 +2,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
-import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import java.io.Serializable;
@@ -85,34 +84,36 @@ public class ReportsController implements Serializable {
         }
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
+
         CriteriaQuery<Track> mainQuery = cb.createQuery(Track.class);
-        Root<Track> mainRoot = mainQuery.from(Track.class);        
+        Root<Track> mainRoot = mainQuery.from(Track.class);
 
         // Subquery logic.
-        Subquery<Track> subQuery =  mainQuery.subquery(Track.class);
+        Subquery<Track> subQuery = mainQuery.subquery(Track.class);
         Root<Track> subRoot = subQuery.from(Track.class);
-        Join orderJoin  = subRoot.join("orderItems").join("order");
+        Join orderJoin = subRoot.join("orderItems").join("order");
         subQuery.select(subRoot.get("id"));
         subQuery.where(cb.between(orderJoin.<LocalDateTime>get("orderDate"), start, end)).distinct(true);
-        
+
         // Main query
         mainQuery.select(mainRoot);
-        mainQuery.where(mainRoot.get("id").in(subQuery)).distinct(true);     
-        
+        mainQuery.where(mainRoot.get("id").in(subQuery)).distinct(true);
+
         return entityManager.createQuery(mainQuery).getResultList();
     }
-    
+
     /**
-     * Fetches the top clients from the database between the given dates. Returns
-     * a list which contains all clients who have made a purchase. Each list item
-     * contains the client's id, username and the total purchase amount.
-     * 
+     * Fetches the top clients from the database between the given dates.
+     * Returns a list which contains all clients who have made a purchase. Each
+     * list item contains the client's id, username and the total purchase
+     * amount.
+     *
      * @param start Start of the date range period.
      * @param end End of the date range period.
-     * @return List ordered in descending order of all the clients based on their purchase amount.
+     * @return List ordered in descending order of all the clients based on
+     * their purchase amount.
      */
-    public int getTopClients(LocalDateTime start, LocalDateTime end){
+    public int getTopClients(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -122,37 +123,37 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
+
         // Query
         // SELECT username, SUM(gross_cost) FROM orders INNER JOIN users ON orders.user_id=users.id GROUP BY user_id ORDER BY SUM(gross_cost) DESC;
         CriteriaQuery<Tuple> query = cb.createTupleQuery();
         Root<Order> root = query.from(Order.class);
         Join userJoin = root.join("user");
-        query.multiselect(cb.sum(root.get("grossCost")),userJoin.get("username"));
+        query.multiselect(cb.sum(root.get("grossCost")), userJoin.get("username"));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         query.groupBy(userJoin.get("id"));
         query.orderBy(cb.desc(cb.sum(root.get("grossCost"))));
-        
+
         List<Tuple> result = entityManager.createQuery(query).getResultList();
         List<Object[]> convResult = new ArrayList<>();
-        
+
         // Converting Tuple to an object array to facilitate data transmission.
-        for(Tuple t : result){
-            convResult.add(new Object[]{t.get(0),t.get(1)});
+        for (Tuple t : result) {
+            convResult.add(new Object[]{t.get(0), t.get(1)});
         }
-        
+
         return result.size();
     }
-    
+
     /**
-     * 
+     *
      * @param start
      * @param end
-     * @return 
+     * @return
      */
-    public List<Object[]> getTopTrackSellers(LocalDateTime start, LocalDateTime end){
+    public List<Object[]> getTopTrackSellers(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return null;
         }
@@ -162,18 +163,89 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
+
         CriteriaQuery<Tuple> query = cb.createTupleQuery();
         Root<OrderItem> root = query.from(OrderItem.class);
-        Join tack = root.join(OrderItem_.track);
-        Join order = root.join(OrderItem_.order);
-        query.multiselect(cb.count(root.get(OrderItem_.track)));
-        query.groupBy(root.get(OrderItem_.track));
-        query.where(cb.and(cb.between(root.<LocalDateTime>get("orderDate"), start, end)));
-        
+        Join track = root.join("track");
+        Join order = root.join("order");
+        query.multiselect(track.get("title"), cb.count(root.get("track")));
+        query.groupBy(root.get("track"));
+        query.where(cb.and(cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
+
         return null;
     }
+
+    /**
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public List<Object[]> getTopAlbumSellers(LocalDateTime start, LocalDateTime end) {
+        if (start == null || end == null) {
+            return null;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Tuple> query = cb.createTupleQuery();
+        Root<OrderItem> root = query.from(OrderItem.class);
+        Join album = root.join("album");
+        Join order = root.join("order");
+        query.multiselect(cb.count(root.get("album")));
+        query.groupBy(root.get("album"));
+        query.where(cb.and(cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     *
+     * @param identifier Can be the username of the client or the email.
+     * @return
+     */
+    public List<Object[]> getSalesByClient(String identifier, LocalDateTime start, LocalDateTime end) {
+        if (start == null || end == null) {
+            return null;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Tuple> query = cb.createTupleQuery();
+        Root<OrderItem> root = query.from(OrderItem.class);
+        Join order = root.join("order");
+        Join user = order.join("user");
+        Join track = order.join("track");
+        query.multiselect(cb.sum(order.get("grossCost")));
+        
+        // Can be either email.
+        query.where(
+                cb.and(
+                        cb.between(order.<LocalDateTime>get("orderDate"), start, end),
+                        cb.or(
+                                cb.equal(user.get("username"), identifier),
+                                cb.equal(user.get("email"), identifier)
+                        )
+                )
+        );
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
 
 }
