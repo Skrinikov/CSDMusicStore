@@ -39,9 +39,11 @@ public class SimilarTracksController implements Serializable {
         
         List<Track> tracks = new ArrayList<>();
         Genre genre = track.getGenre();
-        TypedQuery<Track> query = entityManager.createQuery("select t from Track a where t.genre_id like %?1%'", Track.class);
-        query.setParameter(1, genre.getId());
-        tracks = (List<Track>)query.getResultList();
+        //TypedQuery<Track> query = entityManager.createQuery("select t from Track t where t.genre_id = ?1", Track.class);
+        //query.setParameter(1, genre.getId());
+        //tracks = (List<Track>)query.getResultList();
+        
+        tracks= genre.getTracks();
         
         //Taking out the original track from the result
         tracks.remove(track);
