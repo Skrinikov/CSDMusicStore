@@ -131,7 +131,7 @@ public class ReportsController implements Serializable {
         CriteriaQuery<Tuple> query = cb.createTupleQuery();
         Root<Order> root = query.from(Order.class);
         Join userJoin = root.join("user");
-        query.multiselect(cb.sum(root.get("grossCost")), userJoin.get("username"));
+        query.multiselect(cb.sum(root.get("grossCost")), root);
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         query.groupBy(userJoin.get("id"));
         query.orderBy(cb.desc(cb.sum(root.get("grossCost"))));
@@ -208,6 +208,7 @@ public class ReportsController implements Serializable {
     }
 
     /**
+     * Gets the total sales for a client
      *
      * @param identifier Can be the username of the client or the email.
      * @return
@@ -230,8 +231,8 @@ public class ReportsController implements Serializable {
         Join order = root.join("order");
         Join user = order.join("user");
         Join track = order.join("track");
-        query.multiselect(cb.sum(order.get("grossCost")));
-        
+        query.multiselect(user ,cb.sum(order.get("grossCost")));
+
         // Can be either email.
         query.where(
                 cb.and(
@@ -245,7 +246,24 @@ public class ReportsController implements Serializable {
 
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 
+    public List<Object[]> getTotalSales(LocalDateTime start, LocalDateTime end) {
+        if (start == null || end == null) {
+            return null;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Object[]> getSalesByTrack(String trackName, LocalDateTime start, LocalDateTime end){
+        return null;
+    }
 }
