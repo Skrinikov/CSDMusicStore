@@ -2,7 +2,6 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Survey;
-import com.fractals.beans.Survey_;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;

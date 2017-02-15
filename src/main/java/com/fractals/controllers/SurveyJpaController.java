@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +28,7 @@ import javax.transaction.UserTransaction;
  */
 
 @Named("surveyController")
-@RequestScoped
+@SessionScoped
 public class SurveyJpaController implements Serializable {
 
     public SurveyJpaController() 
@@ -71,11 +72,7 @@ public class SurveyJpaController implements Serializable {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
             throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
+        } 
     }
 
     public void edit(Survey survey) throws NonexistentEntityException, RollbackFailureException, Exception {
@@ -124,10 +121,6 @@ public class SurveyJpaController implements Serializable {
                 }
             }
             throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
         }
     }
 
@@ -155,11 +148,7 @@ public class SurveyJpaController implements Serializable {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
             throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
+        } 
     }
 
     public List<Survey> findSurveyEntities() {
@@ -171,7 +160,7 @@ public class SurveyJpaController implements Serializable {
     }
 
     private List<Survey> findSurveyEntities(boolean all, int maxResults, int firstResult) {
-        try {
+      
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Survey.class));
             Query q = em.createQuery(cq);
@@ -180,29 +169,23 @@ public class SurveyJpaController implements Serializable {
                 q.setFirstResult(firstResult);
             }
             return q.getResultList();
-        } finally {
-            em.close();
-        }
+        
     }
 
     public Survey findSurvey(Integer id) {
-        try {
+        
             return em.find(Survey.class, id);
-        } finally {
-            em.close();
-        }
+      
     }
 
     public int getSurveyCount() {
-        try {
+        
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             Root<Survey> rt = cq.from(Survey.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
+      
     }
     
 }
