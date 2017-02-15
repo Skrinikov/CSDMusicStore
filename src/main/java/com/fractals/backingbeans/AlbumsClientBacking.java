@@ -9,6 +9,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.ShoppingCart;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +31,19 @@ public class AlbumsClientBacking {
     @Inject
     AlbumJpaController albumControl;
     
+    @Inject
+    ShoppingCart shopControl;
+    
     //Initializes the Album entity
     public void init(){
          album = albumControl.findAlbum(albumId);
+    }
+    
+    /**
+     * Function to add the current instance of the album to the shopping
+     */
+    public void addAlbumToCart(){
+        shopControl.add(album);
     }
     
     public Album getAlbum(){
