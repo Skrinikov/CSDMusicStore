@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,6 +30,8 @@ import javax.inject.Named;
 public class TrackClientBacking implements Serializable {
     private Integer trackId;
     private Track track;
+    private Integer rating;
+    private String review;
     
     @Inject
     private TrackJpaController trackControl;
@@ -46,6 +49,10 @@ public class TrackClientBacking implements Serializable {
         track = trackControl.findTrack(trackId);
     }
     
+    public void addReview(){
+        //Won't work because we have to deal with the user
+        this.reviewsControl.addReview(track, review, null, rating.intValue());
+    }
     
     public void setTrackId(Integer trackId){
         this.trackId = trackId;
