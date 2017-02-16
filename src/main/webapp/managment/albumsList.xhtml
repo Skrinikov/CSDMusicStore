@@ -1,0 +1,122 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListAlbumTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
+
+            <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
+
+                <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theAlbums.selectedAlbum}" rowKey="#{item.id}">
+
+
+                    <p:column width="2%">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_title}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.title}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_releaseDate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.releaseDate}"/>
+
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_recordLabel}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.recordLabel}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_numTracks}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numTracks}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_createdAt}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createdAt}"/>
+
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_costPrice}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.costPrice}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_listPrice}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.listPrice}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_salePrice}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.salePrice}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_removedAt}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.removedAt}"/>
+
+                    </p:column>                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAlbumTitle_available}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.available}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton process="tbl" update=":form:albumDetail" icon="ui-icon-search" value="View" oncomplete="PF('albumDialog').show()" />
+                    </f:facet>       
+
+                </p:dataTable>
+
+            </h:panelGroup>
+
+
+            <p:dialog header="Album Info" widgetVar="albumDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="albumDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty theAlbums.selectedAlbum}" columnClasses="label,value">
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{theAlbums.selectedAlbum.id}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

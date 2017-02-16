@@ -29,7 +29,7 @@ import javax.transaction.UserTransaction;
  *
  * @author 1710030
  */
-@Named("trackController")
+@Named
 @RequestScoped
 public class TrackJpaController implements Serializable {
    @Resource
