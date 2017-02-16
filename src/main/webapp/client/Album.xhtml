@@ -1,0 +1,74 @@
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <ui:define name="extra-meta">
+            
+         <f:metadata>
+            <f:viewParam name="id" value="#{albumsCLBack.albumId}" /> 
+            <f:event type="preRenderView" listener="#{albumsCLBack.init}" />
+         </f:metadata>
+            
+    </ui:define>
+    <ui:define name="windowTitle">#{albumsCLBack.title}</ui:define>
+
+    <ui:define name="content">
+        <br/> <br/> <br/> <br/>
+        <h3>#{albumsCLBack.title}</h3>
+
+        <div>
+            <h4>Album Information</h4>
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:graphicImage name="images/test_cover.jpg" style="max-height: 300px"/>
+                </f:facet>
+
+                <h:outputText value="Artist:" />
+                <h:outputText value="#{albumsCLBack.artist.name}" />
+
+                <h:outputText value="Record Label:" />
+                <h:outputText value="#{albumsCLBack.label}" />
+
+                <h:outputText value="Listed Price:" />
+                <h:outputText value="$#{albumsCLBack.listPrice}" />
+
+            </p:panelGrid>
+
+
+        </div>
+
+        <div>
+            <!-- Track List -->
+            <h3>List of Tracks</h3>
+            <p:dataTable var="track" value="#{albumsCLBack.tracks}">
+                <p:column headerText="Track Number">
+                    <h:outputText value="#{track.albumNum}" />
+                </p:column>
+
+                <p:column headerText="Song Title">
+                    <h:outputText value="#{track.title}" />
+                </p:column>
+
+                <p:column headerText="Duration">
+                    <h:outputText value="#{track.duration}" />
+                </p:column>
+
+                <p:column headerText="Link">
+                    <h:link value="Track Page" outcome="Track">
+                        <f:param name="id" value="#{track.id}"/>
+                </h:link>
+                </p:column>
+
+
+
+            </p:dataTable>
+
+        </div>
+        
+    </ui:define> 
+    
+</ui:composition>

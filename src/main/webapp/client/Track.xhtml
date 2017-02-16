@@ -1,0 +1,83 @@
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="extra-meta">
+
+        <f:metadata>
+            <f:viewParam name="id" value="#{trackCLBack.trackId}" /> 
+            <f:event type="preRenderView" listener="#{trackCLBack.init}" />
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="windowTitle">#{trackCLBack.title}</ui:define>
+
+    <ui:define name="content">
+        <br/> <br/> <br/> <br/>
+        <div>
+            <h4>Track Information</h4>
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:graphicImage name="images/test_cover.jpg" style="max-height: 300px" />
+                </f:facet>
+
+                <h:outputText value="Artist:" />
+                <h:outputText value="#{trackCLBack.artists}" />
+
+                <h:outputText value="Duration:" />
+                <h:outputText value="#{trackCLBack.duration}" />
+
+                <h:outputText value="Listed Price:" />
+                <h:outputText value="$#{trackCLBack.listedPrice}" />
+
+                <h:outputText value="Sales Price:" />
+                <h:outputText value="$#{trackCLBack.salesPrice}" />
+
+                <h:outputText value="Writer:" />
+                <h:outputText value="#{trackCLBack.writer}" />
+
+            </p:panelGrid>
+
+            <br /><br/>
+
+            <p:carousel value="#{trackCLBack.similarTracks}" headerText="Similar Track" var="aSimTrack" styleClass="ui-priority-primary" itemStyle="text-align:center" numVisible="2" >
+                <p:panelGrid columns="1" style="margin:5px 0px" >
+                    <f:facet name="header">
+                        <p:graphicImage name="images/test_cover.jpg" style="max-height: 155px"/>
+                    </f:facet>
+                    <h:outputText value="#{aSimTrack.title}"/>
+                </p:panelGrid>
+            </p:carousel>
+        </div>
+        <div>
+            <h4>Reviews</h4>
+            <div>
+                <div>
+                    <h:form>
+                        <h5>Add a Review</h5>
+                        <p:inputTextarea rows="10" cols="50" />
+                        <h:outputText value="Basic" />
+                        <p:commandButton value="Submit" actionListener="#{trackCLBack.addReview}" />
+
+                    </h:form>
+                </div>
+
+                <div>
+                    <ui:repeat value="#{trackCLBack.reviews}" var="review">
+                        <div>
+
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
+        </div>
+
+    </ui:define> 
+
+</ui:composition>
