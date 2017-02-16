@@ -19,9 +19,26 @@ import javax.inject.Named;
 @Named("theAlbums")
 @RequestScoped
 public class AlbumBackingBean {
+   
+    private Album selectedAlbum;
+    
+    public Album getSelectedAlbum(){
+        return selectedAlbum;
+    }
+    
+    public void setSelectedAlbum(Album a){
+        selectedAlbum = a;
+    }
+    
+    
+    public Album getFirst(){
+        return getAlbums().get(0);
+    }
+    
     
     @Inject
     private AlbumJpaController albumJpaController;
+
     
       public List<Album> getAlbums() {
         return albumJpaController.findAlbumEntities();
