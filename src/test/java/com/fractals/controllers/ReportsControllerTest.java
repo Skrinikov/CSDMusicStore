@@ -1,7 +1,7 @@
 package com.fractals.controllers;
 
-
 import com.fractals.beans.Album;
+import com.fractals.beans.Order;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import org.junit.runner.RunWith;
@@ -16,10 +16,13 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
+
 /**
  *
  * @author Danieil Skrinikov
@@ -27,6 +30,7 @@ import org.junit.Ignore;
 @Ignore
 @RunWith(Arquillian.class)
 public class ReportsControllerTest {
+
     @Deployment
     public static WebArchive deploy() {
 
@@ -49,6 +53,7 @@ public class ReportsControllerTest {
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addPackage(ReportsController.class.getPackage())
                 .addPackage(User.class.getPackage())
+                .addPackage(Track.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
@@ -66,15 +71,41 @@ public class ReportsControllerTest {
     /**
      * Test of getZeroClients method, of class ReportsController.
      */
+    @Ignore
     @Test
     public void testGetZeroClients() {
         System.out.println("getZeroClients");
         //List<User> expResult = null;
         List<User> result = reports.getZeroClients();
-        //assertEquals(expResult, result);
-        System.out.println(result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertThat(result).hasSize(62);
     }
-    
+
+    @Test
+    public void testGetZeroTracks() {
+        System.out.println("getZeroTracks");
+        List<Track> result = reports.getZeroTracks(LocalDateTime.now().minusDays(2), LocalDateTime.now());
+
+        assertThat(result).hasSize(60);
+        System.out.println(result);
+    }
+
+    @Ignore
+    @Test
+    public void testGetTopClients() {
+        System.out.println("getZeroTracks");
+        List<Object[]> result = reports.getTopClients(LocalDateTime.now().minusDays(40), LocalDateTime.now());
+
+        System.out.println("test\n" + result.size());
+        assertThat("Hello").isNotEmpty();
+    }
+
+    @Test
+    public void testGetTotalSales() {
+        System.out.println("getTotalSales");
+        List<Order> result = reports.getTotalSales(LocalDateTime.now().minusDays(20), LocalDateTime.now());
+
+        System.out.println("test\n" + result.size());
+        assertThat("Hello").isNotEmpty();
+    }
+
 }
