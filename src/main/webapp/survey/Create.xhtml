@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+     
+     
+     <ui:define name="title">
+         <h:outputText value="Make Bun var"></h:outputText>
+     </ui:define>
+     
+     <ui:define name="content">
+
+         <f:view>
+             <h:form>
+                 <h1><h:outputText value="Create Survey"/></h1>
+                 <p:panelGrid columns="2">
+                     
+                     <p:outputLabel value="Id:" for="id" />
+                     <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
+                     
+                     <p:outputLabel value="Question:" for="question" />
+                     <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="The Question field is required."/>
+                     <p:outputLabel value="Visible:" />
+                     <h:selectOneRadio value="#{surveyBacking.current.visible}">
+                        <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
+                        <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
+                    </h:selectOneRadio>	
+                     
+                 </p:panelGrid>
+             </h:form>
+             
+             <p:commandButton value="Save" action="#{surveyController.create(surveyBacking.current)}">
+             </p:commandButton>
+             
+             <p:link outcome="List" value="Back"></p:link>
+             
+         </f:view>
+
+         
+     </ui:define>
+     
+ </ui:composition>

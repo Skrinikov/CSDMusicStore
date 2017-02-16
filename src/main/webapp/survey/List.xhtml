@@ -15,6 +15,8 @@
      <ui:define name="content">
                      
          <f:view>
+             <p:commandButton icon="ui-icon-plus" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
+             </p:commandButton>
             <h:form>
                  <h1><h:outputText value="Survey PLZ MY INTO A BUNDLE PROPERTY"/></h1>
                  <p:dataTable value="#{surveyController.findSurveyEntities()}" var="item">
@@ -38,13 +40,15 @@
                      </p:column>
                      
                      <p:column>
-                         <p:button outcome="/index" icon="ui-icon-trash" title="Icon Only">
-                           
-                        </p:button>
+                         <p:commandButton icon="ui-icon-trash" title="Icon Only" action="#{surveyController.destroy(item.id)}">               
+                        </p:commandButton>
+                         
+                         <p:commandButton icon="ui-icon-pencil" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
+                        </p:commandButton>
                         
-                        <p:button outcome="/index" icon="ui-icon-pencil" title="Icon Only">
-                            <!--<f:param name="productId" value="30" /> -->
-                        </p:button> 
+                         
+   
+                         
                          
                      </p:column>
                      

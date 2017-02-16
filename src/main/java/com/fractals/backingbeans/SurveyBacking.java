@@ -2,9 +2,14 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Survey;
+import com.fractals.controllers.SurveyJpaController;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +30,12 @@ import javax.persistence.TypedQuery;
 @SessionScoped
 public class SurveyBacking implements Serializable {
     
+    private Integer surEditId; 
+    private Survey current; 
+    
+    @Inject
+    private SurveyJpaController sc; 
+     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager em;
     
@@ -48,6 +59,46 @@ public class SurveyBacking implements Serializable {
         
     }
     
+    
+    
+    
+    /**
+     * This method will be used to load the survey information and present 
+     * the manager with the survey edit page so he can edited it. 
+     */
+    public String redirectToSurveyEdit(Integer id)
+    {
+        this.surEditId = id;
+        this.current = sc.findSurvey(surEditId);
+        return "/survey/Edit.xhtml";
+    }
+    
+    public Survey getCurrent()
+    {
+        return current;
+    }
+    
+    public String saveRedirect()
+    {      
+        try {
+            sc.edit(current);
+            return "/survey/List.xhtml"; 
+            
+        } catch (RollbackFailureException ex) {
+            return "Failed message"; 
+        } catch (Exception ex) {
+            return "Failed message"; 
+        }      
+    }
+    
+    public String redirectCreate()
+    {
+        Survey sur = new Survey();
+        
+        this.current = sur; 
+        
+        return "/survey/Create.xhtml"; 
+    }
     
     
     
