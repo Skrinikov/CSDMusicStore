@@ -4,11 +4,12 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="windowTitle">
-        Bargh I dont cqre
+        Index
     </ui:define>
     <ui:define name="content">
+        <br/>
         <ui:fragment rendered="#{login.loggedIn}">
-            <p> Hello <h:outputText value="#{login.currentUser.username}"></h:outputText>!</p>
+            <h2> Hello <h:outputText value="#{login.currentUser.username}"></h:outputText>!</h2>
         </ui:fragment>
     </ui:define>
 </ui:composition>

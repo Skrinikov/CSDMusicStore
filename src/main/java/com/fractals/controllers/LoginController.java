@@ -87,8 +87,9 @@ public class LoginController implements Serializable {
         }   
     }
     
-    public void logout() {
+    public String logout() {
         currentUser = null;
+        return null;
     }
     
     public boolean isLoggedIn() {
