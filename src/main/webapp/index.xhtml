@@ -8,7 +8,7 @@
     </ui:define>
     <ui:define name="content">
         <ui:fragment rendered="#{login.loggedIn}">
-            <p> Hello <h:outputText value="#{login.currentUser.firstName}"></h:outputText>!</p>
+            <p> Hello <h:outputText value="#{login.currentUser.username}"></h:outputText>!</p>
         </ui:fragment>
     </ui:define>
 </ui:composition>
