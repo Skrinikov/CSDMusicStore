@@ -15,6 +15,7 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class SecurityHelper implements Serializable {
     private SecureRandom random = new SecureRandom();
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("SecurityHelper.class");
     
     //Creates a randomly generated String
     public String getSalt(){       
@@ -27,7 +28,7 @@ public class SecurityHelper implements Serializable {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), 
-                    salt.getBytes(), 1024, 256 );
+                    salt.getBytes(), 1024, 512);
             SecretKey key = skf.generateSecret(spec);
             byte[] hash = key.getEncoded();
             return hash;
@@ -38,6 +39,8 @@ public class SecurityHelper implements Serializable {
     }
     
     public boolean isHashValid(byte[] valid, byte[] given) {
+        if(valid.length != given.length)
+            return false;
         for(int i = 0; i < valid.length; i++)
             if(valid[i] != given[i])
                 return false;

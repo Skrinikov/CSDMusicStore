@@ -171,7 +171,6 @@ public class User implements Serializable {
     public User(Integer id, String username, String salt, String title, String firstName, String lastName, String address1, String city, String country, String postalCode, String email, boolean isAdmin) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.salt = salt;
         this.title = title;
         this.firstName = firstName;

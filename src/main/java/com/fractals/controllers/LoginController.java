@@ -39,9 +39,9 @@ public class LoginController implements Serializable {
         currentUser = userBacking.getUser();
         try{
             User userDb = getByUsername(currentUser.getUsername());
-            byte[] db = userDb.getPassword();
-            byte[] login = security.hash(userBacking.getPassword(), userDb.getSalt());
-            if(!security.isHashValid(db, login)) {
+            byte[] dbHash = userDb.getPassword();
+            byte[] loginHash = security.hash(userBacking.getPassword(), userDb.getSalt());
+            if(!security.isHashValid(dbHash, loginHash)) {
                 FacesMessage message = new FacesMessage("Invalid username or password!");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 currentUser = null;
@@ -78,6 +78,7 @@ public class LoginController implements Serializable {
             newUser.setPassword(passHash);
             userBacking.saveUser();
             try{
+                currentUser = newUser;
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
             }
             catch(IOException io) {
@@ -91,6 +92,7 @@ public class LoginController implements Serializable {
     }
     
     public boolean isLoggedIn() {
+        log.info((currentUser != null)+"");
         return currentUser != null;
     }
     
