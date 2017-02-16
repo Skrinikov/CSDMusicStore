@@ -3,7 +3,11 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
+import com.fractals.beans.OrderItem;
+import com.fractals.beans.User;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.UserTransaction;
@@ -12,6 +16,7 @@ import javax.transaction.UserTransaction;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -37,7 +42,6 @@ public class DownloadListController implements Serializable
     @Resource
     private UserTransaction userTransaction;
     
-    
     public DownloadListController()
     {
         super();
@@ -48,40 +52,42 @@ public class DownloadListController implements Serializable
     {
         //plz write the proper query 
         
+        User user = new User();
+        user.setId(new Integer(1));
         
-        //String query = "select track_id"
+        String query = 
+        "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
+                
+                
+        TypedQuery<OrderItem> q = entityManager.createQuery(query, OrderItem.class);
+        q.setParameter(1, user);
+        List<OrderItem>items = (List<OrderItem>)q.getResultList();  
         
-        //String query = "select t from OrderItem o \n" +
-         //               "Join o.orderId o where o.trackId = :userId";
+        //grab the tracks from the orderitems
         
+        List<Track> tracks = new ArrayList<>(); 
+        for(OrderItem oi : items)
+            tracks.add(oi.getTrack());
 
-        // Object oriented criteria builder
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Track> cq = cb.createQuery(Track.class);
-        Root<Track> t = cq.from(Track.class);
-        cq.select(t);
-               
-        TypedQuery<Track> query =  entityManager.createNamedQuery("Track.findAll", Track.class);
-              
-        List<Track> tracks = query.getResultList();
-        
         return tracks;  
     }
     
     public List<Album> getAlbums()
-    {
+    {     
         
-        //plz write the proper query 
+        User user = new User();
+        user.setId(new Integer(1));
         
-        // Object oriented criteria builder
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Album> cq = cb.createQuery(Album.class);
-        Root<Album> a = cq.from(Album.class);
-        cq.select(a);
-               
-        TypedQuery<Album> query =  entityManager.createNamedQuery("Album.findAll", Album.class);
-              
-        List<Album> albums = query.getResultList();
+        String query = 
+        "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
+                           
+        TypedQuery<OrderItem> q = entityManager.createQuery(query, OrderItem.class);
+        q.setParameter(1, user);
+        List<OrderItem>items = (List<OrderItem>)q.getResultList();  
+        
+        List<Album> albums = new ArrayList<>(); 
+        for(OrderItem oi : items)
+            albums.add(oi.getAlbum());
         
         return albums; 
     }

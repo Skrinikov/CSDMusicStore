@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+
+    This xhtml will display the content related to news feed info 
+
+    @Author Renuchan 
+-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -21,8 +28,17 @@
                     <h:inputText id="link" value="#{newsFeedController.selected.link}" title="#{bundle.EditNewsFeedTitle_link}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_link}"/>
                     <h:outputLabel value="#{bundle.EditNewsFeedLabel_source}" for="source" />
                     <h:inputText id="source" value="#{newsFeedController.selected.source}" title="#{bundle.EditNewsFeedTitle_source}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_source}"/>
+                    
+                    
+                    <h:selectOneRadio value="#{newsFeedController.selected.visible}">
+                        <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
+                        <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
+                    </h:selectOneRadio>	
+                    
+                    <!--
                     <h:outputLabel value="#{bundle.EditNewsFeedLabel_visible}" for="visible" />
                     <h:inputText id="visible" value="#{newsFeedController.selected.visible}" title="#{bundle.EditNewsFeedTitle_visible}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_visible}"/>
+                    -->
                 </h:panelGrid>
                 <h:commandLink action="#{newsFeedController.update}" value="#{bundle.EditNewsFeedSaveLink}"/>
                 <br />
