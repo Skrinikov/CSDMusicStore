@@ -1,14 +1,12 @@
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.UserBacking;
-import com.fractals.beans.Province;
 import com.fractals.beans.User;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,18 +17,16 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 /**
- * logs in users
- * @author lynn
+ * Responsible for register or log in users.
+ * @author Alena Shulzhenko
  */
 @Named("login")
 @SessionScoped
 public class LoginController implements Serializable {
 
-    private final transient Logger log = LoggerFactory.getLogger(getClass().getName());
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("LoginController.class");
     private SecurityHelper security = new SecurityHelper();
     @Inject
     private UserBacking userBacking;
@@ -55,14 +51,14 @@ public class LoginController implements Serializable {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
                 }
                 catch(IOException io) {
-                    log.error("error when redirecting", io);
+                    log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
                 }
             }
         }
         catch(EntityNotFoundException | NonUniqueResultException | NoResultException ex) {
             FacesMessage message = new FacesMessage("Invalid username or password!");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            log.error("invalid user", ex);
+            log.log(Level.WARNING,"invalid user: {0}", ex.getMessage());
             currentUser = null;
         }   
     }
@@ -71,7 +67,7 @@ public class LoginController implements Serializable {
         User newUser = userBacking.getUser();
         try{
             getByUsername(newUser.getUsername());
-            log.error("this user already exists");
+            log.log(Level.INFO, "this user already exists");
             FacesMessage message = new FacesMessage("Such user already exists!");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
@@ -85,7 +81,7 @@ public class LoginController implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
             }
             catch(IOException io) {
-                log.error("error when redirecting", io);
+                log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
             }
         }   
     }

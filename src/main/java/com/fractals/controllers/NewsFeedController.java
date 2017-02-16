@@ -1,8 +1,8 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.NewsFeed;
-import com.fractals.controllers.util.JsfUtil;
-import com.fractals.controllers.util.PaginationHelper;
+import com.fractals.jsf.util.JsfUtil;
+import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.beans.NewsFeedFacade;
 
 import java.io.Serializable;

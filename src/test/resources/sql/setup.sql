@@ -1,3 +1,205 @@
+use test;
+
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS artist_track;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS tracks;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS news_feeds;
+DROP TABLE IF EXISTS banner_ads;
+DROP TABLE IF EXISTS survey_choices;
+DROP TABLE IF EXISTS surveys;
+DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS artists;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS provinces;
+DROP TABLE IF EXISTS genres;
+
+
+
+CREATE TABLE provinces (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  pst FLOAT NOT NULL,
+  gst FLOAT NOT NULL,
+  hst FLOAT NOT NULL
+);
+
+
+CREATE TABLE genres (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  password BINARY(64) NOT NULL,
+  salt VARCHAR(255) NOT NULL,
+  title VARCHAR(50) NOT NULL, 
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  company VARCHAR(50),
+  address_1 VARCHAR(50) NOT NULL, 
+  address_2 VARCHAR(50),
+  city VARCHAR(50) NOT NULL, 
+  province_id INTEGER  NOT NULL, 
+  country VARCHAR(50) NOT NULL, 
+  postal_code VARCHAR(50) NOT NULL,
+  home_tel VARCHAR(20),
+  cell_tel VARCHAR(20),
+  email VARCHAR(255) NOT NULL,
+  last_genre INTEGER,
+  is_admin BOOLEAN DEFAULT false NOT NULL,
+  FOREIGN KEY (province_id) REFERENCES provinces(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (last_genre) REFERENCES genres(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE orders (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  order_date DATETIME DEFAULT now() NOT NULL,
+  user_id INTEGER  NOT NULL,
+  net_cost FLOAT DEFAULT 0 NOT NULL,
+  gross_cost FLOAT DEFAULT 0 NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE news_feeds (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  link VARCHAR(255) NOT NULL,
+  source VARCHAR(255) NOT NULL,
+  visible BOOLEAN DEFAULT false NOT NULL
+);
+
+
+CREATE TABLE banner_ads (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  link VARCHAR(255) NOT NULL,
+  source VARCHAR(255) NOT NULL,
+  visible BOOLEAN DEFAULT false NOT NULL
+);
+
+
+CREATE TABLE surveys (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  question VARCHAR(255) NOT NULL,
+  visible BOOLEAN DEFAULT false NOT NULL
+);
+
+
+CREATE TABLE survey_choices (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  survey_id INTEGER,
+  choice VARCHAR(255) NOT NULL,
+  num_votes INTEGER DEFAULT 0 NOT NULL,
+  FOREIGN KEY (survey_id) REFERENCES surveys(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE artists (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE albums (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  artist_id INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  release_date DATE NOT NULL,
+  record_label VARCHAR(255) NOT NULL,
+  num_tracks INTEGER NOT NULL,
+  created_at DATETIME DEFAULT now() NOT NULL,
+  cost_price FLOAT DEFAULT 0 NOT NULL,
+  list_price FLOAT DEFAULT 0 NOT NULL,
+  sale_price FLOAT DEFAULT 0 NOT NULL,
+  removed_at DATETIME,
+  available BOOLEAN DEFAULT true NOT NULL,
+  FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE tracks (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  album_id INTEGER NOT NULL,
+  genre_id INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  songwriter VARCHAR(255) NOT NULL,
+  duration VARCHAR(10) NOT NULL,
+  album_num INTEGER NOT NULL,
+  cover_file VARCHAR(255) NOT NULL,
+  created_at DATETIME DEFAULT now() NOT NULL,
+  cost_price FLOAT DEFAULT 0 NOT NULL,
+  list_price FLOAT DEFAULT 0 NOT NULL,
+  sale_price FLOAT DEFAULT 0 NOT NULL,
+  removed_at DATETIME,
+  available BOOLEAN DEFAULT true NOT NULL,
+  is_individual BOOLEAN DEFAULT false NOT NULL, 
+  FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE artist_track (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  artist_id INTEGER NOT NULL,
+  track_id INTEGER NOT NULL,
+  FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE reviews (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  track_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  rating INTEGER NOT NULL,
+  review_date DATETIME NOT NULL,
+  text VARCHAR(2000) NOT NULL,
+  approved BOOLEAN DEFAULT false NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+
+
+CREATE TABLE order_items (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  order_id INTEGER NOT NULL,
+  track_id INTEGER,
+  album_id INTEGER,
+  cost FLOAT DEFAULT 0 NOT NULL,
+  FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+-- Trigger
+-- delimiter //
+
+-- drop trigger if exists before_orders_insert //
+-- create trigger before_orders_insert
+-- before insert on orders
+-- for each row
+-- begin
+--    declare provinceid int;
+--    declare psttax float;
+--    declare gsttax float;
+--    declare hsttax float;
+
+--    select province_id into provinceid from users where users.id = new.user_id;
+--    select pst, gst, hst into psttax, gsttax, hsttax from provinces where provinces.id = provinceid;
+
+--    set new.gross_cost = new.net_cost + new.net_cost*psttax + new.net_cost*gsttax + new.net_cost*hsttax;
+
+-- end //
+
+-- delimiter ;
+
+
 insert into genres (name) values ('rock');
 insert into genres (name) values ('hip hop');
 insert into genres (name) values ('pop');
@@ -706,56 +908,56 @@ insert into users (username, password, salt, title, first_name, last_name, compa
 
 
 
-INSERT INTO orders(user_id, net_cost) VALUES ('12','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('59','11.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('61','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('31','11.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('33','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('22','21.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('51','21.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('69','3.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('86','30.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('39','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('31','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('3','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('2','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('11','12.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('72','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('97','10.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('10','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('69','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('24','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('19','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('40','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('36','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('19','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('71','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('79','12.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('25','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('25','10.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('72','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('16','10.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('59','13.95');
-INSERT INTO orders(user_id, net_cost) VALUES ('45','22.95');
-INSERT INTO orders(user_id, net_cost) VALUES ('59','31.95');
-INSERT INTO orders(user_id, net_cost) VALUES ('92','2.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('81','12.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('13','11.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('41','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('50','5.94');
-INSERT INTO orders(user_id, net_cost) VALUES ('21','11.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('44','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('2','2.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('51','1.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('3','10.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('23','3.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('86','31.95');
-INSERT INTO orders(user_id, net_cost) VALUES ('99','2.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('1','11.97');
-INSERT INTO orders(user_id, net_cost) VALUES ('30','0.99');
-INSERT INTO orders(user_id, net_cost) VALUES ('100','10.98');
-INSERT INTO orders(user_id, net_cost) VALUES ('41','3.96');
-INSERT INTO orders(user_id, net_cost) VALUES ('38','11.97');
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('12','0.99', 1.13825);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('59','11.97', 13.5261);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('61','1.98', 2.2374);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('31','11.97', 12.5685);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('33','0.99', 1.13825);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('22','21.96', 24.156);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('51','21.96', 23.058);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('69','3.96', 4.158);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('86','30.96', 35.5963);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('39','0.99', 1.1187);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('31','0.99', 1.0395);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('3','0.99', 1.13825);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('2','0.99', 1.1187);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('11','12.96', 14.6448);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('72','1.98', 2.277);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('97','10.98', 12.627);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('10','1.98', 2.2765);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('69','0.99', 1.0395);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('24','1.98', 2.2176);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('19','1.98', 2.2374);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('40','0.99', 1.1088);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('36','0.99', 1.0395);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('19','0.99', 1.1187);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('71','1.98', 2.079);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('79','12.96', 14.9008);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('25','0.99', 1.1187);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('25','10.98', 12.4074);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('72','1.98', 2.277);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('16','10.98', 12.627);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('59','13.95', 15.7635);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('45','22.95', 26.3868);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('59','31.95', 36.1035);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('92','2.97', 3.1185);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('81','12.96', 14.904);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('13','11.97', 13.167);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('41','1.98', 2.2374);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('50','5.94', 6.82951);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('21','11.97', 12.5685);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('44','0.99', 1.13825);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('2','2.97', 3.3561);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('51','1.98', 2.079);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('3','10.98', 12.6243);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('23','3.96', 4.4748);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('86','31.95', 36.7345);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('99','2.97', 3.41476);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('1','11.97', 13.167);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('30','0.99', 1.1385);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('100','10.98', 12.6243);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('41','3.96', 4.4748);
+INSERT INTO orders(user_id, net_cost, gross_cost) VALUES ('38','11.97', 12.5685);
 
 INSERT INTO order_items(order_id, track_id,cost) VALUES ('1','13','0.99');
 INSERT INTO order_items(order_id, track_id,cost) VALUES ('2','58','0.99');

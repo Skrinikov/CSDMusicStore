@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,12 +16,12 @@ import javax.sql.DataSource;
 
 /**
  * Creates schema and seeds the database with the test data.
+ * The routine is courtesy of Bartosz Majsak.
  * 
  * @author Alena Shulzhenko
  */
 public class DatabaseSeedManager {
     private DataSource ds;
-    // Default logger is java.util.logging
     private static final Logger log = Logger.getLogger("DatabaseSeedManager.class");
 
     /**
@@ -35,11 +36,45 @@ public class DatabaseSeedManager {
      * Starts seeding database with test values.
      */
     public void seed() {
-        final String seedDataScript = loadAsString("setup.sql");
-        log.info("Seeding");
-        
+        log.info("Seeding a schema");
+        seedFromFile(loadAsString("schema.sql"));
+        createTrigger();
+        log.info("Adding test values");
+        seedFromFile(loadAsString("setup.sql"));
+    }
+    
+    /**
+     * Creates a trigger on orders table.
+     */
+    private void createTrigger() {
         try (Connection connection = ds.getConnection()) {
-            for (String statement : splitStatements(new StringReader(seedDataScript), new String[] {";", "//"})) {
+            Statement stmt = connection.createStatement();
+            log.info("Creating a trigger.");
+            stmt.execute("drop trigger if exists before_orders_insert;");
+            stmt.execute("create trigger before_orders_insert " 
+                    + "before insert on orders " 
+                    + "for each row begin "
+                    + "declare provinceid int; declare psttax float; "
+                    + "declare gsttax float; declare hsttax float; "
+                    + "select province_id into provinceid from users where users.id = new.user_id; "
+                    + "select pst, gst, hst into psttax, gsttax, hsttax from provinces where provinces.id = provinceid; "
+                    + "set new.gross_cost = new.net_cost + new.net_cost*psttax + new.net_cost*gsttax + new.net_cost*hsttax; "
+                    + "end; ");
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed seeding database", e);
+        }
+    }
+    
+    /**
+     * Seed to the database from the specified file.
+     * @param file the file with sql statements.
+     */
+    private void seedFromFile(String file) {
+        try (Connection connection = ds.getConnection()) {
+            for (String statement : splitStatements(new StringReader(file), ";")) {
                 //log.info("current line: " + statement);
                 connection.prepareStatement(statement).execute();
             }
@@ -69,10 +104,10 @@ public class DatabaseSeedManager {
     /**
      * Splits database config file into list of sql statements.
      * @param reader Reader object.
-     * @param delimiters Delimiters used in statements.
+     * @param statementDelimiter Delimiter used in statements.
      * @return list of sql statements.
      */
-    private List<String> splitStatements(Reader reader, String[] delimiters) {
+    private List<String> splitStatements(Reader reader, String statementDelimiter) {
         final BufferedReader bufferedReader = new BufferedReader(reader);
         final StringBuilder sqlStatement = new StringBuilder();
         final List<String> statements = new LinkedList<>();
@@ -84,11 +119,9 @@ public class DatabaseSeedManager {
                     continue;
                 }
                 sqlStatement.append(line);
-                for(String statementDelimiter : delimiters) {
-                    if (line.endsWith(statementDelimiter)) {
-                        statements.add(sqlStatement.toString());
-                        sqlStatement.setLength(0);
-                    }
+                if (line.endsWith(statementDelimiter)) {
+                    statements.add(sqlStatement.toString());
+                    sqlStatement.setLength(0);
                 }
             }
             return statements;
@@ -104,7 +137,7 @@ public class DatabaseSeedManager {
      * @return true if this line is a comment; false otherwise.
      */
     private boolean isComment(final String line) {
-        return line.startsWith("--") || /*line.startsWith("//") ||*/ line.startsWith("/*");
+        return line.startsWith("--") || line.startsWith("//") || line.startsWith("/*");
     }
     
 }

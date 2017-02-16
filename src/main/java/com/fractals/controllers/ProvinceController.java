@@ -7,7 +7,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Province;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -37,6 +36,5 @@ public class ProvinceController implements Serializable {
     @PostConstruct
     public void init() {
         provinces = (List<Province>)entityManager.createNamedQuery("Province.findAll").getResultList();
-        //log.debug(Arrays.toString(provinces.toArray(new Province[]{})));
     }
 }

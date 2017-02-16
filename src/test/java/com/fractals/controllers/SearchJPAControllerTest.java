@@ -1,9 +1,14 @@
 package com.fractals.controllers;
 
+import com.fractals.backingbeans.UserBacking;
 import com.fractals.controllers.SearchJPAController;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
-import org.jboss.arquillian.junit.Arquillian;
+import com.fractals.controllers.exceptions.RollbackFailureException;
+import com.fractals.jsf.util.PaginationHelper;
+import com.fractals.rss.FeedMessage;
+import com.fractals.utilities.DatabaseSeedManager;
+import com.fractals.utilities.SecurityHelper;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -17,49 +22,49 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.*;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
-@Ignore
+
+
 /**
- * i did it
- * @author lynn
+ * Tests SearchJPAController.
+ * @author Alena Shulzhenko
  */
 @RunWith(Arquillian.class)
 public class SearchJPAControllerTest {
     @Deployment
     public static WebArchive deploy() {
 
-        // Use an alternative to the JUnit assert library called AssertJ
-        // Need to reference MySQL driver as it is not part of either
-        // embedded or remote TomEE
+        //Use an alternative to the JUnit assert library called AssertJ
         final File[] dependencies = Maven
                 .resolver()
                 .loadPomFromFile("pom.xml")
-                .resolve("mysql:mysql-connector-java",
-                        "org.assertj:assertj-core").withoutTransitivity()
+                .resolve("org.assertj:assertj-core").withoutTransitivity()
                 .asFile();
 
-        // For testing Arquillian prefers a resources.xml file over a
-        // context.xml
-        // Actual file name is resources-mysql-ds.xml in the test/resources
-        // folder
-        // The SQL script to create the database is also in this folder
+        // For testing Arquillian prefers a resources.xml file over a context.xml
+        // Actual file name is resources-mysql-ds.xml in the test/resources folder
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addPackage(SearchJPAController.class.getPackage())
                 .addPackage(Album.class.getPackage())
-                .addPackage(Track.class.getPackage())
+                .addPackage(UserBacking.class.getPackage())
+                .addPackage(RollbackFailureException.class.getPackage())
+                .addPackage(PaginationHelper.class.getPackage())
+                .addPackage(FeedMessage.class.getPackage())
+                .addPackage(SecurityHelper.class.getPackage())
+                .addPackage(DatabaseSeedManager.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
+                .addAsResource("schema.sql")
+                .addAsResource("setup.sql")
                 .addAsLibraries(dependencies);
 
         return webArchive;
@@ -82,7 +87,7 @@ public class SearchJPAControllerTest {
         List<Track> items = search.searchByTrackName("no");
         assertThat(items).hasSize(7);
     }
-
+    
     @Test
     public void searchByArtistNameTest() throws SQLException {
         Object[] items = search.searchByArtistName("tu");
@@ -115,5 +120,14 @@ public class SearchJPAControllerTest {
         LocalDateTime to = LocalDateTime.of(2017, 2, 4, 22, 34, 43);
         Object[] items = search.searchByDate(from, to);
         fail();
+    }
+    
+    /**
+     *  Creates the appropriate tables and seeds the database with test values.
+     */
+    @Before
+    public void seedDatabase() {
+        DatabaseSeedManager db = new DatabaseSeedManager(ds);
+        db.seed();
     }
 }

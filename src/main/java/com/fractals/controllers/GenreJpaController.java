@@ -7,9 +7,9 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
-import com.fractals.beans.exceptions.IllegalOrphanException;
-import com.fractals.beans.exceptions.NonexistentEntityException;
-import com.fractals.beans.exceptions.RollbackFailureException;
+import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.controllers.exceptions.NonexistentEntityException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;

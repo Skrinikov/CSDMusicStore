@@ -6,7 +6,6 @@ import com.fractals.beans.Track;
 import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,8 +20,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 
 /**
- * i did it
- * @author lynn
+ * Implements searching for the index page.
+ * @author Alena Shulzhenko
  */
 @Named
 @RequestScoped
@@ -38,23 +37,19 @@ public class SearchJPAController implements Serializable {
     public List<Album> searchByAlbumTitle(String title) {
         if(title == null)
             throw new NullPointerException();
-        
-        List<Album> items = new ArrayList<>();      
+              
         TypedQuery<Album> q = entityManager.createQuery("select a from Album a where a.title like ?1", Album.class);
         q.setParameter(1, "%"+title+"%");
-        items = (List<Album>)q.getResultList();  
-        return items;
+        return (List<Album>)q.getResultList();  
     }
     
     public List<Track> searchByTrackName(String title) {
         if(title == null)
             throw new NullPointerException();
-        
-        List<Track> items = new ArrayList<>();      
+            
         TypedQuery<Track> q = entityManager.createQuery("select t from Track t where t.title like ?1", Track.class);
         q.setParameter(1, "%"+title+"%");
-        items = (List<Track>)q.getResultList();      
-        return items;
+        return (List<Track>)q.getResultList();      
     }
     
     public Object[] searchByArtistName(String name) {
