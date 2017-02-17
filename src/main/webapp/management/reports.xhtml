@@ -159,6 +159,7 @@
                                     <a href="#tab_default_9" data-toggle="tab">Zero Clients</a>
                                 </li>
                             </ul>
+                            <!-- Reports Tab  -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_default_1">
                                     <h:form id="totalSales" styleClass="col-md-4 col-xs-12">
@@ -170,13 +171,18 @@
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
 
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x"/>
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x" styleClass="btn btn-success"/>     
 
-                                        <ui:repeat var="order" value="#{order.orderList}" id="x">
-                                            <p>#{order.getId}</p>
-                                        </ui:repeat>
-                                    </h:form>
+                                        <h:panelGroup id="x">
+                                            <ui:repeat var="order" value="#{reportsBacking.order}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
 
+                                    </h:form>                                 
 
                                 </div>
                                 <div class="tab-pane" id="tab_default_2">

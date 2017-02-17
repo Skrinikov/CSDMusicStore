@@ -98,8 +98,7 @@ public class ReportsBacking implements Serializable {
      * 
      */
     public void getTotalSales(){
-        order = reports.getTotalSales(LocalDateTime.MAX, LocalDateTime.MIN);   
-        System.out.println(order.size());
+        order = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));          
     }
 
     /*Getters and setters*/

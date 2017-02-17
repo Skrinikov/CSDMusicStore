@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -33,6 +34,8 @@ import javax.transaction.UserTransaction;
 @Named("reportsController")
 @RequestScoped
 public class ReportsController implements Serializable {
+    
+    private static final Logger log = Logger.getLogger("DatabaseSeedManager.class");
 
     @Resource
     private UserTransaction userTransaction;
