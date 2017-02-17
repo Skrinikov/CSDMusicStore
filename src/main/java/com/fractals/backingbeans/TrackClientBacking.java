@@ -33,6 +33,7 @@ public class TrackClientBacking implements Serializable {
     private Track track;
     private Integer rating;
     private String review;
+    private Integer selectedRelatedTrackId;
     
     @Inject
     private TrackJpaController trackControl;
@@ -134,6 +135,14 @@ public class TrackClientBacking implements Serializable {
     
     public String getWriter(){
         return (track != null)?track.getSongwriter():"";
+    }
+
+    public Integer getSelectedRelatedTrackId() {
+        return selectedRelatedTrackId;
+    }
+
+    public void setSelectedRelatedTrackId(Integer selectedRelatedTrackId) {
+        this.selectedRelatedTrackId = selectedRelatedTrackId;
     }
     
     
