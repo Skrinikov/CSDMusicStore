@@ -16,6 +16,7 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+            
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
@@ -102,7 +103,9 @@
                     <f:facet name="footer">
                         <p:commandButton process="tbl" update=":form:albumDetail" icon="ui-icon-search" value="View" oncomplete="PF('albumDialog').show()" />
                     </f:facet>       
-
+                    <!--
+                    <p:ajax event="rowSelect" listener="#PF('albumDialog').show()" update=":form:albumDetail" />
+                    -->
                 </p:dataTable>
 
             </h:panelGroup>
@@ -110,13 +113,35 @@
 
             <p:dialog header="Album Info" widgetVar="albumDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="albumDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty theAlbums.selectedAlbum}" columnClasses="label,value">
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{theAlbums.selectedAlbum.id}" />
+                    <p:panelGrid columns="2" rendered="#{not empty theAlbums.selectedAlbum}">
+                        <h:outputText value="Id:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
+                        <h:outputText value="Title:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
+                        <h:outputText value="ReleaseDate:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
+                        <h:outputText value="RecordLabel:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
+                        <h:outputText value="NumTracks:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
+                        <h:outputText value="CreatedAt:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/>
+                        <h:outputText value="CostPrice:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
+                        <h:outputText value="ListPrice:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
+                        <h:outputText value="SalePrice:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
+                        <h:outputText value="RemovedAt:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
+                        <h:outputText value="Available:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
+                        <h:outputText value="Artist:"/>
+                        <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
                     </p:panelGrid>
+
                 </p:outputPanel>
             </p:dialog>
-
         </h:form>
     </ui:define>
 </ui:composition>

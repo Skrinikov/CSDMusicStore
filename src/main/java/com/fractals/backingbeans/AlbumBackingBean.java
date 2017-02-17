@@ -21,20 +21,36 @@ import javax.inject.Named;
 public class AlbumBackingBean {
    
     private Album selectedAlbum;
+    private boolean editable = false;
     
+    public void setEditable(boolean b){
+        editable = b;
+    }
+    
+    public boolean getEditable(){
+        return editable;
+    }
+    
+    public void edit(){
+        setEditable(true);
+    }
+    
+    public void unedit(){
+        setEditable(false);
+    }
+    
+   
     public Album getSelectedAlbum(){
-        return selectedAlbum;
+        return getFirst();
     }
     
     public void setSelectedAlbum(Album a){
         selectedAlbum = a;
     }
     
-    
     public Album getFirst(){
         return getAlbums().get(0);
     }
-    
     
     @Inject
     private AlbumJpaController albumJpaController;
