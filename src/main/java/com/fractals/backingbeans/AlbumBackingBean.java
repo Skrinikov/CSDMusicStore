@@ -7,14 +7,13 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
 import com.fractals.controllers.AlbumJpaController;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
+
 
 /**
  *
@@ -23,8 +22,10 @@ import org.primefaces.event.UnselectEvent;
 @Named("theAlbums")
 @RequestScoped
 public class AlbumBackingBean {
-
+ 
     private Album selectedAlbum;
+    
+    
     private boolean editable = false;
 
     public void setEditable(boolean b) {
@@ -44,9 +45,11 @@ public class AlbumBackingBean {
     }
 
     public Album getSelectedAlbum() {
-        return getFirst();
+        if(selectedAlbum == null)
+            selectedAlbum = new Album();   
+        return selectedAlbum;
     }
-
+    
     public void setSelectedAlbum(Album a) {
         selectedAlbum = a;
     }
@@ -66,7 +69,10 @@ public class AlbumBackingBean {
         return albumJpaController.isEmpty();
     }
 
-    public void create(Album a) throws Exception {
-        albumJpaController.create(a);
+    public void create() throws Exception {
+        selectedAlbum.setReleaseDate(LocalDate.MAX);
+        selectedAlbum.setCreatedAt(LocalDateTime.MAX);
+        selectedAlbum.setArtist(getAlbums().get(0).getArtist());
+        albumJpaController.create(selectedAlbum);
     }
 }
