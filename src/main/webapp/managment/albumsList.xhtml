@@ -16,7 +16,7 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            
+
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
@@ -25,7 +25,6 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theAlbums.selectedAlbum}" rowKey="#{item.id}">
-
 
                     <p:column width="2%">
                         <f:facet name="header">
@@ -45,7 +44,6 @@
                             <h:outputText value="#{bundle.ListAlbumTitle_releaseDate}"/>
                         </f:facet>
                         <h:outputText value="#{item.releaseDate}"/>
-
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -102,7 +100,11 @@
 
                     <f:facet name="footer">
                         <p:commandButton process="tbl" update=":form:albumDetail" icon="ui-icon-search" value="View" oncomplete="PF('albumDialog').show()" />
-                    </f:facet>       
+                                            
+                        <h:link value="Consulter l'album" outcome="/managment/albumsViewEdit.xhtml"/>
+
+                    </f:facet>    
+
                     <!--
                     <p:ajax event="rowSelect" listener="#PF('albumDialog').show()" update=":form:albumDetail" />
                     -->

@@ -11,6 +11,9 @@
     </ui:define>
 
     <ui:define name="content">
+        
+        <h:outputText value="rien de selectionné" rendered="#{theAlbums.selectedAlbum == null}"/>
+
             <h:form>
                 <h:panelGrid columns="2" rendered="#{(!theAlbums.editable) and not empty theAlbums.selectedAlbum}">
                     <h:outputText value="Id:"/>
