@@ -33,6 +33,27 @@
                  </p:panelGrid>
              </h:form>
              
+             
+             <h1><h:outputText value="Survey Options"/></h1>
+             
+             <p:dataTable value="#{surveyBacking.current.surveyChoices}" var="item">
+                     <p:column>
+                         <f:facet name="header">
+                             <h:outputText value="choice"/>
+                         </f:facet>
+                         <h:outputText value="#{item.choice}"/>
+                     </p:column>
+                     <p:column>
+                         <f:facet name="header">
+                             <h:outputText value="numVotes"/>
+                         </f:facet>
+                         <h:outputText value="#{item.numVotes}"/>
+                     </p:column>
+                     
+                 </p:dataTable>
+             
+             
+             
              <p:commandButton value="Save" action="#{surveyController.edit(surveyBacking.editSurvey)}">
              </p:commandButton>
              
