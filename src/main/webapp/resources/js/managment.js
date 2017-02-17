@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
     
     
-    $(document).on('click', '#sales_daterange', function () {
+    $(document).on('click', '#sales_daterange, #revenue_daterange', function () {
         $("#sales_range_picker").toggle("slow", function () {
             // Animation complete.
         });

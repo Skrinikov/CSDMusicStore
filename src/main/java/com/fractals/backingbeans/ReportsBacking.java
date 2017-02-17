@@ -1,12 +1,15 @@
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Order;
 import com.fractals.controllers.ReportsController;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -34,10 +37,13 @@ public class ReportsBacking implements Serializable {
     private Date revenueEnd;
     private String revenue;
     
+    // Orders
+    private List<Order> order;
+    
     /**
      * Default constructor.
      */
-    public ReportsBacking(){
+    public void init(){
         // I am not quite sure it is the best way to get the date.
         salesBegin = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         
@@ -87,7 +93,17 @@ public class ReportsBacking implements Serializable {
     private void fetchSalesByTrack(String track){
         
     }
+    
+    /**
+     * 
+     */
+    public void getTotalSales(){
+        order = reports.getTotalSales(LocalDateTime.MAX, LocalDateTime.MIN);   
+        System.out.println(order.size());
+    }
 
+    /*Getters and setters*/
+    
     public Date getSalesBegin() {
         return salesBegin;
     }
@@ -119,6 +135,20 @@ public class ReportsBacking implements Serializable {
     public void setRevenueEnd(Date revenueEnd) {
         this.revenueEnd = revenueEnd;
     }
-    
-    
+
+    public String getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(String revenue) {
+        this.revenue = revenue;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }         
 }

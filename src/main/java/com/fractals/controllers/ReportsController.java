@@ -2,8 +2,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
-import com.fractals.beans.OrderItem_;
-import com.fractals.beans.Order_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import java.io.Serializable;
@@ -126,7 +124,7 @@ public class ReportsController implements Serializable {
         // SELECT username, SUM(gross_cost) FROM orders INNER JOIN users ON orders.user_id=users.id GROUP BY user_id ORDER BY SUM(gross_cost) DESC;
         CriteriaQuery<Tuple> query = cb.createTupleQuery();
         Root<Order> root = query.from(Order.class);
-        Join userJoin = root.join(Order_.user);
+        Join userJoin = root.join("user");
         query.multiselect(cb.sum(root.get("grossCost")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         query.groupBy(userJoin.get("id"));
@@ -230,7 +228,7 @@ public class ReportsController implements Serializable {
 
         CriteriaQuery<Order> query = cb.createQuery(Order.class);
         Root<Order> root = query.from(Order.class);
-        Join user = root.join(Order_.user);
+        Join user = root.join("user");
         query.select(root);
 
         // Can be either email.
@@ -271,7 +269,7 @@ public class ReportsController implements Serializable {
         Root<Order> root = query.from(Order.class);
         query.select(root);
         query.where(cb.and(cb.between(root.<LocalDateTime>get("orderDate"), start, end)));
-        query.orderBy(cb.desc(root.get(Order_.orderDate)));
+        query.orderBy(cb.desc(root.get("orderDate")));
 
         return entityManager.createQuery(query).getResultList();
     }
@@ -299,10 +297,10 @@ public class ReportsController implements Serializable {
 
         CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
         Root<OrderItem> root = query.from(OrderItem.class);
-        Join orders = root.join(OrderItem_.order);
+        Join orders = root.join("order");
         query.select(root);
-        query.orderBy(cb.desc(orders.get(Order_.orderDate)));
-        query.where(cb.and(cb.equal(root.get(OrderItem_.track), trackId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
+        query.orderBy(cb.desc(orders.get("orderDate")));
+        query.where(cb.and(cb.equal(root.get("track"), trackId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }
@@ -331,10 +329,10 @@ public class ReportsController implements Serializable {
 
         CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
         Root<OrderItem> root = query.from(OrderItem.class);
-        Join orders = root.join(OrderItem_.order);
+        Join orders = root.join("order");
         query.select(root);
-        query.orderBy(cb.desc(orders.get(Order_.orderDate)));
-        query.where(cb.and(cb.equal(root.get(OrderItem_.track), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
+        query.orderBy(cb.desc(orders.get("orderDate")));
+        query.where(cb.and(cb.equal(root.get("track"), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }
