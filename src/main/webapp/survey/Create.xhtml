@@ -13,15 +13,15 @@
      </ui:define>
      
      <ui:define name="content">
-
+         
          <f:view>
+
+
              <h:form>
-                 <h1><h:outputText value="Create Survey"/></h1>
+                 <h1><h:outputText value="Edit current Survey"/></h1>
                  <p:panelGrid columns="2">
-                     
                      <p:outputLabel value="Id:" for="id" />
                      <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
-                     
                      <p:outputLabel value="Question:" for="question" />
                      <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="The Question field is required."/>
                      <p:outputLabel value="Visible:" />
@@ -31,9 +31,23 @@
                     </h:selectOneRadio>	
                      
                  </p:panelGrid>
+             
+             
+             
+             <h1><h:outputText value="Survey Options"/></h1>
+             
+             <p:dataTable value="#{surveyBacking.current.surveyChoices}" var="item">
+                     <p:column>
+                         <f:facet name="header">
+                             <h:outputText value="choice"/>
+                         </f:facet> 
+                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="The Choice field is required."/>
+                     </p:column>        
+             </p:dataTable>
+             
              </h:form>
              
-             <p:commandButton value="Save" action="#{surveyController.create(surveyBacking.current)}">
+             <p:commandButton value="Save" action="#{surveyBacking.createSurvey()}">
              </p:commandButton>
              
              <p:link outcome="List" value="Back"></p:link>
@@ -43,4 +57,4 @@
          
      </ui:define>
      
- </ui:composition>
+</ui:composition>

@@ -2,9 +2,12 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Survey;
+import com.fractals.beans.SurveyChoice;
 import com.fractals.controllers.SurveyJpaController;
+import com.fractals.controllers.SurveyChoiceJpaController;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,11 +34,15 @@ import javax.persistence.TypedQuery;
 public class SurveyBacking implements Serializable {
     
     private Integer surEditId; 
-    private Survey current; 
+    private Survey current;
+    private SurveyChoice currentSC; 
     
     @Inject
     private SurveyJpaController sc; 
-     
+    
+    @Inject
+    private SurveyChoiceJpaController surChoiceCon; 
+      
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager em;
     
@@ -55,8 +62,7 @@ public class SurveyBacking implements Serializable {
     {
         int size = sur.size(); 
         int index = (int)(Math.random() + 0) * size;
-        return sur.get(index);
-        
+        return sur.get(index);        
     }
     
     
@@ -95,11 +101,73 @@ public class SurveyBacking implements Serializable {
     {
         Survey sur = new Survey();
         
-        this.current = sur; 
+        //add blank survey choices to allow the manager to enter answers
+        List<SurveyChoice> blankAnswers = new ArrayList<SurveyChoice>();
         
+        for(int choices = 0; choices < 4; choices++)
+        {
+            SurveyChoice sc = new SurveyChoice();
+            blankAnswers.add(sc); 
+            sc.setSurvey(sur); // may not work since the object has no id
+        }
+        
+        //insert the blanks
+        sur.setSurveyChoices(blankAnswers);
+        this.current = sur; 
+        //return "/survey/Edit.xhtml";
         return "/survey/Create.xhtml"; 
     }
     
+    public String createSurvey()
+    {
+        
+        //surveyChoices have no pk ids therefore 2 tractions require
+        //rollback if error
+               
+        List<SurveyChoice> temp = current.getSurveyChoices();
+        
+        current.setSurveyChoices(new ArrayList<SurveyChoice>());
+        
+        try {
+            sc.create(current);
+            
+            for(SurveyChoice scEle : temp)
+            {
+                scEle.setSurvey(current);
+                surChoiceCon.create(scEle);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+            em.getTransaction().rollback();
+        }
+        
+        return "/survey/List.xhtml";
+    }
     
+    /*
+            ------------ Method below used for 
+    
+    */
+    
+    
+    public String addNewOption()
+    {
+        SurveyChoice sc = new SurveyChoice();     
+        currentSC = sc;     
+        return "/survey/surveyOptionForm.xhtml"; 
+    }
+    
+    public String saveOption()
+    {
+        currentSC.setSurvey(current);
+        current.getSurveyChoices().add(currentSC);
+        return "/survey/Edit.xhtml";
+    }
+    
+    public SurveyChoice getCurrentSC()
+    {
+        return currentSC;
+    }
     
 }
