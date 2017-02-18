@@ -8,6 +8,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.ArtistJpaController;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,16 +25,15 @@ import javax.inject.Named;
 @RequestScoped
 public class AlbumBackingBean {
  
-    private Album selectedAlbum;
-    
-    
+    private String test2;
+    public String getTest2(){ return test2;}
+    public void setTest2(String s){test2 = s;}
     
     private Artist test;
-    public Artist getTest(){return test;};
-    public void setTest(Artist stuff){test=stuff;};
-    
-    
-    
+    public Artist getTest(){return test;}
+    public void setTest(Artist stuff){test=stuff;}
+   
+    private Album selectedAlbum;
     
     private boolean editable = false;
 
@@ -69,7 +69,11 @@ public class AlbumBackingBean {
 
     @Inject
     private AlbumJpaController albumJpaController;
+    @Inject
+    private ArtistJpaController artistJpaController;
 
+    
+    
     public List<Album> getAlbums() {
         return albumJpaController.findAlbumEntities();
     }
