@@ -6,6 +6,7 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Artist;
 import com.fractals.controllers.AlbumJpaController;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +25,14 @@ import javax.inject.Named;
 public class AlbumBackingBean {
  
     private Album selectedAlbum;
+    
+    
+    
+    private Artist test;
+    public Artist getTest(){return test;};
+    public void setTest(Artist stuff){test=stuff;};
+    
+    
     
     
     private boolean editable = false;
@@ -70,9 +79,9 @@ public class AlbumBackingBean {
     }
 
     public void create() throws Exception {
-        selectedAlbum.setReleaseDate(LocalDate.MAX);
-        selectedAlbum.setCreatedAt(LocalDateTime.MAX);
-        selectedAlbum.setArtist(getAlbums().get(0).getArtist());
+        selectedAlbum.setCreatedAt(LocalDateTime.now());
+        selectedAlbum.setReleaseDate(LocalDate.now());//A CHANGER
+       // selectedAlbum.setArtist(getAlbums().get(0).getArtist());
         albumJpaController.create(selectedAlbum);
     }
 }

@@ -11,39 +11,49 @@
     </ui:define>
 
     <ui:define name="content">
-            <h:form>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Title:" for="title" />
-                    <p:inputText id="title" value="#{theAlbums.selectedAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
-                    <p:outputLabel value="RecordLabel:" for="recordLabel" />
-                    <p:inputText id="recordLabel" value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>
-                    <p:outputLabel value="NumTracks:" for="numTracks" />
-                    <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required."/>
-                    <p:outputLabel value="CostPrice:" for="costPrice" />
-                    <p:inputText id="costPrice" value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
-                    <p:outputLabel value="ListPrice:" for="listPrice" />
-                    <p:inputText id="listPrice" value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
-                    <p:outputLabel value="SalePrice:" for="salePrice" />
-                    <p:inputText id="salePrice" value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
-                    <p:outputLabel value="Available:" for="available" />
-                    <p:inputText id="available" value="#{theAlbums.selectedAlbum.available}" title="Available" required="true" requiredMessage="The Available field is required."/>
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Title:" for="title" />
+                <p:inputText id="title" value="#{theAlbums.selectedAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
+                <p:outputLabel value="RecordLabel:" for="recordLabel" />
+                <p:inputText id="recordLabel" value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>
+                <p:outputLabel value="NumTracks:" for="numTracks" />
+                <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required."/>
+                <p:outputLabel value="CostPrice:" for="costPrice" />
+                <p:inputText id="costPrice" value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
+                <p:outputLabel value="ListPrice:" for="listPrice" />
+                <p:inputText id="listPrice" value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
+                <p:outputLabel value="SalePrice:" for="salePrice" />
+                <p:inputText id="salePrice" value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
+                <p:outputLabel value="Available:" for="available" />              
+                <p:selectBooleanCheckbox id="available" value="#{theAlbums.selectedAlbum.available}" />
+
+                <!--                <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
+                                    <p:inputMask id="releaseDate" value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99">
+                                    <f:convertDateTime pattern="yyyy-mm-dd"/>
+                                    </p:inputMask>
+                                  <p:outputLabel value="Artist:" for="artist" />
+                                    <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" required="true" requiredMessage="The Artist field is required.">
+                                        <f:selectItems value="#{theArtists.artists}"/>
+                                    </p:selectOneMenu>
+                -->
+                <p:outputLabel value="Artist:" for="artist" />
+
+                <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" converter="artistConverter" panelStyle="width:180px"
+                                 effect="fade" var="a" style="width:160px" filter="true" filterMatchMode="startsWith">
                     
-<!--                
-                    <p:outputLabel value="CreatedAt:" for="createdAt" />
-                    <p:inputMask id="createdAt" value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt" required="true" requiredMessage="The CreatedAt field is required." mask="99/99/9999"/>
-                    <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
-                    <p:inputMask id="releaseDate" value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="99/99/9999"/>
-                    <p:outputLabel value="Artist:" for="artist" />
-                    <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" required="true" requiredMessage="The Artist field is required.">
-                        <f:selectItems value="#{theArtists.artists}"/>
-                    </p:selectOneMenu>
--->
+                    <f:selectItems value="#{theArtists.artists}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" />
+                   
+                    <p:column>
+                        <h:outputText value="#{a.name}" />
+                    </p:column>
+                </p:selectOneMenu>
 
-                </h:panelGrid>
+            </h:panelGrid>
 
-                <p:commandButton  actionListener="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
-                
-            </h:form>      
+            <p:commandButton  actionListener="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
+
+        </h:form>      
     </ui:define>
 </ui:composition>
 

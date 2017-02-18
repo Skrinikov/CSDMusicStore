@@ -57,13 +57,15 @@ public class AlbumJpaController implements Serializable {
             }
             List<Track> attachedTracksCollection = new ArrayList<>();
             for (Track tracksCollectionTrackToAttach : album.getTracks()) {
-                tracksCollectionTrackToAttach = em.getReference(tracksCollectionTrackToAttach.getClass(), tracksCollectionTrackToAttach.getId());
+                tracksCollectionTrackToAttach = em.getReference(tracksCollectionTrackToAttach.getClass(), 
+tracksCollectionTrackToAttach.getId());
                 attachedTracksCollection.add(tracksCollectionTrackToAttach);
             }
             album.setTracks(attachedTracksCollection);
             List<OrderItem> attachedOrderItemsCollection = new ArrayList<OrderItem>();
             for (OrderItem orderItemsCollectionOrderItemToAttach : album.getOrderItems()) {
-                orderItemsCollectionOrderItemToAttach = em.getReference(orderItemsCollectionOrderItemToAttach.getClass(), orderItemsCollectionOrderItemToAttach.getId());
+                orderItemsCollectionOrderItemToAttach = em.getReference(orderItemsCollectionOrderItemToAttach.getClass(), 
+orderItemsCollectionOrderItemToAttach.getId());
                 attachedOrderItemsCollection.add(orderItemsCollectionOrderItemToAttach);
             }
             album.setOrderItems(attachedOrderItemsCollection);
