@@ -22,7 +22,7 @@ import org.primefaces.event.SelectEvent;
 public class ReportsBacking implements Serializable {
     
     // Controller
-    @Inject
+    //@Inject
     private ReportsController reports;
 
     // Sales

@@ -1,5 +1,6 @@
 package com.fractals.controllers;
 
+import com.fractals.backingbeans.ShoppingCart;
 import com.fractals.beans.Album;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
@@ -20,8 +21,11 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
- * i did it
- * @author lynn
+ * The controller for orders and purchasing logic.
+ *
+ * @author Alena Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Named
 @RequestScoped
@@ -34,6 +38,14 @@ public class OrdersController {
     
     private boolean interrupted = false;
     
+    /**
+     * Submits and persists the order from the shopping cart.
+     * Shopping cart is cleared if the persistence was successful.
+     * The email is sent to the user, notifying about the recent purchase.
+     * @param cart The shopping cart.
+     * @param user The user that submits the order.
+     * @return the order that was submitted.
+     */
     public Order submitOrder(ShoppingCart cart, User user) {
         Order order = saveOrder(cart, user);   
         if(! interrupted) {
@@ -43,6 +55,12 @@ public class OrdersController {
         return order;
     }
     
+    /**
+     * Persists the order to the database.
+     * @param cart The shopping cart with all items from the order.
+     * @param user The user that submits the order.
+     * @return the order that was persisted.
+     */
     private Order saveOrder(ShoppingCart cart, User user) {
         Order order = new Order();
         order.setNetCost(0);
@@ -61,6 +79,12 @@ public class OrdersController {
         return order;
     }
     
+    /**
+     * Persists tracks items from the shopping cart and returns the net cost of all tracks.
+     * @param tracks Tracks to persist to the database.
+     * @param order The order that contains these tracks.
+     * @return the net cost of all tracks.
+     */
     private double saveTrackItems(List<Track> tracks, Order order) {
         double netCost = 0;
         try {
@@ -88,6 +112,12 @@ public class OrdersController {
         }
     }
     
+    /**
+     * Persists albums items from the shopping cart and returns the net cost of all albums.
+     * @param albums Albums to persist to the database.
+     * @param order The order that contains these albums.
+     * @return the net cost of all tracks.
+     */
     private double saveAlbumItems(List<Album> albums, Order order) {
         double netCost = 0;
         try {
@@ -115,29 +145,14 @@ public class OrdersController {
         }
     }
     
+    /**
+     * Sens the email to the user, notifying about the recent purchase.
+     * @param u The current user.
+     * @param cart All items bought by the user in the shopping cart.
+     */
     private void sendEmail(User u, ShoppingCart cart) {
         EmailSender es = new EmailSender(u);
         es.sendEmail(cart);
     }
-    
-    /*private Order createOrder(Order order) {
-        try {
-            userTransaction.begin();
-            entityManager.persist(order);           
-            userTransaction.commit();
-            order = entityManager.find(Order.class, order.getId());
-            entityManager.refresh(order);
-            return order;
-        } 
-        catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 
-               HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            try {
-                interrupted = true;
-                userTransaction.rollback();
-            } 
-            catch (IllegalStateException | SecurityException | SystemException re) {}
-            return null;
-        }
-    }*/
     
 }

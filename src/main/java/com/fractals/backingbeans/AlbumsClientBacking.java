@@ -9,7 +9,6 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
-import com.fractals.controllers.ShoppingCart;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -11,7 +11,6 @@
     <ui:define name="content">
         <br/><br/><br/><br/>
         <h2>Welcome to the Registration Page</h2>
-        <h:messages globalOnly="true" layout="table" />
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel  for="email" value="Email:" />
@@ -54,12 +53,13 @@
                 <h:inputText id="city" value="#{User.user.city}" required="true"/>
                 <h:message id="cityMessage" for="city" />
                 
-<!--            <h:outputLabel for="province" value="Province:" />
+                <h:outputLabel for="province" value="Province:" />
                 <h:selectOneMenu id="province" value="#{User.user.province}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="--- Choose your province ---" />
                     <f:selectItems value="#{Province.provinces}" />
                 </h:selectOneMenu>
                 <h:message id="provinceMessage" for="province" />
-                -->
+                
                 <h:outputLabel for="country" value="Country:" />
                 <h:inputText id="country" value="#{User.user.country}" required="true"/>
                 <h:message id="countryMessage" for="country" />

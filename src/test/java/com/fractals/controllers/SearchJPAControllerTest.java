@@ -1,7 +1,6 @@
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.UserBacking;
-import com.fractals.controllers.SearchJPAController;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
 import com.fractals.controllers.exceptions.RollbackFailureException;
@@ -31,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
 
-@Ignore
+//@Ignore
 /**
  * Tests SearchJPAController.
  * @author Alena Shulzhenko
@@ -75,50 +74,61 @@ public class SearchJPAControllerTest {
 
     @Resource(name = "java:app/jdbc/musicstore")
     private DataSource ds;
+    
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("SearchJPAController.class");
 
     @Test
     public void searchByAlbumTitleTest() throws SQLException {
+        log.info("searchByAlbumTitleTest");
         List<Album> items = search.searchByAlbumTitle("no");
         assertThat(items).hasSize(2);
     }
 
     @Test
     public void searchByTrackNameTest() throws SQLException {
+        log.info("searchByTrackNameTest");
         List<Track> items = search.searchByTrackName("no");
         assertThat(items).hasSize(7);
     }
-    
+
     @Test
-    public void searchByArtistNameTest() throws SQLException {
-        Object[] items = search.searchByArtistName("tu");
-        assertThat((List<Album>)items[0]).hasSize(3);
-        assertThat((List<Track>)items[1]).hasSize(8);
+    public void searchByArtistNameAlbumsTest() throws SQLException {
+        log.info("searchByArtistNameAlbumsTest");
+        List<Album> items = search.searchByArtistNameAlbums("tu");
+        assertThat(items).hasSize(3);
+    }
+ 
+    @Test
+    public void searchByArtistNameTracksTest() throws SQLException {
+        log.info("searchByArtistNameTracksTest");
+        List<Track> items = search.searchByArtistNameTracks("tu");
+        assertThat(items).hasSize(8);
     }
 
     @Test
-    public void searchByDateTest_Albums() throws SQLException {
-        LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 31);
+    public void searchByDateAlbumsTest() throws SQLException {
+        log.info("searchByDateAlbumsTest");      
         LocalDateTime to = LocalDateTime.now();
-        Object[] items = search.searchByDate(from, to);
-        assertThat((List<Album>)items[0]).hasSize(73);
-        assertThat((List<Track>)items[1]).hasSize(138);
+        LocalDateTime from = to.minusDays(1);
+        List<Album> items = search.searchByDateAlbums(from, to);
+        assertThat(items).hasSize(73);
     }
     
-    @Ignore
     @Test
-    public void searchByDateTest_Tracks() throws SQLException {
-        LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 43);
+    public void searchByDateTracksTest() throws SQLException {
+        log.info("searchByDateTracksTest");      
         LocalDateTime to = LocalDateTime.now();
-        Object[] items = search.searchByDate(from, to);
-        assertThat((List<Album>)items[0]).hasSize(0);
-        assertThat((List<Track>)items[1]).hasSize(33);
+        LocalDateTime from = to.minusDays(1);
+        List<Track> items = search.searchByDateTracks(from, to);
+        assertThat(items).hasSize(138);
     }
 
     @Test(expected = DateTimeException.class)
-    public void searchByDateTest_Tracks_Invalid() throws SQLException {
+    public void searchByDateTest_Albums_Invalid() throws SQLException {
+        log.info("searchByDateTest_Albums_Invalid");
         LocalDateTime from = LocalDateTime.of(2017, 2, 4, 22, 34, 44);
         LocalDateTime to = LocalDateTime.of(2017, 2, 4, 22, 34, 43);
-        Object[] items = search.searchByDate(from, to);
+        search.searchByDateAlbums(from, to);
         fail();
     }
     

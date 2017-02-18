@@ -17,8 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The controller responsible to work with the province object.
  *
- * @author lynn
+ * @author Alena Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Named("Province")
 @SessionScoped
@@ -28,11 +31,18 @@ public class ProvinceController implements Serializable {
         
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
-        
+       
+    /**
+     * Returns the list of all provinces.
+     * @return the list of all provinces.
+     */
     public List<Province> getProvinces() {
         return provinces;
     }
     
+    /**
+     * Gets the list of all provinces from the database.
+     */
     @PostConstruct
     public void init() {
         provinces = (List<Province>)entityManager.createNamedQuery("Province.findAll").getResultList();

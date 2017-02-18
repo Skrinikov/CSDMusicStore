@@ -10,8 +10,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.UserTransaction;
-import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.PersistenceContext;
@@ -20,20 +18,25 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 
 /**
- * Implements searching for the index page.
+ * Implements searching by album title, tracks name, artist name, and 
+ * between specific dates for the index page.
+ *
  * @author Alena Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Named
 @RequestScoped
 public class SearchJPAController implements Serializable {
-    
-    @Resource
-    private UserTransaction userTransaction;
 
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
     
-    
+    /**
+     * Searches for albums by the album title.
+     * @param title The album title.
+     * @return the list of albums corresponding to this condition.
+     */
     public List<Album> searchByAlbumTitle(String title) {
         if(title == null)
             throw new NullPointerException();
@@ -43,6 +46,11 @@ public class SearchJPAController implements Serializable {
         return (List<Album>)q.getResultList();  
     }
     
+    /**
+     * Searches for tracks by the track name.
+     * @param title The track name.
+     * @return the list of tracks corresponding to this condition.
+     */
     public List<Track> searchByTrackName(String title) {
         if(title == null)
             throw new NullPointerException();
@@ -52,7 +60,12 @@ public class SearchJPAController implements Serializable {
         return (List<Track>)q.getResultList();      
     }
     
-    public Object[] searchByArtistName(String name) {
+    /**
+     * Searches for albums by the artist name.
+     * @param name The artist name.
+     * @return the list of albums corresponding to this condition.
+     */
+    public List<Album> searchByArtistNameAlbums(String name) {
         if(name == null)
             throw new NullPointerException();
 
@@ -65,6 +78,20 @@ public class SearchJPAController implements Serializable {
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
         
+        return albums;
+    }
+    
+    /**
+     * Searches for tracks by the artist name
+     * @param name The artist name.
+     * @return the list of tracks corresponding to this condition.
+     */
+    public List<Track> searchByArtistNameTracks(String name) {
+        if(name == null)
+            throw new NullPointerException();
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
         CriteriaQuery<Track> cq = cb.createQuery(Track.class);
         Root<Artist> artist = cq.from(Artist.class);
         cq.where(cb.like(artist.get("name"), "%"+name+"%"));
@@ -73,10 +100,16 @@ public class SearchJPAController implements Serializable {
         TypedQuery<Track> query = entityManager.createQuery(cqT);
         List<Track> tracks = (List<Track>)query.getResultList();
         
-        return new Object[]{albums, tracks};
+        return tracks;
     }
-        
-    public Object[] searchByDate(LocalDateTime from, LocalDateTime to) {
+      
+    /**
+     * Searches for albums that were created between specified dates.
+     * @param from The date from which the created albums are searched for.
+     * @param to The date to which the created albums are searched for.
+     * @return the list of albums corresponding to this condition.
+     */
+    public List<Album> searchByDateAlbums(LocalDateTime from, LocalDateTime to) {
         if(from == null || to == null )
             throw new NullPointerException();
         if(from.isAfter(to))
@@ -89,6 +122,23 @@ public class SearchJPAController implements Serializable {
         cqA.where(cb.between(album.<LocalDateTime>get("createdAt"), from, to));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
+        
+        return albums;
+    }
+    
+    /**
+     * Searches for tracks that were created between specified dates.
+     * @param from The date from which the created tracks are searched for.
+     * @param to The date to which the created tracks are searched for.
+     * @return the list of tracks corresponding to this condition.
+     */
+    public List<Track> searchByDateTracks(LocalDateTime from, LocalDateTime to) {
+        if(from == null || to == null )
+            throw new NullPointerException();
+        if(from.isAfter(to))
+            throw new DateTimeException("From date is after to date");
+                
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();   
               
         CriteriaQuery<Track> cqT = cb.createQuery(Track.class);      
         Root<Track> track = cqT.from(Track.class);       
@@ -96,6 +146,6 @@ public class SearchJPAController implements Serializable {
         TypedQuery<Track> tqT = entityManager.createQuery(cqT);      
         List<Track> tracks = (List<Track>)tqT.getResultList(); 
         
-        return new Object[]{albums, tracks};
+        return tracks;
     }
 }

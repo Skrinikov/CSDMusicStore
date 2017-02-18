@@ -19,8 +19,12 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- * Responsible for register or log in users.
+ * The controller responsible for register, login, and logout users.
+ * Contains currently logged in user.
+ *
  * @author Alena Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Named("login")
 @SessionScoped
@@ -35,6 +39,9 @@ public class LoginController implements Serializable {
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
 
+    /**
+     * Performs the necessary actions to login the user.
+     */
     public void login() {
         currentUser = userBacking.getUser();
         try{
@@ -63,6 +70,9 @@ public class LoginController implements Serializable {
         }   
     }
     
+    /**
+     * Performs the necessary actions to register the user.
+     */
     public void register() {
         User newUser = userBacking.getUser();
         try{
@@ -87,30 +97,38 @@ public class LoginController implements Serializable {
         }   
     }
     
+    /**
+     * Logs out the user.
+     * @return null to stay on the same page.
+     */
     public String logout() {
         currentUser = null;
         return null;
     }
     
+    /**
+     * Verifies if the user is logged in.
+     * @return true if the user is logged in; false otherwise.
+     */
     public boolean isLoggedIn() {
-        log.info((currentUser != null)+"");
         return currentUser != null;
     }
     
+    /**
+     * Returns the current user.
+     * @return the current user.
+     */
     public User getCurrentUser() {
         return currentUser;
    }
     
-    private List<User> getUsers() {
-        return (List<User>)entityManager.createNamedQuery("User.findAll").getResultList();
-    }
-    
+    /**
+     * Searches users table by the username.
+     * @param username The username to search by in the users table.
+     * @return the user with the corresponding username.
+     */
     private User getByUsername(String username) {
         return (User)entityManager.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
-    }
-
-    private User getByEmail(String email) {
-        return (User)entityManager.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
     }
     
     

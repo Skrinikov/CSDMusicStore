@@ -10,7 +10,6 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.controllers.ReviewsWebController;
-import com.fractals.controllers.ShoppingCart;
 import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
