@@ -113,12 +113,46 @@ body.navbar-more-show  {
 .footer{
     background: #272727;
     height: auto;
-    position: absolute;
     width: 100%;
-    bottom:0;
+
 }
 
 .footer > .container > p {
     padding-top: 14px;
     color: #a0a0a0;
+}
+
+.content{
+    margin-top:50px;
+}
+
+@media (max-width: 600px) {
+    .carousel-caption {
+        display: none; 
+    }
+}
+.carousel-inner img {
+    width: 100%;
+    margin: auto;
+    min-height:200px;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.ad-container{
+    height:100px;
+    
+}
+
+.ad-inner-c{
+    padding:2px;
+    background-color:#f0f0f0;
+    height: 100%;
+    width:100%;
+}
+
+.top-buffer { margin-top:20px; }
+
+rss-panel .panel-body{
+    height:200px;
 }
