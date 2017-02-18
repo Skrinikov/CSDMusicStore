@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
  * The controller responsible for register, login, and logout users.
  * Contains currently logged in user.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The controller responsible to work with the province object.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

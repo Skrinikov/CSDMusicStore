@@ -30,10 +30,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
 
-//@Ignore
+@Ignore
 /**
  * Tests SearchJPAController.
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  */
 @RunWith(Arquillian.class)
 public class SearchJPAControllerTest {

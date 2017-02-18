@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * Creates schema and seeds the database with the test data.
  * The routine is courtesy of Bartosz Majsak.
  * 
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  */
 public class DatabaseSeedManager {
     private DataSource ds;

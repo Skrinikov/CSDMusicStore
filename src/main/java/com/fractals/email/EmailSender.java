@@ -13,7 +13,7 @@ import jodd.mail.SmtpSslServer;
 /**
  * EmailSender class is responsible for sending emails to the client.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

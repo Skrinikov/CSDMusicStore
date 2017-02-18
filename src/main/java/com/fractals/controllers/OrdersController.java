@@ -23,7 +23,7 @@ import javax.transaction.UserTransaction;
 /**
  * The controller for orders and purchasing logic.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

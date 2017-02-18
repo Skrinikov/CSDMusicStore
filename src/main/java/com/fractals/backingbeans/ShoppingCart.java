@@ -13,7 +13,7 @@ import javax.inject.Named;
 /**
  * The logic for shopping cart.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

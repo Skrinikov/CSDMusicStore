@@ -21,7 +21,7 @@ import javax.persistence.criteria.Join;
  * Implements searching by album title, tracks name, artist name, and 
  * between specific dates for the index page.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

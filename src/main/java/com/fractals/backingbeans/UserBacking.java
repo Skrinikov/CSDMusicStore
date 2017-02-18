@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
  * A backing bean responsible to contain the currently logged in user and
  * save new users to the database.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */

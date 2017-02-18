@@ -14,7 +14,7 @@ import javax.crypto.spec.PBEKeySpec;
  * SecurityHelper class is responsible for hashing, generating a random salt
  * and verifying if the hash is valid for login and registration.
  *
- * @author Alena Shulzhenko
+ * @author Aline Shulzhenko
  * @version 18/02/2017
  * @since 1.8
  */
