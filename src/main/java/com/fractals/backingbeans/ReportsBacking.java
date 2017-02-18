@@ -1,6 +1,8 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Order;
+import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.ReportsController;
 import java.io.Serializable;
 import java.time.Instant;
@@ -37,8 +39,24 @@ public class ReportsBacking implements Serializable {
     private Date revenueEnd;
     private String revenue;
     
-    // Orders
-    private List<Order> order;
+    // Total Sales
+    private List<Order> totalSalesOrders;
+    // Orders from user
+    private List<Order> ordersFromUser;
+    // Orders From track
+    private List<Order> ordersFromTrack;
+    // Orders by Album
+    private List<Order> ordersFromAlbum;
+    // Order by Artist
+    private List<Order> ordersFromArtist;
+    // Top Sellers
+    private List<Order> topOrders;
+    // Top Clients
+    private List<User> topUsers;
+    // Zero Tracks
+    private List<Track> zeroTracks;
+    // Zero Users
+    private List<User> zeroUsers;
     
     /**
      * Default constructor.
@@ -95,13 +113,18 @@ public class ReportsBacking implements Serializable {
     }
     
     /**
-     * 
+     * Is invoked whenever the total sales action button is pressed. 
+     * Calls the getTotalSales method from the controller and sets it into the list
      */
     public void getTotalSales(){
-        order = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));          
+        totalSalesOrders = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));          
+    }
+    
+    public void getSalesByUser(){
+        
     }
 
-    /*Getters and setters*/
+    /*Getters and setters -------------------------------------------------------------------------------------------------------*/
     
     public Date getSalesBegin() {
         return salesBegin;
@@ -143,11 +166,12 @@ public class ReportsBacking implements Serializable {
         this.revenue = revenue;
     }
 
-    public List<Order> getOrder() {
-        return order;
+    public List<Order> getTotalSalesOrders() {
+        return totalSalesOrders;
     }
 
-    public void setOrder(List<Order> order) {
-        this.order = order;
-    }         
+    public void setTotalSalesOrders(List<Order> totalSalesOrders) {
+        this.totalSalesOrders = totalSalesOrders;
+    }
+       
 }

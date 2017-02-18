@@ -159,8 +159,9 @@
                                     <a href="#tab_default_9" data-toggle="tab">Zero Clients</a>
                                 </li>
                             </ul>
-                            <!-- Reports Tab  -->
+                            
                             <div class="tab-content">
+                                <!-- Reports Tab  -->
                                 <div class="tab-pane active" id="tab_default_1">
                                     <h:form id="totalSales" styleClass="col-md-4 col-xs-12">
                                         <h:panelGrid columns="2" cellpadding="53">
@@ -174,7 +175,7 @@
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x" styleClass="btn btn-success"/>     
 
                                         <h:panelGroup id="x">
-                                            <ui:repeat var="order" value="#{reportsBacking.order}" >
+                                            <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}" >
                                                 <p>#{order.id}</p>
                                                 <p>#{order.orderDate}</p>
                                                 <p>#{order.user.username}</p>
@@ -185,15 +186,31 @@
                                     </h:form>                                 
 
                                 </div>
+                                <!-- Sales by client lab -->
                                 <div class="tab-pane" id="tab_default_2">
-                                    <p>
-                                        Sales by Client
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="totalSales" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="x">
+                                            <ui:repeat var="order" value="#{reportsBacking.order}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
                                 <div class="tab-pane" id="tab_default_3">
                                     <p>
