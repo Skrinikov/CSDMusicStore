@@ -173,5 +173,71 @@ public class ReportsBacking implements Serializable {
     public void setTotalSalesOrders(List<Order> totalSalesOrders) {
         this.totalSalesOrders = totalSalesOrders;
     }
+
+    public List<Order> getOrdersFromUser() {
+        return ordersFromUser;
+    }
+
+    public void setOrdersFromUser(List<Order> ordersFromUser) {
+        this.ordersFromUser = ordersFromUser;
+    }
+
+    public List<Order> getOrdersFromTrack() {
+        return ordersFromTrack;
+    }
+
+    public void setOrdersFromTrack(List<Order> ordersFromTrack) {
+        this.ordersFromTrack = ordersFromTrack;
+    }
+
+    public List<Order> getOrdersFromAlbum() {
+        return ordersFromAlbum;
+    }
+
+    public void setOrdersFromAlbum(List<Order> ordersFromAlbum) {
+        this.ordersFromAlbum = ordersFromAlbum;
+    }
+
+    public List<Order> getOrdersFromArtist() {
+        return ordersFromArtist;
+    }
+
+    public void setOrdersFromArtist(List<Order> ordersFromArtist) {
+        this.ordersFromArtist = ordersFromArtist;
+    }
+
+    public List<Order> getTopOrders() {
+        return topOrders;
+    }
+
+    public void setTopOrders(List<Order> topOrders) {
+        this.topOrders = topOrders;
+    }
+
+    public List<User> getTopUsers() {
+        return topUsers;
+    }
+
+    public void setTopUsers(List<User> topUsers) {
+        this.topUsers = topUsers;
+    }
+
+    public List<Track> getZeroTracks() {
+        return zeroTracks;
+    }
+
+    public void setZeroTracks(List<Track> zeroTracks) {
+        this.zeroTracks = zeroTracks;
+    }
+
+    public List<User> getZeroUsers() {
+        return zeroUsers;
+    }
+
+    public void setZeroUsers(List<User> zeroUsers) {
+        this.zeroUsers = zeroUsers;
+    }
+    
+    
        
 }

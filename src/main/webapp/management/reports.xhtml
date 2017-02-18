@@ -172,9 +172,9 @@
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
 
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x" styleClass="btn btn-success"/>     
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderTotalSales" styleClass="btn btn-success"/>     
 
-                                        <h:panelGroup id="x">
+                                        <h:panelGroup id="orderTotalSales">
                                             <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}" >
                                                 <p>#{order.id}</p>
                                                 <p>#{order.orderDate}</p>
@@ -182,13 +182,11 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-
                                     </h:form>                                 
-
                                 </div>
                                 <!-- Sales by client lab -->
                                 <div class="tab-pane" id="tab_default_2">
-                                    <h:form id="totalSales" styleClass="col-md-4 col-xs-12">
+                                    <h:form id="totalClientSales" styleClass="col-md-4 col-xs-12">
                                         <!-- Inputs -->
                                         <h:panelGrid columns="2" cellpadding="53">
                                             <p:outputLabel for="totalSalesStart" value="Start:" />
@@ -198,11 +196,11 @@
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
                                         
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="x" styleClass="btn btn-success"/>
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderClientSales" styleClass="btn btn-success"/>
                                         
                                         <!-- Sales output -->
-                                        <h:panelGroup id="x">
-                                            <ui:repeat var="order" value="#{reportsBacking.order}" >
+                                        <h:panelGroup id="orderClientSales">
+                                            <ui:repeat var="order" value="#{reportsBacking.ordersFromUser}" >
                                                 <p>#{order.id}</p>
                                                 <p>#{order.orderDate}</p>
                                                 <p>#{order.user.username}</p>
@@ -212,75 +210,187 @@
                                         
                                     </h:form>
                                 </div>
+                                <!-- Sales by track -->
                                 <div class="tab-pane" id="tab_default_3">
-                                    <p>
-                                        Sales by Artist
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="totalTrackSales" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderTrackSales" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="orderTrackSales">
+                                            <ui:repeat var="order" value="#{reportsBacking.ordersFromTrack}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Sales by album -->
                                 <div class="tab-pane" id="tab_default_4">
-                                    <p>
-                                        Sales by Track
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="totalAlbumSales" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderAlbumSales" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="orderAlbumSales">
+                                            <ui:repeat var="order" value="#{reportsBacking.ordersFromAlbum}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Sales by artist -->
                                 <div class="tab-pane" id="tab_default_5">
-                                    <p>
-                                        Sales by Album
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="totalArtistSales" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderArtistSales" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="orderArtistSales">
+                                            <ui:repeat var="order" value="#{reportsBacking.ordersFromArtist}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Top orders -->
                                 <div class="tab-pane" id="tab_default_6">
-                                    <p>
-                                        Top Sellers
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="topOrders" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topOrdersUI" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="topOrdersUI">
+                                            <ui:repeat var="order" value="#{reportsBacking.topOrders}" >
+                                                <p>#{order.id}</p>
+                                                <p>#{order.orderDate}</p>
+                                                <p>#{order.user.username}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Top clients -->
                                 <div class="tab-pane" id="tab_default_7">
-                                    <p>
-                                        Top Clients
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="topClients" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topClientsUI" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="topClientsUI">
+                                            <ui:repeat var="user" value="#{reportsBacking.topUsers}" >
+                                                <p>#{user.id}</p>
+                                                <p>#{user.username}</p>
+                                                <p>#{user.email}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Zero Tracks -->
                                 <div class="tab-pane" id="tab_default_8">
-                                    <p>
-                                        Zero Tracks
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="zeroTracks" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroTracksUI" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="zeroTracksUI">
+                                            <ui:repeat var="track" value="#{reportsBacking.zeroTracks}" >
+                                                <p>#{track.id}</p>
+                                                <p>#{track.title}</p>
+                                                <p>#{track.listPrice}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
+                                <!-- Zero users -->
                                 <div class="tab-pane" id="tab_default_9">
-                                    <p>
-                                        Zero Users
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-success" href="#">
-                                            Learn more...
-                                        </a>
-                                    </p>
+                                    <h:form id="zeroUsers" styleClass="col-md-4 col-xs-12">
+                                        <!-- Inputs -->
+                                        <h:panelGrid columns="2" cellpadding="53">
+                                            <p:outputLabel for="totalSalesStart" value="Start:" />
+                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+
+                                            <p:outputLabel for="totalSalesEnd" value="End:" />
+                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+                                        </h:panelGrid>
+                                        
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroUsersUI" styleClass="btn btn-success"/>
+                                        
+                                        <!-- Sales output -->
+                                        <h:panelGroup id="zeroUsersUI">
+                                            <ui:repeat var="user" value="#{reportsBacking.zeroUsers}" >
+                                                <p>#{user.id}</p>
+                                                <p>#{user.username}</p>
+                                                <p>#{user.email}</p>
+                                                <hr/>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                        
+                                    </h:form>
                                 </div>
                             </div>
                         </div>
