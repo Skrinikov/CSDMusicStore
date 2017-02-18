@@ -5,7 +5,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="windowTitle">
-        Fractals
+        #{bundle.websiteTitle}
     </ui:define>
     <ui:define name="content">
         <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
@@ -13,6 +13,8 @@
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                
             </ol>
 
             <!-- Wrapper for slides -->
@@ -20,13 +22,21 @@
                 <div class="item active">
                     <h:graphicImage value="resources/images/ambiance/carousel_1.jpg" />
                     <div class="carousel-caption">
-                        <h3>Sell $</h3>
-                        <p>Money Money.</p>
+                        <h3>#{bundle.carousel_title_1}</h3>
+                        <p>#{bundle.carousel_subtitle_1}</p>
                     </div>      
                 </div>
 
                 <div class="item">
                     <h:graphicImage value="resources/images/ambiance/carousel_2.jpg" />
+                    <div class="carousel-caption">
+                        <h3>More Sell $</h3>
+                        <p>Lorem ipsum...</p>
+                    </div>      
+                </div>
+                
+                <div class="item">
+                    <h:graphicImage value="resources/images/ambiance/carousel_3.jpg" />
                     <div class="carousel-caption">
                         <h3>More Sell $</h3>
                         <p>Lorem ipsum...</p>
@@ -103,12 +113,23 @@
                     <h:form id="genresList">
                         <div class="panel panel-info genres-panel">
                             <div class="panel-heading">Genres</div>
-                            <div class="panel-body">
-                                
+                            <div class="panel-body text-center">
+                                <ui:repeat var="genre" value="#{indexBacking.genres}">
+                                    <p>#{genre.name}</p>
+                                </ui:repeat>
                             </div>
                         </div>
                     </h:form>
                 </p:outputPanel>
+            </div>
+            
+            <!-- Songs -->
+            <div class="row">
+                <h:form id="newTracks">
+                    <ui:repeat var="track" value="#{indexBacking.newTracks}">
+                        <p>#{track.title}</p>
+                    </ui:repeat>
+                </h:form>
             </div>
         </div>
     </ui:define>

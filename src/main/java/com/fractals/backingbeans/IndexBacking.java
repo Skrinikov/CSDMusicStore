@@ -1,6 +1,10 @@
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Genre;
+import com.fractals.beans.Track;
+import com.fractals.controllers.GenreJpaController;
 import com.fractals.controllers.RssFeedController;
+import com.fractals.controllers.TrackJpaController;
 import com.fractals.rss.FeedMessage;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,9 +26,15 @@ public class IndexBacking {
     // Controllers
     @Inject
     private RssFeedController rss;
+    @Inject
+    private GenreJpaController genre;
+    @Inject
+    private TrackJpaController tracks;
     
     // Class Variables
     private List<FeedMessage> rssMsgs;
+    private List<Genre> genres;
+    private List<Track> newTracks;
     
     /**
      * Generates all components which are needed to display the page.
@@ -32,7 +42,8 @@ public class IndexBacking {
     @PostConstruct
     public void init(){
         rssMsgs = rss.getVisibleFeed();
-        System.out.println(rssMsgs.size());
+        genres = genre.findGenreEntities();
+        newTracks = tracks.getMostRecentTracks(3);
     }
     
     /* Getters and Setters */
@@ -44,5 +55,23 @@ public class IndexBacking {
     public void setRssMsgs(List<FeedMessage> rssMsgs) {
         this.rssMsgs = rssMsgs;
     }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Track> getNewTracks() {
+        return newTracks;
+    }
+
+    public void setNewTracks(List<Track> newTracks) {
+        this.newTracks = newTracks;
+    }
+   
+    
  
 }
