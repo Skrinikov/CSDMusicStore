@@ -83,16 +83,28 @@
                 <!-- RSS -->
                 <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-6 col-xs-12">
                     <h:form id="rssForm">
-                            <div class="panel panel-danger rss-panel">
+                        <div class="panel panel-danger rss-panel">
                             <div class="panel-heading">News Feed</div>
                             <div class="panel-body">
                                 <ui:repeat var="msg" value="#{indexBacking.rssMsgs}">
 
-                                    <h:link outcome="#{msg.link}">
-                                        <h:outputLabel value="#{msg.title}"/>
-                                    </h:link>
-
+                                    <a href="#{msg.link}">
+                                        <h:outputLabel value="#{msg.title}" styleClass="rss-title"/>
+                                        <h:outputText value="#{msg.description}" escape="false" styleClass="rss-description"/>
+                                    </a>
+                                    <hr/>
                                 </ui:repeat>
+                            </div>
+                        </div>
+                    </h:form>
+                </p:outputPanel>
+                <!-- Genres -->
+                <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-6 col-xs-12">
+                    <h:form id="genresList">
+                        <div class="panel panel-info genres-panel">
+                            <div class="panel-heading">Genres</div>
+                            <div class="panel-body">
+                                
                             </div>
                         </div>
                     </h:form>

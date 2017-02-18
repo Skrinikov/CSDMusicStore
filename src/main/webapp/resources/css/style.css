@@ -153,6 +153,35 @@ body.navbar-more-show  {
 
 .top-buffer { margin-top:20px; }
 
-rss-panel .panel-body{
-    height:200px;
+.rss-panel .panel-body{
+    height:400px;
+    overflow-y:scroll;
+}
+
+.rss-description img{
+    max-width:150px;
+    max-height:75px;
+    float:left;
+}
+
+.rss-description{
+    cursor: pointer;
+    text-decoration: none;
+    color:#545454
+}
+
+.rss-description p {
+    padding-left:155px;
+}
+
+.rss-title{
+    color: #545454;
+    cursor:pointer;
+    text-decoration:underline;
+    display:block;
+}
+
+.genres-panel .panel-body{
+    height:400px;
+    overflow-y: scroll;
 }
