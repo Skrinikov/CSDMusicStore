@@ -5,7 +5,6 @@ import com.fractals.beans.User;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;

@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -18,7 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Responsible for backing search choices page.
+ * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
  * @version 18/02/2017
@@ -28,15 +27,59 @@ import javax.persistence.PersistenceContext;
 @SessionScoped
 public class SearchBacking  implements Serializable  {
     private List<String> options;
+    private List<Album> albums;
+    private List<Track> tracks;
     private SearchJPAController jpa;
     private String choice;
     private String key;
     private boolean dateSelected;
     private Date dateStart;
     private Date dateEnd;
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("SearchBacking.class");
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
+    
+    /**
+     * Returns true if there is no data available to display.
+     * @return true if there is no data available to display; false otherwise.
+     */
+    public boolean noData() {
+        return (albums == null || albums.isEmpty()) && 
+               (tracks == null || tracks.isEmpty());
+    }
+    
+    /**
+     * Verifies if the albums list is empty.
+     * @return true if the list is empty; false otherwise.
+     */
+    public boolean isAlbumsEmpty() {
+        return albums == null || albums.isEmpty();
+    }
+    
+    /**
+     * Verifies if the tracks list is empty.
+     * @return true if the list is empty; false otherwise.
+     */
+    public boolean isTracksEmpty() {
+        return tracks == null || tracks.isEmpty();
+    }
+    
+    /**
+     * Returns the list of queried albums.
+     * @return  the list of queried albums.
+     */
+    public List<Album> getAlbums() {
+        return albums;
+    }
+    
+    /**
+     * Returns the list of queried tracks.
+     * @return  the list of queried tracks.
+     */
+    public List<Track> getTracks() {
+        return tracks;
+    }
     
     /**
      * Returns starting date for the query.
@@ -103,28 +146,28 @@ public class SearchBacking  implements Serializable  {
     }
     
     /**
-     * Queries for albums based on user-defined search keys and he chosen option.
-     * @return 
+     * Queries for albums based on user-defined search keys and the chosen option.
      */
-    public String search() {
-        LocalDateTime from = LocalDateTime.ofInstant(dateStart.toInstant(), ZoneId.systemDefault());
-        LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
-        List<Album> albums = new ArrayList<>();
-        List<Track> tracks = new ArrayList<>();
-        if(choice.equals(options.get(0)))
-            albums = jpa.searchByAlbumTitle(key);
-        else if(choice.equals(options.get(1)))
-            tracks = jpa.searchByTrackName(key);
-        else if(choice.equals(options.get(2))) {
-            albums = jpa.searchByDateAlbums(from, to);
-            tracks = jpa.searchByDateTracks(from, to);
+    public void search() {
+        albums = new ArrayList<>();
+        tracks = new ArrayList<>();
+        if(key != null) {
+            LocalDateTime from = LocalDateTime.ofInstant(dateStart.toInstant(), ZoneId.systemDefault());
+            LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
+
+            if(choice.equals(options.get(0)))
+                albums = jpa.searchByAlbumTitle(key);
+            else if(choice.equals(options.get(1)))
+                tracks = jpa.searchByTrackName(key);
+            else if(choice.equals(options.get(2))) {
+                albums = jpa.searchByDateAlbums(from, to);
+                tracks = jpa.searchByDateTracks(from, to);
+            }
+            else if(choice.equals(options.get(3))) {
+                albums = jpa.searchByArtistNameAlbums(key);
+                tracks = jpa.searchByArtistNameTracks(key);
+            }
         }
-        else if(choice.equals(options.get(3))) {
-            albums = jpa.searchByArtistNameAlbums(key);
-            tracks = jpa.searchByArtistNameTracks(key);
-        }
-        System.out.println("ALBUMS" + Arrays.toString(albums.toArray(new Album[]{})) +  "TRACKS" + Arrays.toString(tracks.toArray(new Track[]{})));
-        return null;
     }
     
     /**
@@ -140,7 +183,10 @@ public class SearchBacking  implements Serializable  {
      */
     @PostConstruct
     public void init() {
+       albums = new ArrayList<>();
+       tracks = new ArrayList<>();
        options = new ArrayList<>();
+       choice = "";
        options.add("Search by album title");
        options.add("Search by track name");
        options.add("Search by created date");

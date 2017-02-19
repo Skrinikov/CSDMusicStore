@@ -4,16 +4,17 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j">
     
     <ui:define name="windowTitle">Search</ui:define>
 
     <ui:define name="content">
         <br/><br/><br/><br/>
-        <h2>Search Options</h2>
+        <h2>Search</h2>
         
-        <h:form>
-            
+        <!-- Search Options -->
+        <h:form>           
             <h:panelGrid columns="3">
                 <h:outputLabel for="choice" value="Choose from:" />
                 
@@ -45,10 +46,37 @@
                         <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
                     </h:panelGrid>
                 </h:panelGroup>          
-                     
-            
-            <p:commandButton action="#{search.search}" value="Search" />
+                                
+            <h:commandButton value="Search!" action="#{search.search()}">
+                <f:ajax execute="@form" render="results"/>
+            </h:commandButton>
+
         </h:form>
+        
+        
+        <!-- Search Results -->          
+        <h2>Search Results</h2>
+        <h:panelGroup id="results">
+            <ui:fragment rendered="#{!search.albumsEmpty}">
+                <h3> Album List:</h3>
+            </ui:fragment>
+            <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
+                #{album.title} <br />
+            </ui:repeat>
+            <hr/>
+
+            <ui:fragment rendered="#{!search.tracksEmpty}">
+                <h3> Track List:</h3>
+            </ui:fragment>
+            <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
+                #{track.title} <br />
+            </ui:repeat>
+        
+        
+            <ui:fragment rendered="#{search.noData()}">
+                <p>There is no data available to display :(</p>
+            </ui:fragment>
+        </h:panelGroup>
         
     </ui:define> 
     
