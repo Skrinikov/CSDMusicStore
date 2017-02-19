@@ -128,7 +128,7 @@ public class Artist implements Serializable {
     
     @Override
     public String toString() {
-        return "com.fractals.beans.Artist[ id=" + id + " ]";
+        return name;
     }
     
 }

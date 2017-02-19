@@ -112,7 +112,7 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Genre[ id=" + id + " ]";
+        return name;
     }
 
     @XmlTransient

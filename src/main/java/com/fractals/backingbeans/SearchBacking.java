@@ -41,6 +41,16 @@ public class SearchBacking  implements Serializable  {
     private EntityManager entityManager;
     
     /**
+     * Returns the cover file of the required album.
+     * @param album The album for which the cover is found.
+     * @return the cover file of the required album.
+     */
+    public String getAlbumCover(Album album) {
+        List<Track> items = album.getTracks();
+        return items.isEmpty() ? null : items.get(0).getCoverFile();
+    }
+    
+    /**
      * Returns true if there is no data available to display.
      * @return true if there is no data available to display; false otherwise.
      */

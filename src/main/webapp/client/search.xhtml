@@ -60,16 +60,58 @@
             <ui:fragment rendered="#{!search.albumsEmpty}">
                 <h3> Album List:</h3>
             </ui:fragment>
+            
+            
             <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
-                #{album.title} <br />
+                <div class="well row">
+                    <div class="col-sm-4">
+                        <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="max-height: 150px"/>
+                    </div>
+                    <div class="well well-review col-sm-8">
+                        <ui:fragment rendered="#{album.available}">
+                            <b>#{album.title}</b> <br />
+                            <i>Artist:</i> #{album.artist} <br />
+                            <i>Release Date:</i> #{album.releaseDate} <br />
+                            <i>Number of Tracks:</i> #{album.numTracks} <br />
+                            <i>Record Label:</i> #{album.recordLabel} <br />
+                            <h:panelGroup rendered="#{album.salePrice == 0}">
+                                <i>Cost:</i> $#{album.listPrice} <br />
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{album.salePrice > 0}">
+                                <i>Cost:</i> $#{album.salePrice} <br />
+                            </h:panelGroup>
+                        </ui:fragment>
+                    </div>
+                </div>
             </ui:repeat>
+
             <hr/>
 
             <ui:fragment rendered="#{!search.tracksEmpty}">
                 <h3> Track List:</h3>
             </ui:fragment>
             <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
-                #{track.title} <br />
+                <div class="well row">
+                    <div class="col-sm-4">
+                        <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                    </div>
+                    <div class="well well-review col-sm-8">
+                        <ui:fragment rendered="#{track.available}">
+                            <b>#{track.title}</b> <br />
+                            <i>Songwriters:</i> #{track.songwriter} <br />
+                            <i>Duration:</i> #{track.duration} <br />
+                            <i>Album number:</i> #{track.albumNum} <br />
+                            <i>Album:</i> #{track.album} <br />
+                            <i>Genre:</i> #{track.genre} <br />
+                            <h:panelGroup rendered="#{track.salePrice == 0}">
+                                <i>Cost:</i> $#{track.listPrice} <br />
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{track.salePrice > 0}">
+                                <i>Cost:</i> $#{track.salePrice} <br />
+                            </h:panelGroup>
+                        </ui:fragment>
+                    </div>
+                </div>
             </ui:repeat>
         
         

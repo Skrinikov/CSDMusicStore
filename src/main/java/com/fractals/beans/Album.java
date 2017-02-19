@@ -277,7 +277,7 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Album[ id=" + id + " ]";
+        return title;
     }
 
     public Artist getArtist() {
