@@ -15,7 +15,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  *
  * @author 1710030
@@ -23,59 +22,60 @@ import javax.inject.Named;
 @Named("theAlbums")
 @RequestScoped
 public class AlbumBackingBean {
- 
+
     private String test2;
-    public String getTest2(){ return test2;}
-    public void setTest2(String s){test2 = s;}
-    
+    public String getTest2() {return test2;}
+    public void setTest2(String s) {test2 = s;}
+
     private Artist test;
-    public Artist getTest(){return test;}
-    public void setTest(Artist stuff){test=stuff;}
-   
+    public Artist getTest() {return test;}
+    public void setTest(Artist stuff) {test = stuff;}
+
     private boolean editable = false;
-    public void setEditable(boolean b) {editable = b;}
     public boolean getEditable() {return editable;}
+    public void setEditable(boolean b) {editable = b;}
     public void editable() throws Exception {setEditable(true);}
     public void uneditable() {setEditable(false);}
 
     private Album selectedAlbum;
-    
-    public Album getSelectedAlbum() {
-        if(selectedAlbum == null)
-            selectedAlbum = getFirst();   //A CHANGER
-        return selectedAlbum;      
-    }
-    
-    public void setSelectedAlbum(Album a) {
-        selectedAlbum = a;
-    }
+    public Album getSelectedAlbum() {return selectedAlbum;}
+    public void setSelectedAlbum(Album a) {selectedAlbum = a;}
 
-    private Album getFirst() {return getAlbums().get(72);}
+    private Album getFirst() {return getAlbums().get(72);}//TO TEST DELETE
 
     @Inject
-    private AlbumJpaController albumJpaController;  
-    
-    public List<Album> getAlbums() {
-        return albumJpaController.findAlbumEntities();
+    private AlbumJpaController albumJpaController;
+    public List<Album> getAlbums() {return albumJpaController.findAlbumEntities();}
+    public boolean isEmpty() {return albumJpaController.isEmpty();}
+
+    public void edit() throws Exception {
+        albumJpaController.edit(selectedAlbum);
     }
 
-    public boolean isEmpty() {
-        return albumJpaController.isEmpty();
+    public void delete() throws Exception {
+        albumJpaController.destroy(selectedAlbum.getId());
+        selectedAlbum = null;
+    }
+
+    
+    
+    
+    private Album createdAlbum;
+
+    public Album getCreatedAlbum() {
+        if (createdAlbum == null)
+            return new Album();
+        return createdAlbum;
+    }
+
+    public void setCreatedAlbum(Album a) {
+        createdAlbum = a;
     }
 
     public void create() throws Exception {
-        selectedAlbum.setCreatedAt(LocalDateTime.now());
-        selectedAlbum.setReleaseDate(LocalDate.now());//A CHANGER
-        selectedAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
-        albumJpaController.create(selectedAlbum);
-    }
-    
-    public void edit() throws Exception{
-        albumJpaController.edit(selectedAlbum);
-    }
-    
-    public void delete() throws Exception{
-        albumJpaController.destroy(selectedAlbum.getId()); 
-        selectedAlbum = null;
+        createdAlbum.setCreatedAt(LocalDateTime.now());
+        createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
+        createdAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
+        albumJpaController.create(createdAlbum);
     }
 }

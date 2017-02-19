@@ -50,9 +50,9 @@
 
                 <p:commandButton actionListener="#{theAlbums.editable()}" value="Edit" ajax="false"/>                             
            
-<!--            <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" ajax="true">
+<!--            <p:commandButton actionListener="deleteCallHere" value="Delete" ajax="false">
                 <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
-           </p:commandButton>
+                </p:commandButton>
             
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
@@ -91,15 +91,16 @@
                 <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" disabled="true">
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
-                <!--si l'artiste n'existe, dialog "voulez vous le creer"-->
-
+              
                 <p:commandButton  actionListener="#{theAlbums.edit()}" value="save" ajax="false"/>
                 <p:commandButton  actionListener="#{theAlbums.uneditable()}" value="cancel" ajax="false"/>
-
+                
             </h:panelGrid>
 
-            <p:outputLabel value="release date and artist greyed out because not working"/>
-        
+           <p:commandButton value="Retour à la liste" action="/managment/albumsList.xhtml" ajax="false" />
+          
+           <!--si l'artiste n'existe, dialog "voulez vous le creer"
+          release date and artist greyed out because annoying (whole thing still not working yet)"-->
         </h:form>      
     </ui:define>
 </ui:composition>
