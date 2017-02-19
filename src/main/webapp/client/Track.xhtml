@@ -48,18 +48,20 @@
 
                         </p:panelGrid>
 
-                        
+
                         <h4>Related Tracks</h4>
-                        <p:carousel value="#{trackCLBack.similarTracks}"  var="aSimTrack" styleClass="ui-priority-primary" itemStyle="text-align:center" numVisible="5" >
+                        <p:carousel value="#{trackCLBack.similarTracks}"  var="aSimTrack" styleClass="ui-priority-primary" itemStyle="text-align:center" numVisible="3" >
                             <p:panelGrid columns="1" style="margin:5px 0px" >
                                 <f:facet name="header">
-                                    <p:commandLink action="#{trackCLBac}">
-                                        <f:param name="id" value="#{aSimTrack.id}" />
+                                    <h:link outcome="Track">
+                                        <f:param name="id" value="#{aSimTrack.id}"/>
                                         <p:graphicImage name="images/test_cover.jpg" style="max-height: 155px"/>
-                                    </p:commandLink>
-                                    
+                                    </h:link>
                                 </f:facet>
-                                <h:outputText value="#{aSimTrack.title}"/>
+                                
+                                <h:link value="#{aSimTrack.title}" outcome="Track">
+                                        <f:param name="id" value="#{aSimTrack.id}"/>                                        
+                                </h:link>
                             </p:panelGrid>
                         </p:carousel>
                     </div>
@@ -74,7 +76,7 @@
                                     <h5>Add a Review</h5>
                                     <p:inputTextarea rows="10" cols="50" />
                                     <h:outputText /><br/>
-                                    
+
                                     <p:commandButton value="Submit" actionListener="#{trackCLBack.addReview}" />
 
                                 </h:form>
@@ -94,7 +96,7 @@
         </div>
 
 
-        
+
 
     </ui:define>
 
