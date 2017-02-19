@@ -100,11 +100,27 @@ public class SearchBacking  implements Serializable  {
     }
     
     /**
+     * Returns starting date for the query.
+     * @param dateStart starting date for the query.
+     */
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+    
+    /**
      * Returns ending date for the query.
      * @return ending date for the query.
      */
     public Date getDateEnd() {
         return dateEnd;
+    }
+    
+    /**
+     * Returns ending date for the query.
+     * @param dateEnd ending date for the query.
+     */
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
     
     /**
@@ -184,6 +200,9 @@ public class SearchBacking  implements Serializable  {
      * An event that is executes when the user selects an option on the menu.
      */
     public void onItemSelect() {
+        albums = new ArrayList<>();
+        tracks = new ArrayList<>();
+        key = "";
         dateSelected = choice.equals(options.get(2));
     }
 

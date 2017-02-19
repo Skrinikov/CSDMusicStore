@@ -19,7 +19,7 @@
                 <h:outputLabel for="choice" value="Choose from:" />
                 
                 <h:selectOneMenu id="choice" value="#{search.choice}" required="true">
-                    <f:ajax listener="#{search.onItemSelect()}" render="keyG dateG" />
+                    <f:ajax listener="#{search.onItemSelect()}" render="@all" />
                     <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- Choose a search option --" />
                     <f:selectItems value="#{search.options}" />
                 </h:selectOneMenu>
@@ -63,6 +63,8 @@
             
             
             <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
+                <h:link outcome="Album.xhtml" includeViewParams="true" style="color:black">
+                    <f:param name="id" value="#{album.id}"/>
                 <div class="well row">
                     <div class="col-sm-4">
                         <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="max-height: 150px"/>
@@ -83,6 +85,7 @@
                         </ui:fragment>
                     </div>
                 </div>
+                </h:link>
             </ui:repeat>
 
             <hr/>
@@ -91,6 +94,8 @@
                 <h3> Track List:</h3>
             </ui:fragment>
             <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
+                <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
+                    <f:param name="id" value="#{track.id}"/>
                 <div class="well row">
                     <div class="col-sm-4">
                         <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
@@ -112,6 +117,7 @@
                         </ui:fragment>
                     </div>
                 </div>
+                </h:link>
             </ui:repeat>
         
         
