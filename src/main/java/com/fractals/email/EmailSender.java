@@ -73,7 +73,7 @@ public class EmailSender {
             price = album.getSalePrice();
             if(price == 0)
                 price = album.getListPrice();
-            message += "<li>"+ "Album: " + album.getTitle() + " ,"
+            message += "<li>"+ bundle.getString("album")+": " + album.getTitle() + " ,"
                     +bundle.getString("price")+": $"+price+"</li>";
         }
         
