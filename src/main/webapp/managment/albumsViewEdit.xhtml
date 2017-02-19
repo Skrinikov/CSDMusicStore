@@ -12,10 +12,11 @@
 
     <ui:define name="content">
 
-        <h:outputText value="rien de selectionné" rendered="#{theAlbums.selectedAlbum == null}"/>
+        <h:outputText value="rien de selectionné" rendered="#{empty theAlbums.selectedAlbum}"/>
 
         <h:form>
-            <h:panelGrid columns="2" rendered="#{(!theAlbums.editable) and not empty theAlbums.selectedAlbum}">
+            
+            <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
                 <h:outputText value="Title:"/>
@@ -48,10 +49,9 @@
                 </p:column>              
                 </p:dataTable>
 
-                <p:commandButton actionListener="#{theAlbums.editable()}" value="Edit" ajax="false"/>                             
-           
-<!--            <p:commandButton actionListener="deleteCallHere" value="Delete" ajax="false">
-                <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
+                <p:commandButton action="#{theAlbums.editable()}" value="Edit" ajax="false"/>                             
+                <p:commandButton action="#{theAlbums.delete()}" value="Delete" ajax="false"/>
+<!--                 <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
                 </p:commandButton>
             
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -92,8 +92,8 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
               
-                <p:commandButton  actionListener="#{theAlbums.edit()}" value="save" ajax="false"/>
-                <p:commandButton  actionListener="#{theAlbums.uneditable()}" value="cancel" ajax="false"/>
+                <p:commandButton  action="#{theAlbums.edit()}" value="Save" ajax="false"/>
+                <p:commandButton  action="#{theAlbums.uneditable(theAlbums.selectedAlbum)}" value="Cancel" ajax="false"/>
                 
             </h:panelGrid>
 

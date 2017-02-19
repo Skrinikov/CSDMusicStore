@@ -98,9 +98,11 @@
                         <h:outputText value="#{item.available}"/>
                     </p:column>
 
-                    <f:facet name="footer" rendered="#{not empty theAlbums.selectedAlbum}">
+                    <f:facet name="footer">
                         <p:commandButton process="tbl" update=":form:albumDetail" icon="ui-icon-search" value="View" oncomplete="PF('albumDialog').show()" />
                         <p:commandButton value="Consulter l'album" action="/managment/albumsViewEdit.xhtml" ajax="false" />
+                        <p:commandButton value="Creer un album" action="/managment/albumsCreate.xhtml" ajax="false" />
+                    
                     </f:facet>    
 
                 </p:dataTable>

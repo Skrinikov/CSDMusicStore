@@ -34,13 +34,25 @@ public class AlbumBackingBean {
     private boolean editable = false;
     public boolean getEditable() {return editable;}
     public void setEditable(boolean b) {editable = b;}
-    public void editable() throws Exception {setEditable(true);}
-    public void uneditable() {setEditable(false);}
+    
+    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE*/
+    public String editable(Album a) {
+        setSelectedAlbum(a);
+        setEditable(true);
+        return "/managment/albumsViewEdit.xhtml"; 
+    }
+    public String uneditable(Album a) {
+        setSelectedAlbum(a);
+        setEditable(false);
+        return "/managment/albumsViewEdit.xhtml";
+    }
+    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE*/
 
     private Album selectedAlbum;
     public Album getSelectedAlbum() {return selectedAlbum;}
     public void setSelectedAlbum(Album a) {selectedAlbum = a;}
-
+    public boolean selection(){return selectedAlbum == null;}
+    
     private Album getFirst() {return getAlbums().get(72);}//TO TEST DELETE
 
     @Inject
@@ -52,30 +64,29 @@ public class AlbumBackingBean {
         albumJpaController.edit(selectedAlbum);
     }
 
-    public void delete() throws Exception {
+    public String delete() throws Exception {
         albumJpaController.destroy(selectedAlbum.getId());
         selectedAlbum = null;
+        return "/managment/albumsList.xhtml"; 
     }
 
-    
-    
     
     private Album createdAlbum;
 
     public Album getCreatedAlbum() {
         if (createdAlbum == null)
-            return new Album();
+            createdAlbum = new Album();
         return createdAlbum;
     }
 
-    public void setCreatedAlbum(Album a) {
-        createdAlbum = a;
-    }
+    public void setCreatedAlbum(Album a) {createdAlbum = a;}
 
-    public void create() throws Exception {
+    public String create() throws Exception {
         createdAlbum.setCreatedAt(LocalDateTime.now());
         createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
         createdAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
         albumJpaController.create(createdAlbum);
+        selectedAlbum = createdAlbum;
+        return "/managment/albumsViewEdit.xhtml";
     }
 }
