@@ -19,8 +19,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Class corresponding to the provinces table.
  *
- * @author lynn
+ * @author Aline Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Entity
 @Table(name = "provinces")

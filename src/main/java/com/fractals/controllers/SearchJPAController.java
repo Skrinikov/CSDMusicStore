@@ -28,9 +28,23 @@ import javax.persistence.criteria.Join;
 @Named
 @RequestScoped
 public class SearchJPAController implements Serializable {
-
+    
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
+  
+    /**
+     * Initializes the object.
+     */
+    public SearchJPAController() {}
+    
+    /**
+     * Initializes the object with the predefined entityManager value.
+     * @param entityManager EntityManager object.
+     */
+    public SearchJPAController(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     
     /**
      * Searches for albums by the album title.

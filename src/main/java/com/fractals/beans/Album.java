@@ -29,8 +29,11 @@ import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 
 /**
+ * Class corresponding to the albums table.
  *
- * @author lynn
+ * @author Aline Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Entity
 @Table(name = "albums")

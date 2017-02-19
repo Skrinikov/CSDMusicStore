@@ -1,0 +1,56 @@
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <ui:define name="windowTitle">Search</ui:define>
+
+    <ui:define name="content">
+        <br/><br/><br/><br/>
+        <h2>Search Options</h2>
+        
+        <h:form>
+            
+            <h:panelGrid columns="3">
+                <h:outputLabel for="choice" value="Choose from:" />
+                
+                <h:selectOneMenu id="choice" value="#{search.choice}" required="true">
+                    <f:ajax listener="#{search.onItemSelect()}" render="keyG dateG" />
+                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- Choose a search option --" />
+                    <f:selectItems value="#{search.options}" />
+                </h:selectOneMenu>
+                
+                <h:message class="error" for="choice" />
+            </h:panelGrid>                   
+                               
+                <h:panelGroup id="keyG">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="Search key: " />
+                        <h:inputText  id="key"  rendered="#{!search.dateSelected}"
+                                    value="#{search.key}" required="true"/>
+                        <h:message class="error" for="key" rendered="#{!search.dateSelected}" />
+                    </h:panelGrid>
+                </h:panelGroup>
+                
+                <h:panelGroup id="dateG">
+                    <h:panelGrid columns="1">
+                        <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="Choose date: " />
+                        <h:panelGrid columns="2">
+                            <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
+                            <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
+                        </h:panelGrid>
+                        <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
+                    </h:panelGrid>
+                </h:panelGroup>          
+                     
+            
+            <p:commandButton action="#{search.search}" value="Search" />
+        </h:form>
+        
+    </ui:define> 
+    
+</ui:composition>
+

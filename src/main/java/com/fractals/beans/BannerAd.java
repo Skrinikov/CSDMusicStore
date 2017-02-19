@@ -15,8 +15,11 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Class corresponding to the banner_ads table.
  *
- * @author lynn
+ * @author Aline Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Entity
 @Table(name = "banner_ads")

@@ -1,7 +1,6 @@
 package com.fractals.beans;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,8 +18,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Class corresponding to the surveys table.
  *
- * @author lynn
+ * @author Aline Shulzhenko
+ * @version 18/02/2017
+ * @since 1.8
  */
 @Entity
 @Table(name = "surveys")
