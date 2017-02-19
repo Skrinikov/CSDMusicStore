@@ -45,8 +45,7 @@ public class ReviewsWebController implements Serializable {
      */
     public boolean addReview(Track track, String message, User user, int rating){
         try {
-            Review review = new Review();
-            
+            Review review = buildBean(track, message, user, rating);
             reviewControl.create(review);
             return true;
         } catch (Exception ex) {
