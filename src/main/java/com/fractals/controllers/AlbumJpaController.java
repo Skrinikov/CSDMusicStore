@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Album_;
 import com.fractals.beans.Artist;
+import com.fractals.beans.Genre;
+import com.fractals.beans.Genre_;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
@@ -24,11 +23,13 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
 import javax.transaction.UserTransaction;
 
 /**
  *
- * @author 1710030
+ * @author 1710030, Danieil Skrinikov
  */
 
 @Named
@@ -277,5 +278,34 @@ public class AlbumJpaController implements Serializable {
         return getAlbumCount() == 0;
     }
 
-    
+    /**
+     * Gets n amount of albums which have the same genre as the original album, where n is the amount of albums to retrieve.
+     * 
+     * @author Danieil Skrinikov
+     * @param origin Original Album, will be used to get its genre.
+     * @param count amount of albums to return.
+     * @return list of albums with the same genre as the original.
+     */
+    public List<Album> getSimilarAlbums(Album origin, int count){
+        if(origin == null || count <= 0)
+            throw new IllegalArgumentException("Cannot retrieve similar albums");
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Album> query = cb.createQuery(Album.class);
+        Root<Album> root = query.from(Album.class);
+        query.select(root);
+        Join genre = root.join(Album_.tracks).join(Track_.genre);
+        Join artist = root.join(Album_.artist);
+        query.where(cb.and(
+                cb.equal(
+                        genre.get(Genre_.id),
+                        origin.getTracks().get(0).getGenre().getId()))
+                ,
+                cb.notEqual(artist, origin.getArtist()
+                )
+        );
+ 
+        return em.createQuery(query).setMaxResults(count).getResultList();
+    }
 }

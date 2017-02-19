@@ -28,11 +28,11 @@ import org.eclipse.persistence.annotations.Converter;
 
 /**
  *
- * @author lynn
+ * @author lynn, Danieil Skrinikov
  */
 @Entity
 @Table(name = "tracks")
-@Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class)
+@Converter(name = "datetimeConverter", converterClass = com.fractals.beans.LocalDateTimeAttributeConverter.class)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Track.findAll", query = "SELECT t FROM Track t")
@@ -52,97 +52,96 @@ import org.eclipse.persistence.annotations.Converter;
 public class Track implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "title")
     private String title;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "songwriter")
     private String songwriter;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "duration")
     private String duration;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "album_num")
     private int albumNum;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cover_file")
     private String coverFile;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost_price")
     private double costPrice;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "list_price")
     private double listPrice;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "sale_price")
     private double salePrice;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")
     private LocalDateTime createdAt;
-    
-    
+
     @Column(name = "removed_at")
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")
     private LocalDateTime removedAt;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "available")
     private boolean available;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_individual")
     private boolean isIndividual;
-    
+
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Album album;
-    
+
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Genre genre;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "track")
     private List<Review> reviews;
-    
+
     @ManyToMany(mappedBy = "tracks")
     private List<Artist> artists;
-    
+
     @OneToMany(mappedBy = "track")
     private List<OrderItem> orderItems;
-
+    
     public Track() {
     }
 
@@ -335,5 +334,5 @@ public class Track implements Serializable {
     public String toString() {
         return "com.fractals.beans.Track[ id=" + id + " ]";
     }
-    
+
 }
