@@ -5,19 +5,39 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <ui:define name="extra-meta">
-            
-         <f:metadata>
+
+        <f:metadata>
             <f:viewParam name="id" value="#{albumsCLBack.albumId}" /> 
             <f:event type="preRenderView" listener="#{albumsCLBack.init}" />
-         </f:metadata>
-            
+        </f:metadata>
+
     </ui:define>
     <ui:define name="windowTitle">#{albumsCLBack.title}</ui:define>
 
     <ui:define name="content">
-        <br/> <br/> <br/> <br/>
+        <!-- Heading -->
+        <div class="container top-buffer album-container">
+            <div class="row album-header album-row">
+                    <div class="col-md-3 col-xs-12">
+                        <p:graphicImage name="images/test_cover.jpg" style="max-width: 100%;" styleClass="albumHeader"/>
+                    </div>
+                    <div class="col-md-9 col-xs-12" style="position:relative;">
+                        <h3>Album</h3>
+                        <h1>#{albumsCLBack.title}</h1>
+                        <h4>#{albumsCLBack.label}</h4>
+                        <div class="album-actions">
+                            <a href="#" class="btn btn-success">$#{albumsCLBack.listPrice}</a>
+                        </div>
+                    </div>
+            </div>
+            <div class="row album-additional-information">
+                <p>By #{albumsCLBack.artist.name} - #{albumsCLBack.tracks.size()} Track(s)</p>
+            </div>
+        </div>
+
+
         <h3>#{albumsCLBack.title}</h3>
 
         <div>
@@ -60,7 +80,7 @@
                 <p:column headerText="Link">
                     <h:link value="Track Page" outcome="Track">
                         <f:param name="id" value="#{track.id}"/>
-                </h:link>
+                    </h:link>
                 </p:column>
 
 
@@ -68,7 +88,7 @@
             </p:dataTable>
 
         </div>
-        
+
     </ui:define> 
-    
+
 </ui:composition>
