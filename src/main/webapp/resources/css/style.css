@@ -122,3 +122,7 @@ body.navbar-more-show  {
     padding-top: 14px;
     color: #a0a0a0;
 }
+
+.error{
+    color:red;
+}

@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 19/02/2017
  * @since 1.8
  */
 @Named("login")
@@ -50,7 +50,7 @@ public class LoginController implements Serializable {
             byte[] loginHash = security.hash(userBacking.getPassword(), userDb.getSalt());
             if(!security.isHashValid(dbHash, loginHash)) {
                 FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("invalid_uname_or_pass"));
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage("loginForm", message);
                 currentUser = null;
             }
             else {
@@ -79,7 +79,7 @@ public class LoginController implements Serializable {
             getByUsername(newUser.getUsername());
             log.log(Level.INFO, "this user already exists");
             FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("user_exists_error"));
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage("registerForm:username", message);
         }
         catch(EntityNotFoundException | NoResultException ex) {
             String salt = security.getSalt();

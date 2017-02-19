@@ -11,15 +11,16 @@
     <ui:define name="content">
         <br/><br/><br/><br/>
         <h2>#{bundle.login}</h2>
-        <h:form>
+        <h:message id="loginFormMessage" for="loginForm" class="error"/>
+        <h:form id="loginForm">
             <h:panelGrid columns="3">
                 <h:outputLabel  for="username" value="#{bundle.username}:" />
                 <h:inputText  id="username" value="#{User.user.username}" required="true"/>
-                <h:message id="usernameMessage" for="username" />
+                <h:message id="usernameMessage" for="username" class="error"/>
                 
                 <h:outputLabel for="password" value="#{bundle.password}:" />
                 <h:inputSecret id="password" value="#{User.password}" required="true"/>
-                <h:message id="passwordMessage" for="password" />
+                <h:message id="passwordMessage" for="password" class="error"/>
                 <h:commandButton action="#{login.login}" value="#{bundle.login_submit}" />
          </h:panelGrid>
       </h:form>

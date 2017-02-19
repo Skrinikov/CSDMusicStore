@@ -11,47 +11,48 @@
     <ui:define name="content">
         <br/><br/><br/><br/>
         <h2>#{bundle.register_welcome}</h2>
-        <h:form>
+        
+        <h:form id="registerForm">
             <h:panelGrid columns="3">
                 <h:outputLabel  for="email" value="#{bundle.email}:" />
                 <h:inputText  id="email" value="#{User.user.email}" required="true"/>
-                <h:message id="emailMessage" for="email" />
+                <h:message id="emailMessage" for="email" class="error"/>
                 
                 <h:outputLabel  for="username" value="#{bundle.username}:" />
                 <h:inputText  id="username" value="#{User.user.username}" required="true"/>
-                <h:message id="usernameMessage" for="username" />
+                <h:message id="usernameMessage" for="username" class="error"/>
                 
                 <h:outputLabel for="password" value="#{bundle.password}:" />
                 <h:inputSecret id="password" value="#{User.password}" required="true"/>
-                <h:message id="passwordMessage" for="password" />
+                <h:message id="passwordMessage" for="password" class="error"/>
                 
                 <h:outputLabel for="title" value="#{bundle.title}:" />
                 <h:inputText id="title" value="#{User.user.title}" required="true"/>
-                <h:message id="titleMessage" for="title" />
+                <h:message id="titleMessage" for="title" class="error"/>
                 
                 <h:outputLabel for="fname" value="#{bundle.fname}:" />
                 <h:inputText id="fname" value="#{User.user.firstName}" required="true"/>
-                <h:message id="fnameMessage" for="fname" />
+                <h:message id="fnameMessage" for="fname" class="error"/>
                 
                 <h:outputLabel for="lname" value="#{bundle.lname}:" />
                 <h:inputText id="lname" value="#{User.user.lastName}" required="true"/>
-                <h:message id="lnameMessage" for="lname" />
+                <h:message id="lnameMessage" for="lname" class="error"/>
                 
                 <h:outputLabel for="company" value="#{bundle.company}:" />
                 <h:inputText id="company" value="#{User.user.company}" required="true"/>
-                <h:message id="companyMessage" for="company" />
+                <h:message id="companyMessage" for="company" class="error"/>
                 
                 <h:outputLabel for="addr1" value="#{bundle.address1}:" />
                 <h:inputText id="addr1" value="#{User.user.address1}" required="true"/>
-                <h:message id="addr1Message" for="addr1" />
+                <h:message id="addr1Message" for="addr1" class="error"/>
                 
                 <h:outputLabel for="addr2" value="#{bundle.address2}:" />
                 <h:inputText id="addr2" value="#{User.user.address2}"/>
-                <h:message id="addr2Message" for="addr2" />
+                <h:message id="addr2Message" for="addr2" class="error"/>
                 
                 <h:outputLabel for="city" value="#{bundle.city}:" />
                 <h:inputText id="city" value="#{User.user.city}" required="true"/>
-                <h:message id="cityMessage" for="city" />
+                <h:message id="cityMessage" for="city" class="error"/>
                 
                 <h:outputLabel for="province" value="#{bundle.province}:" />
                 <h:selectOneMenu id="province" value="#{User.user.province}" required="true" 
@@ -59,23 +60,23 @@
                     <f:selectItem itemValue="#{null}" itemLabel="--- #{bundle.province_option} ---" />
                     <f:selectItems value="#{Province.provinces}" />
                 </h:selectOneMenu>
-                <h:message id="provinceMessage" for="province" />
+                <h:message id="provinceMessage" for="province" class="error"/>
                 
                 <h:outputLabel for="country" value="#{bundle.country}:" />
                 <h:inputText id="country" value="#{User.user.country}" required="true"/>
-                <h:message id="countryMessage" for="country" />
+                <h:message id="countryMessage" for="country" class="error"/>
                 
                 <h:outputLabel for="postal" value="#{bundle.postal}:" />
                 <h:inputText id="postal" value="#{User.user.postalCode}" required="true"/>
-                <h:message id="postalMessage" for="postal" />
+                <h:message id="postalMessage" for="postal" class="error"/>
                 
                 <h:outputLabel for="hometel" value="#{bundle.htel}:" />
                 <h:inputText id="hometel" value="#{User.user.homeTel}"/>
-                <h:message id="hometelessage" for="hometel" />
+                <h:message id="hometelessage" for="hometel" class="error"/>
                 
                 <h:outputLabel for="celltel" value="#{bundle.ctel}:" />
                 <h:inputText id="celltel" value="#{User.user.cellTel}"/>
-                <h:message id="celltelessage" for="celltel" />
+                <h:message id="celltelessage" for="celltel" class="error"/>
                 
                 <h:commandButton action="#{login.register}" value="#{bundle.register_submit}" />
          </h:panelGrid>

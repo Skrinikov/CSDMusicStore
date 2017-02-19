@@ -14,41 +14,40 @@
         <h2>#{bundle.search}</h2>
         
         <!-- Search Options -->
-        <h:form id="searchForm">           
-            <h:panelGrid columns="3">
-                <h:outputLabel for="choice" value="#{bundle.choose_from}" />
-                
+        <h:form id="searchForm">   
+            
+            <h:panelGrid columns="3" id="searchGrid">
+                <h:outputLabel for="choice" value="#{bundle.choose_from}" />               
                 <h:selectOneMenu id="choice" value="#{search.choice}" required="true">
                     <f:ajax listener="#{search.onItemSelect()}" render="@all" />
                     <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
                     <f:selectItems value="#{search.options}" />
                 </h:selectOneMenu>
+                <h:message class="error" for="searchForm" id="searchFormMessage" />  
+            </h:panelGrid>    
+              
+            <h:panelGroup id="keyG">
+                <h:panelGrid columns="3">
+                    <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" />
+                    <h:inputText  id="key"  rendered="#{!search.dateSelected}"
+                                value="#{search.key}" required="true"/>
+                    <h:message id="keyMessage" class="error" for="key" rendered="#{!search.dateSelected}" />
+                </h:panelGrid>
+            </h:panelGroup>
                 
-                <h:message class="error" for="choice" id="choiceMessage" />
-            </h:panelGrid>                   
-                               
-                <h:panelGroup id="keyG">
-                    <h:panelGrid columns="3">
-                        <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" />
-                        <h:inputText  id="key"  rendered="#{!search.dateSelected}"
-                                    value="#{search.key}" required="true"/>
-                        <h:message class="error" for="key" rendered="#{!search.dateSelected}" />
+            <h:panelGroup id="dateG">
+                <h:panelGrid columns="1">
+                    <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="#{bundle.choose_date}" />
+                    <h:panelGrid columns="2">
+                        <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
+                        <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
                     </h:panelGrid>
-                </h:panelGroup>
-                
-                <h:panelGroup id="dateG">
-                    <h:panelGrid columns="1">
-                        <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="#{bundle.choose_date}" />
-                        <h:panelGrid columns="2">
-                            <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
-                            <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
-                        </h:panelGrid>
-                        <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
-                    </h:panelGrid>
-                </h:panelGroup>          
+                    <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
+                </h:panelGrid>
+            </h:panelGroup>          
                                 
             <h:commandButton value="#{bundle.search}!" action="#{search.search()}">
-                <f:ajax execute="@form" render="results"/>
+                <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
             </h:commandButton>
 
         </h:form>

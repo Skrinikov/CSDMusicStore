@@ -10,7 +10,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -187,7 +186,7 @@ public class SearchBacking  implements Serializable  {
 
             if(from.isAfter(to)) {
                 FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("date_seq_error"));
-                FacesContext.getCurrentInstance().addMessage("searchForm:choice", message);
+                FacesContext.getCurrentInstance().addMessage("searchForm", message);
             }
             else {
                 if(choice.equals(options.get(0)))
