@@ -10,8 +10,11 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +23,7 @@ import javax.persistence.PersistenceContext;
  * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 19/02/2017
  * @since 1.8
  */
 @Named("search")
@@ -181,17 +184,23 @@ public class SearchBacking  implements Serializable  {
             LocalDateTime from = LocalDateTime.ofInstant(dateStart.toInstant(), ZoneId.systemDefault());
             LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
 
-            if(choice.equals(options.get(0)))
-                albums = jpa.searchByAlbumTitle(key);
-            else if(choice.equals(options.get(1)))
-                tracks = jpa.searchByTrackName(key);
-            else if(choice.equals(options.get(2))) {
-                albums = jpa.searchByDateAlbums(from, to);
-                tracks = jpa.searchByDateTracks(from, to);
+            if(from.isAfter(to)) {
+                FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("date_seq_error"));
+                FacesContext.getCurrentInstance().addMessage("searchForm:choice", message);
             }
-            else if(choice.equals(options.get(3))) {
-                albums = jpa.searchByArtistNameAlbums(key);
-                tracks = jpa.searchByArtistNameTracks(key);
+            else {
+                if(choice.equals(options.get(0)))
+                    albums = jpa.searchByAlbumTitle(key);
+                else if(choice.equals(options.get(1)))
+                    tracks = jpa.searchByTrackName(key);
+                else if(choice.equals(options.get(2))) {
+                    albums = jpa.searchByDateAlbums(from, to);
+                    tracks = jpa.searchByDateTracks(from, to);
+                }
+                else if(choice.equals(options.get(3))) {
+                    albums = jpa.searchByArtistNameAlbums(key);
+                    tracks = jpa.searchByArtistNameTracks(key);
+                }
             }
         }
     }
@@ -212,17 +221,18 @@ public class SearchBacking  implements Serializable  {
      */
     @PostConstruct
     public void init() {
+       ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
        albums = new ArrayList<>();
        tracks = new ArrayList<>();
        options = new ArrayList<>();
        choice = "";
-       options.add("Search by album title");
-       options.add("Search by track name");
-       options.add("Search by created date");
-       options.add("Search by artist name");
+       options.add(bundle.getString("search_album"));
+       options.add(bundle.getString("search_track"));
+       options.add(bundle.getString("search_date"));
+       options.add(bundle.getString("search_artist"));
        jpa = new SearchJPAController(entityManager);
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-       dateSelected = choice != null ? options.get(2).equals(choice) : false;;
+       dateSelected = choice != null ? options.get(2).equals(choice) : false;
     }
 }

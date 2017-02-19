@@ -12,28 +12,52 @@ import org.eclipse.persistence.mappings.converters.Converter;
 import org.eclipse.persistence.sessions.Session;
 
 /**
+ * Converts java.sql.Timestamp to LocalDateTime object.
  *
- * @author lynn
+ * @author Aline Shulzhenko
+ * @version 19/02/2017
+ * @since 1.8
  */
 public class LocalDateTimeAttributeConverter implements Converter {
 	
+    /**
+     * Converts LocalDateTime to sql Timestamp.
+.     * @param o LocalDateTime object.
+     * @param sn Session.
+     * @return Timestamp sql object.
+     */
     @Override
     public Object convertObjectValueToDataValue(Object o, Session sn) {
         LocalDateTime locDateTime = (LocalDateTime)o;
         return (locDateTime == null ? null : Timestamp.valueOf(locDateTime));
     }
 
+    /**
+     * Converts Timestamp sql to LocalDateTime.
+     * @param o java.sql.Timestamp object.
+     * @param sn Session
+     * @return LocalDateTime object.
+     */
     @Override
     public Object convertDataValueToObjectValue(Object o, Session sn) {
         Timestamp sqlTimestamp = (Timestamp)o;
         return (sqlTimestamp == null ? null : sqlTimestamp.toLocalDateTime());
     }
 
+    /**
+     * Returns if the object is mutable.
+     * @return false as this object should be immutable.
+     */
     @Override
     public boolean isMutable() {
         return false;
     }
 
+    /**
+     * Initializes the converter.
+     * @param mapping DatabaseMapping object.
+     * @param sn Session.
+     */
     @Override
     public void initialize(DatabaseMapping mapping, Session sn) {
         final DatabaseField field;

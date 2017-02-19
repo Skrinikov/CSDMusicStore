@@ -5,6 +5,7 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.backingbeans.ShoppingCart;
 import java.util.List;
+import java.util.ResourceBundle;
 import jodd.mail.Email;
 import jodd.mail.SendMailSession;
 import jodd.mail.SmtpServer;
@@ -23,6 +24,7 @@ public class EmailSender {
     private String companySmtpUrl = "smtp.gmail.com";
     private int companySmptPort = 465;
     private User user;
+    private ResourceBundle bundle;
     
     /**
      * Instantiates the object.
@@ -30,6 +32,7 @@ public class EmailSender {
      */
     public EmailSender(User user){
         this.user = user;
+        this.bundle = ResourceBundle.getBundle("Bundle");
     }
     
     /**
@@ -42,7 +45,7 @@ public class EmailSender {
         Email email = new Email();
         String message = createMessage(albums, tracks);
         
-        email.from(companyEmail).to(user.getEmail()).addHtml(message).subject("Fractals Invoice");
+        email.from(companyEmail).to(user.getEmail()).addHtml(message).subject("Fractals "+bundle.getString("invoice"));
 
         SmtpServer<SmtpSslServer> smtpServer = SmtpSslServer
                 .create(companySmtpUrl, companySmptPort)
@@ -62,21 +65,24 @@ public class EmailSender {
      * @return a message to the user inside the email.
      */
     private String createMessage(List<Album> albums, List<Track> tracks) {
-        String message  = "<h2>Thank you for shopping this us!</h2><br/>Your items:<ul>";
+        String message  = "<h2>"+bundle.getString("ty_email")+"!</h2><br/>"
+                            +bundle.getString("items_email")+":<ul>";
         double price;
          
         for(Album album : albums) {         
             price = album.getSalePrice();
             if(price == 0)
                 price = album.getListPrice();
-            message += "<li>"+ "Album: " + album.getTitle() + " ,price: "+price+"</li>";
+            message += "<li>"+ "Album: " + album.getTitle() + " ,"
+                    +bundle.getString("price")+": $"+price+"</li>";
         }
         
         for(Track track : tracks) {
             price = track.getSalePrice();
             if(price == 0)
                 price = track.getListPrice();
-            message += "<li>"+ "Track: " + track.getTitle() + " ,price: "+price+"</li>";
+            message += "<li>"+bundle.getString("track")+": " + track.getTitle() + " ,"
+                    +bundle.getString("price")+": $"+price+"</li>";
         }         
         
         message += "</ul>";

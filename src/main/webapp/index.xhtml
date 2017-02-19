@@ -9,7 +9,7 @@
     <ui:define name="content">
         <br/>
         <ui:fragment rendered="#{login.loggedIn}">
-            <h2> Hello <h:outputText value="#{login.currentUser.username}"></h:outputText>!</h2>
+            <h2><h:outputText value="#{bundle.hello}  #{login.currentUser.username}"></h:outputText>!</h2>
         </ui:fragment>
     </ui:define>
 </ui:composition>

@@ -6,21 +6,21 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     
-    <ui:define name="windowTitle">Login</ui:define>
+    <ui:define name="windowTitle">#{bundle.login}</ui:define>
 
     <ui:define name="content">
         <br/><br/><br/><br/>
-        <h2>Welcome to the Login Page</h2>
+        <h2>#{bundle.login}</h2>
         <h:form>
             <h:panelGrid columns="3">
-                <h:outputLabel  for="username" value="Username:" />
+                <h:outputLabel  for="username" value="#{bundle.username}:" />
                 <h:inputText  id="username" value="#{User.user.username}" required="true"/>
                 <h:message id="usernameMessage" for="username" />
                 
-                <h:outputLabel for="password" value="Password:" />
+                <h:outputLabel for="password" value="#{bundle.password}:" />
                 <h:inputSecret id="password" value="#{User.password}" required="true"/>
                 <h:message id="passwordMessage" for="password" />
-                <h:commandButton action="#{login.login}" value="Login" />
+                <h:commandButton action="#{login.login}" value="#{bundle.login_submit}" />
          </h:panelGrid>
       </h:form>
         

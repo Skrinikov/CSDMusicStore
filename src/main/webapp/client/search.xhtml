@@ -7,29 +7,29 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:a4j="http://richfaces.org/a4j">
     
-    <ui:define name="windowTitle">Search</ui:define>
+    <ui:define name="windowTitle">#{bundle.search}</ui:define>
 
     <ui:define name="content">
         <br/><br/><br/><br/>
-        <h2>Search</h2>
+        <h2>#{bundle.search}</h2>
         
         <!-- Search Options -->
-        <h:form>           
+        <h:form id="searchForm">           
             <h:panelGrid columns="3">
-                <h:outputLabel for="choice" value="Choose from:" />
+                <h:outputLabel for="choice" value="#{bundle.choose_from}" />
                 
                 <h:selectOneMenu id="choice" value="#{search.choice}" required="true">
                     <f:ajax listener="#{search.onItemSelect()}" render="@all" />
-                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- Choose a search option --" />
+                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
                     <f:selectItems value="#{search.options}" />
                 </h:selectOneMenu>
                 
-                <h:message class="error" for="choice" />
+                <h:message class="error" for="choice" id="choiceMessage" />
             </h:panelGrid>                   
                                
                 <h:panelGroup id="keyG">
                     <h:panelGrid columns="3">
-                        <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="Search key: " />
+                        <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" />
                         <h:inputText  id="key"  rendered="#{!search.dateSelected}"
                                     value="#{search.key}" required="true"/>
                         <h:message class="error" for="key" rendered="#{!search.dateSelected}" />
@@ -38,7 +38,7 @@
                 
                 <h:panelGroup id="dateG">
                     <h:panelGrid columns="1">
-                        <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="Choose date: " />
+                        <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="#{bundle.choose_date}" />
                         <h:panelGrid columns="2">
                             <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
                             <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
@@ -47,7 +47,7 @@
                     </h:panelGrid>
                 </h:panelGroup>          
                                 
-            <h:commandButton value="Search!" action="#{search.search()}">
+            <h:commandButton value="#{bundle.search}!" action="#{search.search()}">
                 <f:ajax execute="@form" render="results"/>
             </h:commandButton>
 
@@ -55,10 +55,10 @@
         
         
         <!-- Search Results -->          
-        <h2>Search Results</h2>
+        <h2>#{bundle.search_results}</h2>
         <h:panelGroup id="results">
             <ui:fragment rendered="#{!search.albumsEmpty}">
-                <h3> Album List:</h3>
+                <h3><h:outputText value="#{bundle.album_list}"></h:outputText></h3>
             </ui:fragment>
             
             
@@ -72,15 +72,15 @@
                     <div class="well well-review col-sm-8">
                         <ui:fragment rendered="#{album.available}">
                             <b>#{album.title}</b> <br />
-                            <i>Artist:</i> #{album.artist} <br />
-                            <i>Release Date:</i> #{album.releaseDate} <br />
-                            <i>Number of Tracks:</i> #{album.numTracks} <br />
-                            <i>Record Label:</i> #{album.recordLabel} <br />
+                            <i>#{bundle.artist}:</i> #{album.artist} <br />
+                            <i>#{bundle.release}:</i> #{album.releaseDate} <br />
+                            <i>#{bundle.num_tracks}:</i> #{album.numTracks} <br />
+                            <i>#{bundle.label}:</i> #{album.recordLabel} <br />
                             <h:panelGroup rendered="#{album.salePrice == 0}">
-                                <i>Cost:</i> $#{album.listPrice} <br />
+                                <i>#{bundle.price}:</i> $#{album.listPrice} <br />
                             </h:panelGroup>
                             <h:panelGroup rendered="#{album.salePrice > 0}">
-                                <i>Cost:</i> $#{album.salePrice} <br />
+                                <i>#{bundle.price_sale}:</i> $#{album.salePrice} <br />
                             </h:panelGroup>
                         </ui:fragment>
                     </div>
@@ -91,7 +91,7 @@
             <hr/>
 
             <ui:fragment rendered="#{!search.tracksEmpty}">
-                <h3> Track List:</h3>
+                <h3><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
             </ui:fragment>
             <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
                 <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
@@ -103,16 +103,16 @@
                     <div class="well well-review col-sm-8">
                         <ui:fragment rendered="#{track.available}">
                             <b>#{track.title}</b> <br />
-                            <i>Songwriters:</i> #{track.songwriter} <br />
-                            <i>Duration:</i> #{track.duration} <br />
-                            <i>Album number:</i> #{track.albumNum} <br />
-                            <i>Album:</i> #{track.album} <br />
-                            <i>Genre:</i> #{track.genre} <br />
+                            <i>#{bundle.songwriters}:</i> #{track.songwriter} <br />
+                            <i>#{bundle.duration}:</i> #{track.duration} <br />
+                            <i>#{bundle.album_num}:</i> #{track.albumNum} <br />
+                            <i>#{bundle.album}:</i> #{track.album} <br />
+                            <i>#{bundle.genre}:</i> #{track.genre} <br />
                             <h:panelGroup rendered="#{track.salePrice == 0}">
-                                <i>Cost:</i> $#{track.listPrice} <br />
+                                <i>#{bundle.price}:</i> $#{track.listPrice} <br />
                             </h:panelGroup>
                             <h:panelGroup rendered="#{track.salePrice > 0}">
-                                <i>Cost:</i> $#{track.salePrice} <br />
+                                <i>#{bundle.price_sale}:</i> $#{track.salePrice} <br />
                             </h:panelGroup>
                         </ui:fragment>
                     </div>
@@ -122,7 +122,7 @@
         
         
             <ui:fragment rendered="#{search.noData()}">
-                <p>There is no data available to display :(</p>
+                <p><h:outputText value="#{bundle.nodata}"></h:outputText> :(</p>
             </ui:fragment>
         </h:panelGroup>
         
