@@ -34,8 +34,10 @@ public class AlbumBackingBean {
     private boolean editable = false;
     public boolean getEditable() {return editable;}
     public void setEditable(boolean b) {editable = b;}
+    public void editable(){setEditable(true);};
+    public void uneditable(){setEditable(false);}
     
-    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE*/
+    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE
     public String editable(Album a) {
         setSelectedAlbum(a);
         setEditable(true);
@@ -46,7 +48,7 @@ public class AlbumBackingBean {
         setEditable(false);
         return "/managment/albumsViewEdit.xhtml";
     }
-    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE*/
+    */
 
     private Album selectedAlbum;
     public Album getSelectedAlbum() {return selectedAlbum;}
@@ -69,7 +71,6 @@ public class AlbumBackingBean {
         selectedAlbum = null;
         return "/managment/albumsList.xhtml"; 
     }
-
     
     private Album createdAlbum;
 

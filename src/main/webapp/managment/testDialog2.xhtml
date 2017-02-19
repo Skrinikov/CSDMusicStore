@@ -1,16 +1,10 @@
 <ui:composition 
-    template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
-        <h:outputText value="#{bundle.ListAlbumTitle}"></h:outputText>
-    </ui:define>
-
-    <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
                 <p:outputLabel value="Title:" for="title" />
@@ -28,34 +22,13 @@
                 <p:outputLabel value="Available:" for="available" />              
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.createdAlbum.available}" />
 
-                <!--                <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
-                                    <p:inputMask id="releaseDate" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99">
-                                    <f:convertDateTime pattern="yyyy-mm-dd"/>
-                                    </p:inputMask>
-                                  <p:outputLabel value="Artist:" for="artist" />
-                                    <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" required="true" requiredMessage="The Artist field is required.">
-                                        <f:selectItems value="#{theArtists.artists}"/>
-                                    </p:selectOneMenu>
-                -->
-<!--            <p:outputLabel value="Artist:" for="artist" />
-
-                <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" converter="artistConverter" panelStyle="width:180px"
-                                 effect="fade" var="a" style="width:160px" filter="true" filterMatchMode="startsWith">
-                    
-                    <f:selectItems value="#{theArtists.artists}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" />
-                   
-                    <p:column>
-                        <h:outputText value="#{a.name}" />
-                    </p:column>
-                </p:selectOneMenu>
--->
+           
             </h:panelGrid>
 
             <p:commandButton  action="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
     <!-- DragDrop datatable to add tracks to album -->
 
         </h:form>      
-    </ui:define>
 </ui:composition>
 
 
