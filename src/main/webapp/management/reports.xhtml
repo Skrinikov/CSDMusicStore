@@ -49,7 +49,7 @@
 
                         </h:panelGrid>    
 
-                        <h:panelGrid columns="z" cellpadding="5" style="margin-left: 50px;">
+                        <h:panelGrid columns="1" cellpadding="5" style="margin-left: 50px;">
                             <p:outputLabel for="salesEnd" value="End date:" />
                             <p:calendar id="salesEnd" value="#{reportsBacking.salesEnd}" mode="inline">
                                 <p:ajax event="dateSelect" listener="#{reportsBacking.onDateSelect}" update="msgs" />
@@ -126,7 +126,7 @@
         </div>
 
         <div class="row top-buffer">
-            <h:form id="reports_form" styleClass="container">
+            <div class="container">
                 <div class="col-md-12">
                     <div class="tabbable-panel">
                         <div class="tabbable-line">
@@ -396,7 +396,7 @@
                         </div>
                     </div>
                 </div>
-            </h:form>
+            </div>
         </div>
 
         <div class="row top-buffer">
