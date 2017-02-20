@@ -17,7 +17,7 @@ import javax.inject.Named;
  * @version 18/02/2017
  * @since 1.8
  */
-@Named("ShoppingCart")
+@Named("shoppingCart")
 @SessionScoped
 public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();

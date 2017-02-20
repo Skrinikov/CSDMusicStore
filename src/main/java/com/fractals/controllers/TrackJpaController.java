@@ -14,7 +14,6 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
-import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -247,7 +246,7 @@ public class TrackJpaController implements Serializable {
         CriteriaQuery<Track> query = cb.createQuery(Track.class);
         Root<Track> root = query.from(Track.class);
         query.select(root);
-        query.orderBy(cb.desc(root.get(Track_.createdAt)));
+        query.orderBy(cb.desc(root.get("createdAt")));
         return em.createQuery(query).setMaxResults(count).getResultList();
     }
     

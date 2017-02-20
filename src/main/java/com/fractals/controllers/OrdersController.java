@@ -27,7 +27,7 @@ import javax.transaction.UserTransaction;
  * @version 18/02/2017
  * @since 1.8
  */
-@Named
+@Named("ordersController")
 @RequestScoped
 public class OrdersController {
     

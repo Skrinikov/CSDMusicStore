@@ -50,7 +50,7 @@ public class RSSFeedParser {
      * @param links Array of rss feed links.
      * @return feeds of all the provided valid urls in the order which it given to.
      */
-    public List<FeedMessage> readFeed(String[] links) throws XMLStreamException {
+    public List<FeedMessage> readFeed(String[] links) {
         if (links == null || links.length < 1) {
             throw new IllegalArgumentException("RSSFeedParser.readMessage() - Invalid array size.");
         }
@@ -65,7 +65,7 @@ public class RSSFeedParser {
                 //Calling the parseURL method to get a collection.
                 fm.addAll(parseURL(url));
                 
-            } catch (MalformedURLException e) {
+            } catch (MalformedURLException | XMLStreamException e) {
                 //TODO Add log.
             }
         }
