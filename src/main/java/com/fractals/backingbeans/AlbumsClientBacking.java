@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
@@ -19,13 +14,14 @@ import javax.inject.Named;
 /**
  * The Backing bean for the client side Album page
  * 
- * @author Thai-Vu Nguyen
+ * @author Thai-Vu Nguyen, Danieil Skrinikov
  */
 @Named("albumsCLBack")
 @RequestScoped
 public class AlbumsClientBacking {
     private Album album;
     private Integer albumId;
+    private List<Album> similarAlbums;
     
     @Inject
     AlbumJpaController albumControl;
@@ -36,6 +32,7 @@ public class AlbumsClientBacking {
     //Initializes the Album entity
     public void init(){
          album = albumControl.findAlbum(albumId);
+         similarAlbums = albumControl.getSimilarAlbums(album, 3);
     }
     
     /**
@@ -56,41 +53,23 @@ public class AlbumsClientBacking {
     public void setAlbumId(Integer albumId){
         this.albumId = albumId;
     }
-    
-    public String getTitle(){
-        return (album != null)?album.getTitle():"";
+
+    public List<Album> getSimilarAlbums() {
+        return similarAlbums;
     }
+
+    public void setSimilarAlbums(List<Album> similarAlbums) {
+        this.similarAlbums = similarAlbums;
+    }     
     
-    public Artist getArtist(){      
-        return (album != null)?album.getArtist():(new Artist());
+    /**
+     * Returns the real price for the album. If there is a sale, returns the sale price, if not returns the list price.
+     * 
+     * @param album Album to fetch the information from.
+     * @return Real price for the album.
+     */
+    public double getPrice(Album album){
+        return (album.getSalePrice() <= 0) ? album.getListPrice() : album.getSalePrice();
     }
-    
-    public boolean isAvailable(){
-        return (album != null)?album.getAvailable():false;
-    }
-    
-    public double getCostPrice(){
-        return (album != null)?album.getCostPrice():0.00;
-    }
-    
-    public double getListPrice(){
-        return (album != null)?album.getListPrice():0.00;
-    }
-    
-    public double getSalesPrice(){
-        return (album != null)?album.getSalePrice():0.00;
-    }
-    
-    public LocalDateTime getCreatedAt(){
-        return (album != null)?album.getCreatedAt():null;
-    }
-    
-    public List<Track> getTracks(){
-        return (album != null)?album.getTracks():(new ArrayList<Track>());
-    }
-    
-    public String getLabel(){
-        return (album != null)?album.getRecordLabel():"";
-    }
-     
+
 }

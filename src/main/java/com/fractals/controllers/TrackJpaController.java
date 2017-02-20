@@ -14,6 +14,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -228,6 +230,25 @@ public class TrackJpaController implements Serializable {
     
     public boolean isEmpty(){
         return getTrackCount() == 0;
+    }
+    
+    /**
+     * Selects tracks based on their addition date to the database. 
+     * 
+     * @author Danieil Skrinikov
+     * @param count amount of tracks to return. 
+     * @return list of tracks.
+     */
+    public List<Track> getMostRecentTracks(int count){
+        if(count < 1)
+            return null;
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
+        query.orderBy(cb.desc(root.get(Track_.createdAt)));
+        return em.createQuery(query).setMaxResults(count).getResultList();
     }
     
 }

@@ -50,7 +50,7 @@ public class RSSFeedParser {
      * @param links Array of rss feed links.
      * @return feeds of all the provided valid urls in the order which it given to.
      */
-    public List<FeedMessage> readFeed(String[] links) {
+    public List<FeedMessage> readFeed(String[] links) throws XMLStreamException {
         if (links == null || links.length < 1) {
             throw new IllegalArgumentException("RSSFeedParser.readMessage() - Invalid array size.");
         }
@@ -79,7 +79,7 @@ public class RSSFeedParser {
      *
      * @return list which contains all the RSS items as FeedMessage beans.
      */
-    private List<FeedMessage> parseURL(URL url) {
+    private List<FeedMessage> parseURL(URL url) throws XMLStreamException {
         XMLEvent e;
         List<FeedMessage> feed = new ArrayList<>();
 
@@ -88,14 +88,14 @@ public class RSSFeedParser {
         String link = "";
         String guid = "";
         String author = "";
-        try {
+        //try {
             // XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
             InputStream in = read(url);
 
             if (in != null) {
-                XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+                XMLEventReader eventReader = inputFactory.createXMLEventReader(in);               
 
                 // read the XML document
                 while (eventReader.hasNext()) {
@@ -129,7 +129,7 @@ public class RSSFeedParser {
                         }
                     } // Basically if </tag>
                     else if (event.isEndElement()) {
-                        if (event.asEndElement().getName().getLocalPart() == ITEM) {
+                        if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase(ITEM)) {
 
                             FeedMessage message = new FeedMessage();
                             message.setAuthor(author);
@@ -144,9 +144,9 @@ public class RSSFeedParser {
                     }
                 }
             }
-        } catch (XMLStreamException ex) {
-            System.out.println("Crashed");
-        }
+        //} catch (XMLStreamException ex) {
+            //System.out.println(ex);
+        //}
         return feed;
     }
 
@@ -177,7 +177,7 @@ public class RSSFeedParser {
         try {
             return url.openStream();
         } catch (IOException e) {
-            //TODO
+            //
         }
         return null;
     }

@@ -1,3 +1,4 @@
+=======
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -14,10 +15,12 @@
                 <h:link value="Fractals" outcome="/index"/>
             </li>
             <li>
-                <h:link value="Reports" outcome="/managment/reports.xhtml"/>
+                <h:link value="Reports" outcome="/management/reports.xhtml"/>
             </li>
-          
-            <li>         
+            <li>
+                <h:link value="News Feed" outcome="/newsFeed/List.xhtml"/>
+            </li>
+            <li>
                 <h:link value="Albums" outcome="/management/albumsList.xhtml"/>
             </li>
             <li>  
@@ -27,10 +30,10 @@
                 <h:link value="Genres" outcome="/management/genresList.xhtml"/>
             </li>
             <li>        
-                <h:link value="Tracks" outcome="/managment/tracksList.xhtml"/>
+                <h:link value="Tracks" outcome="/management/tracksList.xhtml"/>
             </li>
             <li>
-                <a href="#">Placeholder</a>
+                <h:link value="Survey" outcome="/survey/List.xhtml"/>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews <span class="caret"></span></a>
@@ -43,13 +46,6 @@
                     <li><a href="#">Reviews per user.</a></li>
                 </ul>
             </li>
-            <li>
-                <h:link value="Rss" outcome="/rssFeed/feed.xhtml"/>
-            </li>
-            <li>
-                <h:link value="Survey" outcome="/survey/List.xhtml"/>
-            </li>
-            
             <li>
                 <h:link outcome="/index.xhtml" value="Client Site" />
             </li>

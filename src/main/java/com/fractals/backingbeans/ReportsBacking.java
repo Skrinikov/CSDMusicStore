@@ -1,12 +1,17 @@
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Order;
+import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.ReportsController;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -34,10 +39,29 @@ public class ReportsBacking implements Serializable {
     private Date revenueEnd;
     private String revenue;
     
+    // Total Sales
+    private List<Order> totalSalesOrders;
+    // Orders from user
+    private List<Order> ordersFromUser;
+    // Orders From track
+    private List<Order> ordersFromTrack;
+    // Orders by Album
+    private List<Order> ordersFromAlbum;
+    // Order by Artist
+    private List<Order> ordersFromArtist;
+    // Top Sellers
+    private List<Order> topOrders;
+    // Top Clients
+    private List<User> topUsers;
+    // Zero Tracks
+    private List<Track> zeroTracks;
+    // Zero Users
+    private List<User> zeroUsers;
+    
     /**
      * Default constructor.
      */
-    public ReportsBacking(){
+    public void init(){
         // I am not quite sure it is the best way to get the date.
         salesBegin = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         
@@ -87,7 +111,21 @@ public class ReportsBacking implements Serializable {
     private void fetchSalesByTrack(String track){
         
     }
+    
+    /**
+     * Is invoked whenever the total sales action button is pressed. 
+     * Calls the getTotalSales method from the controller and sets it into the list
+     */
+    public void getTotalSales(){
+        totalSalesOrders = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));          
+    }
+    
+    public void getSalesByUser(){
+        
+    }
 
+    /*Getters and setters -------------------------------------------------------------------------------------------------------*/
+    
     public Date getSalesBegin() {
         return salesBegin;
     }
@@ -119,6 +157,87 @@ public class ReportsBacking implements Serializable {
     public void setRevenueEnd(Date revenueEnd) {
         this.revenueEnd = revenueEnd;
     }
+
+    public String getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(String revenue) {
+        this.revenue = revenue;
+    }
+
+    public List<Order> getTotalSalesOrders() {
+        return totalSalesOrders;
+    }
+
+    public void setTotalSalesOrders(List<Order> totalSalesOrders) {
+        this.totalSalesOrders = totalSalesOrders;
+    }
+
+    public List<Order> getOrdersFromUser() {
+        return ordersFromUser;
+    }
+
+    public void setOrdersFromUser(List<Order> ordersFromUser) {
+        this.ordersFromUser = ordersFromUser;
+    }
+
+    public List<Order> getOrdersFromTrack() {
+        return ordersFromTrack;
+    }
+
+    public void setOrdersFromTrack(List<Order> ordersFromTrack) {
+        this.ordersFromTrack = ordersFromTrack;
+    }
+
+    public List<Order> getOrdersFromAlbum() {
+        return ordersFromAlbum;
+    }
+
+    public void setOrdersFromAlbum(List<Order> ordersFromAlbum) {
+        this.ordersFromAlbum = ordersFromAlbum;
+    }
+
+    public List<Order> getOrdersFromArtist() {
+        return ordersFromArtist;
+    }
+
+    public void setOrdersFromArtist(List<Order> ordersFromArtist) {
+        this.ordersFromArtist = ordersFromArtist;
+    }
+
+    public List<Order> getTopOrders() {
+        return topOrders;
+    }
+
+    public void setTopOrders(List<Order> topOrders) {
+        this.topOrders = topOrders;
+    }
+
+    public List<User> getTopUsers() {
+        return topUsers;
+    }
+
+    public void setTopUsers(List<User> topUsers) {
+        this.topUsers = topUsers;
+    }
+
+    public List<Track> getZeroTracks() {
+        return zeroTracks;
+    }
+
+    public void setZeroTracks(List<Track> zeroTracks) {
+        this.zeroTracks = zeroTracks;
+    }
+
+    public List<User> getZeroUsers() {
+        return zeroUsers;
+    }
+
+    public void setZeroUsers(List<User> zeroUsers) {
+        this.zeroUsers = zeroUsers;
+    }
     
     
+       
 }
