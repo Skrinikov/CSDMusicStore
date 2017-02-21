@@ -22,7 +22,7 @@
 
             <div class="row album-header album-row">
                 <div class="col-md-3 col-xs-12">
-                    <p:graphicImage name="images/test_cover.jpg" style="max-width: 100%;" styleClass="albumHeader"/>
+                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}" style="max-width: 100%;" styleClass="albumHeader"/>
                 </div>
                 <div class="col-md-9 col-xs-12" style="position:relative;">
                     <h3>Album</h3>
@@ -37,6 +37,7 @@
                 <p>By #{albumsCLBack.album.artist.name} - #{albumsCLBack.album.tracks.size()} Track(s)</p>
             </div>
             <!-- Tracks for this album -->
+            
             <div class="row album-tracks album-container">
                 <table class="table table-striped table-responsive">
                     <thead>
@@ -56,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">
+                        <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
                             <tr>
                                 <td class="col-md-1">#{track.albumNum}</td>
                                 <td class="col-md-6"><h:link outcome="Track" value="#{track.title}"><f:param name="id" value="#{track.id}"/></h:link></td>
@@ -78,7 +79,7 @@
                     <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
                         <div class="similar-albums-inner">
                             <h:link outcome="Album">
-                                <p:graphicImage name="images/test_cover.jpg"/>
+                                <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(album)}"/>
                                 <h3>#{album.title}</h3>
                                 <h5>#{album.artist.name}</h5>
                                 <h6>#{album.releaseDate}</h6>

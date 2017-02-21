@@ -303,7 +303,7 @@ orderItemsCollectionOrderItemToAttach.getId());
                 ,
                 cb.notEqual(artist, origin.getArtist()
                 )
-        );
+        ).distinct(true);
  
         return em.createQuery(query).setMaxResults(count).getResultList();
     }

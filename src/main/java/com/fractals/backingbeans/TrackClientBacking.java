@@ -25,7 +25,12 @@ import javax.inject.Named;
 @RequestScoped
 public class TrackClientBacking implements Serializable {
 
-    private static final Logger log = Logger.getLogger("DatabaseSeedManager.class");
+    private static final Logger log = Logger.getLogger("TrackClientBacking.class");
+    
+    // Strings used for cost buttons;
+    private static final String available = "/WEB-INF/sections/client/trackTableRowAvailable.xhtml";
+    private static final String unavailable = "/WEB-INF/sections/client/trackTableRowUnavailable.xhtml";
+    private static final String inCart = "/WEB-INF/sections/client/trackTableRowInCart.xhtml";
 
     private Integer trackId;
     private Track track;
@@ -147,4 +152,23 @@ public class TrackClientBacking implements Serializable {
         return (track.getSalePrice() == 0) ? track.getListPrice() : track.getSalePrice();
     }
 
+    /**
+     * 
+     * @param track
+     * @return 
+     */
+    public String getProperlayout(Track track){
+        if(track == null){
+            log.info("Track is null");
+            return inCart;          
+        }
+            
+        if(!track.getAvailable()){
+            return unavailable;
+        }
+        else{
+            return available;
+        }
+    }
+    
 }
