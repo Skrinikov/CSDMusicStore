@@ -7,8 +7,11 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Artist;
 import com.fractals.controllers.ArtistJpaController;
+import java.io.Serializable;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,7 +21,7 @@ import javax.inject.Named;
  */
 @Named("theArtists")
 @RequestScoped
-public class ArtistBackingBean {
+public class ArtistBackingBean implements Serializable{
 
     @Inject
     private ArtistJpaController artistJpaController;

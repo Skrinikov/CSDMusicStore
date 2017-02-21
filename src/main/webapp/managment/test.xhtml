@@ -12,26 +12,16 @@
 
     <ui:define name="content">
         <h:form id="form">
+            
+            <h:outputText value="#{theArtists.isEmpty()}"/>
 
-<!--            <p:selectOneMenu value="#{theAlbums.test}" converter="artistConverter">
+            <p:selectOneMenu value="#{theAlbums.test}" >
                 <f:selectItems value="#{theArtists.artists}" var="a" itemLabel="#{a.name}" itemValue="#{a}" />
             </p:selectOneMenu>
 
             <p:commandButton value="Please" onclick="PF('dlg1').show();" ajax="false" />
             <p:dialog header="And the artist isssssss" widgetVar="dlg1" minHeight="40">
                 <h:outputText value="#{theAlbums.test.name}" />
-            </p:dialog>-->
-
-        <p:selectOneMenu id="fucktard" value="#{theAlbums.test2}" >
-                <f:selectItems value="#{theArtists.artists}" var="a" itemLabel="#{a.id}" itemValue="#{a.name}" />
-            </p:selectOneMenu>
-            
-            <p:commandButton value="Please" onclick="PF('dlg2').show();" ajax="false"/>
-                         
-            <p:dialog header="And the artist isssssss" widgetVar="dlg2" minHeight="90">
-                <p:outputPanel id="msgtext" style="text-align:center;">
-                <h:outputText value="#{theAlbums.test2}" />
-                </p:outputPanel>
             </p:dialog>
             
         </h:form>      

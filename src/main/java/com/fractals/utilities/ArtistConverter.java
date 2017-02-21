@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
- 
+import javax.inject.Inject;
 
 /**
  *
@@ -21,27 +21,35 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter("artistConverter")
 public class ArtistConverter implements Converter {
- 
+
+    
+    
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-        if(value != null && value.trim().length() > 0) {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>" + value);
+        if (value != null && value.trim().length() > 0) {
             try {
                 ArtistBackingBean service = (ArtistBackingBean) fc.getExternalContext().getApplicationMap().get("theArtists");
+                if (service == null) {
+                    System.out.println(">>>>>>>>>>>>>>>service == null");
+                }
+                if (service.getArtists() == null) {
+                    System.out.println(">>>>>>>>>>>>>>>service.getArtists() == null");
+                }
+
                 return service.getArtists().get(Integer.parseInt(value));
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
- 
+
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
-        if(object != null) {
+        if (object != null) {
             return String.valueOf(((Artist) object).getId());
-        }
-        else {
+        } else {
             return null;
         }
-    }   
-}    
+    }
+}

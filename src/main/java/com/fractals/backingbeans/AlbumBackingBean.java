@@ -29,7 +29,10 @@ public class AlbumBackingBean {
 
     private Artist test;
     public Artist getTest() {return test;}
-    public void setTest(Artist stuff) {test = stuff;}
+    public void setTest(Artist stuff) {
+        test = stuff;
+        System.out.println("test = " + test.getName());
+    }
 
     private boolean editable = false;
     public boolean getEditable() {return editable;}
