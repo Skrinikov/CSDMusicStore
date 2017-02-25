@@ -141,6 +141,10 @@ public class TrackClientBacking implements Serializable {
     public boolean isIndividual() {
         return (track != null) ? track.getIsIndividual() : false;
     }
+    
+    public boolean reviewFormRender(){
+        return loginControl.isLoggedIn();
+    }
 
     public double getListedPrice() {
         return (track != null) ? track.getListPrice() : 0.00;
