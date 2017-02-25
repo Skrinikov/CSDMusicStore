@@ -4,6 +4,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
@@ -29,8 +30,8 @@ public class TrackClientBacking implements Serializable {
 
     private Integer trackId;
     private Track track;
-    private Integer rating;
-    private String review;
+    private Review review;
+    
 
     @Inject
     private TrackJpaController trackControl;
@@ -43,6 +44,9 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private ShoppingCart cart;
+    
+    @Inject
+    private LoginController loginControl;
 
     /**
      * Initialize the Track entity based on the trackId
@@ -51,9 +55,21 @@ public class TrackClientBacking implements Serializable {
         track = trackControl.findTrack(trackId);
     }
 
-    public void addReview() {
-        //Won't work because we have to deal with the user
-        this.reviewsControl.addReview(track, review, null, rating.intValue());
+    /**
+     * Action to add a review to a track
+     * @return 
+     */
+    public String addReview() {
+        if (loginControl.isLoggedIn())
+            this.review.setUser(loginControl.getCurrentUser());
+        else{
+            return null;
+        }
+        this.review.setApproved(false);
+        this.reviewsControl.addReview(this.review);
+        this.review.setTrack(track);
+        
+        return null;
     }
 
     /**
@@ -87,6 +103,12 @@ public class TrackClientBacking implements Serializable {
 
     }
 
+    public Review getReview(){
+        if (review == null)
+            review = new Review();
+        return review;
+    }
+    
     public List<Track> getSimilarTracks() {
         return similarControl.getSimilarTracks(track);
     }
@@ -95,6 +117,7 @@ public class TrackClientBacking implements Serializable {
         return (track != null) ? track.getReviews() : (new ArrayList<Review>());
     }
 
+    
     public Integer getTrackId() {
         return this.trackId;
     }

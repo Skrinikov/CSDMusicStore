@@ -76,7 +76,10 @@
                                     <h5>Add a Review</h5>
                                     <p:inputTextarea rows="10" cols="50" />
                                     <h:outputText /><br/>
-
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Rating: "/>
+                                        <p:rating value="" />
+                                    </h:panelGrid>
                                     <p:commandButton value="Submit" actionListener="#{trackCLBack.addReview}" />
 
                                 </h:form>
