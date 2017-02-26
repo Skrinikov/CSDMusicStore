@@ -1,9 +1,12 @@
 package com.fractals.backingbeans;
 
-import com.fractals.controllers.OrdersController;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -16,22 +19,20 @@ import javax.inject.Named;
  * the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 25/02/2017
+ * @version 26/02/2017
  * @since 1.8
  */
 @Named("checkout")
 @RequestScoped
 public class CheckoutBacking {
     @Inject
-    private OrdersController ordersController;
-    @Inject
     private CreditCard credit;
-    @Inject
-    private ShoppingCart shopCart;
     
     private List<String> brands;
-    private boolean isVisa;
+    private boolean isVisa = false;
     private ResourceBundle bundle;
+    private boolean error = false;
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("CheckoutBacking.class");
     
     
     /**
@@ -42,8 +43,8 @@ public class CheckoutBacking {
         brands = new ArrayList<>();
         brands.add("Visa");
         brands.add("MasterCard");
-        isVisa = false;
-        ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+        bundle = ResourceBundle.getBundle("Bundle");
+        credit.setBrand("MasterCard");
     }
 
     /**
@@ -60,6 +61,7 @@ public class CheckoutBacking {
      */
     public void addField(String brand) {
         isVisa = brand.equals("Visa");
+        credit.setBrand(brand);
     }
 
     /**
@@ -73,33 +75,54 @@ public class CheckoutBacking {
     /**
      * Validates user-submitted information. If the information is valid, the user
      * is redirected to the invoice page; if it is not, the errors are displayed.
-     * @return the name of the page where the user is redirected.
+     * @param brand The brand of the credit card provided.
      */
-    public String validate() {
-        if(!brands.contains(credit.getBrand())) {
+    public void validate(String brand) {
+        error = false;
+        if(!brands.contains(brand)) {
             FacesMessage message = new FacesMessage(bundle.getString("credit_brand_error"));
             FacesContext.getCurrentInstance().addMessage("checkoutForm", message);
-            return null;
+            error = true;
         }
         String number = credit.getNumber();
-        if(!number.matches("^\\s*[0-9][0-9\\s]*$") && !luhnCheck(number.replaceAll("\\D", ""))) {
+        if(!number.matches("^\\s*[0-9][0-9\\s]*$") || !luhnCheck(number.replaceAll("\\D", ""))) {
             FacesMessage message = new FacesMessage(bundle.getString("credit_number_error"));
             FacesContext.getCurrentInstance().addMessage("checkoutForm:number", message);
-            return null;
+            error = true;
         }
-        if(credit.getName().isEmpty()) {
+        LocalDate date = credit.getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = LocalDate.now();
+        if(date.isBefore(now) || (date.getMonth() == now.getMonth() && date.getYear() == now.getYear())) {           
+            FacesMessage message = new FacesMessage(bundle.getString("credit_date_error"));
+            FacesContext.getCurrentInstance().addMessage("checkoutForm:date", message);
+            error = true;
+        }
+        String name = credit.getName();
+        if(name == null || name.trim().isEmpty()) {
             FacesMessage message = new FacesMessage(bundle.getString("credit_name_error"));
             FacesContext.getCurrentInstance().addMessage("checkoutForm:name", message);
-            return null;
+            error = true;
         }
-        
-        return "invoice";
+        String code = credit.getCode();
+        if(isVisa && (code == null || !code.matches("^[0-9][0-9][0-9]$"))) {
+            FacesMessage message = new FacesMessage(bundle.getString("credit_code_error"));
+            FacesContext.getCurrentInstance().addMessage("checkoutForm:code", message);
+            error = true;
+        }
+        if(!error) {
+            try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("invoice.xhtml");
+            }
+            catch(IOException io) {
+                log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
+            }
+        }
     }
     
     /**
      * Validates if the provided card number is valid.
      * @param cardNumber the card number.
-     * @return true if the card number is true; false otherwise.
+     * @return true if the card number is valid; false otherwise.
      */
     private static boolean luhnCheck(String cardNumber) {
         int sum = 0;

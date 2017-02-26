@@ -19,13 +19,13 @@ public class CreditCard  implements Serializable {
     private String number;
     private Date expirationDate;
     private String name;
-    private Integer code;
+    private String code;
 
     /**
      * Returns the secret code for Visa credit card.
      * @return the secret code for Visa credit card.
      */
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -33,7 +33,7 @@ public class CreditCard  implements Serializable {
      * Sets the secret code for Visa credit card.
      * @param code the secret code for Visa credit card.
      */
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

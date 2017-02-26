@@ -23,7 +23,7 @@
                     <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default" immediate="true">
                         <f:ajax execute="@form" render="@form"/>
                     </h:commandLink>
-                </ui:repeat>              
+                </ui:repeat> 
                 
                 <h:panelGrid columns="3">
                     <h:outputLabel  for="number" value="#{bundle.credit_number}" />
@@ -31,8 +31,8 @@
                     <h:message id="numberMessage" class="error" for="number" />
 
                     <h:outputLabel  for="date" value="#{bundle.credit_date}" />
-                    <h:inputText  id="date" value="#{credit.expirationDate}" required="true" pt:placeholder="mm/yyyy">
-                        <f:convertDateTime pattern="mm/yyyy" />
+                    <h:inputText  id="date" value="#{credit.expirationDate}" required="true" 
+                                  pt:placeholder="mm/yyyy" converter="DateConverter">
                     </h:inputText>
                     <h:message id="dateMessage" class="error" for="date" />
                     
@@ -41,12 +41,12 @@
                     <h:message id="nameMessage" class="error" for="name" />
                     
                     <h:outputLabel  for="code" rendered="#{checkout.isVisa}" value="#{bundle.credit_code}" />
-                    <h:inputText  id="code"  rendered="#{checkout.isVisa}"
+                    <h:inputText  id="code"  rendered="#{checkout.isVisa}" pt:placeholder="111"
                                   value="#{credit.code}" required="true"/>
                     <h:message id="codeMessage" class="error" for="code" rendered="#{checkout.isVisa}" />
                 </h:panelGrid>
                     
-                 <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate()}" class="btn btn-info">
+                <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate(credit.brand)}" class="btn btn-info">
                 </h:commandButton>       
 
                 
