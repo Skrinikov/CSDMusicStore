@@ -1,6 +1,5 @@
 package com.fractals.backingbeans;
 
-//import javax.ejb.Stateful;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
@@ -16,7 +15,8 @@ import javax.inject.Named;
 
 
 /**
- * The logic for shopping cart.
+ * The class that is responsible for storing Shopping Card information
+ * and backing the appropriate page.
  *
  * @author Aline Shulzhenko
  * @version 25/02/2017
@@ -45,6 +45,15 @@ public class ShoppingCart implements Serializable{
         return albums;
     }
     
+    /**
+     * Returns the number of all items in the shopping cart (tracks and albums).
+     * @return the number of all items in the shopping cart.
+     */
+    public int totalItems() {
+        return albums.size() + tracks.size();
+    }
+    
+    //only for tests
     @PostConstruct
     public void init() {
         empty();

@@ -5,58 +5,56 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:a4j="http://richfaces.org/a4j">
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     
-    <ui:define name="windowTitle">#{bundle.shopcart}</ui:define>
+    <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
 
     <ui:define name="content">
-        <h2>#{bundle.shopcart}</h2>
+        <h2>#{bundle.checkout}</h2>
+        
+        
 
         <ui:fragment rendered="#{login.loggedIn}">
-            <h:form id="cart-form">
-            <h:dataTable value="#{cart.all}" var="item"
-                         class="table table-striped table-hover table-cart table-condensed">
-                <h:column>    
-                    <!--cover/#{cart.getCover(item)} -->
-                    <p:graphicImage name="images/test_cover.jpg" style="max-height: 50px"/>
-                 </h:column>
-                <h:column>    				
-                    <f:facet name="header">#{bundle.type}</f:facet>    				
-                    #{cart.getType(item)}
-                 </h:column>
-                 <h:column>
-                    <f:facet name="header">#{bundle.title}</f:facet>
-                    <h:link outcome="#{cart.getDetailsLink(item)}" includeViewParams="true">
-                        <f:param name="id" value="#{item.id}"/>
-                        #{item.title}
-                    </h:link>
-                 </h:column>
-                 <h:column>
-                    <f:facet name="header">#{bundle.artist}</f:facet>
-                    #{cart.getArtist(item)}
-                 </h:column>
-                 <h:column>
-                    <f:facet name="header">#{bundle.price}</f:facet>
-                     <ui:fragment rendered="#{item.salePrice == 0}">
-                         <h:outputText value="$#{item.listPrice}"></h:outputText>
-                     </ui:fragment>
-                    <ui:fragment rendered="#{item.salePrice > 0}">
-                         <h:outputText value="$#{item.salePrice}"></h:outputText>
-                     </ui:fragment>
-                 </h:column>
-                <h:column>                      
-                    <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default">
-                        <f:ajax execute="@all" render="@all"/>
-                        <i class="glyphicon glyphicon-trash"></i>                 
+            <h4>#{bundle.checkout_title}</h4>
+            <h:form id="checkoutForm">
+                
+                <h:message class="error" for="checkoutForm" id="checkoutFormMessage" />  <br/>              
+                <ui:repeat value="#{checkout.brands}" var="brand">
+                    <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default" immediate="true">
+                        <f:ajax execute="@form" render="@form"/>
                     </h:commandLink>
-                </h:column>
-            </h:dataTable>
-            </h:form>            
-            
-            <h:commandButton rendered="#{login.loggedIn}" action="#{cart.validate}" value="#{bundle.checkout}" class="btn btn-info"/>
-            
-            <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login"></h:link>
-            
+                </ui:repeat>              
+                
+                <h:panelGrid columns="3">
+                    <h:outputLabel  for="number" value="#{bundle.credit_number}" />
+                    <h:inputText  id="number" value="#{credit.number}" required="true"/>
+                    <h:message id="numberMessage" class="error" for="number" />
+
+                    <h:outputLabel  for="date" value="#{bundle.credit_date}" />
+                    <h:inputText  id="date" value="#{credit.expirationDate}" required="true" pt:placeholder="mm/yyyy">
+                        <f:convertDateTime pattern="mm/yyyy" />
+                    </h:inputText>
+                    <h:message id="dateMessage" class="error" for="date" />
+                    
+                    <h:outputLabel  for="name" value="#{bundle.credit_name}" />
+                    <h:inputText  id="name" value="#{credit.name}" required="true"/>
+                    <h:message id="nameMessage" class="error" for="name" />
+                    
+                    <h:outputLabel  for="code" rendered="#{checkout.isVisa}" value="#{bundle.credit_code}" />
+                    <h:inputText  id="code"  rendered="#{checkout.isVisa}"
+                                  value="#{credit.code}" required="true"/>
+                    <h:message id="codeMessage" class="error" for="code" rendered="#{checkout.isVisa}" />
+                </h:panelGrid>
+                    
+                 <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate()}" class="btn btn-info">
+                </h:commandButton>       
+
+                
+            </h:form>     
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{!login.loggedIn}">
+            <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login"></h:link>
         </ui:fragment>
         
     </ui:define> 

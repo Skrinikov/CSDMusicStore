@@ -41,6 +41,7 @@ public class SearchBacking  implements Serializable  {
     private Date dateStart;
     private Date dateEnd;
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("SearchBacking.class");
+    private ResourceBundle bundle;
     
     /**
      * Returns the cover file of the required album.
@@ -186,7 +187,7 @@ public class SearchBacking  implements Serializable  {
             LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
 
             if(from.isAfter(to)) {
-                FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("date_seq_error"));
+                FacesMessage message = new FacesMessage(bundle.getString("date_seq_error"));
                 FacesContext.getCurrentInstance().addMessage("searchForm", message);
             }
             else {
@@ -227,7 +228,7 @@ public class SearchBacking  implements Serializable  {
      */
     @PostConstruct
     public void init() {
-       ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+       bundle = ResourceBundle.getBundle("Bundle");
        albums = new ArrayList<>();
        tracks = new ArrayList<>();
        options = new ArrayList<>();
