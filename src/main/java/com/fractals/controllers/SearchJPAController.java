@@ -22,7 +22,7 @@ import javax.persistence.criteria.Join;
  * between specific dates for the index page.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 25/02/2017
  * @since 1.8
  */
 @Named
@@ -31,20 +31,6 @@ public class SearchJPAController implements Serializable {
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
-  
-    /**
-     * Initializes the object.
-     */
-    public SearchJPAController() {}
-    
-    /**
-     * Initializes the object with the predefined entityManager value.
-     * @param entityManager EntityManager object.
-     */
-    public SearchJPAController(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     
     /**
      * Searches for albums by the album title.

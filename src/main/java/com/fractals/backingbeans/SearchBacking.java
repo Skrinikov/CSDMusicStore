@@ -15,15 +15,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
- * @version 19/02/2017
+ * @version 25/02/2017
  * @since 1.8
  */
 @Named("search")
@@ -32,16 +31,16 @@ public class SearchBacking  implements Serializable  {
     private List<String> options;
     private List<Album> albums;
     private List<Track> tracks;
+    
+    @Inject
     private SearchJPAController jpa;
+    
     private String choice;
     private String key;
     private boolean dateSelected;
     private Date dateStart;
     private Date dateEnd;
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("SearchBacking.class");
-    
-    @PersistenceContext(unitName = "fractalsPU")
-    private EntityManager entityManager;
     
     /**
      * Returns the cover file of the required album.
@@ -176,8 +175,10 @@ public class SearchBacking  implements Serializable  {
     
     /**
      * Queries for albums based on user-defined search keys and the chosen option.
+     * @return the album or a track page if one item is found; null to stay
+     *         on the same page if multiple items are found.
      */
-    public void search() {
+    public String search() {
         albums = new ArrayList<>();
         tracks = new ArrayList<>();
         if(key != null) {
@@ -203,6 +204,11 @@ public class SearchBacking  implements Serializable  {
                 }
             }
         }
+        if(tracks.size() == 1 && albums.isEmpty())
+            return "Track.xhtml?faces-redirect=true&id="+tracks.get(0).getId();
+        else if(albums.size() == 1 && tracks.isEmpty())
+            return "Album.xhtml?faces-redirect=true&id="+albums.get(0).getId();
+        return null;
     }
     
     /**
@@ -230,7 +236,6 @@ public class SearchBacking  implements Serializable  {
        options.add(bundle.getString("search_track"));
        options.add(bundle.getString("search_date"));
        options.add(bundle.getString("search_artist"));
-       jpa = new SearchJPAController(entityManager);
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateSelected = choice != null ? options.get(2).equals(choice) : false;

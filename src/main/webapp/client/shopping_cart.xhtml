@@ -1,0 +1,69 @@
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j">
+    
+    <ui:define name="windowTitle">#{bundle.shopcart}</ui:define>
+
+    <ui:define name="content">
+        <h2>#{bundle.shopcart}</h2>
+
+        <ui:fragment rendered="#{cart.all.size() != 0}">
+            <h:form id="cart-form">
+            <h:dataTable value="#{cart.all}" var="item"
+                         class="table table-striped table-hover table-cart table-condensed">
+                <h:column>    
+                    <!--cover/#{cart.getCover(item)} -->
+                    <p:graphicImage name="images/test_cover.jpg" style="max-height: 50px"/>
+                 </h:column>
+                <h:column>    				
+                    <f:facet name="header">#{bundle.type}</f:facet>    				
+                    #{cart.getType(item)}
+                 </h:column>
+                 <h:column>
+                    <f:facet name="header">#{bundle.title}</f:facet>
+                    <h:link outcome="#{cart.getDetailsLink(item)}" includeViewParams="true">
+                        <f:param name="id" value="#{item.id}"/>
+                        #{item.title}
+                    </h:link>
+                 </h:column>
+                 <h:column>
+                    <f:facet name="header">#{bundle.artist}</f:facet>
+                    #{cart.getArtist(item)}
+                 </h:column>
+                 <h:column>
+                    <f:facet name="header">#{bundle.price}</f:facet>
+                     <ui:fragment rendered="#{item.salePrice == 0}">
+                         <h:outputText value="$#{item.listPrice}"></h:outputText>
+                     </ui:fragment>
+                    <ui:fragment rendered="#{item.salePrice > 0}">
+                         <h:outputText value="$#{item.salePrice}"></h:outputText>
+                     </ui:fragment>
+                 </h:column>
+                <h:column>                      
+                    <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default">
+                        <f:ajax execute="@all" render="@all"/>
+                        <i class="glyphicon glyphicon-trash"></i>                 
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+            </h:form>            
+            
+            <h:commandButton rendered="#{login.loggedIn}" action="#{cart.validate}" value="#{bundle.checkout}" class="btn btn-info"/>
+            
+            <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login"></h:link>
+            
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{cart.isEmpty()}">
+            <p><h:outputText value="#{bundle.cart_nodata}"></h:outputText></p>
+        </ui:fragment>
+        
+    </ui:define> 
+    
+</ui:composition>
+

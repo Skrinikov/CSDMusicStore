@@ -2,10 +2,15 @@ package com.fractals.backingbeans;
 
 //import javax.ejb.Stateful;
 import com.fractals.beans.Album;
+import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -14,15 +19,16 @@ import javax.inject.Named;
  * The logic for shopping cart.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 25/02/2017
  * @since 1.8
  */
-@Named("shoppingCart")
+@Named("cart")
 @SessionScoped
 public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();
     private List<Track> tracks = new ArrayList<>();
-    
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
+
     /**
      * Returns the list of all tracks in the shopping cart.
      * @return the list of all tracks in the shopping cart.
@@ -37,6 +43,89 @@ public class ShoppingCart implements Serializable{
      */
     public List<Album> getAllAlbums() {
         return albums;
+    }
+    
+    @PostConstruct
+    public void init() {
+        empty();
+        albums.add(new Album(1, "title", LocalDate.now(), "string", 4, LocalDateTime.now(), 1,1, 1, true ));
+        albums.add(new Album(2, "title2", LocalDate.now(), "string", 4, LocalDateTime.now(), 1,1, 2, true ));
+        tracks.add(new Track(1, "song title", "me", "10:00", 1, "test_cover.jpg", LocalDateTime.now(), 1,1,1,true,false));
+    }
+    
+    /**
+     * Returns the list of all objects in the shopping cart, both albums and tracks.
+     * @return the list of all objects in the shopping cart.
+     */
+    public List<Object> getAll() {
+        List<Object> items = new ArrayList<>();
+        for(Album a : albums)
+            items.add(a);
+        for(Track t : tracks)
+            items.add(t);
+        return items;
+    }
+    
+    /**
+     * Returns artist for the specified item (album or track).
+     * @param item Album or Track whose Artist to return.
+     * @return artist for the specified item.
+     */
+    public Artist getArtist(Object item) {
+        if(item == null)
+            return null;
+        if(item instanceof Album)
+            return ((Album) item).getArtist();
+        if(item instanceof Track) {
+            Album album = ((Track) item).getAlbum();
+            return album!= null ? album.getArtist() : null;
+        }
+        return null;
+    }
+    
+    /**
+     * Returns cover location for the specified item (album or track).
+     * @param item Album or Track whose cover file location to return.
+     * @return cover location for the specified item.
+     */
+    public String getCover(Object item) {
+        if(item == null)
+            return null;
+        if(item instanceof Album) {
+            List<Track> items = ((Album) item).getTracks();
+            return (items == null || items.isEmpty()) ? null : items.get(0).getCoverFile();
+        }
+        if(item instanceof Track)
+            return ((Track) item).getCoverFile();
+        return null;
+    }
+    
+    /**
+     * Returns the type of the object.
+     * @param item An object (Album or Track), which type to return.
+     * @return Album if it is an Album object; Track if it is a Track object;
+     *         null if neither of those types are submitted.
+     */
+    public String getType(Object item) {
+        ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+        if(item instanceof Album)
+            return bundle.getString("album");
+        if(item instanceof Track)
+            return bundle.getString("track");
+        return null;
+    }
+    
+    /**
+     * Returns the link to the view page of this object.
+     * @param item An object (Album or Track), which view page link is requested.
+     * @return  the link to the view page of this object.
+     */
+    public String getDetailsLink(Object item) {
+        if(item instanceof Album)
+            return "Album.xhtml";
+        if(item instanceof Track)
+            return "Track.xhtml";
+        return null;
     }
     
     /**
@@ -77,6 +166,14 @@ public class ShoppingCart implements Serializable{
         
         else if(o instanceof Track) 
             tracks.remove((Track)o);
+    }
+    
+    /**
+     * Returns true if the cart is empty; false otherwise.
+     * @return true if the cart is empty; false otherwise.
+     */
+    public boolean isEmpty() {
+        return albums.isEmpty() && tracks.isEmpty();
     }
     
     /**
