@@ -44,23 +44,21 @@ public class AlbumBackingBean implements Serializable {
     private Album selectedAlbum;
     public Album getSelectedAlbum() {return selectedAlbum;}
     public void setSelectedAlbum(Album a) {selectedAlbum = a; makeUneditable();}
-    public boolean selection(){return selectedAlbum == null;}
-    
+
     @Inject
     private AlbumJpaController albumJpaController;
     public List<Album> getAlbums() {return albumJpaController.findAlbumEntities();}
     public boolean isEmpty() {return albumJpaController.isEmpty();}
 
-    public void edit() throws Exception {
+    public String edit() throws Exception {
         albumJpaController.edit(selectedAlbum);
+        return "/management/album/albumsList.xhtml";
     }
 
     public String delete() throws Exception {
-        selectedAlbum.setRemovedAt(LocalDateTime.now());
-        edit();
         //albumJpaController.destroy(selectedAlbum.getId());  
-        selectedAlbum = null;
-        return "/management/album/albumsList.xhtml"; 
+        selectedAlbum.setRemovedAt(LocalDateTime.now());
+        return edit();
     }
     
     private Album createdAlbum;

@@ -12,36 +12,32 @@
 
     <ui:define name="content">
         <h:form id="form">           
-          
-            
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
 
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
-                             selectionMode="single" selection="#{theAlbums.selectedAlbum}" rowKey="#{item.id}"
-                             draggableColumns="true" resizableColumns="true">
+                             selectionMode="single" selection="#{theAlbums.selectedAlbum}" 
+                             rowKey="#{item.id}"
+                             draggableColumns="true" resizableColumns="true" >
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListAlbumTitle}"></h:outputText>
+                        <h:outputText value="#{bundle.ListAlbumTitle}"/>
                         <p:commandLink id="toggler" value="Change columns" style="float:right" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
-                    
-                                
+
+
                     <p:column width="5%" headerText="Cover">
                         <p:graphicImage id="content" width="40px" name="/images/test_cover.jpg" />          
                         <p:tooltip for="content" trackMouse="true">
                             <p:graphicImage height="300px" name="/images/test_cover.jpg"/>
                         </p:tooltip>
                     </p:column> 
-                    
+
                     <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
@@ -49,11 +45,11 @@
                     <p:column headerText="#{bundle.ListAlbumTitle_title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListAlbumTitle_releaseDate}">
                         <h:outputText value="#{item.releaseDate}"/>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListAlbumTitle_recordLabel}">
                         <h:outputText value="#{item.recordLabel}"/>
                     </p:column>
@@ -68,40 +64,50 @@
                     <p:column headerText="#{bundle.ListAlbumTitle_costPrice}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
+
                     <p:column headerText="#{bundle.ListAlbumTitle_listPrice}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
+
                     <p:column headerText="#{bundle.ListAlbumTitle_salePrice}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListAlbumTitle_removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column> 
-                    
+
                     <p:column headerText="#{bundle.ListAlbumTitle_available}">                       
                         <h:outputText value="#{item.available}"/>            
                     </p:column>
-                    
+
                     <f:facet name="footer">
-                        <p:commandButton value="Open" icon="ui-icon-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" />
-                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false" />       
-                        <p:commandButton value="TestOpen" icon="ui-icon-search" process="tbl" update=":form:testCreate" oncomplete="PF('dialogCreate').show()" />
-                        <p:commandButton value="TestCreate" icon="ui-icon-plus" process="tbl" update=":form:testViewEdit" oncomplete="PF('dialogViewEdit').show()" />                  
-                    </f:facet>    
+                        <p:commandButton value="Preview" icon="ui-icon-search" process="tbl" update=":form:testViewEdit" oncomplete="PF('dialogViewEdit').show()" />                
+                        <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false"/>
+                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false"/>       
+                        <!--                        
+                        <p:commandButton value="Test Create" icon="ui-icon-search" onclick="PF('dialogCreate').show()" />
+                        -->
+                    </f:facet>   
 
                 </p:dataTable>
             </h:panelGroup>
-            
-            <p:dialog header="CreateAlbum" widgetVar="dialogCreate">            
-                <ui:include src="/management/album/testDialogViewEdit.xhtml" />          
-            </p:dialog>
 
             <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
-                <ui:include src="/management/album/testDialogCreate.xhtml" />  
+                <ui:include src="/management/album/testDialogViewEdit.xhtml" />  
             </p:dialog>
 
+                       
+<!--           
+            <p:dialog header="Create Album" widgetVar="dialogCreate" dynamic="true">            
+                <ui:include src="/management/album/testDialogCreate.xhtml" />          
+            </p:dialog>
+-->
+           
+
+
+
         </h:form>
-        
+
     </ui:define>
 </ui:composition>
