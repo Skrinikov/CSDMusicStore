@@ -43,7 +43,7 @@ public class AlbumBackingBean implements Serializable {
 
     private Album selectedAlbum;
     public Album getSelectedAlbum() {return selectedAlbum;}
-    public void setSelectedAlbum(Album a) {selectedAlbum = a;}
+    public void setSelectedAlbum(Album a) {selectedAlbum = a; makeUneditable();}
     public boolean selection(){return selectedAlbum == null;}
     
     @Inject
