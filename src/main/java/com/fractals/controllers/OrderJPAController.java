@@ -7,8 +7,10 @@ import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.email.EmailSender;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -24,17 +26,19 @@ import javax.transaction.UserTransaction;
  * The controller for orders and purchasing logic.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 26/02/2017
  * @since 1.8
  */
 @Named("ordersController")
 @RequestScoped
-public class OrdersController {
+public class OrderJPAController {
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;
     @Resource
     private UserTransaction userTransaction;
+    @EJB
+    private OrderService orderBack;
     
     private boolean interrupted = false;
     
@@ -48,11 +52,12 @@ public class OrdersController {
      */
     public Order submitOrder(ShoppingCart cart, User user) {
         Order order = saveOrder(cart, user);   
-        if(! interrupted) {
+        if(! interrupted) {           
             sendEmail(user, cart);
             cart.empty();
+            return order;
         }
-        return order;
+        return null;
     }
     
     /**
@@ -63,30 +68,28 @@ public class OrdersController {
      */
     private Order saveOrder(ShoppingCart cart, User user) {
         Order order = new Order();
-        order.setNetCost(0);
+        order.setNetCost(calculateNetCost(cart));
         order.setUser(user);
-        entityManager.persist(order);
+        order.setGrossCost(0);
+        order.setOrderDate(LocalDateTime.now());
+        orderBack.saveOrder(order);
         
         List<Album> albums = cart.getAllAlbums();
         List<Track> tracks = cart.getAllTracks();
         
-        double netCost = 0;
-        netCost = saveAlbumItems(albums, order);
-        netCost = saveTrackItems(tracks, order) + netCost;
+        saveAlbumItems(albums, order);
+        saveTrackItems(tracks, order);
         
-        order.setNetCost(netCost);
-        entityManager.merge(order);
+        order = orderBack.refreshOrder(order);
         return order;
     }
     
     /**
-     * Persists tracks items from the shopping cart and returns the net cost of all tracks.
+     * Persists tracks items from the shopping cart.
      * @param tracks Tracks to persist to the database.
      * @param order The order that contains these tracks.
-     * @return the net cost of all tracks.
      */
-    private double saveTrackItems(List<Track> tracks, Order order) {
-        double netCost = 0;
+    private void saveTrackItems(List<Track> tracks, Order order) {
         try {
             userTransaction.begin();
             for(Track track : tracks) {
@@ -95,11 +98,9 @@ public class OrdersController {
                 double price = track.getSalePrice() != 0 ? track.getSalePrice() : track.getListPrice();
                 oi.setCost(price);
                 oi.setTrack(track);
-                netCost += price;
                 entityManager.persist(oi);        
             }          
             userTransaction.commit();
-            return netCost;
         } 
         catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 
                HeuristicRollbackException | SecurityException | IllegalStateException ex) {
@@ -108,18 +109,15 @@ public class OrdersController {
                 userTransaction.rollback();
             } 
             catch (IllegalStateException | SecurityException | SystemException re) {}
-            return 0;
         }
     }
     
     /**
-     * Persists albums items from the shopping cart and returns the net cost of all albums.
+     * Persists albums items from the shopping cart.
      * @param albums Albums to persist to the database.
      * @param order The order that contains these albums.
-     * @return the net cost of all tracks.
      */
-    private double saveAlbumItems(List<Album> albums, Order order) {
-        double netCost = 0;
+    private void saveAlbumItems(List<Album> albums, Order order) {
         try {
             userTransaction.begin();
             for(Album album : albums) {
@@ -128,11 +126,9 @@ public class OrdersController {
                 double price = album.getSalePrice() != 0 ? album.getSalePrice() : album.getListPrice();
                 oi.setCost(price);
                 oi.setAlbum(album);
-                netCost += price;
                 entityManager.persist(oi);        
             }          
             userTransaction.commit();
-            return netCost;
         } 
         catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | 
                HeuristicRollbackException | SecurityException | IllegalStateException ex) {
@@ -141,7 +137,6 @@ public class OrdersController {
                 userTransaction.rollback();
             } 
             catch (IllegalStateException | SecurityException | SystemException re) {}
-            return 0;
         }
     }
     
@@ -153,6 +148,27 @@ public class OrdersController {
     private void sendEmail(User u, ShoppingCart cart) {
         EmailSender es = new EmailSender(u);
         es.sendEmail(cart);
+    }
+    
+    /**
+     * Calculates the net cost of the order based on the items in the shopping cart.
+     * @param cart The cart for which items the net cost is calculated.
+     * @return the net cost of the order.
+     */
+    private double calculateNetCost(ShoppingCart cart) {
+        List<Object> items = cart.getAll();
+        double cost = 0;
+        for(Object o : items) {
+            if(o instanceof Album) {
+                Album album = (Album)o;
+                cost += album.getSalePrice() != 0 ? album.getSalePrice() : album.getListPrice();
+            }
+            else if(o instanceof Track) {
+                Track track = (Track)o;
+                cost += track.getSalePrice() != 0 ? track.getSalePrice() : track.getListPrice();
+            }
+        }
+        return cost;
     }
     
 }

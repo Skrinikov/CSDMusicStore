@@ -3,14 +3,15 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
+import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 
@@ -19,7 +20,7 @@ import javax.inject.Named;
  * and backing the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 25/02/2017
+ * @version 26/02/2017
  * @since 1.8
  */
 @Named("cart")
@@ -28,6 +29,12 @@ public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();
     private List<Track> tracks = new ArrayList<>();
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
+    
+    //for test
+    @Inject
+    AlbumJpaController ajc;
+    @Inject
+    private TrackJpaController tjc;
 
     /**
      * Returns the list of all tracks in the shopping cart.
@@ -57,9 +64,10 @@ public class ShoppingCart implements Serializable{
     @PostConstruct
     public void init() {
         empty();
-        albums.add(new Album(1, "title", LocalDate.now(), "string", 4, LocalDateTime.now(), 1,1, 1, true ));
-        albums.add(new Album(2, "title2", LocalDate.now(), "string", 4, LocalDateTime.now(), 1,1, 2, true ));
-        tracks.add(new Track(1, "song title", "me", "10:00", 1, "test_cover.jpg", LocalDateTime.now(), 1,1,1,true,false));
+        albums.add(ajc.findAlbum(1));
+        albums.add(ajc.findAlbum(2));
+        tracks.add(tjc.findTrack(1));
+        tracks.add(tjc.findTrack(13));
     }
     
     /**

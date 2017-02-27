@@ -55,6 +55,7 @@ public class LoginController implements Serializable {
             }
             else {
                 try{
+                    currentUser = userDb;
                     FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
                 }
                 catch(IOException io) {

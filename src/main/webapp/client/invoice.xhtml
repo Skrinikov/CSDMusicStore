@@ -10,17 +10,44 @@
     <ui:define name="windowTitle">#{bundle.invoice}</ui:define>
 
     <ui:define name="content">
-        <h2>TODO</h2>
+        <h2>#{bundle.invoice}</h2>
         
         
 
-        <ui:fragment rendered="#{login.loggedIn}">
-            <h4>#{bundle.invoice_title}</h4>
+        <ui:fragment rendered="#{(login.loggedIn and invoice.order != null)}">
+            <h4>#{bundle.ty_email}</h4>
+            
+            <b>#{bundle.sale_number}:</b> #{invoice.order.id} <br/>
+            <b>#{bundle.sale_date}:</b> #{invoice.order.orderDate}<br/>
+            <b>#{bundle.total_net}:</b> $#{invoice.order.netCost}<br/>
+            <ui:fragment rendered="#{invoice.user.province.pst != 0}"><b>#{bundle.pst}:</b> #{invoice.user.province.pst} <br/></ui:fragment>
+            <ui:fragment rendered="#{invoice.user.province.gst != 0}"><b>#{bundle.gst}:</b> #{invoice.user.province.gst} <br/></ui:fragment>
+            <ui:fragment rendered="#{invoice.user.province.hst != 0}"><b>#{bundle.hst}:</b> #{invoice.user.province.hst} <br/></ui:fragment>
+            <b>#{bundle.total_gross}:</b> $#{invoice.order.grossCost}<br/>
+            
+            <hr/>
+            <h4>#{bundle.items_email}</h4>
+                  
+            <ui:repeat value="#{invoice.order.orderItems}" var="item">
+                <b>#{bundle.sale_number}:</b> #{item.id}<br/>
+                <ui:fragment rendered="#{item.album.id != null}"><b>#{bundle.inventory_number}:</b> #{item.album.id} <br/></ui:fragment>
+                <ui:fragment rendered="#{item.track.id != null}"><b>#{bundle.inventory_number}:</b> #{item.track.id} <br/></ui:fragment>
+                <b>#{bundle.price}:</b> $#{item.cost}<br/>       
+                <hr/>
+            </ui:repeat> 
             
         </ui:fragment>
         
         <ui:fragment rendered="#{!login.loggedIn}">
             <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login"></h:link>
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{invoice.showOrderSubmitError()}">
+            <h4>#{bundle.order_error}</h4>
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{invoice.cartEmptyBeforeInvoice and login.loggedIn}">
+            <h4>#{bundle.order_nodata}</h4>
         </ui:fragment>
         
     </ui:define> 

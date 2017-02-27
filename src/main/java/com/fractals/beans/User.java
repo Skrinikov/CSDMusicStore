@@ -354,7 +354,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.User[ id=" + id + " ]" + province.getName();
+        return "com.fractals.beans.User[ id=" + id + " ] "+username;
     }
 
     public Province getProvince() {

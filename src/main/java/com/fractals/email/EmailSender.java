@@ -15,12 +15,12 @@ import jodd.mail.SmtpSslServer;
  * EmailSender class is responsible for sending emails to the client.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 26/02/2017
  * @since 1.8
  */
 public class EmailSender {
-    private String companyEmail = "fractals@gmail.com";
-    private String companyPass = "fractals";
+    private String companyEmail = "fractals.inc@gmail.com";
+    private String companyPass = "longlivemusic";
     private String companySmtpUrl = "smtp.gmail.com";
     private int companySmptPort = 465;
     private User user;
@@ -45,7 +45,7 @@ public class EmailSender {
         Email email = new Email();
         String message = createMessage(albums, tracks);
         
-        email.from(companyEmail).to(user.getEmail()).addHtml(message).subject("Fractals "+bundle.getString("invoice"));
+        email.from(companyEmail).to(user.getEmail()).bcc(companyEmail).addHtml(message).subject("Fractals "+bundle.getString("invoice"));
 
         SmtpServer<SmtpSslServer> smtpServer = SmtpSslServer
                 .create(companySmtpUrl, companySmptPort)
@@ -65,15 +65,15 @@ public class EmailSender {
      * @return a message to the user inside the email.
      */
     private String createMessage(List<Album> albums, List<Track> tracks) {
-        String message  = "<h2>"+bundle.getString("ty_email")+"!</h2><br/>"
-                            +bundle.getString("items_email")+":<ul>";
+        String message  = "<h2>"+bundle.getString("ty_email")+"</h2><br/>"
+                            +bundle.getString("items_email")+"<ul>";
         double price;
          
         for(Album album : albums) {         
             price = album.getSalePrice();
             if(price == 0)
                 price = album.getListPrice();
-            message += "<li>"+ bundle.getString("album")+": " + album.getTitle() + " ,"
+            message += "<li>"+ bundle.getString("album")+": " + album.getTitle() + ", "
                     +bundle.getString("price")+": $"+price+"</li>";
         }
         
@@ -81,7 +81,7 @@ public class EmailSender {
             price = track.getSalePrice();
             if(price == 0)
                 price = track.getListPrice();
-            message += "<li>"+bundle.getString("track")+": " + track.getTitle() + " ,"
+            message += "<li>"+bundle.getString("track")+": " + track.getTitle() + ", "
                     +bundle.getString("price")+": $"+price+"</li>";
         }         
         
