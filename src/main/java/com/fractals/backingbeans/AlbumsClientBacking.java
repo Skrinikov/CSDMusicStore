@@ -85,11 +85,10 @@ public class AlbumsClientBacking {
     
     /**
      * returns the cover image name of the album.
-     * @param album
      * @return 
      */
-    public String getAlbumCover(){       
-        return album.getTracks().get(0).getCoverFile();
+    public String getAlbumCover(){   
+        return album.getTracks().get(0).getCoverFile();     
     }
     
     public String getAlbumCover(Album album){
