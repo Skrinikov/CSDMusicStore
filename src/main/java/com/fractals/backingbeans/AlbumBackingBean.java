@@ -8,10 +8,11 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.controllers.AlbumJpaController;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,8 +21,8 @@ import javax.inject.Named;
  * @author 1710030
  */
 @Named("theAlbums")
-@RequestScoped
-public class AlbumBackingBean {
+@SessionScoped
+public class AlbumBackingBean implements Serializable {
 
     private String test2;
     public String getTest2() {return test2;}
@@ -37,29 +38,14 @@ public class AlbumBackingBean {
     private boolean editable = false;
     public boolean getEditable() {return editable;}
     public void setEditable(boolean b) {editable = b;}
-    public void editable(){setEditable(true);};
-    public void uneditable(){setEditable(false);}
-    
-    /*TRYING TO DEAL WITH THE RESTRICTIONS OF REQUEST SCOPE
-    public String editable(Album a) {
-        setSelectedAlbum(a);
-        setEditable(true);
-        return "/managment/albumsViewEdit.xhtml"; 
-    }
-    public String uneditable(Album a) {
-        setSelectedAlbum(a);
-        setEditable(false);
-        return "/managment/albumsViewEdit.xhtml";
-    }
-    */
+    public void makeEditable(){setEditable(true);};
+    public void makeUneditable(){setEditable(false);}
 
     private Album selectedAlbum;
     public Album getSelectedAlbum() {return selectedAlbum;}
     public void setSelectedAlbum(Album a) {selectedAlbum = a;}
     public boolean selection(){return selectedAlbum == null;}
     
-    private Album getFirst() {return getAlbums().get(72);}//TO TEST DELETE
-
     @Inject
     private AlbumJpaController albumJpaController;
     public List<Album> getAlbums() {return albumJpaController.findAlbumEntities();}
@@ -70,9 +56,11 @@ public class AlbumBackingBean {
     }
 
     public String delete() throws Exception {
-        albumJpaController.destroy(selectedAlbum.getId());
+        selectedAlbum.setRemovedAt(LocalDateTime.now());
+        edit();
+        //albumJpaController.destroy(selectedAlbum.getId());  
         selectedAlbum = null;
-        return "/managment/albumsList.xhtml"; 
+        return "/management/album/albumsList.xhtml"; 
     }
     
     private Album createdAlbum;
@@ -86,11 +74,12 @@ public class AlbumBackingBean {
     public void setCreatedAlbum(Album a) {createdAlbum = a;}
 
     public String create() throws Exception {
-        createdAlbum.setCreatedAt(LocalDateTime.now());
+        createdAlbum.setCreatedAt(LocalDateTime.now()); //maybe generated in bean
         createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
         createdAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
-        return "/managment/albumsViewEdit.xhtml";
+        createdAlbum = null;
+        return "/management/album/albumsViewEdit.xhtml";
     }
 }

@@ -83,67 +83,29 @@
                     </p:column>
                     
                     <f:facet name="footer">
-                        <p:commandButton value="View" icon="ui-icon-search" process="tbl" update=":form:albumDetail" oncomplete="PF('albumDialog').show()" />
-                        <p:commandButton value="Open" icon="ui-icon-folder-open" action="/managment/albumsViewEdit.xhtml" ajax="false" />
-                        <p:commandButton value="Create" icon="ui-icon-plus" action="/managment/albumsCreate.xhtml" ajax="false" />       
-                        <p:commandButton value="Test" icon="ui-icon-search" process="tbl" update=":form:detailTest" oncomplete="PF('dialogTest').show()" />
-                        <p:commandButton value="Test2" icon="ui-icon-plus" process="tbl" update=":form:detailTest2" oncomplete="PF('dialogTest2').show()" />                  
+                        <p:commandButton value="Open" icon="ui-icon-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" />
+                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false" />       
+                        <p:commandButton value="TestOpen" icon="ui-icon-search" process="tbl" update=":form:testOpen" oncomplete="PF('dialogOpen').show()" />
+                        <p:commandButton value="TestCreate" icon="ui-icon-plus" process="tbl" update=":form:testViewEdit" oncomplete="PF('dialogViewEdit').show()" />                  
                     </f:facet>    
 
                 </p:dataTable>
 
             </h:panelGroup>
             
-             <p:dialog header="Album Info" widgetVar="dialogTest" resizable="false">
-                <p:outputPanel id="detailTest" style="text-align:center;">
-                   <ui:include src="/managment/testDialog.xhtml" />  
+             <p:dialog header="Album Info" widgetVar="dialogOpen" resizable="false">
+                <p:outputPanel id="testOpen" style="text-align:center;">
+                   <ui:include src="/management/album/testDialogViewEdit.xhtml" />  
                 </p:outputPanel>
             </p:dialog>
 
 
-            <p:dialog header="Album Info" widgetVar="dialogTest2" resizable="false" dynamic="true">
-                <p:outputPanel id="detailTest2" style="text-align:center;">
-                   <ui:include src="/managment/testDialog2.xhtml" />  
+            <p:dialog header="Album Info" widgetVar="dialogViewEdit" resizable="false" dynamic="true">
+                <p:outputPanel id="testViewEdit" style="text-align:center;">
+                   <ui:include src="/management/album/testDialogCreate.xhtml" />  
                 </p:outputPanel>
             </p:dialog>
 
-            
-            <p:dialog header="Album Info" widgetVar="albumDialog" modal="true" showEffect="explode" hideEffect="bounce" resizable="false">
-                <p:outputPanel id="albumDetail" style="text-align:center;">
-                    
-                    <p:panelGrid columns="2" rendered="#{not empty theAlbums.selectedAlbum}">
-                        <f:facet name="header">
-                            <p:graphicImage width="200px" name="/images/test_cover.jpg"/> 
-                        </f:facet>
-                    
-                        <h:outputText value="Id:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
-                        <h:outputText value="Title:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
-                        <h:outputText value="ReleaseDate:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
-                        <h:outputText value="RecordLabel:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
-                        <h:outputText value="NumTracks:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
-                        <h:outputText value="CreatedAt:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/>
-                        <h:outputText value="CostPrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
-                        <h:outputText value="ListPrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
-                        <h:outputText value="SalePrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
-                        <h:outputText value="RemovedAt:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
-                        <h:outputText value="Available:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
-                        <h:outputText value="Artist:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
-                    </p:panelGrid>
-
-                </p:outputPanel>
-            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

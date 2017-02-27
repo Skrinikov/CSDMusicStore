@@ -1,13 +1,22 @@
 <ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-        <h:outputText value="rien de selectionné" rendered="#{empty theAlbums.selectedAlbum}"/>
+    <ui:define name="title">
+        <a href="../management/albumsList.xhtml"></a>
+        <h:outputText value="#{bundle.ListAlbumTitle}"></h:outputText>
+    </ui:define>
 
-        <h:form>       
+    <ui:define name="content">
+
+        <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
+
+        <h:form>
+            
             <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
@@ -34,19 +43,16 @@
                 <h:outputText value="Artist:"/>
                 <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
                 
-
-
-                <p:commandButton actionListener="#{theAlbums.editable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" ajax="false"/>
-
-                <!-- <h:outputText value="Tracks:"/>
+                <h:outputText value="Tracks:"/>
                 <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="margin-bottom:20px">
-                    <p:column headerText="Id">
-                    <h:outputText value="#{item.id}"/>
-                    </p:column>              
-                </p:dataTable>-->
-                
-                <!--                 <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
+                <p:column>
+                    <f:facet name="header"><h:outputText value="Id"/></f:facet><h:outputText value="#{item.id}"/>
+                </p:column>              
+                </p:dataTable>
+
+                <p:commandButton action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
+                <p:commandButton action="#{theAlbums.delete()}" value="Delete" ajax="false"/>
+<!--                 <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
                 </p:commandButton>
             
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -87,16 +93,20 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
               
-                <p:commandButton  action="#{theAlbums.edit()}" value="Save" ajax="false"/>
-                <p:commandButton  action="#{theAlbums.uneditable()}" value="Cancel" ajax="false"/>
+                <p:commandButton action="#{theAlbums.edit()}" value="Save" ajax="false"/>
+                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" ajax="false"/>
                 
             </h:panelGrid>
-
-           <p:commandButton value="Retour à la liste" action="/managment/albumsList.xhtml" ajax="false" />
-          
+            
            <!--si l'artiste n'existe, dialog "voulez vous le creer"
-          release date and artist greyed out because annoying (whole thing still not working yet)"-->
-        </h:form>      
+          release date and artist greyed out because annoying (whole thing still not working yet)
+           On cascade delete avec les tracks si non impossible de supprimer un album...
+           -->                
+        </h:form>  
+        
+        <p:button value="Retour à la liste" outcome="/management/album/albumsList.xhtml"/>
+          
+    </ui:define>
 </ui:composition>
 
 
