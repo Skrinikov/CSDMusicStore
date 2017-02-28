@@ -80,4 +80,5 @@ public class AlbumBackingBean implements Serializable {
         createdAlbum = null;
         return "/management/album/albumsViewEdit.xhtml";
     }
+
 }

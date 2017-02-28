@@ -5,7 +5,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     <p:outputPanel id="testViewEdit">
-        
+       
         <h:outputText value="rien de selectionné" rendered="#{empty theAlbums.selectedAlbum}"/>
           
             <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
@@ -85,10 +85,11 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
               
-                <p:commandButton  action="#{theAlbums.edit()}" value="Save" update=":form:testViewEdit"/>
+                <p:commandButton  action="#{theAlbums.edit()}" value="Save" ajax="false" update=":form:testViewEdit"/>
                 <p:commandButton  action="#{theAlbums.makeUneditable()}" value="Cancel" update=":form:testViewEdit"/>
                 
             </h:panelGrid>
+ 
        </p:outputPanel>     
            <!--si l'artiste n'existe, dialog "voulez vous le creer"
           release date and artist greyed out because annoying (whole thing still not working yet)"-->

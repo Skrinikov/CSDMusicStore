@@ -27,7 +27,43 @@ public class GenreBackingBean {
         return genreJpaController.findGenreEntities();
     }
     
-       public boolean isEmpty(){
-          return genreJpaController.isEmpty();
-      }
+    public boolean isEmpty(){
+       return genreJpaController.isEmpty();
+    }
+       
+       
+    private Genre createdGenre;
+    public Genre getCreatedGenre(){
+        if(createdGenre == null)
+            createdGenre = new Genre();
+        return createdGenre;
+    }
+    public void setCreatedGenre(Genre g){createdGenre = g;}
+    
+    private Genre selectedGenre;
+    public Genre getSelectedGenre(){ return selectedGenre;}
+    public void setSelectedGenre(Genre g){selectedGenre = g;}
+    
+    private boolean editable = false;
+    public boolean getEditable() {return editable;}
+    public void setEditable(boolean b) {editable = b;}
+    public void makeEditable(){setEditable(true);};
+    public void makeUneditable(){setEditable(false);}
+    
+    
+    public String create() throws Exception {
+        genreJpaController.create(createdGenre);
+        selectedGenre = createdGenre;
+        createdGenre = null;
+        return "/management/genre/genresList.xhtml";
+    }
+       
+    public String edit()throws Exception {
+        genreJpaController.edit(selectedGenre);
+        return "/management/genre/genresList.xhtml";
+    }
+
+    public void delete() throws Exception {
+        genreJpaController.destroy(selectedGenre.getId());
+    }
 }
