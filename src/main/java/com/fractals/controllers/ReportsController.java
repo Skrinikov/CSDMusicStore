@@ -317,6 +317,7 @@ public class ReportsController implements Serializable {
      * @return list of order items which have the album in their result.
      */
     public List<OrderItem> getSalesByAlbum(int albumId, LocalDateTime start, LocalDateTime end){
+        log.info("getSalesByAlbum "+albumId);
         if (start == null || end == null) {
             return null;
         }
@@ -334,7 +335,7 @@ public class ReportsController implements Serializable {
         Join orders = root.join("order");
         query.select(root);
         query.orderBy(cb.desc(orders.get("orderDate")));
-        query.where(cb.and(cb.equal(root.get("track"), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
+        query.where(cb.and(cb.equal(root.get("album").get("id"), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }

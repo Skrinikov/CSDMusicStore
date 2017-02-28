@@ -5,25 +5,25 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:form id="totalTrackSales" styleClass="col-md-12 col-xs-12 reports-form">
+    <h:form id="totalAlbumSales" styleClass="col-md-12 col-xs-12 reports-form">
 
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
-            <p:calendar id="trackSaleDateStart" binding="#{trackDateStart}" />
+            <p:calendar id="trackSaleDateStart" binding="#{albumDateStart}" />
 
             <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
-            <p:calendar id="trackSaleDateEnd" binding="#{trackDateEnd}" />
+            <p:calendar id="trackSaleDateEnd" binding="#{albumDateEnd}" />
             
             <p:outputLabel for="trackSaleInput" value="#{bundle.reports_id}" />           
-            <p:inputText id="trackSaleInput" binding="#{trackId}">
+            <p:inputText id="trackSaleInput" binding="#{albumId}">
                 <f:convertNumber integerOnly="true"/>
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByAlbum(albumId.value,albumDateStart.value, albumDateEnd.value)}" update="orderAlbumSales" styleClass="btn btn-success"/>
 
-        <p:outputPanel styleClass="panel-group" id="orderTrackSales">
+        <p:outputPanel styleClass="panel-group" id="orderAlbumSales">
 
             <table class="table table-condensed reports-outer-table" style="border-collapse:collapse;">
                 <thead>
@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ui:repeat var="orderitem" value="#{reportsBacking.ordersFromTrack}">
+                    <ui:repeat var="orderitem" value="#{reportsBacking.ordersFromAlbum}">
                         <tr>
                             <td>#{orderitem.order.id}</td>
                             <td>#{orderitem.order.orderDate}</td>

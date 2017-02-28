@@ -67,7 +67,7 @@ public class ReportsBacking implements Serializable {
     // Orders From track
     private List<OrderItem> ordersFromTrack;
     // Orders by Album
-    private List<Order> ordersFromAlbum;
+    private List<OrderItem> ordersFromAlbum;
     // Order by Artist
     private List<Order> ordersFromArtist;
     // Top Sellers
@@ -110,25 +110,12 @@ public class ReportsBacking implements Serializable {
     }
 
     /**
-     * Calls the report controller to update the sales list.
-     */
-    private void updateSales() {
-
-    }
-
-    /**
-     * Calls the ReportController to get the total income between the specified
-     * date range.
-     */
-    private void updateIncome() {
-
-    }
-
-    /**
      * Calls the ReportController to get a list of all purchases made by a
      * client between a given date range.
      *
      * @param username username of the client to look for.
+     * @param start
+     * @param end
      */
     public void fetchSalesByClient(String username, Date start, Date end) {
         if(username != null && username.length() > 0){
@@ -155,6 +142,23 @@ public class ReportsBacking implements Serializable {
     }
     
     /**
+     * Calls the ReportsController to get all the instances where the given album was 
+     * purchased.
+     * 
+     * @param album id of the album
+     * @param start
+     * @param end 
+     */
+    public void fetchSalesByAlbum(int album, Date start, Date end) {
+        if(album > 0){
+            ordersFromAlbum = reports.getSalesByAlbum(album, convertDateToLDT(start), convertDateToLDT(end));
+            if(ordersFromAlbum == null)
+                log.info("Returned null");
+            log.info("Album list size: "+ordersFromAlbum.size());
+        }
+    }
+    
+    /**
      * Calls the ReportController to get a lost of all items purchases by the given artist
      * 
      * NOT DONE.
@@ -174,8 +178,8 @@ public class ReportsBacking implements Serializable {
      * Is invoked whenever the total sales action button is pressed. Calls the
      * getTotalSales method from the controller and sets it into the list
      */
-    public void getTotalSales() {
-        totalSalesOrders = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));
+    public void getTotalSales(Date start, Date end) {
+        totalSalesOrders = reports.getTotalSales(convertDateToLDT(start), convertDateToLDT(end));
     }
 
     /**
@@ -299,11 +303,11 @@ public class ReportsBacking implements Serializable {
         this.ordersFromTrack = ordersFromTrack;
     }
 
-    public List<Order> getOrdersFromAlbum() {
+    public List<OrderItem> getOrdersFromAlbum() {
         return ordersFromAlbum;
     }
 
-    public void setOrdersFromAlbum(List<Order> ordersFromAlbum) {
+    public void setOrdersFromAlbum(List<OrderItem> ordersFromAlbum) {
         this.ordersFromAlbum = ordersFromAlbum;
     }
 
@@ -412,6 +416,12 @@ public class ReportsBacking implements Serializable {
     }
     
     
+    /**
+     * Converts a date object into a LocalDateTime equivalent.
+     * 
+     * @param t Date object
+     * @return LocalDateTime from the Date object
+     */
     private LocalDateTime convertDateToLDT(Date t){
         Instant instant = Instant.ofEpochMilli(t.getTime());
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());

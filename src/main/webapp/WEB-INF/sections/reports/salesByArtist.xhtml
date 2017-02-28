@@ -10,20 +10,20 @@
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="artistSaleDateStart" value="Start:" />
-            <p:calendar id="artistSaleDateStart" binding="#{dateStart}" />
+            <p:calendar id="artistSaleDateStart" binding="#{artistDateStart}" />
 
             <p:outputLabel for="artistSaleDateEnd" value="End:" />
-            <p:calendar id="artistSaleDateEnd" binding="#{dateEnd}" />
+            <p:calendar id="artistSaleDateEnd" binding="#{artistDateEnd}" />
             
             <p:outputLabel for="artistSaleInput" value="Name" />
-            <p:inputText id="artistSaleInput" binding="#{username}" required="true">
+            <p:inputText id="artistSaleInput" binding="#{artistId}" required="true">
                 <f:validateLength minimum="3" />
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByArtist(username.value,dateStart.value, dateEnd.value)}" update="orderClientSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByArtist(artistId.value,artistDateStart.value, artistDateEnd.value)}" update="orderArtistSales" styleClass="btn btn-success"/>
 
-        <p:outputPanel styleClass="panel-group" id="orderClientSales">
+        <p:outputPanel styleClass="panel-group" id="orderArtistSales">
 
             <table class="table table-condensed reports-outer-table" style="border-collapse:collapse;">
                 <thead>

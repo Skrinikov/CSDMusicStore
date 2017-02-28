@@ -8,14 +8,14 @@
 
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
-            <p:outputLabel for="totalSalesStart" value="Start:" />
-            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
+            <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
+            <p:calendar id="trackSaleDateStart" binding="#{allOrdersDateStart}" />
 
-            <p:outputLabel for="totalSalesEnd" value="End:" />
-            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
+            <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
+            <p:calendar id="trackSaleDateEnd" binding="#{allOrdersDateEnd}" />
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="totalOrderSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales(allOrdersDateStart.value, allOrdersDateEnd.value)}" update="totalOrderSales" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="totalOrderSales">
 
