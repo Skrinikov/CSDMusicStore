@@ -47,9 +47,6 @@ public class ReportsController implements Serializable {
 
     // Queries
     private static final String ZERO_USERS = "SELECT u FROM User u LEFT JOIN u.orders o WHERE o.user IS NULL";
-    //private static final String ZERO_TRACKS = "SELECT t FROM Track t LEFT JOIN t.orderItems p LEFT JOIN p.order o WHERE p.track IS NULL AND o.orderDate <= ?1 AND o.orderDate>= ?2";
-    private static final String ZERO_TRACKS = "SELECT t FROM Track t LEFT JOIN ( SELECT p FROM OrderItem p JOIN p.Order o WHERE o.orderDate >= :start AND o.orderDate <= :end ) x ON t.id = x.track WHERE x.track IS NULL";
-    private String s = "SELECT p FROM OrderItem p JOIN p.order o WHERE o.orderDate >= :start AND o.orderDate <= :end";
 
     /**
      * Finds all users who have never made a purchase and returns a list with
@@ -305,7 +302,7 @@ public class ReportsController implements Serializable {
         Join orders = root.join("order");
         query.select(root);
         query.orderBy(cb.desc(orders.get("orderDate")));
-        query.where(cb.and(cb.equal(root.get("track"), trackId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
+        query.where(cb.and(cb.equal(root.get("track").get("id"), trackId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }

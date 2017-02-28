@@ -5,23 +5,23 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:form id="totalClientSales" styleClass="col-md-12 col-xs-12 reports-form">
+    <h:form id="totalTrackSales" styleClass="col-md-12 col-xs-12 reports-form">
 
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
-            <p:outputLabel for="artistSaleDateStart" value="Start:" />
-            <p:calendar id="artistSaleDateStart" binding="#{dateStart}" />
+            <p:outputLabel for="trackSaleDateStart" value="Start:" />
+            <p:calendar id="trackSaleDateStart" binding="#{trackDateStart}" />
 
-            <p:outputLabel for="artistSaleDateEnd" value="End:" />
-            <p:calendar id="artistSaleDateEnd" binding="#{dateEnd}" />
+            <p:outputLabel for="trackSaleDateEnd" value="End:" />
+            <p:calendar id="trackSaleDateEnd" binding="#{trackDateEnd}" />
             
-            <p:outputLabel for="artistSaleInput" value="Name" />
-            <p:inputText id="artistSaleInput" binding="#{trackId}" required="true">
-                <f:validateLength minimum="3" />
+            <p:outputLabel for="trackSaleInput" value="Name" />           
+            <p:inputText id="trackSaleInput" binding="#{trackId}">
+                <f:convertNumber integerOnly="true"/>
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByArtist(trackId.value,dateStart.value, dateEnd.value)}" update="orderTrackSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="orderTrackSales">
 
@@ -36,50 +36,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ui:repeat var="order" value="#{reportsBacking.ordersFromUser}">
-                        <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle darker">
-                            <td>#{order.id}</td>
-                            <td>#{order.orderDate}</td>
-                            <td>$#{order.netCost}</td>
-                            <td>#{order.user.username}</td>
-                            <td>#{order.user.email}</td>
-                        </tr>
+                    <ui:repeat var="orderitem" value="#{reportsBacking.ordersFromTrack}">
                         <tr>
-                            <td colspan="12" class="hiddenRow">
-                                <div class="accordian-body collapse" id="#{utilBacking.randomId}">
-                                    <table class="table table-striped reports-inner-table">
-                                        <thead>
-                                            <tr>
-                                                <td>#{order.orderItems.size()} Item(s)</td>
-                                            </tr>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>#{bundle.reports_type}</th>
-                                                <th>#{bundle.reports_title}</th>
-                                                <th>#{bundle.reports_cost}</th>
-                                                <th>#{bundle.reports_price}</th>
-                                                <th>#{bundle.reports_removed}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <ui:repeat var="listitem" value="#{reportsBacking.getCustomOrderItems(order)}">
-                                                <tr>
-                                                    <td>#{listitem.id}</td>
-                                                    <td>#{listitem.type}</td>
-                                                    <td>#{listitem.title}</td>
-                                                    <td>$#{listitem.cost}</td>
-                                                    <td>$#{listitem.price}</td>
-                                                    <td>#{listitem.removed}</td>                                                    
-                                                </tr>
-                                            </ui:repeat>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                            <td>#{orderitem.order.id}</td>
+                            <td>#{orderitem.order.orderDate}</td>
+                            <td>$#{otderitem.order.netCost}</td>
+                            <td>#{orderitem.order.user.username}</td>
+                            <td>#{orderitem.order.user.email}</td>
+                        </tr>                        
                     </ui:repeat>
                 </tbody>             
             </table>
+            
         </p:outputPanel>
     </h:form>
 </ui:composition>

@@ -146,9 +146,11 @@ public class ReportsBacking implements Serializable {
      * @param end 
      */
     public void fetchSalesByTrack(int track, Date start, Date end) {
+        log.info("fetchSalesByTrack" + track);
         if(track > 0){
+            log.info("fetchSalesByTrack 2");
             ordersFromTrack = reports.getSalesByTrack(track, convertDateToLDT(start), convertDateToLDT(end));
-            log.info("Returned list size: "+ordersFromUser.size());
+            //log.info("Returned list size: "+ordersFromUser.size());
         }
     }
     
