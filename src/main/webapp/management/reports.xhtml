@@ -5,7 +5,7 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <ui:define name="extra-meta">
 
         <f:metadata>
@@ -167,11 +167,13 @@
                                     <a href="#tab_default_9" data-toggle="tab">Zero Clients</a>
                                 </li>
                             </ul>
-                            
+
                             <div class="tab-content">
                                 <!-- Reports Tab  -->
                                 <div class="tab-pane active" id="tab_default_1">
-                                    <h:form id="totalSales" styleClass="col-md-4 col-xs-12">
+                                    <h:form id="totalSales" styleClass="col-md-12 col-xs-12" style="padding:0;">
+
+                                        <!-- Inputs -->
                                         <h:panelGrid columns="2" cellpadding="53">
                                             <p:outputLabel for="totalSalesStart" value="Start:" />
                                             <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
@@ -180,16 +182,62 @@
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
 
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderTotalSales" styleClass="btn btn-success"/>     
+                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="totalOrderSales" styleClass="btn btn-success"/>
 
-                                        <h:panelGroup id="orderTotalSales">
-                                            <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}" >
-                                                <p>#{order.id}</p>
-                                                <p>#{order.orderDate}</p>
-                                                <p>#{order.user.username}</p>
-                                                <hr/>
-                                            </ui:repeat>
-                                        </h:panelGroup>
+                                        <p:outputPanel styleClass="panel-group" id="totalOrderSales">                                           
+                                            <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" href="##{utilBacking.generateRandomId()}" style="display:block;">
+                                                            <table class="table" style="margin-bottom:0px;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="col-md-1">#</th>
+                                                                        <th style="col-md-3">Order Date</th>
+                                                                        <th style="col-md-2">Bet Cost</th>
+                                                                        <th style="col-md-3">User</th>
+                                                                        <th style="col-md-3">User email</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>                                                           
+                                                                    <tr>
+
+                                                                        <td style="col-md-1">#{order.id}</td>
+                                                                        <td style="col-md-3">#{order.orderDate}</td>
+                                                                        <td style="col-md-2">$#{order.netCost}</td>
+                                                                        <td style="col-md-3">#{order.user.username}</td>
+                                                                        <td style="col-md-3">#{order.user.email}</td>
+
+                                                                    </tr>         
+                                                                </tbody>
+                                                            </table>
+                                                        </a>
+                                                    </div>
+                                                    <div class="panel-body panel-collapse collapse" id="#{utilBacking.randomId}">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Item</th>
+                                                                    <th>Cost</th>
+                                                                    <th>List Price</th>
+                                                                    <th>Removed</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>456</td>
+                                                                    <td>Title</td>
+                                                                    <td>$0.50</td>
+                                                                    <td>$0.99t</td>
+                                                                    <td>Today</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>                                           
+                                        </p:outputPanel>
                                     </h:form>                                 
                                 </div>
                                 <!-- Sales by client lab -->
@@ -203,9 +251,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderClientSales" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="orderClientSales">
                                             <ui:repeat var="order" value="#{reportsBacking.ordersFromUser}" >
@@ -215,7 +263,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Sales by track -->
@@ -229,9 +277,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderTrackSales" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="orderTrackSales">
                                             <ui:repeat var="order" value="#{reportsBacking.ordersFromTrack}" >
@@ -241,7 +289,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Sales by album -->
@@ -255,9 +303,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderAlbumSales" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="orderAlbumSales">
                                             <ui:repeat var="order" value="#{reportsBacking.ordersFromAlbum}" >
@@ -267,7 +315,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Sales by artist -->
@@ -281,9 +329,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="orderArtistSales" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="orderArtistSales">
                                             <ui:repeat var="order" value="#{reportsBacking.ordersFromArtist}" >
@@ -293,7 +341,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Top orders -->
@@ -307,9 +355,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topOrdersUI" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="topOrdersUI">
                                             <ui:repeat var="order" value="#{reportsBacking.topOrders}" >
@@ -319,7 +367,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Top clients -->
@@ -333,9 +381,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topClientsUI" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="topClientsUI">
                                             <ui:repeat var="user" value="#{reportsBacking.topUsers}" >
@@ -345,7 +393,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Zero Tracks -->
@@ -359,9 +407,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroTracksUI" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="zeroTracksUI">
                                             <ui:repeat var="track" value="#{reportsBacking.zeroTracks}" >
@@ -371,7 +419,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                                 <!-- Zero users -->
@@ -385,9 +433,9 @@
                                             <p:outputLabel for="totalSalesEnd" value="End:" />
                                             <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
                                         </h:panelGrid>
-                                        
+
                                         <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroUsersUI" styleClass="btn btn-success"/>
-                                        
+
                                         <!-- Sales output -->
                                         <h:panelGroup id="zeroUsersUI">
                                             <ui:repeat var="user" value="#{reportsBacking.zeroUsers}" >
@@ -397,7 +445,7 @@
                                                 <hr/>
                                             </ui:repeat>
                                         </h:panelGroup>
-                                        
+
                                     </h:form>
                                 </div>
                             </div>

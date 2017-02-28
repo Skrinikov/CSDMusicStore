@@ -400,7 +400,15 @@ public class ReportsController implements Serializable {
         Root<Order> root = query.from(Order.class);
         query.select(cb.sumAsDouble(root.get("netCost")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
-        return entityManager.createQuery(query).getSingleResult();
+        log.info("Went here");
+        
+        // Because JPA throws NullPointerException if single result is not found.
+        try{
+            return entityManager.createQuery(query).getSingleResult();
+        }
+        catch (NullPointerException e){
+            return 0;
+        }
     }
     
     /**
