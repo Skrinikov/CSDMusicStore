@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition 
-    template="/WEB-INF/templates/mgmt_master.xhtml"
+    template="/WEB-INF/templates/master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
@@ -25,41 +25,39 @@
     </ui:define>
     
     <ui:define name="content">
-        <h:form>
-            <h:dataTable value="#{DLController.getTracks()}" var="item">
+        
+        
+        <h2> My Library </h2>
+        <br />
+        
+        <div class="container">
+            <div class="row">
+        
+                
+            <h:form>
+                <ui:repeat value="#{DLController.getTracks()}" var="item">    
+  
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="http://images.clipartpanda.com/single-music-notes-MSC_NOTE1.jpg"/>
+                        <div class="caption">
+                            <h4>#{item.title}</h4>
+                            <p>#{DLController.getArtistsName(item.artists)} </p>
+                        </div>
+                    </div>
+                </div>
 
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.title}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.songwriter}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.duration}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.title}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.coverFile}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header"></f:facet>
-                        #{item.salePrice}
-                </h:column>
-
-            </h:dataTable>
-        </h:form>
+                    
+                </ui:repeat>
+            </h:form>        
+                    
+                    
+                    
+            </div><!--/row-->
+        </div><!--/container -->
+        
+        
+        
     </ui:define>
 </ui:composition>
 

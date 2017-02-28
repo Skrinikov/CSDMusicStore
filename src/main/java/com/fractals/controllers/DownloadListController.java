@@ -2,11 +2,13 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.User;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -16,6 +18,7 @@ import javax.transaction.UserTransaction;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +26,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -42,6 +46,10 @@ public class DownloadListController implements Serializable
     @Resource
     private UserTransaction userTransaction;
     
+    @Inject
+    private LoginController lc; 
+    
+    
     public DownloadListController()
     {
         super();
@@ -49,16 +57,15 @@ public class DownloadListController implements Serializable
    
     
     public List<Track> getTracks()
-    {
-        //plz write the proper query 
+    {    
+        //User user = lc.getCurrentUser();
         
-        User user = new User();
-        user.setId(new Integer(1));
+        User user = new User(); 
+        user.setId(new Integer(69));
         
         String query = 
         "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
-                
-                
+                              
         TypedQuery<OrderItem> q = entityManager.createQuery(query, OrderItem.class);
         q.setParameter(1, user);
         List<OrderItem>items = (List<OrderItem>)q.getResultList();  
@@ -91,6 +98,33 @@ public class DownloadListController implements Serializable
         
         return albums; 
     }
+    
+
+    public String getImagePath(Track track) throws MalformedURLException
+    {
+        String path = ""; 
+        
+        try{
+            ServletContext context = (ServletContext)FacesContext.getCurrentInstance()
+                .getExternalContext().getContext();
+            path = context.getResource("/images/covers/" + track.getCoverFile()).getPath();
+        }catch(MalformedURLException e)
+        {}
+        
+        return path; 
+    }
+    
+    public String getArtistsName(List<Artist> list)
+    {
+       String artistPreview = "";
+        if(list.size() > 1)
+            artistPreview = list.get(0).getName() + "..."; 
+        else
+            artistPreview = list.get(0).getName();    
+        
+        return artistPreview;            
+    }
+    
     
     
     
