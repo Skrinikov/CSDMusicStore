@@ -4,7 +4,9 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.LoginController;
+import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -41,6 +44,7 @@ public class TrackClientBacking implements Serializable {
     private Track track;    
     private Review review;
     private Integer rating;
+    private User user;
     
     private PaginationHelper pagination;
     private int reviewItemIndex;
@@ -54,6 +58,8 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private SimilarTracksController similarControl;
+    
+    @Inject ReviewJpaController reviews2Control;
 
     @Inject
     private ShoppingCart cart;
@@ -72,19 +78,23 @@ public class TrackClientBacking implements Serializable {
      * Action to add a review to a track
      * @return 
      */
-    public void addReview(){
+    public String addReview() throws Exception{
         
-        if (loginControl.isLoggedIn())
+        track = trackControl.findTrack(trackId);
+        if (loginControl.isLoggedIn()){
+            
             getReview().setUser(loginControl.getCurrentUser());
+        }
         else{
-            return;
+            return "/index.xhtml";
         }
         getReview().setApproved(false);
         getReview().setTrack(track);
         getReview().setReviewDate(LocalDateTime.now());
         
-        this.reviewsControl.addReview(getReview());
+        this.reviews2Control.create(review);
         
+        return "client/Track.xhtml?id=" + trackId.intValue();
         
     }
 
@@ -133,8 +143,7 @@ public class TrackClientBacking implements Serializable {
     
     //////////////Pagination Logic Aboved////////////////
 
-    public TrackClientBacking() {
-    }
+   
 
     public void setTrackId(Integer trackId) {
         this.trackId = trackId;
