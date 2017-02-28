@@ -19,7 +19,9 @@
              </p:commandButton>
             <h:form>
                  <h1><h:outputText value="#{bundle.listHeader}"/></h1>
-                 <p:dataTable value="#{surveyController.findSurveyEntities()}" var="item">
+                 <p:dataTable value="#{surveyController.findSurveyEntities()}" var="item"
+                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                               paginator="true" rows="10" style="margin-bottom:20px">
                      <p:column>
                          <f:facet name="header">
                              <h:outputText value="Id"/>
