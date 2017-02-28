@@ -72,24 +72,28 @@
                         <h4>Reviews</h4>
                         <div>
                             <div>
-                                <h:form>
+                                <h:form rendered="#{login.loggedIn}">
                                     <h5>Add a Review</h5>
-                                    <p:inputTextarea rows="10" cols="50" />
-                                    <h:outputText /><br/>
-                                    <h:panelGrid columns="2" cellpadding="5">
-                                        <h:outputText value="Rating: "/>
-                                        <p:rating value="" />
-                                    </h:panelGrid>
-                                    <p:commandButton value="Submit" actionListener="#{trackCLBack.addReview}" />
+                                    <p:inputTextarea rows="10" cols="50" value="#{trackCLBack.review.text}" />
+                                    
+                                    <br />
+                                    
+                                    <p:inputText value="#{trackCLBack.review.rating}"/>
+                                    
+                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview}" styleClass="ui-priority-primary"/>
 
                                 </h:form>
                             </div>
 
                             <div>
                                 <ui:repeat value="#{trackCLBack.reviews}" var="review">
-                                    <div>
-
-                                    </div>
+                                    
+                                        <p:outputPanel>
+                                            <p:outputLabel>#{review.text}</p:outputLabel>
+                                            <p:outputLabel>#{review.user.username}</p:outputLabel>
+                                            <p:outputLabel>#{review.reviewDate.toString()}</p:outputLabel>
+                                        </p:outputPanel>
+                                    
                                 </ui:repeat>
                             </div>
                         </div>
