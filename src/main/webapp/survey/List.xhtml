@@ -18,7 +18,7 @@
              <p:commandButton icon="ui-icon-plus" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
              </p:commandButton>
             <h:form>
-                 <h1><h:outputText value="Survey PLZ MY INTO A BUNDLE PROPERTY"/></h1>
+                 <h1><h:outputText value="#{bundle.listHeader}"/></h1>
                  <p:dataTable value="#{surveyController.findSurveyEntities()}" var="item">
                      <p:column>
                          <f:facet name="header">
@@ -40,31 +40,18 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton icon="ui-icon-trash" title="Icon Only" action="#{surveyController.destroy(item.id)}">               
+                         <p:commandButton icon="ui-icon-trash" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
                          <p:commandButton icon="ui-icon-pencil" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
                         </p:commandButton>
-                        
-                         
-   
-                         
-                         
+
                      </p:column>
-                     
-                        
-                     
+             
                  </p:dataTable>
              </h:form>
-         </f:view>
-
-         
-         
-     </ui:define>
-     
-     
-     
-     
+         </f:view>          
+     </ui:define>    
  </ui:composition> 
     
     

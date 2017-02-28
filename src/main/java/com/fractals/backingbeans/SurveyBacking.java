@@ -118,6 +118,11 @@ public class SurveyBacking implements Serializable {
         return "/survey/Create.xhtml"; 
     }
     
+    
+    /**
+     * This method is used to write the information to the database. 
+     * @return      url of the page to redirect to. 
+     */
     public String createSurvey()
     {
         
@@ -168,6 +173,21 @@ public class SurveyBacking implements Serializable {
     public SurveyChoice getCurrentSC()
     {
         return currentSC;
+    }
+    
+    
+    //--- Delete 
+    
+    public String deleteItem(Integer id)
+    {      
+        try {        
+            sc.destroy(id);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/survey/List.xhtml";
     }
     
 }
