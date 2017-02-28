@@ -475,3 +475,21 @@ html { height: 100%;}
 .portlet .tabbable-line > .tab-content {
   padding-bottom: 0;
 }
+
+.reports-form{
+    padding:0;
+    background-color:#fff;
+}
+
+.reports-outer-table tbody tr{
+    cursor: pointer;
+}
+
+.reports-inner-table tbody tr, .reports-inner-table thead tr{
+    color: #444;
+    cursor:default;
+}
+
+.darker{
+    background-color:rgba(173,216,230,0.4);
+}

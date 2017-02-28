@@ -171,74 +171,9 @@
                             <div class="tab-content">
                                 <!-- Reports Tab  -->
                                 <div class="tab-pane active" id="tab_default_1">
-                                    <h:form id="totalSales" styleClass="col-md-12 col-xs-12" style="padding:0;">
-
-                                        <!-- Inputs -->
-                                        <h:panelGrid columns="2" cellpadding="53">
-                                            <p:outputLabel for="totalSalesStart" value="Start:" />
-                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
-
-                                            <p:outputLabel for="totalSalesEnd" value="End:" />
-                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
-                                        </h:panelGrid>
-
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="totalOrderSales" styleClass="btn btn-success"/>
-
-                                        <p:outputPanel styleClass="panel-group" id="totalOrderSales">                                           
-                                            <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}">
-                                                <div class="panel panel-info">
-                                                    <div class="panel-heading">
-                                                        <a data-toggle="collapse" href="##{utilBacking.generateRandomId()}" style="display:block;">
-                                                            <table class="table" style="margin-bottom:0px;">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="col-md-1">#</th>
-                                                                        <th style="col-md-3">Order Date</th>
-                                                                        <th style="col-md-2">Bet Cost</th>
-                                                                        <th style="col-md-3">User</th>
-                                                                        <th style="col-md-3">User email</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>                                                           
-                                                                    <tr>
-
-                                                                        <td style="col-md-1">#{order.id}</td>
-                                                                        <td style="col-md-3">#{order.orderDate}</td>
-                                                                        <td style="col-md-2">$#{order.netCost}</td>
-                                                                        <td style="col-md-3">#{order.user.username}</td>
-                                                                        <td style="col-md-3">#{order.user.email}</td>
-
-                                                                    </tr>         
-                                                                </tbody>
-                                                            </table>
-                                                        </a>
-                                                    </div>
-                                                    <div class="panel-body panel-collapse collapse" id="#{utilBacking.randomId}">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Item</th>
-                                                                    <th>Cost</th>
-                                                                    <th>List Price</th>
-                                                                    <th>Removed</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>456</td>
-                                                                    <td>Title</td>
-                                                                    <td>$0.50</td>
-                                                                    <td>$0.99t</td>
-                                                                    <td>Today</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </ui:repeat>                                           
-                                        </p:outputPanel>
-                                    </h:form>                                 
+                                    <ui:insert name="menu">
+                                        <ui:include src="/WEB-INF/sections/reports/totalSales.xhtml"/>
+                                    </ui:insert>
                                 </div>
                                 <!-- Sales by client lab -->
                                 <div class="tab-pane" id="tab_default_2">

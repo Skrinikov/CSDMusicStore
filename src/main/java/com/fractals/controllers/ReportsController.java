@@ -37,7 +37,7 @@ import javax.transaction.UserTransaction;
 @SessionScoped
 public class ReportsController implements Serializable {
     
-    private static final Logger log = Logger.getLogger("DatabaseSeedManager.class");
+    private static final Logger log = Logger.getLogger("ReportsController.class");
 
     @Resource
     private UserTransaction userTransaction;

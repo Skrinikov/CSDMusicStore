@@ -1,8 +1,11 @@
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Album;
 import com.fractals.beans.Order;
+import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.beans.displaybeans.CustomOrderItem;
 import com.fractals.controllers.ReportsController;
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,6 +15,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -26,6 +30,8 @@ import org.primefaces.event.SelectEvent;
 @Named("reportsBacking")
 @SessionScoped
 public class ReportsBacking implements Serializable {
+
+    private static final Logger log = Logger.getLogger("ReportsBacking.class");
 
     // Controller
     @Inject
@@ -84,6 +90,7 @@ public class ReportsBacking implements Serializable {
         totalProfits = Math.round(reports.getTotalProfit(now.minusDays(1), now.plusDays(1)) * 100) / 100.;
         totalTracks = reports.getTrackCount(now.minusDays(1), now.plusDays(1));
         totalAlbums = reports.getAlbumCount(now.minusDays(1), now.plusDays(1));
+
     }
 
     /**
@@ -138,6 +145,62 @@ public class ReportsBacking implements Serializable {
 
     public void getSalesByUser() {
 
+    }
+
+    /**
+     * Fetches all the order items from a given order and creates a custom order
+     * item list in a way that can be easily displayed.
+     *
+     * @param o
+     * @return
+     */
+    public List<CustomOrderItem> getCustomOrderItems(Order o) {
+        List<CustomOrderItem> items = new ArrayList<>();
+        if (o == null) {
+            log.info("null");
+            return items;
+        }
+        List<OrderItem> raw = o.getOrderItems();
+
+        CustomOrderItem temp;
+
+        for (OrderItem i : raw) {
+            if (i.getAlbum() != null) {
+                Album album = i.getAlbum();
+                temp = new CustomOrderItem();
+
+                temp.setTitle(album.getTitle());
+                temp.setId(album.getId());
+                temp.setCost(album.getCostPrice());
+                temp.setRemoved(album.getRemovedAt());
+                temp.setType("Album");
+
+                if (album.getSalePrice() <= 0) {
+                    temp.setPrice(album.getListPrice());
+                } else {
+                    temp.setPrice(album.getSalePrice());
+                }
+                items.add(temp);
+            } else if (i.getTrack() != null) {
+                Track track = i.getTrack();
+                temp = new CustomOrderItem();
+
+                temp.setTitle(track.getTitle());
+                temp.setId(track.getId());
+                temp.setCost(track.getCostPrice());
+                temp.setRemoved(track.getRemovedAt());
+                temp.setType("Track");
+
+                if (track.getSalePrice() <= 0) {
+                    temp.setPrice(track.getListPrice());
+                } else {
+                    temp.setPrice(track.getSalePrice());
+                }
+                items.add(temp);
+            }
+        }
+
+        return items;
     }
 
     /* Getters and setters -------------------------------------------------------------------------------------------------------*/
@@ -308,7 +371,5 @@ public class ReportsBacking implements Serializable {
     public void setTotalAlbums(long totalAlbums) {
         this.totalAlbums = totalAlbums;
     }
-    
-    
 
 }
