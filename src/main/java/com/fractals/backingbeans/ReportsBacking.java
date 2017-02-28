@@ -32,6 +32,8 @@ import org.primefaces.event.SelectEvent;
 public class ReportsBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("ReportsBacking.class");
+    
+    private static long serialVersionUID = 1l;
 
     // Controller
     @Inject
@@ -40,6 +42,7 @@ public class ReportsBacking implements Serializable {
     // Sales
     private Date salesBegin;
     private Date salesEnd;
+    private String identifier;
 
     // Top Reports
     private int userCount;
@@ -62,7 +65,7 @@ public class ReportsBacking implements Serializable {
     // Orders from user
     private List<Order> ordersFromUser;
     // Orders From track
-    private List<Order> ordersFromTrack;
+    private List<OrderItem> ordersFromTrack;
     // Orders by Album
     private List<Order> ordersFromAlbum;
     // Order by Artist
@@ -127,12 +130,42 @@ public class ReportsBacking implements Serializable {
      *
      * @param username username of the client to look for.
      */
-    private void fetchSalesByClient(String username) {
-
+    public void fetchSalesByClient(String username, Date start, Date end) {
+        if(username != null && username.length() > 0){
+            ordersFromUser = reports.getSalesByClient(username, convertDateToLDT(start), convertDateToLDT(end));
+            log.info("Returned list size: "+ordersFromUser.size());
+        }
     }
 
-    private void fetchSalesByTrack(String track) {
-
+    /**
+     * Calls the ReportsController to get all the instances where the given track was 
+     * purchased.
+     * 
+     * @param track id of the track
+     * @param start
+     * @param end 
+     */
+    public void fetchSalesByTrack(int track, Date start, Date end) {
+        if(track > 0){
+            ordersFromTrack = reports.getSalesByTrack(track, convertDateToLDT(start), convertDateToLDT(end));
+            log.info("Returned list size: "+ordersFromUser.size());
+        }
+    }
+    
+    /**
+     * Calls the ReportController to get a lost of all items purchases by the given artist
+     * 
+     * NOT DONE.
+     * 
+     * @param artistName
+     * @param start
+     * @param end 
+     */
+    public void fetchSalesByArtist(String artistName, Date start, Date end){
+        if(artistName != null && artistName.length() > 0){
+            //ordersFromUser = reports.getSalesByClient(artistName, convertDateToLDT(start), convertDateToLDT(end));
+            //log.info("Returned list size: "+ordersFromUser.size());
+        }
     }
 
     /**
@@ -141,10 +174,6 @@ public class ReportsBacking implements Serializable {
      */
     public void getTotalSales() {
         totalSalesOrders = reports.getTotalSales(LocalDateTime.now().minusDays(2), LocalDateTime.now().plusDays(1));
-    }
-
-    public void getSalesByUser() {
-
     }
 
     /**
@@ -260,11 +289,11 @@ public class ReportsBacking implements Serializable {
         this.ordersFromUser = ordersFromUser;
     }
 
-    public List<Order> getOrdersFromTrack() {
+    public List<OrderItem> getOrdersFromTrack() {
         return ordersFromTrack;
     }
 
-    public void setOrdersFromTrack(List<Order> ordersFromTrack) {
+    public void setOrdersFromTrack(List<OrderItem> ordersFromTrack) {
         this.ordersFromTrack = ordersFromTrack;
     }
 
@@ -372,4 +401,17 @@ public class ReportsBacking implements Serializable {
         this.totalAlbums = totalAlbums;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+    
+    
+    private LocalDateTime convertDateToLDT(Date t){
+        Instant instant = Instant.ofEpochMilli(t.getTime());
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }
 }
