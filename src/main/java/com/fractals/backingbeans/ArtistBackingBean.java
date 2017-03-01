@@ -31,7 +31,7 @@ public class ArtistBackingBean implements Serializable{
             createdArtist = new Artist();
         return createdArtist;
     }
-    public void setCreatedArtist(Artist a){ createdArtist = a;} 
+    public void setCreatedArtist(Artist a){ createdArtist = a; makeUneditable();} 
         
     private boolean editable = false;
     public boolean getEditable() {return editable;}
