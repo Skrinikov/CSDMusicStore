@@ -40,9 +40,14 @@ public class ReviewsWebController implements Serializable {
      * @param review
      * @return true if added, false if not added
      */
-    public void addReview (Review review) throws Exception{
+    public boolean addReview (Review review){
         
+        try {
             reviewControl.create(review);
+            return true;
+        } catch (Exception ex) {
+           return false;
+        }
             
     }
     

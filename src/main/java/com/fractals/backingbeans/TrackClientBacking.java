@@ -59,7 +59,7 @@ public class TrackClientBacking implements Serializable {
     @Inject
     private SimilarTracksController similarControl;
     
-    @Inject ReviewJpaController reviews2Control;
+    
 
     @Inject
     private ShoppingCart cart;
@@ -92,7 +92,8 @@ public class TrackClientBacking implements Serializable {
         getReview().setTrack(track);
         getReview().setReviewDate(LocalDateTime.now());
         
-        this.reviews2Control.create(review);
+        boolean created = this.reviewsControl.addReview(review);
+        
         
         return "client/Track.xhtml?id=" + trackId.intValue();
         
