@@ -27,7 +27,7 @@
     <ui:define name="content">
         
         
-        <h2> My Library </h2>
+        <h2> My Tracks </h2>
         <br />
         
         <div class="container">
@@ -39,15 +39,15 @@
   
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail">
-                        <img src="http://images.clipartpanda.com/single-music-notes-MSC_NOTE1.jpg"/>
+ 
+                        <p:graphicImage name="images/covers/#{item.coverFile}" style="max-height: 155px"/>
+                        
                         <div class="caption">
-                            <h4>#{item.title}</h4>
-                            <p>#{DLController.getArtistsName(item.artists)} </p>
+                            <h4 class="centerText">#{item.title}</h4>
+                            <p class="centerText">#{DLController.getArtistsName(item.artists)} </p>
                         </div>
                     </div>
-                </div>
-
-                    
+                </div>              
                 </ui:repeat>
             </h:form>        
                     
@@ -56,8 +56,35 @@
             </div><!--/row-->
         </div><!--/container -->
         
+        <h2> My Albums </h2>
+        <br />
         
         
+        <div class="container">
+            <div class="row">
+        
+            <h:form>
+                <ui:repeat value="#{DLController.albums}" var="alb">    
+  
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail">
+ 
+                        <p:graphicImage name="images/covers/music-note.png" style="max-height: 155px"/>
+                        
+                        <div class="caption">
+                            <h4 class="centerText">#{alb.recordLabel}</h4>
+                            <p class="centerText">#{alb.artist.name} </p>
+                        </div>
+                    </div>
+                </div>
+
+                    
+                </ui:repeat>
+            </h:form>        
+                 
+            </div><!--/row-->
+        </div><!--/container -->
+            
     </ui:define>
 </ui:composition>
 

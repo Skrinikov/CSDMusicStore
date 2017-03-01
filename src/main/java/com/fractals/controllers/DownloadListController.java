@@ -81,9 +81,10 @@ public class DownloadListController implements Serializable
     
     public List<Album> getAlbums()
     {     
+        //User user = lc.getCurrentUser();
         
         User user = new User();
-        user.setId(new Integer(1));
+        user.setId(new Integer(69));
         
         String query = 
         "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
@@ -99,28 +100,19 @@ public class DownloadListController implements Serializable
         return albums; 
     }
     
-
-    public String getImagePath(Track track) throws MalformedURLException
-    {
-        String path = ""; 
-        
-        try{
-            ServletContext context = (ServletContext)FacesContext.getCurrentInstance()
-                .getExternalContext().getContext();
-            path = context.getResource("/images/covers/" + track.getCoverFile()).getPath();
-        }catch(MalformedURLException e)
-        {}
-        
-        return path; 
-    }
-    
     public String getArtistsName(List<Artist> list)
     {
        String artistPreview = "";
-        if(list.size() > 1)
-            artistPreview = list.get(0).getName() + "..."; 
-        else
-            artistPreview = list.get(0).getName();    
+       
+       if(list != null)
+       {
+            int size = list.size();
+            
+            if(size > 0)
+                artistPreview = list.get(0).getName(); 
+            if(size > 1)
+                artistPreview = artistPreview + "...";  
+       }
         
         return artistPreview;            
     }
