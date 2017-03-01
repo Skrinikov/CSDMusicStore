@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This xhtml page will be in charge of display the survey to the client 
+
+    ui provided by
+    http://bootsnipp.com/snippets/featured/modal-quiz-with-radio-button
+
+    @author Renuchan 
+
+-->
+
+
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <ui:define name="windowTitle">#{bundle.search}</ui:define>
+    
+    
+    <ui:define name="content">
+        
+        <div class="container-fluid bg-info">
+	<div class="modal-dialog">
+		<div class="modal-content">
+                    <div class="modal-header">
+                        <h3><span class="label label-warning" id="qid">&#9835;</span> #{surveyCBacking.survey.question}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="quiz" id="quiz" data-toggle="buttons">
+                            
+                            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">   
+                                
+                                <h:commandButton styleClass="element-animation1 btn btn-lg btn-primary btn-block"
+                                          value="#{item.choice}" action="#{surveyCBacking.selectedOption(item)}"/>
+
+                            </ui:repeat>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer text-muted">
+                        <span id="answer"></span>
+                    </div>
+		</div>
+            </div>
+        </div>
+        
+    </ui:define>
+    
+</ui:composition>

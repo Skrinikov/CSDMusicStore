@@ -304,3 +304,7 @@ body.navbar-more-show  {
 .small-margin-bottom{
     margin-bottom:5px;
 }
+
+.centerText{
+    text-align: center; 
+}

@@ -18,7 +18,7 @@
 
 
              <h:form>
-                 <h1><h:outputText value="Edit current Survey"/></h1>
+                 <h1><h:outputText value="#{bundle.editHeader}"/></h1>
                  <p:panelGrid columns="2">
                      <p:outputLabel value="Id:" for="id" />
                      <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
@@ -31,30 +31,26 @@
                     </h:selectOneRadio>	
                      
                  </p:panelGrid>
-             </h:form>
              
              
-             <h1><h:outputText value="Survey Options"/></h1>
+             
+             <h1><h:outputText value="#{bundle.surOpHeader}"/></h1>
              
              <p:dataTable value="#{surveyBacking.current.surveyChoices}" var="item">
                      <p:column>
                          <f:facet name="header">
                              <h:outputText value="choice"/>
-                         </f:facet>
-                         <h:outputText value="#{item.choice}"/>
-                     </p:column>
-                     <p:column>
-                         <f:facet name="header">
-                             <h:outputText value="numVotes"/>
-                         </f:facet>
-                         <h:outputText value="#{item.numVotes}"/>
-                     </p:column>
-                     
-                 </p:dataTable>
+                         </f:facet> 
+                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="The Choice field is required."/>
+                     </p:column>        
+             </p:dataTable>
              
              
+            
+             </h:form>
              
-             <p:commandButton value="Save" action="#{surveyController.edit(surveyBacking.editSurvey)}">
+             
+             <p:commandButton value="Save" action="#{surveyBacking.editItem()}">
              </p:commandButton>
              
              <p:link outcome="List" value="Back"></p:link>

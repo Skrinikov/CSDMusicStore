@@ -118,6 +118,11 @@ public class SurveyBacking implements Serializable {
         return "/survey/Create.xhtml"; 
     }
     
+    
+    /**
+     * This method is used to write the information to the database. 
+     * @return      url of the page to redirect to. 
+     */
     public String createSurvey()
     {
         
@@ -168,6 +173,54 @@ public class SurveyBacking implements Serializable {
     public SurveyChoice getCurrentSC()
     {
         return currentSC;
+    }
+    
+    
+    //--- Delete 
+    
+    /**
+     * This method is used to preform a delete of a specific survey entity 
+     * @param id        of the survey to delete
+     * @return          page to return to  
+     */
+    public String deleteItem(Integer id)
+    {      
+        try {        
+            sc.destroy(id);
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/survey/List.xhtml";
+    }
+    
+    
+    //--Edit
+    /**
+     * This method is used to save an edited survey to the database. 
+     * @return  page to return to
+     */
+    public String editItem()
+    {
+        //save the choices then the survey objects
+        
+        try {         
+            
+            //save the survey options 
+            for(SurveyChoice sur : current.getSurveyChoices())
+                surChoiceCon.edit(sur);
+         
+            // save the survey 
+            sc.edit(current);
+            
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        return "/survey/List.xhtml";
+        
     }
     
 }
