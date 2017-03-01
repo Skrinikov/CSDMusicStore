@@ -162,7 +162,7 @@ public class ReportsController implements Serializable {
      * @param end
      * @return
      */
-    public List<Object[]> getTopTrackSellers(LocalDateTime start, LocalDateTime end) {
+    public List<Track> getTopTrackSellers(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return null;
         }
@@ -175,15 +175,15 @@ public class ReportsController implements Serializable {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Tuple> query = cb.createTupleQuery();
-        Root<OrderItem> root = query.from(OrderItem.class);
-        Join track = root.join("track");
-        Join order = root.join("order");
-        query.multiselect(track.get("title"), cb.count(root.get("track")));
-        query.groupBy(root.get("track"));
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        Join items = root.join("orderItems");
+        Join order = items.join("order");
+        query.select(root);
+        query.groupBy(items.get("track"));
         query.where(cb.and(cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
 
-        return null;
+        return entityManager.createQuery(query).getResultList();
     }
 
     /**
@@ -344,10 +344,42 @@ public class ReportsController implements Serializable {
         Root<OrderItem> root = query.from(OrderItem.class);
         Join orders = root.join("order");
         query.select(root);
-        query.orderBy(cb.desc(orders.get("orderDate")));
+        
         query.where(cb.and(cb.equal(root.get("album").get("id"), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
+    }
+    
+    /**
+     * Gets all OrderItems where the artist id matches the given id.
+     * 
+     * @param artistId Id of the artist
+     * @param start start of the range period
+     * @param end end of the date range period.
+     * @return list of order items.
+     */
+    public List<OrderItem> getSalesByArtist(int artistId, LocalDateTime start, LocalDateTime end){
+        if (start == null || end == null) {
+            return null;
+        }
+
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
+        Root<OrderItem> root = query.from(OrderItem.class);
+        Join order = root.join("order");
+        Join artist = root.join("track").join("artist");
+        query.select(root);
+        query.orderBy(cb.desc(order.get("orderDate")));
+        query.where(cb.and(cb.equal(artist.get("id"), artistId), cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
+        
+        return entityManager.createQuery(query).getResultList();           
     }
     
     //-------------------------------------------------------------------------------------------------------------------------------
