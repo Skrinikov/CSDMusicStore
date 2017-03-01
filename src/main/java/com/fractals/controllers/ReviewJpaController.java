@@ -35,7 +35,7 @@ public class ReviewJpaController implements Serializable {
     private EntityManager em;
 
     public void create(Review review) throws RollbackFailureException, Exception {
-        EntityManager em = null;
+        
         try {
             utx.begin();
             User user = review.getUser();
@@ -69,7 +69,7 @@ public class ReviewJpaController implements Serializable {
     }
 
     public void edit(Review review) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+       
         try {
             utx.begin();
             Review persistentReview = em.find(Review.class, review.getId());
@@ -121,7 +121,7 @@ public class ReviewJpaController implements Serializable {
     }
 
     public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+        
         try {
             utx.begin();
 

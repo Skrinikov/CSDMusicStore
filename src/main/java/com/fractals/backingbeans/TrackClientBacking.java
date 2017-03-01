@@ -4,17 +4,29 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
+import com.fractals.controllers.LoginController;
+import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
+import com.fractals.jsf.util.PaginationHelper;
+import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Backing bean for the Track client view
@@ -27,10 +39,16 @@ public class TrackClientBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("DatabaseSeedManager.class");
 
+    private List<Track> relatedTracks;
     private Integer trackId;
-    private Track track;
+    private Track track;    
+    private Review review;
     private Integer rating;
-    private String review;
+    private User user;
+    
+    private PaginationHelper pagination;
+    private int reviewItemIndex;
+    private DataModel datamodel;
 
     @Inject
     private TrackJpaController trackControl;
@@ -40,9 +58,15 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private SimilarTracksController similarControl;
+    
+    @Inject
+    private ReviewJpaController review2Control;
 
     @Inject
     private ShoppingCart cart;
+    
+    @Inject
+    private LoginController loginControl;
 
     /**
      * Initialize the Track entity based on the trackId
@@ -51,9 +75,33 @@ public class TrackClientBacking implements Serializable {
         track = trackControl.findTrack(trackId);
     }
 
-    public void addReview() {
-        //Won't work because we have to deal with the user
-        this.reviewsControl.addReview(track, review, null, rating.intValue());
+    /**
+     * Action to add a review to a track
+     * @return 
+     */
+    public String addReview() throws Exception{
+        
+        track = trackControl.findTrack(trackId);
+        if (loginControl.isLoggedIn()){
+            
+            getReview().setUser(loginControl.getCurrentUser());
+        }
+        else{
+            return "/index.xhtml";
+        }
+        getReview().setApproved(false);
+        getReview().setTrack(track);
+        getReview().setReviewDate(LocalDateTime.now());
+        
+        boolean created = this.reviewsControl.addReview(review);
+        //review2Control.create(review);
+        
+        return "client/Track.xhtml?id=" + trackId.intValue();
+        
+    }
+    
+    public String testRedirect(){
+        return "client/Track.xhtml?id=3";
     }
 
     /**
@@ -62,6 +110,46 @@ public class TrackClientBacking implements Serializable {
     public void addToCart() {
         this.cart.add(track);
     }
+    
+    ////////////Pagination Logic///////////////
+    
+    public PaginationHelper getPagination(){
+        if (pagination == null){
+            pagination = new PaginationHelper(10){
+                @Override
+                public int getItemsCount() {
+                    return getReviews().size();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getReviews().subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+                }
+                
+            };
+        }
+        return pagination;
+    }
+    
+    public DataModel getDataModel(){
+        if (datamodel == null)
+            datamodel = getPagination().createPageDataModel();
+        return datamodel;
+    }
+    
+    public String next(){
+        return null;
+    }
+    
+    public String previous(){
+        return null;
+    }
+    
+    
+    
+    //////////////Pagination Logic Aboved////////////////
+
+   
 
     public void setTrackId(Integer trackId) {
         this.trackId = trackId;
@@ -87,14 +175,27 @@ public class TrackClientBacking implements Serializable {
 
     }
 
+    public Review getReview(){
+        if (review == null)
+            review = new Review();
+        return review;
+    }
+    
     public List<Track> getSimilarTracks() {
-        return similarControl.getSimilarTracks(track);
+        
+        if (track == null)
+            return new ArrayList<>();
+        if (relatedTracks == null){
+            relatedTracks = similarControl.getSimilarTracks(track);
+        }
+        return relatedTracks;
     }
 
     public List<Review> getReviews() {
         return (track != null) ? track.getReviews() : (new ArrayList<Review>());
     }
 
+    
     public Integer getTrackId() {
         return this.trackId;
     }
@@ -117,6 +218,10 @@ public class TrackClientBacking implements Serializable {
 
     public boolean isIndividual() {
         return (track != null) ? track.getIsIndividual() : false;
+    }
+    
+    public boolean reviewFormRender(){
+        return loginControl.isLoggedIn();
     }
 
     public double getListedPrice() {
@@ -145,6 +250,14 @@ public class TrackClientBacking implements Serializable {
     public double getPrice(Track track) {
         log.info("Track Backing - track sale check:" + track.getTitle());
         return (track.getSalePrice() == 0) ? track.getListPrice() : track.getSalePrice();
+    }
+    
+    public void setRating(Integer rating){
+        this.rating = rating;
+    }
+    
+    public Integer getRating(){
+        return rating;
     }
 
 }

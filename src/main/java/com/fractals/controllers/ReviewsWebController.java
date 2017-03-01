@@ -36,12 +36,28 @@ public class ReviewsWebController implements Serializable {
     ReviewJpaController reviewControl;
     
     /**
+     * Submit a Review
+     * @param review
+     * @return true if added, false if not added
+     */
+    public boolean addReview (Review review){
+        
+        try {
+            reviewControl.create(review);
+            return true;
+        } catch (Exception ex) {
+           return false;
+        }
+            
+    }
+    
+    /**
      * Submits a review by a user for a track
      * @param track Track
      * @param message String
      * @param user User
      * @param rating int
-     * @return Review
+     * @return true if added, false if not added
      */
     public boolean addReview(Track track, String message, User user, int rating){
         try {
