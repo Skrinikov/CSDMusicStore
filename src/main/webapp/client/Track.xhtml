@@ -66,14 +66,18 @@
                         </p:carousel>
                     </div>
                 </div>
+                
+                
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div>
                         <h4>Reviews</h4>
                         <div>
                             <div>
+                                
                                 <!-- Review Form Section -->
                                 <h:form rendered="#{login.loggedIn}">
+                                    <p:outputLabel>
                                     <h5>Add a Review</h5>
                                     <p:inputTextarea rows="10" cols="50" value="#{trackCLBack.review.text}" />
 
@@ -81,8 +85,8 @@
 
                                     <p:inputText value="#{trackCLBack.review.rating}"/>
 
-                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview}" styleClass="ui-priority-primary"/>
-
+                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary"/>
+                                    </p:outputLabel>
                                 </h:form>
                             </div>
 
@@ -93,8 +97,8 @@
                                 <ui:repeat value="#{trackCLBack.reviews}" var="review">
 
                                     <p:outputPanel>
-                                        <p:panel header="#{review.text}" footer="#{review.reviewDate}">
-                                            <p:outputLabel>#{review.user.username}</p:outputLabel>
+                                        <p:panel style="min-width: 400px" header="#{review.user.username}" footer="#{review.reviewDate}">
+                                            <p:outputLabel>#{review.text}</p:outputLabel>
                                         </p:panel>
                                     </p:outputPanel>
 
