@@ -70,7 +70,7 @@ public class ReportsBacking implements Serializable {
     // Orders by Album
     private List<OrderItem> ordersFromAlbum;
     // Order by Artist
-    private List<Order> ordersFromArtist;
+    private List<OrderItem> ordersFromArtist;
     // Top Sellers
     private List<Order> topOrders;
     // Top Clients
@@ -164,14 +164,14 @@ public class ReportsBacking implements Serializable {
      * 
      * NOT DONE.
      * 
-     * @param artistName
+     * @param artistId
      * @param start
      * @param end 
      */
-    public void fetchSalesByArtist(String artistName, Date start, Date end){
-        if(artistName != null && artistName.length() > 0){
-            //ordersFromUser = reports.getSalesByClient(artistName, convertDateToLDT(start), convertDateToLDT(end));
-            //log.info("Returned list size: "+ordersFromUser.size());
+    public void fetchSalesByArtist(int artistId, Date start, Date end){
+        if(artistId > 0){
+            ordersFromArtist = reports.getSalesByArtist(artistId, convertDateToLDT(start), convertDateToLDT(end));
+            log.info("Returned list size: "+ordersFromUser.size());
         }
     }
 
@@ -341,11 +341,11 @@ public class ReportsBacking implements Serializable {
         this.ordersFromAlbum = ordersFromAlbum;
     }
 
-    public List<Order> getOrdersFromArtist() {
+    public List<OrderItem> getOrdersFromArtist() {
         return ordersFromArtist;
     }
 
-    public void setOrdersFromArtist(List<Order> ordersFromArtist) {
+    public void setOrdersFromArtist(List<OrderItem> ordersFromArtist) {
         this.ordersFromArtist = ordersFromArtist;
     }
 

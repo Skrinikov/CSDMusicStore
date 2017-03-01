@@ -36,47 +36,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ui:repeat var="order" value="#{reportsBacking.ordersFromUser}">
-                        <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle darker">
-                            <td>#{order.id}</td>
-                            <td>#{order.orderDate}</td>
-                            <td>$#{order.netCost}</td>
-                            <td>#{order.user.username}</td>
-                            <td>#{order.user.email}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="12" class="hiddenRow">
-                                <div class="accordian-body collapse" id="#{utilBacking.randomId}">
-                                    <table class="table table-striped reports-inner-table">
-                                        <thead>
-                                            <tr>
-                                                <td>#{order.orderItems.size()} Item(s)</td>
-                                            </tr>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>#{bundle.reports_type}</th>
-                                                <th>#{bundle.reports_title}</th>
-                                                <th>#{bundle.reports_cost}</th>
-                                                <th>#{bundle.reports_price}</th>
-                                                <th>#{bundle.reports_removed}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <ui:repeat var="listitem" value="#{reportsBacking.getCustomOrderItems(order)}">
-                                                <tr>
-                                                    <td>#{listitem.id}</td>
-                                                    <td>#{listitem.type}</td>
-                                                    <td>#{listitem.title}</td>
-                                                    <td>$#{listitem.cost}</td>
-                                                    <td>$#{listitem.price}</td>
-                                                    <td>#{listitem.removed}</td>                                                    
-                                                </tr>
-                                            </ui:repeat>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                    <ui:repeat var="item" value="#{reportsBacking.ordersFromArtist}">
+                        <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle">
+                            <td>#{item.order.id}</td>
+                            <td>#{item.order.orderDate}</td>
+                            <td>$#{item.order.netCost}</td>
+                            <td>#{item.order.user.username}</td>
+                            <td>#{item.order.user.email}</td>
+                        </tr>                       
                     </ui:repeat>
                 </tbody>             
             </table>
