@@ -4,8 +4,9 @@ import com.fractals.beans.Order;
 import com.fractals.beans.User;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.OrderJPAController;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import javax.inject.Named;
  * the receipt.
  *
  * @author Aline Shulzhenko
- * @version 26/02/2017
+ * @version 28/02/2017
  * @since 1.8
  */
 @Named("invoice")
@@ -79,5 +80,33 @@ public class InvoiceBacking {
      */
     public User getUser() {
         return user;
+    }
+    
+    /**
+     * Formats the date into user-friendly format.
+     * @param local The date to be formatted.
+     * @return the string with the formatted date.
+     */
+    public String formatDate(LocalDateTime local) {
+        return local.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss a", Locale.CANADA));
+    }
+    
+    /**
+     * Formats the number to two decimal places.
+     * @param number The number to format.
+     * @return the number formatted to two decimal places.
+     */
+    public double formatNumber(double number) {
+        return Math.round(number*100)/100.0;
+    }
+    
+    /**
+     * Formats the taxes number to three decimal places and returns the percent value 
+     * (the original number is multiplied by 100).
+     * @param number The number to format.
+     * @return the number formatted to three decimal places and in percent value.
+     */
+    public double formatTaxes(double number) {
+        return Math.round(number*100000)/1000.0;
     }
 }

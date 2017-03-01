@@ -26,7 +26,7 @@ import javax.transaction.UserTransaction;
  * The controller for orders and purchasing logic.
  *
  * @author Aline Shulzhenko
- * @version 26/02/2017
+ * @version 28/02/2017
  * @since 1.8
  */
 @Named("ordersController")
@@ -53,7 +53,7 @@ public class OrderJPAController {
     public Order submitOrder(ShoppingCart cart, User user) {
         Order order = saveOrder(cart, user);   
         if(! interrupted) {           
-            sendEmail(user, cart);
+            sendEmail(user, order);
             cart.empty();
             return order;
         }
@@ -143,11 +143,11 @@ public class OrderJPAController {
     /**
      * Sens the email to the user, notifying about the recent purchase.
      * @param u The current user.
-     * @param cart All items bought by the user in the shopping cart.
+     * @param order The newly created order for this user.
      */
-    private void sendEmail(User u, ShoppingCart cart) {
+    private void sendEmail(User u, Order order) {
         EmailSender es = new EmailSender(u);
-        es.sendEmail(cart);
+        es.sendEmail(order);
     }
     
     /**
