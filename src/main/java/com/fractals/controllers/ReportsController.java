@@ -21,6 +21,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.transaction.UserTransaction;
@@ -54,18 +55,38 @@ public class ReportsController implements Serializable {
      *
      * @return List of User entities who have never made a purchase.
      */
-    public List<User> getZeroClients() {
+    public List<User> getZeroClients(LocalDateTime start, LocalDateTime end) {
         List<User> users = new ArrayList<>();
 
         TypedQuery<User> query = entityManager.createQuery(ZERO_USERS, User.class);
         users = query.getResultList();
+        if (start == null || end == null) {
+            return null;
+        }
 
-        return users;
+        if (start.isAfter(end)) {
+            LocalDateTime temp = start;
+            start = end;
+            end = temp;
+        }
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
+        // Main Query
+        CriteriaQuery<User> mainQuery = cb.createQuery(User.class);
+        Root<User> mainRoot = mainQuery.from(User.class);
+        Join join = mainRoot.join("orders", JoinType.LEFT);
+        mainQuery.select(mainRoot).where(cb.isNull(join.get("user")));
+        
+        return entityManager.createQuery(mainQuery).getResultList();
+        
     }
 
     /**
      * Finds all tracks that have never been sold between the given time range.
      *
+     * @param start
+     * @param end
      * @return List of all the Tracks that never been sold.
      */
     public List<Track> getZeroTracks(LocalDateTime start, LocalDateTime end) {
@@ -109,7 +130,7 @@ public class ReportsController implements Serializable {
      * @return List ordered in descending order of all the clients based on
      * their purchase amount.
      */
-    public List<Object[]> getTopClients(LocalDateTime start, LocalDateTime end) {
+    public List<User> getTopClients(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return null;
         }
@@ -124,26 +145,15 @@ public class ReportsController implements Serializable {
 
         // Query
         // SELECT username, SUM(gross_cost) FROM orders INNER JOIN users ON orders.user_id=users.id GROUP BY user_id ORDER BY SUM(gross_cost) DESC;
-        CriteriaQuery<Tuple> query = cb.createTupleQuery();
-        Root<Order> root = query.from(Order.class);
-        Join userJoin = root.join("user");
-        query.multiselect(cb.sum(root.get("grossCost")));
-        query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
-        query.groupBy(userJoin.get("id"));
-        query.orderBy(cb.desc(cb.sum(root.get("grossCost"))));
-
-        List<Tuple> result = entityManager.createQuery(query).getResultList();
-        List<Object[]> convResult = new ArrayList<>();
+        CriteriaQuery<User> query = cb.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        Join join = root.join("orders");
+        query.multiselect(root);
+        query.where(cb.between(join.<LocalDateTime>get("orderDate"), start, end));      
+        //query.orderBy(cb.desc(cb.count(root.get("orders"))));   
+        query.groupBy(join.get("user"));
         
-        System.out.println(result.size());
-        
-        // Converting Tuple to an object array to facilitate data transmission.
-        for (Tuple t : result) {
-            convResult.add(new Object[]{t.get(0), t.get(1)});
-        }
-        
-        System.out.println(result.size());
-        return convResult;
+        return entityManager.createQuery(query).getResultList();
     }
 
     /**

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -180,6 +181,31 @@ public class ReportsBacking implements Serializable {
      */
     public void getTotalSales(Date start, Date end) {
         totalSalesOrders = reports.getTotalSales(convertDateToLDT(start), convertDateToLDT(end));
+    }
+    
+    /**
+     * Calls the ReportsController to get a list of the top clients between the given date range.
+     * 
+     * @param start start of the date range period.
+     * @param end end of the date range period.
+     */
+    public void getTopClients(Date start, Date end){
+        topUsers = reports.getTopClients(convertDateToLDT(start), convertDateToLDT(end));
+        
+        // JPA does not add group by like SQL, have to order by manually.
+        Collections.sort(topUsers, (User a, User b) -> {
+            return (new Integer(b.getOrders().size())).compareTo(a.getOrders().size());
+        });
+    }
+    
+    /**
+     * Calls the ReportsController to get a list of zero clients between the given date range.
+     * 
+     * @param start start of the date range period.
+     * @param end end of the date range period.
+     */
+    public void getZeroClients(Date start, Date end){
+        zeroUsers = reports.getZeroClients(convertDateToLDT(start), convertDateToLDT(end));
     }
 
     /**

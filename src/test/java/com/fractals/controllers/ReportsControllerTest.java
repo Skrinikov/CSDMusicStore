@@ -91,7 +91,7 @@ public class ReportsControllerTest {
     @Test
     public void testGetTopClients() {
         System.out.println("getZeroTracks");
-        List<Object[]> result = reports.getTopClients(LocalDateTime.now().minusDays(40), LocalDateTime.now());
+        List<User> result = reports.getTopClients(LocalDateTime.now().minusDays(40), LocalDateTime.now());
 
         System.out.println("test\n" + result.size());
         assertThat("Hello").isNotEmpty();
@@ -111,7 +111,7 @@ public class ReportsControllerTest {
     public void testGetZeroClients() {
         System.out.println("getZeroClients");
         //List<User> expResult = null;		          
-        List<User> result = reports.getZeroClients();
+        List<User> result = reports.getZeroClients(LocalDateTime.now().minusDays(20), LocalDateTime.now());
         assertThat(result).hasSize(62);
     }
 

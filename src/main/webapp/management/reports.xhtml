@@ -227,29 +227,9 @@
                                 </div>
                                 <!-- Top clients -->
                                 <div class="tab-pane" id="tab_default_7">
-                                    <h:form id="topClients" styleClass="col-md-4 col-xs-12">
-                                        <!-- Inputs -->
-                                        <h:panelGrid columns="2" cellpadding="53">
-                                            <p:outputLabel for="totalSalesStart" value="Start:" />
-                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
-
-                                            <p:outputLabel for="totalSalesEnd" value="End:" />
-                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
-                                        </h:panelGrid>
-
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topClientsUI" styleClass="btn btn-success"/>
-
-                                        <!-- Sales output -->
-                                        <h:panelGroup id="topClientsUI">
-                                            <ui:repeat var="user" value="#{reportsBacking.topUsers}" >
-                                                <p>#{user.id}</p>
-                                                <p>#{user.username}</p>
-                                                <p>#{user.email}</p>
-                                                <hr/>
-                                            </ui:repeat>
-                                        </h:panelGroup>
-
-                                    </h:form>
+                                   <ui:insert name="salesByTrack">
+                                        <ui:include src="/WEB-INF/sections/reports/topClients.xhtml"/>
+                                    </ui:insert>
                                 </div>
                                 <!-- Zero Tracks -->
                                 <div class="tab-pane" id="tab_default_8">
@@ -279,29 +259,9 @@
                                 </div>
                                 <!-- Zero users -->
                                 <div class="tab-pane" id="tab_default_9">
-                                    <h:form id="zeroUsers" styleClass="col-md-4 col-xs-12">
-                                        <!-- Inputs -->
-                                        <h:panelGrid columns="2" cellpadding="53">
-                                            <p:outputLabel for="totalSalesStart" value="Start:" />
-                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
-
-                                            <p:outputLabel for="totalSalesEnd" value="End:" />
-                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
-                                        </h:panelGrid>
-
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroUsersUI" styleClass="btn btn-success"/>
-
-                                        <!-- Sales output -->
-                                        <h:panelGroup id="zeroUsersUI">
-                                            <ui:repeat var="user" value="#{reportsBacking.zeroUsers}" >
-                                                <p>#{user.id}</p>
-                                                <p>#{user.username}</p>
-                                                <p>#{user.email}</p>
-                                                <hr/>
-                                            </ui:repeat>
-                                        </h:panelGroup>
-
-                                    </h:form>
+                                    <ui:insert name="salesByTrack">
+                                        <ui:include src="/WEB-INF/sections/reports/zeroClients.xhtml"/>
+                                    </ui:insert>
                                 </div>
                             </div>
                         </div>
