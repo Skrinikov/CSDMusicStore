@@ -13,9 +13,11 @@
 
             <p:outputLabel for="zeroClientsDateEnd" value="#{bundle.reports_end}" />
             <p:calendar id="zeroClientsDateEnd" binding="#{zeroClientsDateEnd}" />
+            
+            <p:commandButton value="Submit" actionListener="#{reportsBacking.getZeroClients(zeroClientsDateStart.value, zeroClientsDateEnd.value)}" update="zeroClientsList" styleClass="btn btn-success"/>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.getZeroClients(zeroClientsDateStart.value, zeroClientsDateEnd.value)}" update="zeroClientsList" styleClass="btn btn-success"/>
+        
 
         <p:outputPanel styleClass="panel-group" id="zeroClientsList">
 
@@ -26,7 +28,6 @@
                         <th>#{bundle.reports_user}</th>
                         <th>#{bundle.reports_email}</th>
                         <th>#{bundle.reports_company}</th>
-                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +37,6 @@
                             <td>#{user.username}</td>
                             <td>#{user.email}</td>
                             <td>#{user.company}</td>
-                            <td>#{user.orders.size()}</td>
                         </tr>                       
                     </ui:repeat>
                 </tbody>             

@@ -233,29 +233,9 @@
                                 </div>
                                 <!-- Zero Tracks -->
                                 <div class="tab-pane" id="tab_default_8">
-                                    <h:form id="zeroTracks" styleClass="col-md-4 col-xs-12">
-                                        <!-- Inputs -->
-                                        <h:panelGrid columns="2" cellpadding="53">
-                                            <p:outputLabel for="totalSalesStart" value="Start:" />
-                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
-
-                                            <p:outputLabel for="totalSalesEnd" value="End:" />
-                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
-                                        </h:panelGrid>
-
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="zeroTracksUI" styleClass="btn btn-success"/>
-
-                                        <!-- Sales output -->
-                                        <h:panelGroup id="zeroTracksUI">
-                                            <ui:repeat var="track" value="#{reportsBacking.zeroTracks}" >
-                                                <p>#{track.id}</p>
-                                                <p>#{track.title}</p>
-                                                <p>#{track.listPrice}</p>
-                                                <hr/>
-                                            </ui:repeat>
-                                        </h:panelGroup>
-
-                                    </h:form>
+                                    <ui:insert name="salesByTrack">
+                                        <ui:include src="/WEB-INF/sections/reports/zeroTracks.xhtml"/>
+                                    </ui:insert>
                                 </div>
                                 <!-- Zero users -->
                                 <div class="tab-pane" id="tab_default_9">

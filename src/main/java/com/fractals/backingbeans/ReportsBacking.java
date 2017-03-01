@@ -207,6 +207,10 @@ public class ReportsBacking implements Serializable {
     public void getZeroClients(Date start, Date end){
         zeroUsers = reports.getZeroClients(convertDateToLDT(start), convertDateToLDT(end));
     }
+    
+    public void getZeroTracks(Date start, Date end){
+        zeroTracks = reports.getZeroTracks(convertDateToLDT(start), convertDateToLDT(end));
+    }
 
     /**
      * Fetches all the order items from a given order and creates a custom order

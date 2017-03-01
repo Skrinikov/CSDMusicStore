@@ -23,10 +23,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Order Date</th>
-                        <th>Net Cost</th>
-                        <th>User</th>
-                        <th>Email</th>
+                        <th>#{bundle.reports_user}</th>
+                        <th>#{bundle.reports_email}</th>
+                        <th>#{bundle.reports_company}</th>
+                        <th>#{bundle.reports_items}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,7 +35,7 @@
                             <td>#{user.id}</td>
                             <td>#{user.username}</td>
                             <td>#{user.email}</td>
-                            <td>#{user.title}</td>
+                            <td>#{user.company}</td>
                             <td>#{user.orders.size()}</td>
                         </tr>
                         <tr>
@@ -44,13 +44,13 @@
                                     <table class="table table-striped reports-inner-table">
                                         <thead>
                                             <tr>
-                                                <td>#{order.orderItems.size()} Item(s)</td>
+                                                <td>#{user.orders.size()} #{bundle.reports_items}</td>
                                             </tr>
                                             <tr>
                                                 <th>#</th>
                                                 <th>#{bundle.reports_date}</th>
-                                                <th>#{bundle.reports_title}</th>
-                                                <th>#{bundle.reports_cost}</th>
+                                                <th>#{bundle.reports_net_cost}</th>
+                                                <th>#{bundle.reports_gross_cost}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
