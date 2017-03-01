@@ -58,9 +58,9 @@
                                         <p:graphicImage name="images/test_cover.jpg" style="max-height: 155px"/>
                                     </h:link>
                                 </f:facet>
-                                
+
                                 <h:link value="#{aSimTrack.title}" outcome="Track">
-                                        <f:param name="id" value="#{aSimTrack.id}"/>                                        
+                                    <f:param name="id" value="#{aSimTrack.id}"/>                                        
                                 </h:link>
                             </p:panelGrid>
                         </p:carousel>
@@ -72,28 +72,33 @@
                         <h4>Reviews</h4>
                         <div>
                             <div>
+                                <!-- Review Form Section -->
                                 <h:form rendered="#{login.loggedIn}">
                                     <h5>Add a Review</h5>
                                     <p:inputTextarea rows="10" cols="50" value="#{trackCLBack.review.text}" />
-                                    
+
                                     <br />
-                                    
+
                                     <p:inputText value="#{trackCLBack.review.rating}"/>
-                                    
+
                                     <h:commandButton value="Submit" action="#{trackCLBack.addReview}" styleClass="ui-priority-primary"/>
 
                                 </h:form>
                             </div>
 
+
+
                             <div>
+                                <!-- Review Section  -->
                                 <ui:repeat value="#{trackCLBack.reviews}" var="review">
-                                    
-                                        <p:outputPanel>
-                                            <p:outputLabel>#{review.text}</p:outputLabel>
+
+                                    <p:outputPanel>
+                                        <p:panel header="#{review.text}" footer="#{review.reviewDate}">
                                             <p:outputLabel>#{review.user.username}</p:outputLabel>
-                                            <p:outputLabel>#{review.reviewDate.toString()}</p:outputLabel>
-                                        </p:outputPanel>
-                                    
+                                        </p:panel>
+                                    </p:outputPanel>
+
+
                                 </ui:repeat>
                             </div>
                         </div>
