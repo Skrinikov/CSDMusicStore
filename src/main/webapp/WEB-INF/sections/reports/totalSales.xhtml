@@ -1,0 +1,79 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="totalSales" styleClass="col-md-12 col-xs-12 reports-form">
+
+        <!-- Inputs -->
+        <h:panelGrid columns="2" cellpadding="53">
+            <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
+            <p:calendar id="trackSaleDateStart" binding="#{allOrdersDateStart}" />
+
+            <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
+            <p:calendar id="trackSaleDateEnd" binding="#{allOrdersDateEnd}" />
+        </h:panelGrid>
+
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales(allOrdersDateStart.value, allOrdersDateEnd.value)}" update="totalOrderSales" styleClass="btn btn-success"/>
+
+        <p:outputPanel styleClass="panel-group" id="totalOrderSales">
+
+            <table class="table table-condensed reports-outer-table" style="border-collapse:collapse;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Order Date</th>
+                        <th>Net Cost</th>
+                        <th>User</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}">
+                        <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle darker">
+                            <td>#{order.id}</td>
+                            <td>#{order.orderDate}</td>
+                            <td>$#{order.netCost}</td>
+                            <td>#{order.user.username}</td>
+                            <td>#{order.user.email}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="#{utilBacking.randomId}">
+                                    <table class="table table-striped reports-inner-table">
+                                        <thead>
+                                            <tr>
+                                                <td>#{order.orderItems.size()} Item(s)</td>
+                                            </tr>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>#{bundle.reports_type}</th>
+                                                <th>#{bundle.reports_title}</th>
+                                                <th>#{bundle.reports_cost}</th>
+                                                <th>#{bundle.reports_price}</th>
+                                                <th>#{bundle.reports_removed}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat var="listitem" value="#{reportsBacking.getCustomOrderItems(order)}">
+                                                <tr>
+                                                    <td>#{listitem.id}</td>
+                                                    <td>#{listitem.type}</td>
+                                                    <td>#{listitem.title}</td>
+                                                    <td>$#{listitem.cost}</td>
+                                                    <td>$#{listitem.price}</td>
+                                                    <td>#{listitem.removed}</td>                                                    
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>             
+            </table>
+        </p:outputPanel>
+    </h:form>
+</ui:composition>

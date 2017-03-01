@@ -52,7 +52,7 @@ public class RSSFeedParser {
      */
     public List<FeedMessage> readFeed(String[] links) {
         if (links == null || links.length < 1) {
-            throw new IllegalArgumentException("RSSFeedParser.readMessage() - Invalid array size.");
+            return new ArrayList<FeedMessage>();
         }
 
         List<FeedMessage> fm = new ArrayList<>();
