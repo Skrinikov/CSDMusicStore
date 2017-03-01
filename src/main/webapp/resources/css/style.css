@@ -125,6 +125,15 @@ body.navbar-more-show  {
 .error{
     color:red;
 }
+
+.table-cart {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+
+
 .content{
     margin-top:50px;
 }

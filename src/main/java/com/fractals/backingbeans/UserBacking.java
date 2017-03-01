@@ -55,7 +55,6 @@ public class UserBacking implements Serializable {
      * Saves this user to the database.
      */
     public void saveUser() {
-        System.out.println(user);
         entityManager.persist(user);
     }
     

@@ -9,7 +9,6 @@
     <ui:define name="windowTitle">#{bundle.register}</ui:define>
 
     <ui:define name="content">
-        <br/><br/><br/><br/>
         <h2>#{bundle.register_welcome}</h2>
         
         <h:form id="registerForm">
@@ -78,9 +77,11 @@
                 <h:inputText id="celltel" value="#{User.user.cellTel}"/>
                 <h:message id="celltelessage" for="celltel" class="error"/>
                 
-                <h:commandButton action="#{login.register}" value="#{bundle.register_submit}" />
-         </h:panelGrid>
-      </h:form>
+                <h:commandButton action="#{login.register}" value="#{bundle.register_submit}" class="btn btn-success"/>
+            </h:panelGrid> 
+        </h:form>
+        
+        <h:link value="#{bundle.register_old}" outcome="login"></h:link>
         
     </ui:define> 
     

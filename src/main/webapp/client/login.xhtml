@@ -9,7 +9,6 @@
     <ui:define name="windowTitle">#{bundle.login}</ui:define>
 
     <ui:define name="content">
-        <br/><br/><br/><br/>
         <h2>#{bundle.login}</h2>
         <h:message id="loginFormMessage" for="loginForm" class="error"/>
         <h:form id="loginForm">
@@ -21,9 +20,11 @@
                 <h:outputLabel for="password" value="#{bundle.password}:" />
                 <h:inputSecret id="password" value="#{User.password}" required="true"/>
                 <h:message id="passwordMessage" for="password" class="error"/>
-                <h:commandButton action="#{login.login}" value="#{bundle.login_submit}" />
-         </h:panelGrid>
-      </h:form>
+                <h:commandButton action="#{login.login}" value="#{bundle.login_submit}" class="btn btn-danger"/>
+            </h:panelGrid>
+        </h:form>
+        
+        <h:link value="#{bundle.login_new}" outcome="register"></h:link>
         
     </ui:define> 
     
