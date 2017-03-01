@@ -6,6 +6,8 @@
     ui provided by
     http://bootsnipp.com/snippets/featured/modal-quiz-with-radio-button
 
+    @author Renuchan 
+
 -->
 
 
@@ -26,22 +28,26 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
                     <div class="modal-header">
-			<h3><span class="label label-warning" id="qid">&#9835;</span> THREE is CORRECT</h3>
+                        <h3><span class="label label-warning" id="qid">&#9835;</span> #{surveyCBacking.survey.question}</h3>
                     </div>
                     <div class="modal-body">
                         <div class="quiz" id="quiz" data-toggle="buttons">
-                            <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span><input type="radio" name="q_answer" value="1"/>1 One</label>
-                            <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span><input type="radio" name="q_answer" value="2"/>2 Two</label>
-                            <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span><input type="radio" name="q_answer" value="3"/>3 Three</label>
-                            <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span><input type="radio" name="q_answer" value="4"/>4 Four</label>
+                            
+                            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">   
+                                
+                                <h:commandButton styleClass="element-animation1 btn btn-lg btn-primary btn-block"
+                                          value="#{item.choice}" action="#{surveyCBacking.selectedOption(item)}"/>
+
+                            </ui:repeat>
+                            
                         </div>
                     </div>
                     <div class="modal-footer text-muted">
                         <span id="answer"></span>
                     </div>
 		</div>
-	</div>
-</div>
+            </div>
+        </div>
         
     </ui:define>
     
