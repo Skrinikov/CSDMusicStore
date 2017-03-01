@@ -1,20 +1,19 @@
 package com.fractals.backingbeans;
 
-import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
  * The class that is responsible for Credit Card and validating its information.
  *
  * @author Aline Shulzhenko
- * @version 25/02/2017
+ * @version 01/03/2017
  * @since 1.8
  */
 @Named("credit")
-@SessionScoped
-public class CreditCard  implements Serializable {
+@RequestScoped
+public class CreditCard {
     private String brand;
     private String number;
     private Date expirationDate;
