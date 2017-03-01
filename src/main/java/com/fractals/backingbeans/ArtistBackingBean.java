@@ -55,7 +55,7 @@ public class ArtistBackingBean implements Serializable{
         artistJpaController.create(createdArtist);
         selectedArtist = createdArtist;
         createdArtist = null;
-        return "/management/artist/artistsList.xhtml";
+        return "/management/artist/artistsViewEdit.xhtml";
     }
        
        public String edit()throws Exception {

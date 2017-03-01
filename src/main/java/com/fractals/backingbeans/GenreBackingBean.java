@@ -7,8 +7,9 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Genre;
 import com.fractals.controllers.GenreJpaController;
+import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,8 +18,8 @@ import javax.inject.Named;
  * @author 1710030
  */
 @Named("theGenres")
-@RequestScoped
-public class GenreBackingBean {
+@SessionScoped
+public class GenreBackingBean implements Serializable {
     
     @Inject
     private GenreJpaController genreJpaController;
@@ -55,7 +56,7 @@ public class GenreBackingBean {
         genreJpaController.create(createdGenre);
         selectedGenre = createdGenre;
         createdGenre = null;
-        return "/management/genre/genresList.xhtml";
+        return "/management/genre/genresViewEdit.xhtml";
     }
        
     public String edit()throws Exception {

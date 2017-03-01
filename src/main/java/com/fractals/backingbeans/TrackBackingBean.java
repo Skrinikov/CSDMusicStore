@@ -5,12 +5,17 @@
  */
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
+import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.ArtistJpaController;
+import com.fractals.controllers.GenreJpaController;
 import com.fractals.controllers.TrackJpaController;
-import com.fractals.controllers.exceptions.RollbackFailureException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,8 +24,8 @@ import javax.inject.Named;
  * @author 1710030
  */
 @Named("theTracks")
-@RequestScoped
-public class TrackBackingBean {
+@SessionScoped
+public class TrackBackingBean implements Serializable {
     
     @Inject
     private TrackJpaController trackJpaController;
@@ -50,13 +55,7 @@ public class TrackBackingBean {
     public void setEditable(boolean b) {editable = b;}
     public void makeEditable(){setEditable(true);};
     public void makeUneditable(){setEditable(false);}
-    
-       public String create() throws Exception {
-        trackJpaController.create(createdTrack);
-        selectedTrack = createdTrack;
-        createdTrack = null;
-        return "/management/track/tracksList.xhtml";
-    }
+
        
     public String edit()throws Exception {
         trackJpaController.edit(selectedTrack);
@@ -69,4 +68,50 @@ public class TrackBackingBean {
         edit();
     }
     
+    
+        
+    
+    @Inject private AlbumJpaController album;
+    @Inject private ArtistJpaController artist;
+    @Inject private GenreJpaController genre;
+    
+       public String create() throws Exception {
+           
+        ArrayList<Artist> a = new ArrayList();
+        a.add(artist.findArtistEntities().get(0));
+        createdTrack.setArtists(a); 
+        createdTrack.setAlbum(album.findAlbumEntities().get(0));
+        createdTrack.setGenre(genre.findGenreEntities().get(0));
+        //A CHANGER
+        
+        createdTrack.setCreatedAt(LocalDateTime.now());
+        
+        
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCoverFile() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getDuration() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getSongwriter() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getTitle() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAlbum()== null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAlbumNum() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getArtists() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAvailable() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCostPrice() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCreatedAt() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getGenre() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getIsIndividual() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getListPrice() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getOrderItems() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getRemovedAt() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getSalePrice() == null);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getReviews() == null);
+    
+        
+        
+        
+        trackJpaController.create(createdTrack);
+        selectedTrack = createdTrack;
+        createdTrack = null;
+        return "/management/track/tracksViewEdit.xhtml";
+    }
+       
 }
