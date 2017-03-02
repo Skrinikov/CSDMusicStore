@@ -12,11 +12,11 @@
 
     <ui:define name="content">
 
-        <h:outputText escape="false" value="#{bundle.ListUserReviewsEmpty}" rendered="#{theReviews.reviewsByUser.size() == 0}"/>
-        <h:panelGroup rendered="#{theReviews.reviewsByUser.size() != 0}">    
+        <h:outputText escape="false" value="#{bundle.ListUserReviewsEmpty}" rendered="#{theReviews.getReviewsByUser().size() == 0}"/>
+        <h:panelGroup rendered="#{theReviews.getReviewsByUser().size() != 0}">    
             <h:form>
 
-                <p:dataTable id="tbl" value="#{theReviews.reviewsByUser()}" var="item" 
+                <p:dataTable id="tbl" value="#{theReviews.getReviewsByUser()}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedReview}" 
@@ -55,13 +55,8 @@
                         <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/review/reviewsView.xhtml" ajax="false"/>
                     </f:facet>  
                
-
                 </p:dataTable>
-
             </h:form>
-
         </h:panelGroup>
-
     </ui:define>
-
 </ui:composition>

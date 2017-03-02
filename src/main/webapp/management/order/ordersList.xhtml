@@ -1,0 +1,59 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListOrderTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <p:dataTable id="tbl" value="#{theOrders.orders}" var="item" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginator="true" rows="10" style="margin-bottom:20px"
+                         selectionMode="single" selection="#{theOrders.selectedOrder}" 
+                         rowKey="#{item.id}"
+                         draggableColumns="true" resizableColumns="true" >
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListOrderTitle}"/>
+                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:columnToggler datasource="tbl" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                
+                <p:column headerText="OrderDate">
+                    <h:outputText value="#{item.orderDate}"/>
+                </p:column>
+                
+                <p:column headerText="NetCost">
+                    <h:outputText value="#{item.netCost}"/>
+                </p:column>
+                
+                <p:column headerText="GrossCost">                             
+                    <h:outputText value="#{item.grossCost}"/>
+                </p:column>
+                
+                <p:column headerText="User">              
+                    <h:outputText value="#{item.user}"/>
+                </p:column>
+
+
+                <f:facet name="footer">
+                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/order/ordersView.xhtml" ajax="false"/>
+
+                </f:facet>  
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

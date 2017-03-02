@@ -48,11 +48,17 @@ public class ReviewBackingBean implements Serializable {
         return reviewJpaController.findReviewEntities();
     }
     
-    public String approveReview()throws Exception {
+    public String approveReview() throws Exception {
         selectedReview.setApproved(true);
         reviewJpaController.edit(selectedReview);
-        return ""; //CHANGE TO RIGHT LINK
-    }     
+        return "/management/review/reviewsView.xhtml"; 
+    }   
+    
+    public String disapproveReview() throws Exception {
+        selectedReview.setApproved(false);
+        reviewJpaController.edit(selectedReview);
+        return "/management/review/reviewsView.xhtml";  
+    }   
     
     public List<Review> getPendingReviews(){
         CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
@@ -72,7 +78,7 @@ public class ReviewBackingBean implements Serializable {
         return reviewJpaController.getEntityManager().createQuery(query).getResultList();
     }
  
-    public List<Review> getReviewsByUser() { 
+    public List<Review> getReviewsByUser() {
         CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
         Root<Review> root = query.from(Review.class);
@@ -89,4 +95,12 @@ public class ReviewBackingBean implements Serializable {
         query.where(cb.equal(root.get("track"), selectedTrack));
         return reviewJpaController.getEntityManager().createQuery(query).getResultList();
     }
+    
+    public String returnToPage() {
+       selectedReview = null;
+       selectedUser = null;
+       selectedTrack = null;
+       return "/management/review/pendingReviewsList.xhtml";    
+    }
+    
 }

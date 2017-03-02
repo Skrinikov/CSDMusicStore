@@ -30,9 +30,13 @@
             <h:outputText value="Track:"/>
             <h:outputText value="#{theReviews.selectedReview.track}" title="Track"/>
         </p:panelGrid>
-
-        <p:button value="Retour à la liste" outcome="/management/review/....xhtml"/>
-
+        
+        <h:form>
+            <h:commandButton value="Retour à la liste" action="#{theReviews.returnToPage()}"/>
+            <h:commandButton value="Approve" action="#{theReviews.approveReview()}" rendered="#{!theReviews.selectedReview.approved}"/>
+            <h:commandButton value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.approved}"/>
+        </h:form>
+        
     </ui:define>
 </ui:composition>
 

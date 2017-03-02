@@ -12,11 +12,11 @@
 
     <ui:define name="content">
 
-        <h:outputText escape="false" value="#{bundle.ListTrackReviewsEmpty}" rendered="#{theReviews.reviewsByTrack().size() == 0}"/>
-        <h:panelGroup rendered="#{theReviews.reviewsByTrack().size() != 0}">    
+        <h:outputText escape="false" value="#{bundle.ListTrackReviewsEmpty}" rendered="#{theReviews.getReviewsByTrack().size() == 0}"/>
+        <h:panelGroup rendered="#{theReviews.getReviewsByTrack().size() != 0}">    
             <h:form>
 
-                <p:dataTable id="tbl" value="#{theReviews.reviewsByTrack()}" var="item" 
+                <p:dataTable id="tbl" value="#{theReviews.getReviewsByTrack()}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedReview}" 
@@ -48,7 +48,7 @@
                     </p:column>
                     
                     <p:column headerText="Track">
-                        <h:outputText value="#{item.track}"/>
+                        <h:outputText value="#{item.track.title}"/>
                     </p:column>
 
                     
