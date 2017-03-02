@@ -1,0 +1,33 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListBannerAdTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Link:" for="link" />
+                <p:inputText id="link" value="#{theBannerAds.createdBannerAd.link}" title="Link" required="true" requiredMessage="The Link field is required."/>
+                <p:outputLabel value="Source:" for="source" />
+                <p:inputText id="source" value="#{theBannerAds.createdBannerAd.source}" title="Source" required="true" requiredMessage="The Source field is required."/>
+                <p:outputLabel value="Visible:" for="visible" />
+                <p:selectBooleanCheckbox value="#{theBannerAds.createdBannerAd.visible}" id="visible"/>
+            </p:panelGrid>
+
+            <p:commandButton  action="#{theBannerAds.create()}" icon="fa-edit" ajax="false"/>
+            <p:button value="Retour à la liste" outcome="/management/ad/adsList.xhtml"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
+
