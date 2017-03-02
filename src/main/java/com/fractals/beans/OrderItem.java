@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Class corresponding to the order_items table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 02/03/2017
  * @since 1.8
  */
 @Entity
@@ -49,6 +49,11 @@ public class OrderItem implements Serializable {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne
     private Order order;
+        
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cancelled")
+    private boolean cancelled;
     
     
     @JoinColumn(name = "album_id", referencedColumnName = "id")
@@ -103,6 +108,14 @@ public class OrderItem implements Serializable {
 
     public void setTrack(Track track) {
         this.track = track;
+    }
+    
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     @Override

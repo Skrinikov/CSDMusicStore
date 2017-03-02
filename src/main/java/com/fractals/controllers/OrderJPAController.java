@@ -26,7 +26,7 @@ import javax.transaction.UserTransaction;
  * The controller for orders and purchasing logic.
  *
  * @author Aline Shulzhenko
- * @version 28/02/2017
+ * @version 02/03/2017
  * @since 1.8
  */
 @Named("ordersController")
@@ -95,6 +95,7 @@ public class OrderJPAController {
             for(Track track : tracks) {
                 OrderItem oi = new OrderItem();
                 oi.setOrder(order);
+                oi.setCancelled(false);
                 double price = track.getSalePrice() != 0 ? track.getSalePrice() : track.getListPrice();
                 oi.setCost(price);
                 oi.setTrack(track);
@@ -123,6 +124,7 @@ public class OrderJPAController {
             for(Album album : albums) {
                 OrderItem oi = new OrderItem();
                 oi.setOrder(order);
+                oi.setCancelled(false);
                 double price = album.getSalePrice() != 0 ? album.getSalePrice() : album.getListPrice();
                 oi.setCost(price);
                 oi.setAlbum(album);

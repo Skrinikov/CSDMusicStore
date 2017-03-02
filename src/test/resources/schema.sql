@@ -37,15 +37,15 @@ CREATE TABLE users (
   username VARCHAR(50) NOT NULL,
   password BINARY(64) NOT NULL,
   salt VARCHAR(255) NOT NULL,
-  title VARCHAR(50) NOT NULL, 
+  title VARCHAR(50) NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   company VARCHAR(50),
-  address_1 VARCHAR(50) NOT NULL, 
+  address_1 VARCHAR(50) NOT NULL,
   address_2 VARCHAR(50),
-  city VARCHAR(50) NOT NULL, 
+  city VARCHAR(50) NOT NULL,
   province_id INTEGER  NOT NULL, 
-  country VARCHAR(50) NOT NULL, 
+  country VARCHAR(50) NOT NULL,
   postal_code VARCHAR(50) NOT NULL,
   home_tel VARCHAR(20),
   cell_tel VARCHAR(20),
@@ -160,6 +160,7 @@ CREATE TABLE reviews (
   review_date DATETIME NOT NULL,
   text VARCHAR(2000) NOT NULL,
   approved BOOLEAN DEFAULT false NOT NULL,
+  pending BOOLEAN DEFAULT true NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE 
 );
@@ -171,10 +172,13 @@ CREATE TABLE order_items (
   track_id INTEGER,
   album_id INTEGER,
   cost FLOAT DEFAULT 0 NOT NULL,
+  cancelled BOOLEAN DEFAULT false NOT NULL,
   FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
