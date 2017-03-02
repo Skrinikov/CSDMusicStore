@@ -25,7 +25,7 @@ import org.eclipse.persistence.annotations.Converter;
  * Class corresponding to the reviews table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 02/03/2017
  * @since 1.8
  */
 @Entity
@@ -72,6 +72,11 @@ public class Review implements Serializable {
     @Column(name = "approved")
     private boolean approved;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "pending")
+    private boolean pending;
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
@@ -149,6 +154,14 @@ public class Review implements Serializable {
 
     public void setTrack(Track track) {
         this.track = track;
+    }
+    
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
     }
 
     @Override

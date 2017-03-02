@@ -1,13 +1,9 @@
 package com.fractals.email;
 
-import com.fractals.beans.Album;
-import com.fractals.beans.Track;
 import com.fractals.beans.User;
-import com.fractals.backingbeans.ShoppingCart;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Province;
-import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -21,7 +17,7 @@ import jodd.mail.SmtpSslServer;
  * EmailSender class is responsible for sending emails to the client.
  *
  * @author Aline Shulzhenko
- * @version 28/02/2017
+ * @version 01/03/2017
  * @since 1.8
  */
 public class EmailSender {
