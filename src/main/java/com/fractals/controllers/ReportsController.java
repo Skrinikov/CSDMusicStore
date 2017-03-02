@@ -1,5 +1,6 @@
 package com.fractals.controllers;
 
+import com.fractals.beans.Album;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
@@ -10,9 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.lang.Long;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,7 +41,7 @@ import javax.transaction.UserTransaction;
 @Named("reportsController")
 @SessionScoped
 public class ReportsController implements Serializable {
-    
+
     private static final Logger log = Logger.getLogger("ReportsController.class");
 
     @Resource
@@ -69,17 +73,17 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
+
         // Main Query
         CriteriaQuery<User> mainQuery = cb.createQuery(User.class);
         Root<User> mainRoot = mainQuery.from(User.class);
         Join join = mainRoot.join("orders", JoinType.LEFT);
         mainQuery.select(mainRoot).where(cb.isNull(join.get("user")));
-        
+
         return entityManager.createQuery(mainQuery).getResultList();
-        
+
     }
 
     /**
@@ -149,14 +153,15 @@ public class ReportsController implements Serializable {
         Root<User> root = query.from(User.class);
         Join join = root.join("orders");
         query.multiselect(root);
-        query.where(cb.between(join.<LocalDateTime>get("orderDate"), start, end));      
+        query.where(cb.between(join.<LocalDateTime>get("orderDate"), start, end));
         //query.orderBy(cb.desc(cb.count(root.get("orders"))));   
         query.groupBy(join.get("user"));
-        
+
         return entityManager.createQuery(query).getResultList();
     }
 
     /**
+     * Selects top tracks
      *
      * @param start
      * @param end
@@ -192,7 +197,7 @@ public class ReportsController implements Serializable {
      * @param end
      * @return
      */
-    public List<Object[]> getTopAlbumSellers(LocalDateTime start, LocalDateTime end) {
+    public List<Album> getTopAlbumSellers(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return null;
         }
@@ -201,19 +206,19 @@ public class ReportsController implements Serializable {
             LocalDateTime temp = start;
             start = end;
             end = temp;
-        }
+        }     
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Tuple> query = cb.createTupleQuery();
-        Root<OrderItem> root = query.from(OrderItem.class);
-        Join album = root.join("album");
-        Join order = root.join("order");
-        query.multiselect(cb.count(root.get("album")));
-        query.groupBy(root.get("album"));
+        CriteriaQuery<Album> query = cb.createQuery(Album.class);
+        Root<Album> root = query.from(Album.class);
+        Join items = root.join("orderItems");
+        Join order = items.join("order");
+        query.select(root);
+        query.groupBy(items.get("album"));
         query.where(cb.and(cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        return entityManager.createQuery(query).getResultList();
     }
 
     /**
@@ -259,7 +264,7 @@ public class ReportsController implements Serializable {
 
     /**
      * Returns a list of all the orders made between the given date range.
-     * 
+     *
      * @param start Start of the date range period.
      * @param end End of the date range period.
      * @return list of orders.
@@ -276,7 +281,7 @@ public class ReportsController implements Serializable {
         }
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
+
         CriteriaQuery<Order> query = cb.createQuery(Order.class);
         Root<Order> root = query.from(Order.class);
         query.select(root);
@@ -316,18 +321,18 @@ public class ReportsController implements Serializable {
 
         return entityManager.createQuery(query).getResultList();
     }
-    
+
     /**
      * Fetches all the instances of the given album id in the database's orders
      * table between the specified date ranges.
-     * 
+     *
      * @param albumId primary key of the album to search for.
      * @param start Start of the date range period.
      * @param end End of the date range period.
      * @return list of order items which have the album in their result.
      */
-    public List<OrderItem> getSalesByAlbum(int albumId, LocalDateTime start, LocalDateTime end){
-        log.info("getSalesByAlbum "+albumId);
+    public List<OrderItem> getSalesByAlbum(int albumId, LocalDateTime start, LocalDateTime end) {
+        log.info("getSalesByAlbum " + albumId);
         if (start == null || end == null) {
             return null;
         }
@@ -344,21 +349,21 @@ public class ReportsController implements Serializable {
         Root<OrderItem> root = query.from(OrderItem.class);
         Join orders = root.join("order");
         query.select(root);
-        
+
         query.where(cb.and(cb.equal(root.get("album").get("id"), albumId), cb.between(orders.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }
-    
+
     /**
      * Gets all OrderItems where the artist id matches the given id.
-     * 
+     *
      * @param artistId Id of the artist
      * @param start start of the range period
      * @param end end of the date range period.
      * @return list of order items.
      */
-    public List<OrderItem> getSalesByArtist(int artistId, LocalDateTime start, LocalDateTime end){
+    public List<OrderItem> getSalesByArtist(int artistId, LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return null;
         }
@@ -378,25 +383,25 @@ public class ReportsController implements Serializable {
         query.select(root);
         query.orderBy(cb.desc(order.get("orderDate")));
         query.where(cb.and(cb.equal(artist.get("id"), artistId), cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
-        
-        return entityManager.createQuery(query).getResultList();           
+
+        return entityManager.createQuery(query).getResultList();
     }
-    
+
     //-------------------------------------------------------------------------------------------------------------------------------
-    
     /**
      * Gets the number of users.
-     * @return 
+     *
+     * @return
      */
-    public int getVisitorCount(){
+    public int getVisitorCount() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = cb.createQuery(User.class);
         Root<User> root = query.from(User.class);
-        query.select(root);       
+        query.select(root);
         return entityManager.createQuery(query).getResultList().size();
     }
-    
-    public Long getSalesCount(LocalDateTime start, LocalDateTime end){
+
+    public Long getSalesCount(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0L;
         }
@@ -406,25 +411,25 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<Order> root = query.from(Order.class);
         query.select(cb.count(root.get("id")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         long l = entityManager.createQuery(query).getSingleResult();
-        log.info(l+"");
+        log.info(l + "");
         return l;
     }
-    
+
     /**
      * Selects the total amount of revenue between the given date.
-     * 
+     *
      * @param start
      * @param end
-     * @return 
+     * @return
      */
-    public double getSalesAmount(LocalDateTime start, LocalDateTime end){
+    public double getSalesAmount(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -434,31 +439,30 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Double> query = cb.createQuery(Double.class);
         Root<Order> root = query.from(Order.class);
         query.select(cb.sumAsDouble(root.get("netCost")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         log.info("Went here");
-        
+
         // Because JPA throws NullPointerException if single result is not found.
-        try{
+        try {
             return entityManager.createQuery(query).getSingleResult();
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return 0;
         }
     }
-    
+
     /**
      * Returns the total cost of all the orders within the given date range.
-     * 
+     *
      * @param start start of the date range period.
      * @param end end of the date range period.
      * @return total cost.
      */
-    public double getTotalCost(LocalDateTime start, LocalDateTime end){
+    public double getTotalCost(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -468,31 +472,30 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-      
+
         List<Order> orders = getTotalSales(start, end);
         double sum = 0;
-        
-        for(Order o : orders){
-            for(OrderItem item : o.getOrderItems()){
-                if(item.getTrack() != null){
+
+        for (Order o : orders) {
+            for (OrderItem item : o.getOrderItems()) {
+                if (item.getTrack() != null) {
                     sum += item.getTrack().getCostPrice();
-                }
-                else if(item.getAlbum() != null){
+                } else if (item.getAlbum() != null) {
                     sum += item.getAlbum().getCostPrice();
                 }
             }
         }
         return sum;
     }
-    
+
     /**
      * Returns the total profit between the given date range.
-     * 
+     *
      * @param start start of the date range period.
      * @param end end of the date range period.
      * @return total profit.
      */
-    public double getTotalProfit(LocalDateTime start, LocalDateTime end){
+    public double getTotalProfit(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -502,17 +505,17 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         return getSalesAmount(start, end) - getTotalCost(start, end);
     }
-    
+
     /**
-     * 
+     *
      * @param start
      * @param end
-     * @return 
+     * @return
      */
-    public long getTrackCount(LocalDateTime start, LocalDateTime end){
+    public long getTrackCount(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -522,7 +525,7 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<Order> root = query.from(Order.class);
@@ -530,17 +533,17 @@ public class ReportsController implements Serializable {
         query.select(cb.count(items.get("track")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         long l = entityManager.createQuery(query).getSingleResult();
-        log.info(l+"");
+        log.info(l + "");
         return l;
     }
-    
+
     /**
-     * 
+     *
      * @param start
      * @param end
-     * @return 
+     * @return
      */
-    public long getAlbumCount(LocalDateTime start, LocalDateTime end){
+    public long getAlbumCount(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) {
             return 0;
         }
@@ -550,7 +553,7 @@ public class ReportsController implements Serializable {
             start = end;
             end = temp;
         }
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<Order> root = query.from(Order.class);
@@ -558,7 +561,7 @@ public class ReportsController implements Serializable {
         query.select(cb.count(items.get("album")));
         query.where(cb.between(root.<LocalDateTime>get("orderDate"), start, end));
         long l = entityManager.createQuery(query).getSingleResult();
-        log.info(l+"");
+        log.info(l + "");
         return l;
     }
 }

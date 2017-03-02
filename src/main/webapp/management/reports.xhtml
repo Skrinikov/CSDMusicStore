@@ -201,29 +201,9 @@
                                 </div>
                                 <!-- Top orders -->
                                 <div class="tab-pane" id="tab_default_6">
-                                    <h:form id="topOrders" styleClass="col-md-4 col-xs-12">
-                                        <!-- Inputs -->
-                                        <h:panelGrid columns="2" cellpadding="53">
-                                            <p:outputLabel for="totalSalesStart" value="Start:" />
-                                            <p:calendar id="totalSalesStart" value="#{reportsBacking.salesBegin}" />
-
-                                            <p:outputLabel for="totalSalesEnd" value="End:" />
-                                            <p:calendar id="totalSalesEnd" value="#{reportsBacking.salesEnd}" />
-                                        </h:panelGrid>
-
-                                        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales}" update="topOrdersUI" styleClass="btn btn-success"/>
-
-                                        <!-- Sales output -->
-                                        <h:panelGroup id="topOrdersUI">
-                                            <ui:repeat var="order" value="#{reportsBacking.topOrders}" >
-                                                <p>#{order.id}</p>
-                                                <p>#{order.orderDate}</p>
-                                                <p>#{order.user.username}</p>
-                                                <hr/>
-                                            </ui:repeat>
-                                        </h:panelGroup>
-
-                                    </h:form>
+                                    <ui:insert name="salesByTrack">
+                                        <ui:include src="/WEB-INF/sections/reports/topSellers.xhtml"/>
+                                    </ui:insert>
                                 </div>
                                 <!-- Top clients -->
                                 <div class="tab-pane" id="tab_default_7">
@@ -247,19 +227,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row top-buffer">
-            <div class="col-md-4 col-xs-12 small-margin-bottom">
-                <p:outputPanel deferred="true" styleClass="box-item">
-
-                </p:outputPanel>
-            </div>
-            <div class="col-md-8 col-xs-12 small-margin-bottom">
-                <p:outputPanel deferred="true" styleClass="box-item">
-
-                </p:outputPanel>
             </div>
         </div>
 

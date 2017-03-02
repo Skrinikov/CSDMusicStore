@@ -7,6 +7,7 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.beans.displaybeans.CustomOrderItem;
 import com.fractals.controllers.ReportsController;
+import com.fractals.jsf.util.MessageProvider;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -16,10 +17,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
@@ -34,11 +39,11 @@ public class ReportsBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("ReportsBacking.class");
     
-    private static long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1l;
 
     // Controller
     @Inject
-    private ReportsController reports;
+    private ReportsController reports;    
 
     // Sales
     private Date salesBegin;
@@ -72,7 +77,8 @@ public class ReportsBacking implements Serializable {
     // Order by Artist
     private List<OrderItem> ordersFromArtist;
     // Top Sellers
-    private List<Order> topOrders;
+    private List<Track> topTracks;
+    private List<Album> topAlbums;
     // Top Clients
     private List<User> topUsers;
     // Zero Tracks
@@ -93,8 +99,7 @@ public class ReportsBacking implements Serializable {
         totalCost = Math.round(reports.getTotalCost(now.minusDays(1), now.plusDays(1)) * 100) / 100.;
         totalProfits = Math.round(reports.getTotalProfit(now.minusDays(1), now.plusDays(1)) * 100) / 100.;
         totalTracks = reports.getTrackCount(now.minusDays(1), now.plusDays(1));
-        totalAlbums = reports.getAlbumCount(now.minusDays(1), now.plusDays(1));
-
+        totalAlbums = reports.getAlbumCount(now.minusDays(1), now.plusDays(1));        
     }
 
     /**
@@ -178,6 +183,8 @@ public class ReportsBacking implements Serializable {
     /**
      * Is invoked whenever the total sales action button is pressed. Calls the
      * getTotalSales method from the controller and sets it into the list
+     * @param start
+     * @param end
      */
     public void getTotalSales(Date start, Date end) {
         totalSalesOrders = reports.getTotalSales(convertDateToLDT(start), convertDateToLDT(end));
@@ -198,6 +205,11 @@ public class ReportsBacking implements Serializable {
         });
     }
     
+    public void getTopSellers(Date start, Date end){
+        topTracks = reports.getTopTrackSellers(convertDateToLDT(start), convertDateToLDT(end));
+        topAlbums = reports.getTopAlbumSellers(convertDateToLDT(start), convertDateToLDT(end)); 
+    }
+    
     /**
      * Calls the ReportsController to get a list of zero clients between the given date range.
      * 
@@ -208,6 +220,12 @@ public class ReportsBacking implements Serializable {
         zeroUsers = reports.getZeroClients(convertDateToLDT(start), convertDateToLDT(end));
     }
     
+    /**
+     * Calls the ReportsController to get a list of the tracks that have never been sold between the given date range.
+     * 
+     * @param start start of the date range period.
+     * @param end end of the date range period.
+     */
     public void getZeroTracks(Date start, Date end){
         zeroTracks = reports.getZeroTracks(convertDateToLDT(start), convertDateToLDT(end));
     }
@@ -349,14 +367,6 @@ public class ReportsBacking implements Serializable {
         this.ordersFromArtist = ordersFromArtist;
     }
 
-    public List<Order> getTopOrders() {
-        return topOrders;
-    }
-
-    public void setTopOrders(List<Order> topOrders) {
-        this.topOrders = topOrders;
-    }
-
     public List<User> getTopUsers() {
         return topUsers;
     }
@@ -444,6 +454,24 @@ public class ReportsBacking implements Serializable {
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
+
+    public List<Track> getTopTracks() {
+        return topTracks;
+    }
+
+    public void setTopTracks(List<Track> topTracks) {
+        this.topTracks = topTracks;
+    }
+
+    public List<Album> getTopAlbums() {
+        return topAlbums;
+    }
+
+    public void setTopAlbums(List<Album> topAlbums) {
+        this.topAlbums = topAlbums;
+    }
+    
+    
     
     
     /**
@@ -455,5 +483,29 @@ public class ReportsBacking implements Serializable {
     private LocalDateTime convertDateToLDT(Date t){
         Instant instant = Instant.ofEpochMilli(t.getTime());
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }
+    
+    private List<CustomOrderItem> mergeSortTrackAndAlbum(List<Track> tracks, List<Album> a){
+        List<CustomOrderItem> items = new ArrayList<>();
+        CustomOrderItem temp;
+        MessageProvider msg = new MessageProvider();
+        for(Track track : tracks){
+            temp = new CustomOrderItem();
+
+                temp.setTitle(track.getTitle());
+                temp.setId(track.getId());
+                temp.setCost(track.getCostPrice());
+                temp.setRemoved(track.getRemovedAt());
+                temp.setType(msg.getValue("reports_track"));
+
+                if (track.getSalePrice() <= 0) {
+                    temp.setPrice(track.getListPrice());
+                } else {
+                    temp.setPrice(track.getSalePrice());
+                }
+                items.add(temp);
+        }
+        
+        return null;
     }
 }
