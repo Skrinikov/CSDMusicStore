@@ -1,0 +1,62 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListUserReviewsTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:outputText escape="false" value="#{bundle.ListUserReviewsEmpty}" rendered="#{theReviews.getReviewsByUser().size() == 0}"/>
+        <h:panelGroup rendered="#{theReviews.getReviewsByUser().size() != 0}">    
+            <h:form>
+
+                <p:dataTable id="tbl" value="#{theReviews.getReviewsByUser()}" var="item" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theReviews.selectedReview}" 
+                             rowKey="#{item.id}"
+                             draggableColumns="true" resizableColumns="true" >
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                   
+                    <p:column headerText="Rating">
+                        <h:outputText value="#{item.rating}"/>
+                    </p:column>
+                    
+                    <p:column headerText="ReviewDate">
+                        <h:outputText value="#{item.reviewDate}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Text">
+                        <h:outputText value="#{item.text}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Approved">
+                        <h:outputText value="#{item.approved}"/>
+                    </p:column>
+                    
+                    <p:column headerText="User">
+                        <h:outputText value="#{item.user.username}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Track">
+                        <h:outputText value="#{item.track}"/>
+                    </p:column>   
+                    
+                      <f:facet name="footer">
+                        <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/review/reviewsView.xhtml" ajax="false"/>
+                    </f:facet>  
+               
+                </p:dataTable>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

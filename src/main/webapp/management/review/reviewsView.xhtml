@@ -1,0 +1,43 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ViewReviewTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:outputText value="nothing selected" rendered="#{empty theReviews.selectedReview}"/>
+
+        <p:panelGrid columns="2" rendered="#{not empty theReviews.selectedReview}" >
+            <h:outputText value="Id:"/>
+            <h:outputText value="#{theReviews.selectedReview.id}" title="Id"/>
+            <h:outputText value="Rating:"/>
+            <h:outputText value="#{theReviews.selectedReview.rating}" title="Rating"/>
+            <h:outputText value="ReviewDate:"/>
+            <h:outputText value="#{theReviews.selectedReview.reviewDate}" title="ReviewDate"/>
+            <h:outputText value="Text:"/>
+            <h:outputText value="#{theReviews.selectedReview.text}" title="Text"/>
+            <h:outputText value="Approved:"/>
+            <h:outputText value="#{theReviews.selectedReview.approved}" title="Approved"/>
+            <h:outputText value="User:"/>
+            <h:outputText value="#{theReviews.selectedReview.user}" title="User"/>
+            <h:outputText value="Track:"/>
+            <h:outputText value="#{theReviews.selectedReview.track}" title="Track"/>
+        </p:panelGrid>
+        
+        <h:form>
+            <h:commandButton value="Retour à la liste" action="#{theReviews.returnToPage()}"/>
+            <h:commandButton value="Approve" action="#{theReviews.approveReview()}" rendered="#{!theReviews.selectedReview.approved}"/>
+            <h:commandButton value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.approved}"/>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
+
+

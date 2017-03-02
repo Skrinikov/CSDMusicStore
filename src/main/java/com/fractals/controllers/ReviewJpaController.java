@@ -15,7 +15,6 @@ import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
@@ -33,6 +32,8 @@ public class ReviewJpaController implements Serializable {
 
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager em;
+    
+    public EntityManager getEntityManager(){ return em;}
 
     public void create(Review review) throws RollbackFailureException, Exception {
         

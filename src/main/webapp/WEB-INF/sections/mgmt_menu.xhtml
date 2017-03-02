@@ -19,35 +19,50 @@
             <li>
                 <h:link value="News Feed" outcome="/newsFeed/List.xhtml"/>
             </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventory<span class="caret"></span></a>         
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Inventory</li>
+                    <li><h:link value="Albums" outcome="/management/album/albumsList.xhtml"/></li>
+                    <li><h:link value="Artists" outcome="/management/artist/artistsList.xhtml"/></li>
+                    <li><h:link value="Genres" outcome="/management/genre/genresList.xhtml"/></li>
+                    <li><h:link value="Tracks" outcome="/management/track/tracksList.xhtml"/></li>
+                </ul>
+            </li>
+
             <li>
-                <h:link value="Albums" outcome="/management/album/albumsList.xhtml"/>
-            </li>
-            <li>  
-                <h:link value="Artists" outcome="/management/artist/artistsList.xhtml"/>
-            </li>
-            <li>        
-                <h:link value="Genres" outcome="/management/genre/genresList.xhtml"/>
-            </li>
-            <li>        
-                <h:link value="Tracks" outcome="/management/track/tracksList.xhtml"/>
-            </li>
+                <h:link value="Users" outcome="/management/user/usersList.xhtml"/>
+            </li>      
+            <li>
+                <h:link value="Orders" outcome="/management/order/ordersList.xhtml"/>
+            </li> 
+            
             <li>
                 <h:link value="Survey" outcome="/survey/List.xhtml"/>
             </li>
+
+            <li>
+                <h:link value="Banner Ads" outcome="/management/ad/adsList.xhtml"/>
+            </li>
+
+
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<span class="caret"></span></a>         
                 <ul class="dropdown-menu" role="menu">
                     <li class="dropdown-header">Reviews</li>
-                    <li><a href="#">Track Reviews</a></li>
-                    <li><a href="#">Approved reviews</a></li>
-                    <li><a href="#">Pending reviews</a></li>
-                    <li><a href="#">Deleted reviews</a></li>
-                    <li><a href="#">Reviews per user.</a></li>
+                    <li><h:link value="All Reviews" outcome="/management/review/allReviewsList.xhtml"/></li>
+                    <li><h:link value="Track Reviews" outcome="/management/review/chooseTrack.xhtml"/></li>
+                    <li><h:link value="Approved Reviews" outcome="/management/review/approvedReviewsList.xhtml"/></li>
+                    <li><h:link value="Pending Reviews" outcome="/management/review/pendingReviewsList.xhtml"/></li>
+                    <li><h:link value="Reviews per User" outcome="/management/review/chooseUser.xhtml"/></li>
                 </ul>
             </li>
+
             <li>
                 <h:link outcome="/index.xhtml" value="Client Site" />
             </li>
+
         </ul>
     </nav>
     <!-- /sidebar-wrapper -->

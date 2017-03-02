@@ -48,7 +48,7 @@ public class TrackBackingBean implements Serializable {
     
     private Track selectedTrack;
     public Track getSelectedTrack(){return selectedTrack;}
-    public void setSelectedTrack(Track t){selectedTrack = t;}
+    public void setSelectedTrack(Track t){selectedTrack = t; makeUneditable();}
  
     private boolean editable = false;
     public boolean getEditable() {return editable;}
@@ -59,6 +59,7 @@ public class TrackBackingBean implements Serializable {
        
     public String edit()throws Exception {
         trackJpaController.edit(selectedTrack);
+        
         return "/management/track/tracksList.xhtml";
     }
 
@@ -84,30 +85,7 @@ public class TrackBackingBean implements Serializable {
         createdTrack.setGenre(genre.findGenreEntities().get(0));
         //A CHANGER
         
-        createdTrack.setCreatedAt(LocalDateTime.now());
-        
-        
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCoverFile() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getDuration() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getSongwriter() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getTitle() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAlbum()== null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAlbumNum() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getArtists() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getAvailable() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCostPrice() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getCreatedAt() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getGenre() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getIsIndividual() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getListPrice() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getOrderItems() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getRemovedAt() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getSalePrice() == null);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + createdTrack.getReviews() == null);
-    
-        
-        
-        
+        createdTrack.setCreatedAt(LocalDateTime.now());   
         trackJpaController.create(createdTrack);
         selectedTrack = createdTrack;
         createdTrack = null;

@@ -1,0 +1,116 @@
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <p:dataTable id="tbl" value="#{theUsers.users}" var="item" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginator="true" rows="10" style="margin-bottom:20px"
+                         selectionMode="single" selection="#{theUsers.selectedUser}" 
+                         rowKey="#{item.id}"
+                         draggableColumns="true" resizableColumns="true" >
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListUserTitle}"/>
+                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:columnToggler datasource="tbl" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                
+                <p:column headerText="Username">
+                    <h:outputText value="#{item.username}"/>
+                </p:column>
+                
+                <p:column headerText="Salt">
+                    <h:outputText value="#{item.salt}"/>
+                </p:column>
+                
+                <p:column headerText="Title">
+                    <h:outputText value="#{item.title}"/>
+                </p:column>
+                
+                <p:column headerText="FirstName">
+                    <h:outputText value="#{item.firstName}"/>
+                </p:column>
+                
+                <p:column headerText="LastName">
+                    <h:outputText value="#{item.lastName}"/>
+                </p:column>
+                
+                <p:column headerText="Company">
+                    <h:outputText value="#{item.company}"/>
+                </p:column>
+                
+                <p:column headerText="Address1">
+                    <h:outputText value="#{item.address1}"/>
+                </p:column>
+                
+                <p:column headerText="Address2">
+                    <h:outputText value="#{item.address2}"/>
+                </p:column>
+               
+                <p:column headerText="City">
+                    <h:outputText value="#{item.city}"/>
+                </p:column>
+               
+                <p:column headerText="Country">
+                    <h:outputText value="#{item.country}"/>
+                </p:column>
+                
+                <p:column headerText="PostalCode">
+                    <h:outputText value="#{item.postalCode}"/>
+                </p:column>
+               
+                <p:column headerText="HomeTel">
+                    <h:outputText value="#{item.homeTel}"/>
+                </p:column>
+                
+                <p:column headerText="CellTel">
+                    <h:outputText value="#{item.cellTel}"/>
+                </p:column>
+                
+                <p:column headerText="Email">
+                    <h:outputText value="#{item.email}"/>
+                </p:column>
+                
+                <p:column headerText="isAdmin">
+                    <h:outputText value="#{item.isAdmin}"/>
+                </p:column>
+                
+                <p:column headerText="Province">
+                    <h:outputText value="#{item.province}"/>
+                </p:column>
+                
+                <p:column headerText="Password">
+                    <h:outputText value="#{item.password}"/>
+                </p:column>
+                
+                <p:column headerText="LastGenre">
+                    <h:outputText value="#{item.lastGenre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+        </h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>

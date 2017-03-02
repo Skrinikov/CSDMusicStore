@@ -43,7 +43,7 @@ public class GenreBackingBean implements Serializable {
     
     private Genre selectedGenre;
     public Genre getSelectedGenre(){ return selectedGenre;}
-    public void setSelectedGenre(Genre g){selectedGenre = g;}
+    public void setSelectedGenre(Genre g){selectedGenre = g; makeUneditable();}
     
     private boolean editable = false;
     public boolean getEditable() {return editable;}
