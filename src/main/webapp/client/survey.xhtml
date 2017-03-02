@@ -33,12 +33,16 @@
                     <div class="modal-body">
                         <div class="quiz" id="quiz" data-toggle="buttons">
                             
-                            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">   
-                                
-                                <h:commandButton styleClass="element-animation1 btn btn-lg btn-primary btn-block"
-                                          value="#{item.choice}" action="#{surveyCBacking.selectedOption(item)}"/>
+                            
+                            <h:form>  
+                                <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">   
 
-                            </ui:repeat>
+                                    <h:commandButton styleClass="element-animation1 btn btn-lg btn-primary btn-block"
+                                              value="#{item.choice}" action="#{surveyCBacking.selectedOption(item)}"/>
+
+                                </ui:repeat>
+                            </h:form>    
+                                
                             
                         </div>
                     </div>
