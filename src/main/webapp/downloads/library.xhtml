@@ -38,13 +38,17 @@
                 <ui:repeat value="#{DLController.getTracks()}" var="item">    
   
                 <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="thumbnail">
+                  <div class="thumbnail">
  
                         <p:graphicImage name="images/covers/#{item.coverFile}" style="max-height: 155px"/>
                         
                         <div class="caption">
                             <h4 class="centerText">#{item.title}</h4>
                             <p class="centerText">#{DLController.getArtistsName(item.artists)} </p>
+                            <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{DLController.downloadSong()}" />
+                            </p:commandButton>
+ 
                         </div>
                     </div>
                 </div>              
@@ -84,6 +88,18 @@
                  
             </div><!--/row-->
         </div><!--/container -->
+        
+        
+        <script type="text/javascript">
+            function start() {
+                PF('statusDialog').show();
+            }
+
+            function stop() {
+                PF('statusDialog').hide();
+            }
+        </script>
+        
             
     </ui:define>
 </ui:composition>

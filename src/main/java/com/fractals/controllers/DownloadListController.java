@@ -7,6 +7,10 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import javax.transaction.UserTransaction;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -28,6 +33,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.servlet.ServletContext;
 
+import java.io.OutputStream; 
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 /**
  *
  * This controller will be used to retrieve all tracks and albums the users 
@@ -116,8 +127,11 @@ public class DownloadListController implements Serializable
         
         return artistPreview;            
     }
-    
-    
-    
-    
+  
+    public StreamedContent downloadSong() { 
+
+        InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/mp3/sample.mp3");
+        StreamedContent file = new DefaultStreamedContent(stream, "audio/mpeg", "sample.mp3");
+        return file; 
+    }
 }
