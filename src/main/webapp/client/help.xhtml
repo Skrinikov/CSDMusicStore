@@ -1,0 +1,136 @@
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="windowTitle">
+        #{bundle.faq_more}
+    </ui:define>
+    <ui:define name="content">
+        <div class="jumbotron help-jumbotron text-center">
+            <div class="container">
+                <h1>#{bundle.faq}</h1>
+                <p>#{bundle.faq_subheader}</p>
+            </div>
+        </div>
+        <div class="container">
+            <p:outputPanel deferred="true" styleClass="panel-group" id="accordion">
+                
+                <!-- General -->
+                <div class="faqHeader" style="border-bottom:solid 4px #ec1b5a; display:inline-block">#{bundle.faq_general}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">#{bundle.faq_general_q1}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_general_a1}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">#{bundle.faq_general_q2}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTen" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_general_a2}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">#{bundle.faq_general_q3}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseEleven" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_general_a3} <strong>#{bundle.faq_general_currency}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login -->
+                <div class="faqHeader" style="border-bottom:solid 4px #79aefe; display:inline-block">#{bundle.faq_login}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">#{bundle.faq_login_q1}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_login_a1} <strong>#{bundle.faq_login_a1_more}</strong>.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">#{bundle.faq_login_q2}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_login_a2}
+                            <ul>
+                                <li>#{bundle.faq_login_a2_o1}</li>
+                                <li>#{bundle.faq_login_a2_o2}</li>
+                                <li>#{bundle.faq_login_a2_o3} <p:link outcome="/client/register.xhtml" value="#{bundle.faq_login_a2_o3_here}"/></li>
+                                <li>#{bundle.faq_login_a2_o4}</li>                     
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">#{bundle.faq_login_q3}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            #{bundle.faq_login_a3}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Register -->
+                <div class="faqHeader" style="border-bottom:solid 4px #279636; display:inline-block">Register</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">I want to buy a theme - what are the steps?</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Buying a theme on <strong>PrepBootstrap</strong> is really simple. Each theme has a live preview. 
+                            Once you have selected a theme or template, which is to your liking, you can quickly and securely pay via Paypal.
+                            <br />
+                            Once the transaction is complete, you gain full access to the purchased product. 
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Is this the latest version of an item</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSeven" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Each item in <strong>PrepBootstrap</strong> is maintained to its latest version. This ensures its smooth operation.
+                        </div>
+                    </div>
+                </div>
+            </p:outputPanel>
+        </div>
+    </ui:define>
+</ui:composition>
