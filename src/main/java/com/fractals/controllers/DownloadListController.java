@@ -7,6 +7,10 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import javax.transaction.UserTransaction;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -28,6 +33,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.servlet.ServletContext;
 
+import java.io.OutputStream; 
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * This controller will be used to retrieve all tracks and albums the users 
@@ -117,7 +126,59 @@ public class DownloadListController implements Serializable
         return artistPreview;            
     }
     
-    
-    
-    
+    /**
+     * http://stackoverflow.com/questions/9391838/how-to-provide-a-file-download-from-a-jsf-backing-bean
+     */
+    public void downloadSong()
+    {
+        //ensure that this method is not invoke with an ajax request 
+        
+        OutputStream output = null;
+        byte[] file = getFile();
+        if(file != null)
+        {
+            try {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ExternalContext ec = fc.getExternalContext();
+
+                ec.responseReset(); 
+                ec.setResponseContentType("application/octet-stream"); 
+                ec.setResponseContentLength(file.length); 
+                ec.setResponseHeader("Content-Disposition", "attachment; filename=\"song.mp3" + file.length + "\""); 
+                output = ec.getResponseOutputStream();
+                
+                output.write(file);
+                output.flush();
+
+                fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
+            } catch (IOException ex) {
+                Logger.getLogger(DownloadListController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("In bad");
+            } finally {
+                try {
+                    output.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(DownloadListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+   
+    private byte[] getFile()
+    {
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        String path = ec.getRealPath("/resources/images/covers/music-note.png");
+
+        byte[] file = null; 
+        try {
+            file = Files.readAllBytes(new File(path).toPath());
+        } catch (IOException ex) {
+            Logger.getLogger(DownloadListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return file;      
+    }
+
 }

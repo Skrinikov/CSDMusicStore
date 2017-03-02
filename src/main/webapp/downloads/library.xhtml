@@ -45,6 +45,9 @@
                         <div class="caption">
                             <h4 class="centerText">#{item.title}</h4>
                             <p class="centerText">#{DLController.getArtistsName(item.artists)} </p>
+                            <p:commandButton icon="ui-icon-arrowstop-1-s" title="Download Song" action="#{DLController.downloadSong()}">               
+                        </p:commandButton>
+ 
                         </div>
                     </div>
                 </div>              
