@@ -101,7 +101,7 @@ public class TrackClientBacking implements Serializable {
         boolean created = this.reviewsControl.addReview(review);
         //review2Control.create(review);
         
-        return "client/Track.xhtml?id=" + trackId.intValue();
+        return "Track.xhtml?faces-redirect=true&id=" + trackId.intValue();
         
     }
     
