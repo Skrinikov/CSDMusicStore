@@ -1,68 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    
+    
+    
+    <!--
+        This file is used to display the rssFeed information 
+    
+        @author Renuchan 
+    -->
+    
+    
+    <ui:define name="windowTitle">#{bundle.invoice}</ui:define>
+
+    <ui:define name="content">
         
+        
+    <div class="container" style="margin-top: 30px;">
+ 
         <f:view>
             <h:form>
-                <h:dataTable value="#{rssController.getVisibleFeed()}" var="item">
+                <ui:repeat value="#{rssController.getVisibleFeed()}" var="item">
                     
-                    <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="link"/>
-                            </f:facet>
-                        <h:outputText value="#{item.link}"/>
-                    </h:column>
-                    
-                    <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="title"/>
-                            </f:facet>
-                        <h:outputText value="#{item.title}"/>
-                    </h:column>
-                    
-                    <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Author"/>
-                            </f:facet>
-                        <h:outputText value="#{item.author}"/>
-                    </h:column>
-                    
-                    <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Des"/>
-                            </f:facet>
-                        <h:outputText value="#{item.description}" escape="false"/>
-                    </h:column>
-                    
-                    <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Gid"/>
-                            </f:facet>
-                        <h:outputText value="#{item.guid}"/>
-                    </h:column>
-                    
-                    
-                    
-                </h:dataTable>
-            </h:form>
-            
-            
-            
-        </f:view>
+                    <div class="row form-group">
+                    <div class="col-xs-12 col-md-offset-2 col-lg-offset-2 col-md-8 col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span>#{item.title}</span>
+                            </div>
+                            <div class="panel-image">
+                                
+                                <img class="panel-image-preview" src='#{rssController.getImgLink(item)}' width='100%' height='259' /> 
+                                <p>#{rssController.getDescription(item)}</p>                                 
+                            </div>                          
+                            <div class="panel-footer clearfix">
+                                <a href="#{item.link}" class="btn btn-primary btn-sm btn-hover pull-left">Visit <span class="fa fa-bookmark"></span></a>        
+                            </div>
+                        </div>
 
-        
-    </body>
-</html>
+                    </div> 
+                </div> 
+                    
+                </ui:repeat>
+            </h:form>      
+        </f:view>
+        </div>
+
+      </ui:define>
+</ui:composition>
