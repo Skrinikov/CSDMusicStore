@@ -116,11 +116,18 @@ body.navbar-more-show  {
     color:pink;
 }
 
-.nav-sign-out,  .nav-sign-out:hover, .nav-sign-out:focus{
+.nav-sign-out {
     text-decoration: none;
     color: #9D9D9D;
-    margin-left: 10px;
-    margin-right: 10px;
+}
+
+.nav-sign-out:hover, .nav-sign-out:focus{
+    text-decoration: none;
+    color: white;
+}
+
+.logout-form {
+    margin-top: 15px;
 }
 
 /* not the greatest solution, but at least it's not in the middle of a page*/
