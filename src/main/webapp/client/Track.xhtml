@@ -85,7 +85,9 @@
 
                                     <p:inputText value="#{trackCLBack.review.rating}"/>
 
-                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary"/>
+                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary">
+                                        <f:param name="id" value="#{trackCLBack.trackId}"/>
+                                    </h:commandButton>
                                     </p:outputLabel>
                                 </h:form>
                             </div>
