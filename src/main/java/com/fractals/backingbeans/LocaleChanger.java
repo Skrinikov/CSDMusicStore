@@ -1,10 +1,13 @@
 package com.fractals.backingbeans;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -21,6 +24,10 @@ import javax.faces.context.FacesContext;
 @Named
 @RequestScoped
 public class LocaleChanger {
+    
+    private static final Logger log = Logger.getLogger("ReportsBacking.class");
+    
+    private static final long serialVersionUID = 1l;
 
     /**
      * Changes the locale of the current session. Thus provoking a language change.
