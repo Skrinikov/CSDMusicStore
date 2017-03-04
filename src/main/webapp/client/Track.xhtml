@@ -85,15 +85,18 @@
 
                                     <p:inputText value="#{trackCLBack.review.rating}"/>
 
-                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary"/>
+                                    <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary">
+                                        <!--<f:param name="id" value="#{trackCLBack.trackId}"/>-->
+                                    </h:commandButton>
                                     </p:outputLabel>
                                 </h:form>
                             </div>
 
 
 
-                            <div>
-                                <!-- Review Section  -->
+                            
+                            <!--<div>
+                                
                                 <ui:repeat value="#{trackCLBack.reviews}" var="review">
 
                                     <p:outputPanel>
@@ -104,7 +107,7 @@
 
 
                                 </ui:repeat>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>

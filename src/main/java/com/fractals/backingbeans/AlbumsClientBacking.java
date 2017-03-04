@@ -2,8 +2,11 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
+import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.LoginController;
+import com.fractals.controllers.ReviewsWebController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +27,19 @@ public class AlbumsClientBacking {
     private List<Album> similarAlbums;
     private boolean isLoaded = false;
     
+    private Review createdReview;
+    
     @Inject
     AlbumJpaController albumControl;
     
     @Inject
     ShoppingCart shopControl;
+    
+    @Inject 
+    ReviewsWebController reviewControl;
+    
+    @Inject
+    private LoginController loginControl;
     
     //Initializes the Album entity
     public void init(){
@@ -52,6 +63,12 @@ public class AlbumsClientBacking {
         return this.albumId;
     }
     
+    public Review getReview(){
+        if (createdReview == null)
+            createdReview = new Review();
+        return createdReview;
+    }
+    
     public void setAlbumId(Integer albumId){
         this.albumId = albumId;
     }
@@ -71,6 +88,7 @@ public class AlbumsClientBacking {
     public void setIsLoaded(boolean isLoaded) {
         this.isLoaded = isLoaded;
     }
+    
        
     
     /**
@@ -93,6 +111,22 @@ public class AlbumsClientBacking {
     
     public String getAlbumCover(Album album){
         return album.getTracks().get(0).getCoverFile();
+    }
+    
+    public String addReview(){
+        Review review = getReview();
+        
+        if(loginControl.isLoggedIn())
+            review.setUser(loginControl.getCurrentUser());
+        else
+            return "/index.xhtml";
+        review.setApproved(false);
+        review.setReviewDate(LocalDateTime.now());
+        
+        reviewControl.addReview(review);
+        
+        return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();
+        
     }
 
 }
