@@ -8,38 +8,34 @@
     <div class="navbar-more-overlay"></div>
     <nav class="navbar navbar-inverse navbar-fixed-top animate">
         <div class="container navbar-more visible-xs">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..."/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-danger" type="submit">Submit</button>
-                        </span>
-                    </div>
-                </div>
-            </form>
+            <!-- Mobile version list -->
             <ul class="nav navbar-nav" style="color: #fff">
-                <li><a href="#"><span class="menu-icon fa fa-shopping-cart"></span>Shopping Cart</a></li>z
-                <li><a href="#"><span class="menu-icon fa fa-sign-out"></span>Disconnect</a></li>                  
-            </ul>
-        </div>
-        <div class="container">
-            <div class="navbar-header hidden-xs">
-                <h:link outcome="/index.xhtml" class="navbar-brand">Fractals</h:link>
-            </div>
-
-            <ul class="nav navbar-nav navbar-right mobile-bar">
-               <!-- we don't use that <li>
-                    <a href="#">
-                        <span class="menu-icon fa fa-user"></span>
-                        Profile
-                    </a>
-                </li>-->
+                <ui:fragment rendered="#{!login.loggedIn}">
+                <li>
+                    <h:link outcome="/client/register.xhtml" >
+                        <span class="menu-icon fa fa-user-plus"></span>
+                        #{bundle.register}
+                    </h:link>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
+                <li>
+                     <h:link outcome="/management/reports.xhtml">
+                         <span class="menu-icon fa fa-lock"></span>
+                         Management Site
+                     </h:link>
+                 </li>
+                </ui:fragment>
+                <li>
+                    <h:link outcome="/client/shopping_cart.xhtml" >
+                        <span class="menu-icon fa fa-shopping-cart"></span>
+                        #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
+                    </h:link>
+                </li>
                 <li>
                     <h:link outcome="/client/search.xhtml">
                         <span class="menu-icon fa fa-music"></span>
-                        <span class="hidden-xs">Browse</span>
-                        <span class="visible-xs">Browse</span>
+                        #{bundle.search}
                     </h:link>
                 </li>
                 <li>
@@ -47,20 +43,60 @@
                         <span class="menu-icon fa fa-download"></span>
                         Downloads
                     </h:link>
+                </li>  
+                <li>
+                    <h:link outcome="/client/help.xhtml">
+                        <span class="menu-icon fa fa-question-circle"></span>
+                        #{bundle.faq}
+                    </h:link>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="container">
+            <div class="navbar-header hidden-xs">
+                <h:link outcome="/index.xhtml" class="navbar-brand">Fractals</h:link>
+            </div>       
+
+            <ul class="nav navbar-nav navbar-right mobile-bar">
+                
+                <li class="visible-xs">
+                    <h:link outcome="/index.xhtml">
+                        <span class="menu-icon fa fa-mobile"></span>
+                        Fractals
+                    </h:link>                   
+                </li>
+
+               <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
+                <li class="hidden-xs">
+                     <h:link outcome="/management/reports.xhtml">
+                         <span class="menu-icon fa fa-lock"></span>
+                         Management Site
+                     </h:link>
+                 </li>
+                </ui:fragment>
+               
+                <li class="hidden-xs">
+                    <h:link outcome="/client/search.xhtml">
+                        <span class="menu-icon fa fa-music"></span>
+                        #{bundle.search}
+                    </h:link>
+                </li>
+               
+                <li class="hidden-xs">
+                    <h:link outcome="/downloads/library.xhtml">
+                        <span class="menu-icon fa fa-download"></span>
+                        Downloads
+                    </h:link>
+                </li>
+               
+               <li class="hidden-xs">
+                    <h:link outcome="/client/help.xhtml">
+                        <span class="menu-icon fa fa-question-circle"></span>
+                        #{bundle.faq}
+                    </h:link>
                 </li>
                 
-                <!-- use browse for that <li class="hidden-xs">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for..."/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="submit">Submit</button>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </li>-->
                 <li class="hidden-xs">
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
@@ -69,18 +105,18 @@
                 </li>
                 
                 <ui:fragment rendered="#{login.loggedIn}">
-                <li class="hidden-xs">
-                    <h:form>
-                        <h:commandLink value="#{bundle.sign_out}" class="nav-sign-out navbar-inverse" >
-                            <f:ajax listener="#{login.logout()}" render="@all" />
+                <li>                   
+                    <h:form class="menu-form">
+                        <h:commandLink styleClass="nav-menu-form" value="#{bundle.sign_out}" >
+                            <f:ajax listener="#{login.logout()}" render="@all"/>
                             <span class="menu-icon fa fa-sign-out"></span>
                         </h:commandLink>
-                    </h:form>
+                    </h:form>                      
                 </li>
                 </ui:fragment>
                 
                 <ui:fragment rendered="#{!login.loggedIn}">
-                <li class="hidden-xs">
+                <li>
                     <h:link outcome="/client/login.xhtml" >
                         <span class="menu-icon fa fa-sign-in"></span>
                         #{bundle.login}
@@ -88,13 +124,23 @@
                 </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{!login.loggedIn}">
-                <li class="hidden-xs">
+                <li  class="hidden-xs">
                     <h:link outcome="/client/register.xhtml" >
                         <span class="menu-icon fa fa-user-plus"></span>
                         #{bundle.register}
                     </h:link>
                 </li>
                 </ui:fragment>
+                <li>
+                    <h:form class="menu-form">
+                        <h:commandLink immediate="true" actionListener="#{localeChanger.changeLocale}" 
+                                       value="#{bundle.code}" styleClass="nav-menu-form">    
+                            
+                            <f:param name="languageCode" value="#{bundle.countryCode}" /> 
+                            <span class="menu-icon fa fa-globe"></span>
+                        </h:commandLink>
+                    </h:form>
+                </li>
                 
                 <li class="visible-xs">
                     <a href="#navbar-more-show">

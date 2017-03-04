@@ -29,12 +29,6 @@ public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();
     private List<Track> tracks = new ArrayList<>();
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
-    
-    //for test
-    @Inject
-    AlbumJpaController ajc;
-    @Inject
-    private TrackJpaController tjc;
 
     /**
      * Returns the list of all tracks in the shopping cart.
@@ -58,16 +52,6 @@ public class ShoppingCart implements Serializable{
      */
     public int totalItems() {
         return albums.size() + tracks.size();
-    }
-    
-    //only for tests
-    @PostConstruct
-    public void init() {
-        empty();
-        albums.add(ajc.findAlbum(1));
-        albums.add(ajc.findAlbum(2));
-        tracks.add(tjc.findTrack(1));
-        tracks.add(tjc.findTrack(13));
     }
     
     /**

@@ -116,10 +116,18 @@ body.navbar-more-show  {
     color:pink;
 }
 
-.nav-sign-out,  .nav-sign-out:hover, .nav-sign-out:focus{
+.nav-menu-form {
     text-decoration: none;
     color: #9D9D9D;
-    margin-left: 10px;
+}
+
+.nav-sign-out:hover, .nav-sign-out:focus{
+    text-decoration: none;
+    color: white;
+}
+
+.menu-form {
+    margin-top: 15px;
     margin-right: 10px;
 }
 
