@@ -1,6 +1,7 @@
 package com.fractals.beans;
 
 import com.fractals.beanvalidators.PastLocalDateTime;
+import com.fractals.beanvalidators.PositiveDouble;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -96,16 +97,19 @@ public class Track implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "cost_price")
     private double costPrice;
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "list_price")
     private double listPrice;
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "sale_price")
     private double salePrice;
     

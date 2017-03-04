@@ -9,7 +9,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.*;
 
 /**
- * Custom annotation for beans using LocalDate. Verifies that the date is in the past.
+ * Custom annotation for double bean validation. Verifies that the value is positive.
  *
  * @author Aline Shulzhenko
  * @version 04/03/2017
@@ -18,9 +18,9 @@ import static java.lang.annotation.RetentionPolicy.*;
 @Target({METHOD, FIELD})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = {PastLocalDateValidator.class})
-public @interface PastLocalDate {
-    String message() default "{com.fractals.PastLocalDate.message}";
+@Constraint(validatedBy = PositiveDoubleValidator.class)
+public @interface PositiveDouble {
+    String message() default "{com.fractals.PositiveDouble.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

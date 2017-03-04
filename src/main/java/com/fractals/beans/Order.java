@@ -1,6 +1,7 @@
 package com.fractals.beans;
 
 import com.fractals.beanvalidators.PastLocalDateTime;
+import com.fractals.beanvalidators.PositiveDouble;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,11 +62,13 @@ public class Order implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "net_cost")
     private double netCost;
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "gross_cost")
     private double grossCost;
     

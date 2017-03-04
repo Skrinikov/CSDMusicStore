@@ -11,9 +11,9 @@ import javax.validation.ConstraintValidatorContext;
  * @version 04/03/2017
  * @since 1.8
  */
-public class PastLocalDateTimeValidator implements ConstraintValidator<PastLocalDate, LocalDateTime> {
+public class PastLocalDateTimeValidator implements ConstraintValidator<PastLocalDateTime, LocalDateTime> {
     @Override
-    public void initialize(PastLocalDate constraintAnnotation) {}
+    public void initialize(PastLocalDateTime constraintAnnotation) {}
     
     @Override
     public boolean isValid(LocalDateTime value, ConstraintValidatorContext context) {

@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+import com.fractals.beanvalidators.PositiveDouble;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -42,6 +43,7 @@ public class OrderItem implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @PositiveDouble
     @Column(name = "cost")
     private double cost;   
     

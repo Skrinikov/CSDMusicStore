@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+import com.fractals.beanvalidators.TaxCheck;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -53,16 +54,19 @@ public class Province implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @TaxCheck
     @Column(name = "pst")
     private double pst;
     
     @Basic(optional = false)
     @NotNull
+    @TaxCheck
     @Column(name = "gst")
     private double gst;
     
     @Basic(optional = false)
     @NotNull
+    @TaxCheck
     @Column(name = "hst")
     private double hst;
     
