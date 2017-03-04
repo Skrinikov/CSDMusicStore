@@ -64,8 +64,6 @@ public class TrackClientBacking implements Serializable {
     @Inject
     private SimilarTracksController similarControl;
     
-    @Inject
-    private ReviewJpaController review2Control;
 
     @Inject
     private ShoppingCart cart;
