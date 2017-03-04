@@ -116,7 +116,7 @@ body.navbar-more-show  {
     color:pink;
 }
 
-.nav-sign-out {
+.nav-menu-form {
     text-decoration: none;
     color: #9D9D9D;
 }
@@ -126,8 +126,9 @@ body.navbar-more-show  {
     color: white;
 }
 
-.logout-form {
+.menu-form {
     margin-top: 15px;
+    margin-right: 10px;
 }
 
 /* not the greatest solution, but at least it's not in the middle of a page*/

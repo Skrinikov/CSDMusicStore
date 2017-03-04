@@ -66,12 +66,7 @@
                         Fractals
                     </h:link>                   
                 </li>
-               <!-- we don't use that <li>
-                    <a href="#">
-                        <span class="menu-icon fa fa-user"></span>
-                        Profile
-                    </a>
-                </li>-->
+
                <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
                 <li class="hidden-xs">
                      <h:link outcome="/management/reports.xhtml">
@@ -102,18 +97,6 @@
                     </h:link>
                 </li>
                 
-                <!-- use browse for that <li class="hidden-xs">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for..."/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="submit">Submit</button>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </li>-->
                 <li class="hidden-xs">
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
@@ -123,8 +106,8 @@
                 
                 <ui:fragment rendered="#{login.loggedIn}">
                 <li>                   
-                    <h:form class="logout-form">
-                        <h:commandLink styleClass="nav-sign-out" value="#{bundle.sign_out}" >
+                    <h:form class="menu-form">
+                        <h:commandLink styleClass="nav-menu-form" value="#{bundle.sign_out}" >
                             <f:ajax listener="#{login.logout()}" render="@all"/>
                             <span class="menu-icon fa fa-sign-out"></span>
                         </h:commandLink>
@@ -148,6 +131,16 @@
                     </h:link>
                 </li>
                 </ui:fragment>
+                <li>
+                    <h:form class="menu-form">
+                        <h:commandLink immediate="true" actionListener="#{localeChanger.changeLocale}" 
+                                       value="#{bundle.code}" styleClass="nav-menu-form">    
+                            
+                            <f:param name="languageCode" value="#{bundle.countryCode}" /> 
+                            <span class="menu-icon fa fa-globe"></span>
+                        </h:commandLink>
+                    </h:form>
+                </li>
                 
                 <li class="visible-xs">
                     <a href="#navbar-more-show">
