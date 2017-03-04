@@ -9,8 +9,12 @@ import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewsWebController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,7 +30,7 @@ public class AlbumsClientBacking {
     private Integer albumId;
     private List<Album> similarAlbums;
     private boolean isLoaded = false;
-    
+    private Track selectedTrack;
     private Review createdReview;
     
     @Inject
@@ -69,6 +73,12 @@ public class AlbumsClientBacking {
         return createdReview;
     }
     
+    public Track getSelectedTrack(){
+        if (selectedTrack == null)
+            selectedTrack = new Track();
+        return selectedTrack;
+    }
+    
     public void setAlbumId(Integer albumId){
         this.albumId = albumId;
     }
@@ -89,6 +99,9 @@ public class AlbumsClientBacking {
         this.isLoaded = isLoaded;
     }
     
+    public void setSelectedTrack(Track selectedTrack){
+        this.selectedTrack = selectedTrack;
+    }
        
     
     /**
@@ -127,6 +140,42 @@ public class AlbumsClientBacking {
         
         return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();
         
+    }
+    
+    public void showReviewDialog(){
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        options.put("draggable", false);
+        options.put("resizable", false);
+        options.put("includeViewParams", true);
+        
+        //TODO
+        
+        //TESTING if the dialog pops out
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Hello - ", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    private boolean canBuyAlbum(){
+        List<Album> albumsInCart = shopControl.getAllAlbums();
+        if (albumsInCart == null || albumsInCart.isEmpty())
+            return true;
+        
+        if (albumsInCart.contains(album))
+            return false;
+        else
+            return true;
+    }
+    
+    private boolean canBuyTrack(){
+        List<Track> tracksInCart = shopControl.getAllTracks();
+        if (tracksInCart == null || tracksInCart.isEmpty())
+            return true;
+        
+        if (tracksInCart.contains(selectedTrack))
+            return false;
+        else
+            return true;
     }
 
 }

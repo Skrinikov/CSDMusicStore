@@ -37,7 +37,7 @@
                 <p>By #{albumsCLBack.album.artist.name} - #{albumsCLBack.album.tracks.size()} Track(s)</p>
             </div>
             <!-- Tracks for this album -->
-            
+
             <div class="row album-tracks album-container">
                 <table class="table table-striped table-responsive">
                     <thead>
@@ -54,6 +54,9 @@
                             <th>
                                 Price
                             </th>
+                            <th>
+                                Review
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +66,35 @@
                                 <td class="col-md-6"><h:link outcome="Track" value="#{track.title}"><f:param name="id" value="#{track.id}"/></h:link></td>
                                 <td class="col-md-1">#{track.duration}</td>
                                 <td class="col-md-1"><a href="#" class="btn btn-success">$#{trackCLBack.getPrice(track)}</a></td>
+                                <td class="col-md-1">
+                                    
+                                    <h:form>
+                                        <p:growl id="growl" showDetail="true" sticky="true" />
+                                        <!--<h:outputLink value="javascript:void(0)" onclick="PF('revDlg').show()" title="">
+                                            <p:outputLabel value="Review" />
+                                        </h:outputLink>
+                                        <p:growl id="growl" showDetail="true"/>
+                                        <p:dialog header="#{track.title}  ID is #{track.id}" widgetVar="revDlg" resizable="false">
+
+                                            <h:panelGrid columns="2" cellpadding="3">
+                                                <p:outputLabel for="rev_input" value="Review"/>
+                                                <p:inputTextarea id="rev_input" />
+                                                <p:outputLabel value="Rating" />
+                                                <p:rating />
+
+                                            </h:panelGrid>
+                                            <h:inputHidden id="review_id" value="#{track.id}"></h:inputHidden>
+                                            
+                                            <p:commandButton value="Submit" action="#{albumsCLBack.addReview()}" />
+                                        </p:dialog>-->
+                                        
+                                        
+                                        <p:commandButton type="submit" update="growl"  actionListener="#{albumsCLBack.showReviewDialog}" value="Review">
+                                            
+                                        </p:commandButton>
+                                    </h:form>
+                                    
+                                </td>
                             </tr>
                         </ui:repeat>
                     </tbody>
