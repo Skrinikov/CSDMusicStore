@@ -114,7 +114,7 @@ public class TrackClientBacking implements Serializable {
         this.cart.add(track);
     }
     
-    ////////////Pagination Logic///////////////
+    ////////////Pagination Logic For Reviews///////////////
     
     public PaginationHelper getPagination(){
         if (pagination == null){
@@ -141,16 +141,18 @@ public class TrackClientBacking implements Serializable {
     }
     
     public String next(){
+        //TODO
         return null;
     }
     
     public String previous(){
+        //TODO
         return null;
     }
     
     
     
-    //////////////Pagination Logic Aboved////////////////
+    //////////////Pagination Logic Above////////////////
 
    
 
@@ -177,6 +179,7 @@ public class TrackClientBacking implements Serializable {
         return formattedArtists;
 
     }
+    
 
     public Review getReview(){
         if (review == null)
@@ -280,6 +283,18 @@ public class TrackClientBacking implements Serializable {
         else{
             return available;
         }
+    }
+    
+    public boolean canBuy(){
+        List<Track> tracksInCart = cart.getAllTracks();
+        if (tracksInCart == null || tracksInCart.isEmpty())
+            return true;
+        
+        if (tracksInCart.contains(track))
+            return false;
+        else
+            return true;
+        
     }
     
 }
