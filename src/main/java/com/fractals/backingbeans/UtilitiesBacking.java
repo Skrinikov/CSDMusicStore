@@ -1,14 +1,7 @@
 
 package com.fractals.backingbeans;
 
-import com.fractals.beans.Album;
-import com.fractals.beans.Order;
-import com.fractals.beans.OrderItem;
-import com.fractals.beans.Track;
-import com.fractals.beans.displaybeans.CustomOrderItem;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -21,11 +14,21 @@ import javax.inject.Named;
 public class UtilitiesBacking implements Serializable{
     private int randomId;
     
+    /**
+     * Generates a random id.
+     * 
+     * @return random id
+     */
     public int generateRandomId(){
         randomId = (int) (Math.random() * 10000);
         return randomId;
     }
     
+    /**
+     * Gets the random id.
+     * 
+     * @return 
+     */
     public int getRandomId() {
         return randomId;
     }
