@@ -1,6 +1,8 @@
 package com.fractals.beans;
 
 
+import com.fractals.beanvalidators.PastLocalDate;
+import com.fractals.beanvalidators.PastLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,7 +35,7 @@ import org.eclipse.persistence.annotations.Converters;
  * Class corresponding to the albums table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Entity
@@ -72,6 +75,7 @@ public class Album implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @PastLocalDate
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
     @Convert("dateConverter")
@@ -85,11 +89,13 @@ public class Album implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @Min(0)
     @Column(name = "num_tracks")
     private int numTracks;
     
     @Basic(optional = false)
     @NotNull
+    @PastLocalDateTime
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")
@@ -111,6 +117,7 @@ public class Album implements Serializable {
     private double salePrice;
     
     @Column(name = "removed_at")
+    @PastLocalDateTime
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")
     private LocalDateTime removedAt;

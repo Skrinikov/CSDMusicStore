@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+import com.fractals.beanvalidators.PastLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +28,7 @@ import org.eclipse.persistence.annotations.Converter;
  * Class corresponding to the orders table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Entity
@@ -52,6 +53,7 @@ public class Order implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @PastLocalDateTime
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Class corresponding to the survey_choices table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Entity
@@ -49,6 +50,7 @@ public class SurveyChoice implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @Min(0)
     @Column(name = "num_votes")
     private int numVotes;
     

@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+import com.fractals.beanvalidators.EmailCheck;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -17,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Class corresponding to the users table.
  *
  * @author Aline Shulzhenko
- * @version 18/02/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Entity
@@ -134,21 +136,24 @@ public class User implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @Pattern(regexp="^[A-Za-z][0-9][A-Za-z][ ]?[0-9][A-Za-z][0-9]$")
     @Size(min = 1, max = 50)
     @Column(name = "postal_code")
     private String postalCode;
     
     @Size(max = 20)
+    @Pattern(regexp="(^$)|(^\\(?([0-9]{3})\\)?(\\s*)[-. ]?(\\s*)([0-9]{3})(\\s*)[-. ]?(\\s*)([0-9]{4})$)")
     @Column(name = "home_tel")
     private String homeTel;
     
     @Size(max = 20)
+    @Pattern(regexp="(^$)|(^\\(?([0-9]{3})\\)?(\\s*)[-. ]?(\\s*)([0-9]{3})(\\s*)[-. ]?(\\s*)([0-9]{4})$)")
     @Column(name = "cell_tel")
     private String cellTel;
     
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
+    @EmailCheck
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;

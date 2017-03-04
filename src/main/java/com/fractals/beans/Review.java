@@ -1,5 +1,6 @@
 package com.fractals.beans;
 
+import com.fractals.beanvalidators.PastLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Basic;
@@ -15,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,7 +28,7 @@ import org.eclipse.persistence.annotations.Converter;
  * Class corresponding to the reviews table.
  *
  * @author Aline Shulzhenko
- * @version 02/03/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Entity
@@ -51,11 +54,14 @@ public class Review implements Serializable {
     
     @Basic(optional = false)
     @NotNull
+    @Min(0)
+    @Max(5)
     @Column(name = "rating")
     private int rating;
     
     @Basic(optional = false)
     @NotNull
+    @PastLocalDateTime
     @Column(name = "review_date")
     @Temporal(TemporalType.TIMESTAMP)
     @Convert("datetimeConverter")
