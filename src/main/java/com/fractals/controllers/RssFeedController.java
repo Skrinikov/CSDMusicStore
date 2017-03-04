@@ -71,5 +71,23 @@ public class RssFeedController {
         
     }
 
+    public String getImgLink(FeedMessage fm)
+    {
+        String content = fm.getDescription();
+        
+        int start = content.indexOf("'") + 1;
+        int end = content.indexOf("'", start);
+        
+        return content.substring(start, end); 
+    }
+    
+    public String getDescription(FeedMessage fm)
+    {
+        String content = fm.getDescription();
+        int start = content.indexOf("<p>") + 3;
+        int end = content.indexOf("</p>"); 
+        
+        return content.substring(start, end);
+    }
     
 }
