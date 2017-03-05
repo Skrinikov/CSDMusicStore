@@ -1,3 +1,5 @@
+<!-- @author Aline Shulzhenko -->
+
 <ui:composition
     template="/WEB-INF/templates/master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -9,120 +11,134 @@
     <ui:define name="windowTitle">#{bundle.search}</ui:define>
 
     <ui:define name="content">
-        <h2>#{bundle.search}</h2>
-        
-        <!-- Search Options -->
-        <h:form id="searchForm">   
+        <div class="a-content" id="search-content">
+            <div class="panel-heading">
+                <h2 class="text-center">#{bundle.search}</h2>
+            </div>
             
-            <h:panelGrid columns="3" id="searchGrid">
-                <h:outputLabel for="choice" value="#{bundle.choose_from}" />               
-                <h:selectOneMenu id="choice" value="#{search.choice}" required="true">
-                    <f:ajax listener="#{search.onItemSelect()}" render="@all" />
-                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
-                    <f:selectItems value="#{search.options}" />
-                </h:selectOneMenu>
-                <h:message class="error" for="searchForm" id="searchFormMessage" />  
-            </h:panelGrid>    
-              
-            <h:panelGroup id="keyG">
-                <h:panelGrid columns="3">
-                    <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" />
-                    <h:inputText  id="key"  rendered="#{!search.dateSelected}"
-                                value="#{search.key}" required="true"/>
-                    <h:message id="keyMessage" class="error" for="key" rendered="#{!search.dateSelected}" />
-                </h:panelGrid>
-            </h:panelGroup>
-                
-            <h:panelGroup id="dateG">
-                <h:panelGrid columns="1">
-                    <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="#{bundle.choose_date}" />
-                    <h:panelGrid columns="2">
-                        <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
-                        <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
-                    </h:panelGrid>
-                    <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
-                </h:panelGrid>
-            </h:panelGroup>          
-                                
-            <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-info">
-                <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
-            </h:commandButton>
+            <!-- Search Options -->
+            <div class="panel-body">
+                <h:form id="searchForm" class="form-horizontal">   
 
-        </h:form>
-        
-        
-        <!-- Search Results -->          
-        <h2>#{bundle.search_results}</h2>
-        <h:panelGroup id="results">
-            <ui:fragment rendered="#{!search.albumsEmpty}">
-                <h3><h:outputText value="#{bundle.album_list}"></h:outputText></h3>
-            </ui:fragment>
-            
-            
-            <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
-                <h:link outcome="Album.xhtml" includeViewParams="true" style="color:black">
-                    <f:param name="id" value="#{album.id}"/>
-                <div class="well row">
-                    <div class="col-sm-4">
-                        <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="max-height: 150px"/>
-                    </div>
-                    <div class="well col-sm-8">
-                        <ui:fragment rendered="#{album.available}">
-                            <b>#{album.title}</b> <br />
-                            <i>#{bundle.artist}:</i> #{album.artist} <br />
-                            <i>#{bundle.release}:</i> #{album.releaseDate} <br />
-                            <i>#{bundle.num_tracks}:</i> #{album.numTracks} <br />
-                            <i>#{bundle.label}:</i> #{album.recordLabel} <br />
-                            <h:panelGroup rendered="#{album.salePrice == 0}">
-                                <i>#{bundle.price}:</i> $#{album.listPrice} <br />
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{album.salePrice > 0}">
-                                <i>#{bundle.price_sale}:</i> $#{album.salePrice} <br />
-                            </h:panelGroup>
-                        </ui:fragment>
-                    </div>
-                </div>
-                </h:link>
-            </ui:repeat>
+                    <div class="form-group" id="searchGrid">
+                        <h:outputLabel for="choice" value="#{bundle.choose_from}" class="control-label col-sm-4"/>     
+                        <div class="col-sm-4">
+                            <h:selectOneMenu id="choice" value="#{search.choice}" required="true" class="form-control">
+                                <f:ajax listener="#{search.onItemSelect()}" render="@all" />
+                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
+                                <f:selectItems value="#{search.options}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <h:message class="error" for="searchForm" id="searchFormMessage" />  
+                    </div>    
 
-            <hr/>
+                    <div class="form-group"  id="keyG">
+                        <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" 
+                                        class="control-label col-sm-4"/>
+                         <div class="col-sm-4">
+                            <h:inputText  id="key"  rendered="#{!search.dateSelected}"
+                                    value="#{search.key}" required="true" class="form-control"/>
+                        </div>
+                        <h:message id="keyMessage" class="error" for="key" rendered="#{!search.dateSelected}" />
+                    </div> 
 
-            <ui:fragment rendered="#{!search.tracksEmpty}">
-                <h3><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
-            </ui:fragment>
-            <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
-                <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
-                    <f:param name="id" value="#{track.id}"/>
-                <div class="well row">
-                    <div class="col-sm-4">
-                        <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                    <div class="form-group"  id="dateG">
+                        <h:outputLabel  for="date"  rendered="#{search.dateSelected}" value="#{bundle.choose_date}" 
+                                        class="control-label col-sm-4"/>
+                        <div class="col-sm-4">
+                            <h:panelGrid columns="2">
+                                <p:calendar  id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
+                                <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
+                            </h:panelGrid>
+                        </div>
+                        <h:message class="error" for="date"  rendered="#{search.dateSelected}" />
+                    </div>           
+                    
+                    <div class="text-center">
+                        <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-search">
+                            <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
+                        </h:commandButton>
                     </div>
-                    <div class="well col-sm-8">
-                        <ui:fragment rendered="#{track.available}">
-                            <b>#{track.title}</b> <br />
-                            <i>#{bundle.songwriters}:</i> #{track.songwriter} <br />
-                            <i>#{bundle.duration}:</i> #{track.duration} <br />
-                            <i>#{bundle.album_num}:</i> #{track.albumNum} <br />
-                            <i>#{bundle.album}:</i> #{track.album} <br />
-                            <i>#{bundle.genre}:</i> #{track.genre} <br />
-                            <h:panelGroup rendered="#{track.salePrice == 0}">
-                                <i>#{bundle.price}:</i> $#{track.listPrice} <br />
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{track.salePrice > 0}">
-                                <i>#{bundle.price_sale}:</i> $#{track.salePrice} <br />
-                            </h:panelGroup>
-                        </ui:fragment>
-                    </div>
-                </div>
-                </h:link>
-            </ui:repeat>
-        
-        
-            <ui:fragment rendered="#{search.noData()}">
-                <p><h:outputText value="#{bundle.nodata}"></h:outputText> :(</p>
-            </ui:fragment>
-        </h:panelGroup>
-        
+
+                </h:form>
+            </div>
+
+            <!-- Search Results -->    
+            <div class="panel-heading">
+                <h2 class="centerText">#{bundle.search_results}</h2>
+            </div>
+            <div class="panel-body">
+                <h:panelGroup id="results">
+                    <ui:fragment rendered="#{!search.albumsEmpty}">
+                        <h3><h:outputText value="#{bundle.album_list}"></h:outputText></h3>
+                    </ui:fragment>
+
+
+                    <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
+                        <h:link outcome="Album.xhtml" includeViewParams="true" style="color:black">
+                            <f:param name="id" value="#{album.id}"/>
+                        <div class="well row">
+                            <div class="col-sm-4">
+                                <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="max-height: 150px"/>
+                            </div>
+                            <div class="well col-sm-8">
+                                <ui:fragment rendered="#{album.available}">
+                                    <b>#{album.title}</b> <br />
+                                    <i>#{bundle.artist}:</i> #{album.artist} <br />
+                                    <i>#{bundle.release}:</i> #{album.releaseDate} <br />
+                                    <i>#{bundle.num_tracks}:</i> #{album.numTracks} <br />
+                                    <i>#{bundle.label}:</i> #{album.recordLabel} <br />
+                                    <h:panelGroup rendered="#{album.salePrice == 0}">
+                                        <i>#{bundle.price}:</i> $#{album.listPrice} <br />
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{album.salePrice > 0}">
+                                        <i>#{bundle.price_sale}:</i> $#{album.salePrice} <br />
+                                    </h:panelGroup>
+                                </ui:fragment>
+                            </div>
+                        </div>
+                        </h:link>
+                    </ui:repeat>
+
+                    <hr/>
+
+                    <ui:fragment rendered="#{!search.tracksEmpty}">
+                        <h3><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
+                    </ui:fragment>
+                    <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
+                        <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
+                            <f:param name="id" value="#{track.id}"/>
+                        <div class="well row">
+                            <div class="col-sm-4">
+                                <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                            </div>
+                            <div class="well col-sm-8">
+                                <ui:fragment rendered="#{track.available}">
+                                    <b>#{track.title}</b> <br />
+                                    <i>#{bundle.songwriters}:</i> #{track.songwriter} <br />
+                                    <i>#{bundle.duration}:</i> #{track.duration} <br />
+                                    <i>#{bundle.album_num}:</i> #{track.albumNum} <br />
+                                    <i>#{bundle.album}:</i> #{track.album} <br />
+                                    <i>#{bundle.genre}:</i> #{track.genre} <br />
+                                    <h:panelGroup rendered="#{track.salePrice == 0}">
+                                        <i>#{bundle.price}:</i> $#{track.listPrice} <br />
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{track.salePrice > 0}">
+                                        <i>#{bundle.price_sale}:</i> $#{track.salePrice} <br />
+                                    </h:panelGroup>
+                                </ui:fragment>
+                            </div>
+                        </div>
+                        </h:link>
+                    </ui:repeat>
+
+
+                    <ui:fragment rendered="#{search.noData()}">
+                        <p class="centerText"><h:outputText value="#{bundle.nodata}"></h:outputText> :(</p>
+                    </ui:fragment>
+                </h:panelGroup>
+            </div>
+        </div>
     </ui:define> 
     
 </ui:composition>

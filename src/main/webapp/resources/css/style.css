@@ -154,14 +154,6 @@ body.navbar-more-show  {
     color:red;
 }
 
-.table-cart {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    table-layout: fixed;
-}
-
-
 .content{
     padding-top:50px;
     padding-bottom:45px;
@@ -372,7 +364,7 @@ body.navbar-more-show  {
     color:#fff;
 }
 
-.reg-log {
+.a-content {
     width: 70%;
     margin-left: auto;
     margin-right: auto;   
@@ -438,3 +430,80 @@ body.navbar-more-show  {
 #reg-content {
     border: 5px solid #ead24c;
 }
+
+.btn-search {
+    color: white;
+    background-color: #7d5d81;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.btn-search.focus, .btn-search:focus, .btn-search:hover {
+    color: white;
+    background-color:#644b68;
+}
+
+#search-content {
+    border: 5px solid #7d5d81;
+}
+
+.table-cart {
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+    margin-bottom: 20px;
+}
+
+.btn-continue {
+    color: black;
+    background-color: #c2efc8;
+    margin: 15px;
+}
+
+.btn-continue.focus, .btn-continue:focus, .btn-continue:hover {
+    color: black;
+    background-color: #d6f5da;
+}
+
+.btn-shop {
+    color: white;
+    background-color: #279636;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.btn-shop.focus, .btn-shop:focus, .btn-shop:hover {
+    color: white;
+    background-color: #1f7a2b;
+}
+
+#shop-content {
+    border: 5px solid #279636;
+}
+
+.check-brands {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+
+.btn-checkout {
+    color: white;
+    background-color: #0fbd89;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.btn-checkout.focus, .btn-checkout:focus, .btn-checkout:hover {
+    color: white;
+    background-color: #0b8e67;
+}
+
+#checkout-content {
+    border: 5px solid #0fbd89;
+}
+
+#invoice-content {
+    border: 5px solid #064733;
+}
+

@@ -1,3 +1,5 @@
+<!-- @author Aline Shulzhenko -->
+
 <ui:composition
     template="/WEB-INF/templates/master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -10,53 +12,65 @@
     <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
 
     <ui:define name="content">
-        <h2>#{bundle.checkout}</h2>
-        
-        
+        <div id="checkout-content" class="a-content">
+            <div class="panel-heading">
+                <h2 class="text-center">#{bundle.checkout}</h2>
+            </div>
+            <div class="panel-body">
+                <ui:fragment rendered="#{login.loggedIn}">
+                    <h4 class="text-center">#{bundle.checkout_title}</h4>
+                    <h:form id="checkoutForm" class="form-horizontal">
+                        <h:message class="error" for="checkoutForm" id="checkoutFormMessage" />
+                        <div class="text-center check-brands">
+                            <ui:repeat value="#{checkout.brands}" var="brand">
+                                <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default" immediate="true">
+                                    <f:ajax execute="@form" render="@form"/>
+                                </h:commandLink>
+                            </ui:repeat> 
+                        </div>
 
-        <ui:fragment rendered="#{login.loggedIn}">
-            <h4>#{bundle.checkout_title}</h4>
-            <h:form id="checkoutForm">
-                
-                <h:message class="error" for="checkoutForm" id="checkoutFormMessage" />  <br/>              
-                <ui:repeat value="#{checkout.brands}" var="brand">
-                    <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default" immediate="true">
-                        <f:ajax execute="@form" render="@form"/>
-                    </h:commandLink>
-                </ui:repeat> 
-                
-                <h:panelGrid columns="3">
-                    <h:outputLabel  for="number" value="#{bundle.credit_number}" />
-                    <h:inputText  id="number" value="#{credit.number}" required="true"/>
-                    <h:message id="numberMessage" class="error" for="number" />
+                        <div class="form-group">
+                            <h:outputLabel  for="number" value="#{bundle.credit_number}" class="control-label col-sm-4"/>
+                            <div class="col-sm-4">
+                                <h:inputText  id="number" value="#{credit.number}" required="true" class="form-control"/>
+                            </div>
+                            <h:message id="numberMessage" class="error" for="number" />
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel  for="date" value="#{bundle.credit_date}" class="control-label col-sm-4"/>
+                            <div class="col-sm-4">
+                                <h:inputText  id="date" value="#{credit.expirationDate}" required="true" 
+                                          pt:placeholder="mm/yyyy" converter="DateConverter" class="form-control"/>
+                            </div>
+                            <h:message id="dateMessage" class="error" for="date" />
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel  for="name" value="#{bundle.credit_name}" class="control-label col-sm-4"/>
+                            <div class="col-sm-4">
+                                <h:inputText  id="name" value="#{credit.name}" required="true" class="form-control"/>
+                            </div>
+                            <h:message id="nameMessage" class="error" for="name" />
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel  for="code" rendered="#{checkout.isVisa}" value="#{bundle.credit_code}"  class="control-label col-sm-4"/>
+                            <div class="col-sm-4">
+                                <h:inputText  id="code"  rendered="#{checkout.isVisa}" pt:placeholder="111"
+                                          value="#{credit.code}" required="true" class="form-control"/>
+                            </div>
+                            <h:message id="codeMessage" class="error" for="code" rendered="#{checkout.isVisa}" />
+                        </div>
+                        
+                        <div class="text-center">
+                            <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate(credit.brand)}" class="btn btn-default btn-checkout"/>    
+                        </div>
+                    </h:form>     
+                </ui:fragment>
 
-                    <h:outputLabel  for="date" value="#{bundle.credit_date}" />
-                    <h:inputText  id="date" value="#{credit.expirationDate}" required="true" 
-                                  pt:placeholder="mm/yyyy" converter="DateConverter">
-                    </h:inputText>
-                    <h:message id="dateMessage" class="error" for="date" />
-                    
-                    <h:outputLabel  for="name" value="#{bundle.credit_name}" />
-                    <h:inputText  id="name" value="#{credit.name}" required="true"/>
-                    <h:message id="nameMessage" class="error" for="name" />
-                    
-                    <h:outputLabel  for="code" rendered="#{checkout.isVisa}" value="#{bundle.credit_code}" />
-                    <h:inputText  id="code"  rendered="#{checkout.isVisa}" pt:placeholder="111"
-                                  value="#{credit.code}" required="true"/>
-                    <h:message id="codeMessage" class="error" for="code" rendered="#{checkout.isVisa}" />
-                </h:panelGrid>
-                    
-                <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate(credit.brand)}" class="btn btn-info">
-                </h:commandButton>       
-
-                
-            </h:form>     
-        </ui:fragment>
-        
-        <ui:fragment rendered="#{!login.loggedIn}">
-            <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login"></h:link>
-        </ui:fragment>
-        
+                <ui:fragment rendered="#{!login.loggedIn}">
+                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login" class="text-center reg-link"/>
+                </ui:fragment>
+            </div>
+        </div>
     </ui:define> 
     
 </ui:composition>
