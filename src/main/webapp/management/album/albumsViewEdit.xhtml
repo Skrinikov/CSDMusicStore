@@ -51,7 +51,9 @@
                 </p:dataTable>
                 
                 <h:outputText value="Total Sales :"/>
-                <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist"/>
+                <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
+                    <f:convertNumber maxFractionDigits="2"/>
+                </h:outputText>
 
 
                 <p:commandButton action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             

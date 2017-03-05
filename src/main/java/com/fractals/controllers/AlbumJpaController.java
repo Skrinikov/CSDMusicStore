@@ -39,6 +39,8 @@ public class AlbumJpaController implements Serializable {
     @PersistenceContext
     private EntityManager em;
 
+    public EntityManager getEntityManager(){return em;}
+    
     public void create(Album album) throws RollbackFailureException, Exception {
         if (album.getTracks() == null) {
             album.setTracks(new ArrayList<Track>());

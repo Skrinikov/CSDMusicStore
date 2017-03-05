@@ -13,18 +13,27 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
+     
+                
                 <p:outputLabel value="Title:" for="title" />
-                <p:inputText id="title" value="#{theAlbums.createdAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
+                <p:inputText id="title" placeholder="Title" value="#{theAlbums.createdAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
+                
                 <p:outputLabel value="RecordLabel:" for="recordLabel" />
-                <p:inputText id="recordLabel" value="#{theAlbums.createdAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>
-                <p:outputLabel value="NumTracks:" for="numTracks" />
-                <p:inputText id="numTracks" value="#{theAlbums.createdAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required."/>
+                <p:inputText id="recordLabel" value="#{theAlbums.createdAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>  
+               
+                <p:outputLabel value="NumTracks:" for="numTracks"/>                            
+                <p:inputText id="numTracks" value="#{theAlbums.createdAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required.">
+                 <f:validateLongRange minimum = "1"/>
+                </p:inputText>
+                
                 <p:outputLabel value="CostPrice:" for="costPrice" />
                 <p:inputText id="costPrice" value="#{theAlbums.createdAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
                 <p:outputLabel value="ListPrice:" for="listPrice" />
                 <p:inputText id="listPrice" value="#{theAlbums.createdAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
+                
                 <p:outputLabel value="SalePrice:" for="salePrice" />
                 <p:inputText id="salePrice" value="#{theAlbums.createdAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
+                
                 <p:outputLabel value="Available:" for="available" />              
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.createdAlbum.available}" />
 
@@ -54,10 +63,7 @@
             <p:commandButton  action="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
             <p:button value="Retour à la liste" outcome="/management/album/albumsList.xhtml"/>
           
-    <!-- DragDrop datatable to add tracks to album -->
-    
         </h:form>
-        
        
     </ui:define>
 </ui:composition>
