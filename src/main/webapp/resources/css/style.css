@@ -6,12 +6,12 @@
 /*-----------*/
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 } 
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 body {    
     padding-top: 50px;
@@ -143,6 +143,7 @@ body.navbar-more-show  {
 
 #wrapper {
     min-height:100%;
+    overflow: hidden;
 }
 
 .footer > .container > p {
@@ -280,19 +281,19 @@ body.navbar-more-show  {
 }
 
 .album-row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
 }
 .album-row > [class*='col-'] {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .table > tbody > tr > td {
-     vertical-align: middle;
+    vertical-align: middle;
 }
 
 .table{
@@ -370,4 +371,126 @@ body.navbar-more-show  {
 .help-jumbotron{
     background-color:#314190;
     color:#fff;
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.index-row{
+    padding-left:1em;
+    padding-right: 1em;
+}
+
+.header{
+    background-image: url("#{resource['images/ambiance/bgt.jpg']}");
+    background-size:100%;
+    min-height: 350px;
+    vertical-align: middle;
+}
+
+.header::after{
+    margin-bottom:20px;
+}
+
+.header-inner{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.header-inner-title{
+    display: inline-block;
+    border:solid 3px #fff;
+    margin-top:25%;
+    padding:2px;
+    transition:background-color 0.5s;
+}
+
+.header-inner-title:hover{
+    background-color:rgba(255,255,255,0.1);
+}
+
+.header-inner-title h1{
+    color:#fff;
+    font-size:4em;
+    font-family: 'Arial, Helvetica, sans-serif';
+    margin-bottom: 0;
+}
+
+.header-inner-title h2{
+    color:#fff;
+    font-size:2em;
+    margin-top:0;
+}
+
+.background{
+    background-color: #f7f7f7;
+    background-repeat: repeat;
+    background-size: inherit;
+    background-attachment: fixed;
+    background-position: left top;
+    background-image: url("#{resource['images/ambiance/121.png']}");
+}
+
+.new-track-outer{
+    border:solid 5px #0D1217;
+    padding:5px;
+}
+
+.new-track-inner{
+    background:#0D1217;
+}
+
+.new-track-inner a:hover{
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.new-track-inner h3{
+    color:#fff;
+    margin:0;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    cursor:pointer;
+    transition: color .5s;
+}
+
+.new-track-inner h3:hover{
+    color:#FF7F50;
+    text-decoration: none;
+}
+
+.new-track-inner h4{
+    color:#eee;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.new-track-inner h4 .orange{
+    color:#FF7F50;
+    font-size: 2em;
+}
+
+.new-track-inner h5{
+    color:#AAA;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 2px;
+}
+.new-track-inner h6{
+    color:#FF7F50;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    margin:0;
 }

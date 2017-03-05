@@ -1,16 +1,73 @@
 <ui:composition
-    template="/WEB-INF/templates/mgmt_master.xhtml"
+    template="/WEB-INF/templates/master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="windowTitle">
-        Bargh
+        This is a test.
     </ui:define>
 
     <ui:define name="content">
+
+        <div class="row header">
+            <div class="col-lg-4 col-xs-6 col-lg-offset-4 col-xs-offset-3 header-inner text-center">
+                <div class="header-inner-title">
+                    <div style="border:solid 1px #fff">
+                        <h1>Fractals</h1>
+                        <h2>The only store you need</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h:form id="newTracks" styleClass="row top-buffer index-row">
+            <ui:repeat var="track" value="#{indexBacking.newTracks}">
+                <div class="col-md-4" style="padding:3px;">
+                    <div class="new-track-outer text-center">
+                        <div class="new-track-inner">
+                            <h4><span class="orange">...</span> New Track <span class="orange">...</span></h4>
+                            <h:link outcome="/client/Track.xhtml">
+                                <h3>#{track.title}</h3>
+                                <f:param name="id" value="#{track.id}" />
+                            </h:link>
+                            <h5>#{track.album.title}</h5>
+                            <h6>$#{trackCLBack.getPrice(track)}</h6>
+                        </div>
+                    </div>
+                </div>
+            </ui:repeat>
+        </h:form>
         
-        <h:outputScript library="webjars" name="jquery/3.1.1-1/jquery.min.js"/>
+        <p:outputPanel deferred="true" styleClass="container">
+            <div class="row top-buffer">
+                <div class="col-md-8 col-sm-12">
+                    
+                </div>
+                <!-- RSS -->
+                <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-4 col-xs-12">
+                    <h:form id="rssForm">
+                        <div class="panel panel-default rss-panel">
+                            
+                            <div class="panel-body">
+                                <ui:repeat var="msg" value="#{indexBacking.rssMsgs}">
+
+                                    <a href="#{msg.link}">
+                                        <h:outputLabel value="#{msg.title}" styleClass="rss-title"/>
+                                        <h:outputText value="#{msg.description}" escape="false" styleClass="rss-description"/>
+                                    </a>
+                                    <hr/>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </h:form>
+                </p:outputPanel>
+            </div>
+        </p:outputPanel>
+
     </ui:define>
 
 </ui:composition>
