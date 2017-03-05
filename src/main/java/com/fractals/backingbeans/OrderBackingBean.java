@@ -8,7 +8,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.controllers.OrderItemJpaController;
-import com.fractals.controllers.OrderJpaControllerS;
+import com.fractals.controllers.OrderJpaController;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -35,7 +35,7 @@ public class OrderBackingBean implements Serializable {
     public void setSelectedOrderItem(OrderItem oi){ selectedOrderItem = oi;}
     
     @Inject
-    private OrderJpaControllerS orderJpaController;
+    private OrderJpaController orderJpaController;
     
     @Inject
     private OrderItemJpaController orderItemJpaController;

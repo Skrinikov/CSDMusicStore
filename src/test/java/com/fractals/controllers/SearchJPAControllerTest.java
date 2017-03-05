@@ -5,6 +5,7 @@ import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
+import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
 import com.fractals.utilities.DatabaseSeedManager;
@@ -57,6 +58,7 @@ public class SearchJPAControllerTest {
                 .addPackage(UserBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
+                .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
                 .addPackage(FeedMessage.class.getPackage())
                 .addPackage(SecurityHelper.class.getPackage())

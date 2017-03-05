@@ -219,9 +219,12 @@ public class ShoppingCart implements Serializable{
      * @param album The album, which tracks are deleted from the shopping cart.
      */
     private void deleteTracks(Album album) {
+        List<Track> toRemove = new ArrayList<>();
         for(Track t : tracks)
             if(t.getAlbum().equals(album))
-                tracks.remove(t);
+                toRemove.add(t);
+        
+        tracks.removeAll(toRemove);
     }
     
 }

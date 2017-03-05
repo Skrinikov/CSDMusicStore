@@ -3,7 +3,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Order;
 import com.fractals.beans.User;
 import com.fractals.controllers.LoginController;
-import com.fractals.controllers.OrderJPAController;
+import com.fractals.controllers.OrdersController;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -28,7 +28,7 @@ public class InvoiceBacking {
     @Inject
     private LoginController login;
     @Inject
-    private OrderJPAController orders;
+    private OrdersController orders;
     @Inject
     private ShoppingCart cart;
     

@@ -260,6 +260,15 @@
             <testResource>
                 <directory>src/test/resources-glassfish-remote</directory>
             </testResource>
+            <testResource>
+                <directory>src/main/java/</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
         </testResources>
         <!-- Plugins are components that Maven uses for specific purposes beyond
         the basic tasks -->

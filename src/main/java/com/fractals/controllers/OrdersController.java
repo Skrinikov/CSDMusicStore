@@ -29,9 +29,9 @@ import javax.transaction.UserTransaction;
  * @version 02/03/2017
  * @since 1.8
  */
-@Named("ordersController")
+@Named
 @RequestScoped
-public class OrderJPAController {
+public class OrdersController {
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;

@@ -30,7 +30,7 @@ import javax.transaction.UserTransaction;
  */
 @Named("orderJpaController")
 @RequestScoped
-public class OrderJpaControllerS implements Serializable {
+public class OrderJpaController implements Serializable {
 
     @Resource
     private UserTransaction utx;
