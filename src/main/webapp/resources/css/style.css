@@ -135,7 +135,6 @@ body.navbar-more-show  {
 .footer{
     background: #272727;
     height: 45px;
-    margin-top: 45px;
     width: 100%;
     position: relative;
     clear: both;
@@ -493,4 +492,35 @@ body.navbar-more-show  {
     padding-top: 2px;
     padding-bottom: 10px;
     margin:0;
+}
+
+.genres-tab{
+    background-color: #0D1217;
+    height:100px;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+.genre-list{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 30px;
+}
+
+.genre-list li{
+    color:#fff;
+    padding: 0 25px;
+    border-right: 2px solid #333;
+    text-transform: uppercase;
+    transition:color 0.5s;
+    font-size:30px;
+    font-family: 'Signika', sans-serif;
+}
+
+.genre-list li:last-child{
+    border:none;
+}
+
+.genre-list li:hover{
+    color:#FF7F50;
 }

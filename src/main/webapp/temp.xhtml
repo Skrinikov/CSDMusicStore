@@ -26,7 +26,7 @@
 
         <h:form id="newTracks" styleClass="row top-buffer index-row">
             <ui:repeat var="track" value="#{indexBacking.newTracks}">
-                <div class="col-md-4" style="padding:3px;">
+                <div class="col-md-4 col-sm-12 col-xs-12" style="padding:3px;">
                     <div class="new-track-outer text-center">
                         <div class="new-track-inner">
                             <h4><span class="orange">...</span> New Track <span class="orange">...</span></h4>
@@ -41,17 +41,17 @@
                 </div>
             </ui:repeat>
         </h:form>
-        
+
         <p:outputPanel deferred="true" styleClass="container">
             <div class="row top-buffer">
-                <div class="col-md-8 col-sm-12">
+                <div class="col-md-8 col-xs-12" style="background-color:#fff">
                     
                 </div>
                 <!-- RSS -->
                 <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-4 col-xs-12">
                     <h:form id="rssForm">
                         <div class="panel panel-default rss-panel">
-                            
+
                             <div class="panel-body">
                                 <ui:repeat var="msg" value="#{indexBacking.rssMsgs}">
 
@@ -66,6 +66,21 @@
                     </h:form>
                 </p:outputPanel>
             </div>
+        </p:outputPanel>
+        
+        <p:outputPanel deferred="true" styleClass="row">
+            
+        </p:outputPanel>
+        
+        <!-- Genres -->
+        <p:outputPanel deferred="true" styleClass="row genres-tab text-center top-buffer">
+            <h:form id="genresList" style="margin-left:auto;margin-right:auto;">
+                <ul class="list-inline genre-list">
+                    <ui:repeat var="genre" value="#{indexBacking.genres}">
+                        <li>#{genre.name}</li>
+                    </ui:repeat>
+                </ul>
+            </h:form>
         </p:outputPanel>
 
     </ui:define>
