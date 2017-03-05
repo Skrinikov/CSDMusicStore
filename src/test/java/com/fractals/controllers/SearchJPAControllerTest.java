@@ -1,9 +1,10 @@
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.UserBacking;
+import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
-import com.fractals.controllers.exceptions.RollbackFailureException;
+import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
 import com.fractals.utilities.DatabaseSeedManager;
@@ -54,6 +55,7 @@ public class SearchJPAControllerTest {
                 .addPackage(SearchJPAController.class.getPackage())
                 .addPackage(Album.class.getPackage())
                 .addPackage(UserBacking.class.getPackage())
+                .addPackage(EmailCheck.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
                 .addPackage(FeedMessage.class.getPackage())

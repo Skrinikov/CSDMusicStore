@@ -1,8 +1,11 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Album_;
 import com.fractals.beans.Artist;
+import com.fractals.beans.Artist_;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -22,7 +25,7 @@ import javax.persistence.criteria.Join;
  * between specific dates for the index page.
  *
  * @author Aline Shulzhenko
- * @version 25/02/2017
+ * @version 04/03/2017
  * @since 1.8
  */
 @Named
@@ -73,8 +76,8 @@ public class SearchJPAController implements Serializable {
         
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
-        Join artistJ = album.join("artist");
-        cqA.where(cb.like(artistJ.get("name"), "%"+name+"%"));
+        Join artistJ = album.join(Album_.artist);
+        cqA.where(cb.like(artistJ.get(Artist_.name), "%"+name+"%"));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
         
@@ -94,8 +97,8 @@ public class SearchJPAController implements Serializable {
         
         CriteriaQuery<Track> cq = cb.createQuery(Track.class);
         Root<Artist> artist = cq.from(Artist.class);
-        cq.where(cb.like(artist.get("name"), "%"+name+"%"));
-        Join<Artist, Track> artists = artist.join("tracks");
+        cq.where(cb.like(artist.get(Artist_.name), "%"+name+"%"));
+        Join<Artist, Track> artists = artist.join(Artist_.tracks);
         CriteriaQuery<Track> cqT = cq.select(artists);
         TypedQuery<Track> query = entityManager.createQuery(cqT);
         List<Track> tracks = (List<Track>)query.getResultList();
@@ -119,7 +122,7 @@ public class SearchJPAController implements Serializable {
         
         CriteriaQuery<Album> cqA = cb.createQuery(Album.class);      
         Root<Album> album = cqA.from(Album.class);       
-        cqA.where(cb.between(album.<LocalDateTime>get("createdAt"), from, to));
+        cqA.where(cb.between(album.<LocalDateTime>get(Album_.createdAt), from, to));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
         
@@ -142,7 +145,7 @@ public class SearchJPAController implements Serializable {
               
         CriteriaQuery<Track> cqT = cb.createQuery(Track.class);      
         Root<Track> track = cqT.from(Track.class);       
-        cqT.where(cb.between(track.<LocalDateTime>get("createdAt"), from, to));
+        cqT.where(cb.between(track.<LocalDateTime>get(Track_.createdAt), from, to));
         TypedQuery<Track> tqT = entityManager.createQuery(cqT);      
         List<Track> tracks = (List<Track>)tqT.getResultList(); 
         
