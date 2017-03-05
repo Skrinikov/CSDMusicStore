@@ -1,0 +1,22 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    
+        <div class="survey-body">
+            <div class="question-header text-center">
+                <h3>#{surveyCBacking.survey.question}</h3>
+            </div>
+
+            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">
+                <div class="button-container">
+                    <p:commandButton styleClass="custom-buttons" style="padding: 5px;" value="#{item.choice}" actionListener="#{surveyCBacking.selectedOption(item)}" update=":#{p:component('survey-panel')}"/>
+                </div>
+            </ui:repeat>
+
+        </div>               
+
+</ui:composition>

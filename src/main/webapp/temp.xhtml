@@ -17,7 +17,7 @@
                 <div class="header-inner-title">
                     <div style="border:solid 1px #fff">
                         <h1>Fractals</h1>
-                        <h2>The only store you need</h2>
+                        <h2>A small music provider on the web</h2>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
         <p:outputPanel deferred="true" styleClass="container">
             <div class="row top-buffer">
                 <div class="col-md-8 col-xs-12" style="background-color:#fff">
-                    
+
                 </div>
                 <!-- RSS -->
                 <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-4 col-xs-12">
@@ -67,11 +67,16 @@
                 </p:outputPanel>
             </div>
         </p:outputPanel>
-        
-        <p:outputPanel deferred="true" styleClass="row">
-            
-        </p:outputPanel>
-        
+
+        <!-- Survey -->
+        <h:form id="survey" styleClass="row survey-row top-buffer">
+            <p:outputPanel deferred="true" styleClass="survey-padding" id="survey-panel">
+                <ui:insert name="totalSales">
+                    <ui:include src="#{surveyCBacking.surveryOptionsOrAnswers}"/>
+                </ui:insert>
+            </p:outputPanel>
+        </h:form>
+
         <!-- Genres -->
         <p:outputPanel deferred="true" styleClass="row genres-tab text-center top-buffer">
             <h:form id="genresList" style="margin-left:auto;margin-right:auto;">
