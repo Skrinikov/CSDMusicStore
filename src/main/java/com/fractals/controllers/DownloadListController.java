@@ -69,10 +69,7 @@ public class DownloadListController implements Serializable
     
     public List<Track> getTracks()
     {    
-        //User user = lc.getCurrentUser();
-        
-        User user = new User(); 
-        user.setId(new Integer(69));
+        User user = lc.getCurrentUser();
         
         String query = 
         "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
@@ -92,11 +89,8 @@ public class DownloadListController implements Serializable
     
     public List<Album> getAlbums()
     {     
-        //User user = lc.getCurrentUser();
-        
-        User user = new User();
-        user.setId(new Integer(69));
-        
+        User user = lc.getCurrentUser();
+               
         String query = 
         "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
                            
