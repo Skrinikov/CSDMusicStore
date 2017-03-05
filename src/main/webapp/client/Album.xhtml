@@ -73,10 +73,7 @@
                                 <td class="col-md-1">
 
                                     <h:form id="rev_form">
-                                        <p:commandLink value="Review" update="revDlg" action="#{albumsCLBack.setSelectedTrack(track)}" oncomplete="PF('revDlg').show()" title="">
-                                                            
-                                        </p:commandLink>
-                                        <p:growl id="growl" showDetail="true"/>
+                                        <h:link outcome="Track" value="Review"><f:param name="id" value="#{track.id}"/></h:link>
                                         <!--
                                         <p:dialog header="Review" widgetVar="revDlg" resizable="false">
                                             <p:outputPanel id="trackModel">
@@ -93,11 +90,11 @@
                                                 <p:commandButton value="Submit" action="#{albumsCLBack.addReview()}" />
                                             </p:outputPanel>
                                         </p:dialog>
-                                        -->
+                                        
                                         <p:dialog id="revDlg" header="Review for #{albumsCLBack.selectedTrack.title}" widgetVar="revDlg" resizable="false">
                                             
                                         </p:dialog>
-                                        
+                                        -->
 
 
 
@@ -111,7 +108,7 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <!-- Similar albums -->
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Similar Albums</h3>             
