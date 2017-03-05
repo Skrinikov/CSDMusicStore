@@ -5,12 +5,17 @@
  */
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Order;
 import com.fractals.beans.User;
 import com.fractals.controllers.UserJpaController;
+import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -18,12 +23,12 @@ import javax.inject.Named;
  */
 
 @Named("theUsers")
-@RequestScoped
-public class UserBackingBean {
+@SessionScoped
+public class UserBackingBean implements Serializable {
     
     private User selectedUser;
     public User getSelectedUser(){ return selectedUser;}
-    public void setSelectedUser(User u){ selectedUser = u;}
+    public void setSelectedUser(User u){ selectedUser = u; makeUneditable();}
     
     @Inject
     private UserJpaController userJpaController;
@@ -36,4 +41,26 @@ public class UserBackingBean {
         return userJpaController.isEmpty();
     }
     
+    private boolean editable;
+    public boolean getEditable(){ return editable; }
+    public void setEditable(boolean b){editable = b;}
+    public void makeEditable(){setEditable(true);}
+    public void makeUneditable(){setEditable(false);}
+    
+    public String edit() throws Exception {
+        userJpaController.edit(selectedUser);
+        editable = false;
+        return "/management/user/usersViewEdit.xhtml";
+        
+    }
+    
+    public Number getTotalSales(){
+        CriteriaBuilder cb = userJpaController.getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        Root<Order> root = query.from(Order.class);
+        query.select(cb.sum(root.get("netCost")));
+        query.where(cb.equal(root.get("user"), selectedUser));
+        Number result = userJpaController.getEntityManager().createQuery(query).getSingleResult();      
+        return result == null ? 0 : result;
+    }
 }

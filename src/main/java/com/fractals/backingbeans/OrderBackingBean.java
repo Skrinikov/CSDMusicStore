@@ -40,6 +40,21 @@ public class OrderBackingBean implements Serializable {
     @Inject
     private OrderItemJpaController orderItemJpaController;
     
+    public String deleteOrderItem(OrderItem o) throws Exception {
+        o.setCancelled(true);
+        orderItemJpaController.edit(o);
+        return "/management/order/ordersViewEdit";
+    }
+    
+    public String deleteOrder() throws Exception {
+        List<OrderItem> allItems = getOrderItemsOfOrder();
+        for(OrderItem o : allItems){
+            o.setCancelled(true);
+            orderItemJpaController.edit(o);
+        }
+        return "/management/order/ordersViewEdit";      
+    }
+    
     public List<Order> getOrders(){
         return orderJpaController.findOrderEntities();
     }

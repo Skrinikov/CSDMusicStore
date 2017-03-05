@@ -34,7 +34,7 @@
         <h:form>
             <h:commandButton value="Retour à la liste" action="#{theReviews.returnToPage()}"/>
             <h:commandButton value="Approve" action="#{theReviews.approveReview()}" rendered="#{!theReviews.selectedReview.approved}"/>
-            <h:commandButton value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.approved}"/>
+            <h:commandButton value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.pending}"/>
         </h:form>
         
     </ui:define>

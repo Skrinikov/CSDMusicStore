@@ -43,29 +43,23 @@ public class ReviewBackingBean implements Serializable {
     public Track getSelectedTrack(){ return selectedTrack;}
     public void setSelectedTrack(Track t){ selectedTrack = t;}
     
-    
-    public List<Review> getReviews(){
-        return reviewJpaController.findReviewEntities();
-    }
-    
-    public String approveReview() throws Exception {
-        selectedReview.setApproved(true);
+    public List<Review> getReviews(){return reviewJpaController.findReviewEntities();}
+    public String disapproveReview() throws Exception {return editReview(false);}   
+    public String approveReview()throws Exception {return editReview(true);} 
+   
+    public String editReview(boolean b) throws Exception {
+        selectedReview.setApproved(b);
+        selectedReview.setPending(false);
         reviewJpaController.edit(selectedReview);
         return "/management/review/reviewsView.xhtml"; 
     }   
-    
-    public String disapproveReview() throws Exception {
-        selectedReview.setApproved(false);
-        reviewJpaController.edit(selectedReview);
-        return "/management/review/reviewsView.xhtml";  
-    }   
-    
+     
     public List<Review> getPendingReviews(){
         CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
         Root<Review> root = query.from(Review.class);
         query.select(root);
-        query.where(cb.equal(root.get("approved"), false));
+        query.where(cb.isTrue(root.get("pending")));
         return reviewJpaController.getEntityManager().createQuery(query).getResultList();
     }
     
@@ -74,7 +68,26 @@ public class ReviewBackingBean implements Serializable {
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
         Root<Review> root = query.from(Review.class);
         query.select(root);
-        query.where(cb.equal(root.get("approved"), true));
+        query.where(
+                cb.and(
+                        cb.isTrue(root.get("approved")),
+                        cb.isFalse(root.get("pending"))
+                )
+        );
+        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
+    }
+    
+     public List<Review> getDisapprovedReviews(){
+        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Review> query = cb.createQuery(Review.class);
+        Root<Review> root = query.from(Review.class);
+        query.select(root);
+        query.where(
+                cb.and(
+                        cb.isFalse(root.get("approved")),
+                        cb.isFalse(root.get("pending"))
+                )
+        );
         return reviewJpaController.getEntityManager().createQuery(query).getResultList();
     }
  

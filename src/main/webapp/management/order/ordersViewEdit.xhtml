@@ -44,8 +44,18 @@
                     <p:column headerText="Cost">
                         <h:outputText value="#{item.cost}"/>
                     </p:column>
+                    
+                    <p:column headerText="Cancelled">
+                         <h:outputText value="#{item.cancelled}"/>   
+                    </p:column>
+               
+                
+                    <p:column headerText="Delete order item">
+                         <h:commandButton value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
+                    </p:column>
                 </p:dataTable>
-     
+        
+            <h:commandButton value="Delete Order" action="#{theOrders.deleteOrder()}"/>
             <h:commandButton value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
         </h:form>
         

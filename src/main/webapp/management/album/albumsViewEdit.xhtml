@@ -49,6 +49,10 @@
                     <f:facet name="header"><h:outputText value="Id"/></f:facet><h:outputText value="#{item.id}"/>
                 </p:column>              
                 </p:dataTable>
+                
+                <h:outputText value="Total Sales :"/>
+                <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist"/>
+
 
                 <p:commandButton action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
                 <p:commandButton action="#{theAlbums.delete()}" value="Delete" ajax="false"/>
