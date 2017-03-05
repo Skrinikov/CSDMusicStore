@@ -371,3 +371,70 @@ body.navbar-more-show  {
     background-color:#314190;
     color:#fff;
 }
+
+.reg-log {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;   
+    opacity: 0.9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    padding: 25px;
+    margin-top: 2%;
+    font-size: 1.1em;
+    border-radius: 25px;
+    background-color: white;
+    color: black;
+}
+
+#login-content {
+    border: 5px solid #2d2366;
+}
+
+.text-center {
+    text-align: center;
+    display: block;
+}
+
+.btn-login {
+    color: white;
+    background-color: #2d2366;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.btn-login.focus, .btn-login:focus, .btn-login:hover {
+    color: white;
+    background-color:#314190;
+}
+
+.login-link {
+    color: #a08b13;
+}
+
+.login-link:hover, .login-link:focus {
+    color: #e4c61b;
+}
+
+.btn-reg {
+    color: black;
+    background-color: #ead24c;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.btn-reg.focus, .btn-reg:focus, .btn-reg:hover {
+    color: black;
+    background-color:#b79e15;
+}
+
+.reg-link {
+    color: #2d2366;
+}
+
+.reg-link:hover, .reg-link:focus {
+    color: #314190;
+}
+
+#reg-content {
+    border: 5px solid #ead24c;
+}
