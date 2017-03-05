@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
 
-<!-- 
+    This page will display all existing news Feeds to the manager.
 
-    This xhtml will display the content related to news feed info 
-
-    @Author Renuchan 
+    @author Renuchan
 -->
 
 <ui:composition 
@@ -15,64 +13,65 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <ui:define name="title">
-        <h:outputText value="#{bundle.ListNewsFeedTitle}"></h:outputText>
+        <h:outputText value="Survey"></h:outputText>
     </ui:define>
+
     <ui:define name="content">
-        <h:form >
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListNewsFeedEmpty}" rendered="#{newsFeedController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{newsFeedController.items.rowCount > 0}">
-                <h:outputText value="#{newsFeedController.pagination.pageFirstItem + 1}..#{newsFeedController.pagination.pageLastItem + 1}/#{newsFeedController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{newsFeedController.previous}" value="#{bundle.Previous} #{newsFeedController.pagination.pageSize}" rendered="#{newsFeedController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{newsFeedController.next}" value="#{bundle.Next} #{newsFeedController.pagination.pageSize}" rendered="#{newsFeedController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{newsFeedController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
+
+        <f:view>
+
+            <h:form>
+                <h1><h:outputText value="#{bundle.listHeader}"/></h1>
+
+                <h1><h:outputText value="List"/></h1>
+                
+                <p:commandButton icon="ui-icon-plus" title="Icon Only" action="#{nfsBackingBean.prepareChange(0)}">               
+                </p:commandButton>
+                
+                <p:dataTable value="#{nfsBackingBean.allNews}" var="item"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" style="margin-bottom:20px">
+                    <p:column>                      
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNewsFeedTitle_id}"/>
+                            <h:outputText value="Id"/>
                         </f:facet>
                         <h:outputText value="#{item.id}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNewsFeedTitle_link}"/>
+                            <h:outputText value="Link"/>
                         </f:facet>
                         <h:outputText value="#{item.link}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNewsFeedTitle_source}"/>
+                            <h:outputText value="Source"/>
                         </f:facet>
                         <h:outputText value="#{item.source}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNewsFeedTitle_visible}"/>
+                            <h:outputText value="Visible"/>
                         </f:facet>
                         <h:outputText value="#{item.visible}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="Operation"/>
                         </f:facet>
-                        <h:commandLink action="#{newsFeedController.prepareView}" value="#{bundle.ListNewsFeedViewLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{newsFeedController.prepareEdit}" value="#{bundle.ListNewsFeedEditLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{newsFeedController.destroy}" value="#{bundle.ListNewsFeedDestroyLink}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:panelGroup>
-            <br />
-            <h:commandLink action="#{newsFeedController.prepareCreate}" value="#{bundle.ListNewsFeedCreateLink}"/>
-            <br />
-            <br />
-            <h:link outcome="/index" value="#{bundle.ListNewsFeedIndexLink}"/>
-        </h:form>
-    </ui:define>
-</ui:composition>
 
+                        <p:commandButton icon="ui-icon-trash" title="Icon Only" action="#{nfsBackingBean.deleteNews(item.id)}">               
+                        </p:commandButton>
 
+                        <p:commandButton icon="ui-icon-pencil" title="Icon Only" action="#{nfsBackingBean.prepareChange(item.id)}">               
+                        </p:commandButton>
+
+                    </p:column>
+                </p:dataTable>             
+            </h:form>
+
+        </f:view>          
+    </ui:define>    
+</ui:composition> 
