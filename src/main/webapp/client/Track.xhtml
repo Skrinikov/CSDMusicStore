@@ -34,7 +34,7 @@
                     <h3>Writer(s): #{trackCLBack.writer}</h3>
                     <div class="album-actions">
                         <h:form>
-                            <h:commandButton value="#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart()}" class="btn btn-success"/>
+                            <h:commandButton value="#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart()}" class="btn btn-success" />
                         </h:form>
                     </div>
                 </div>
@@ -47,11 +47,7 @@
                     </h:link> 
                 </p>
             </div>
-
-            <div class="row top-buffer">
-                <h3 class="similar-albums-header">Reviews</h3>
-            </div>
-
+            
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Related Tracks</h3>
             </div>
@@ -65,62 +61,69 @@
                                 <h3>#{relatedTrack.title}</h3>
                                 <h5>#{relatedTrack.album.artist.name}</h5>
                                 <h6>#{relatedTrack.album.title}</h6>
+                                <f:param name="id" value="#{relatedTrack.id}" />
                             </h:link>
                         </div>
                     </div>
                 </ui:repeat>
             </div>
-        </div>
+            
+            <div class="row top-buffer">
+                <h3 class="similar-albums-header">Reviews</h3>
+            </div>
 
+            <div class="row text-center">
+                <h:form rendered="#{trackCLBack.loggedIn}">
+                    <p:message for="rating"/>
+                    <p:message for="comment"/>
+                    <p:outputLabel>
+                        <h3>Add a Review</h3>
+                        <p:inputTextarea id="comment" rows="10" cols="75" value="#{trackCLBack.review.text}" label="comment" >
+                            
+                           <f:validateRequired />
+                        </p:inputTextarea>
+                        <p:message for="comment" />
+                        <br />
 
+                        
+                        <p:rating id="rating" value="#{trackCLBack.review.rating}" >
+                            <f:validateLongRange minimum="1" maximum="5"/>
+                        </p:rating><p:message for="rating" />
+                        <br />
 
+                        <p:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary" />
+                           
+                    </p:outputLabel>
+                </h:form>
 
-        <div class="col-md-4">
+                <p:outputPanel rendered="#{!trackCLBack.loggedIn}" >
+                    <p>Please <h:link outcome="login">Login</h:link>/<h:link outcome="register">Register</h:link> to review this Track</p>
+                </p:outputPanel>
+            </div>
+
             <div>
-                <h4>Reviews</h4>
-                <div>
-                    <div>
+                <ui:repeat value="#{trackCLBack.reviews}" var="review">
 
-                        <!-- Review Form Section -->
-                        <h:form rendered="#{login.loggedIn}">
-                            <p:outputLabel>
-                                <h5>Add a Review</h5>
-                                <p:inputTextarea rows="10" cols="50" value="#{trackCLBack.review.text}" />
-
-                                <br />
-
-                                <p:inputText value="#{trackCLBack.review.rating}"/>
-
-                                <h:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary">
-                                    <!--<f:param name="id" value="#{trackCLBack.trackId}"/>-->
-                                </h:commandButton>
-                            </p:outputLabel>
-                        </h:form>
-                    </div>
+                    <p:outputPanel style="margin-bottom: 3px; margin-top: 3px;">
+                        <p:panel style="min-width: 400px" footer="Date: #{review.reviewDate.toLocalDate()}">
+                            <f:facet name="header">
+                                <p:outputLabel><span style=" font-weight: normal">User:</span> <span style="font-weight: bold;">#{review.user.username}</span> <p:rating readonly="true" value="#{review.rating}" /> </p:outputLabel> 
+                            </f:facet>
+                            <p:outputLabel>#{review.text}</p:outputLabel>
+                            
+                            
+                        </p:panel>
+                    </p:outputPanel>
 
 
-
-
-                    <div>
-
-                        <ui:repeat value="#{trackCLBack.reviews}" var="review">
-
-                            <p:outputPanel>
-                                <p:panel style="min-width: 400px" header="#{review.user.username}" footer="#{review.reviewDate}">
-                                    <p:outputLabel>#{review.text}</p:outputLabel>
-                                </p:panel>
-                            </p:outputPanel>
-
-
-                        </ui:repeat>
-                    </div>
-                </div>
+                </ui:repeat>
+                
+                
             </div>
         </div>
 
-        
+
     </ui:define>
 
-    <ui:define name="footer"></ui:define>
 
 </ui:composition>

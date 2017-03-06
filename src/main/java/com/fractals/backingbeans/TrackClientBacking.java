@@ -158,9 +158,9 @@ public class TrackClientBacking implements Serializable {
     
     
     //////////////Pagination Logic Above////////////////
-
-   
-
+    
+    
+    
     public void setTrackId(Integer trackId) {
         this.trackId = trackId;
     }
@@ -231,10 +231,6 @@ public class TrackClientBacking implements Serializable {
         return (track != null) ? track.getIsIndividual() : false;
     }
     
-    public boolean reviewFormRender(){
-        return loginControl.isLoggedIn();
-    }
-
     public double getListedPrice() {
         return (track != null) ? track.getListPrice() : 0.00;
     }
@@ -300,6 +296,10 @@ public class TrackClientBacking implements Serializable {
         else
             return true;
         
+    }
+    
+    public boolean isLoggedIn(){
+        return loginControl.isLoggedIn();
     }
     
 }
