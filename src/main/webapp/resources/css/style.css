@@ -134,7 +134,6 @@ body.navbar-more-show  {
 /* not the greatest solution, but at least it's not in the middle of a page*/
 .footer{
     background: #272727;
-    height: 45px;
     width: 100%;
     position: relative;
     clear: both;
@@ -194,34 +193,6 @@ body.navbar-more-show  {
 }
 
 .top-buffer { margin-top:20px; }
-
-.rss-panel .panel-body{
-    height:400px;
-    overflow-y:scroll;
-}
-
-.rss-description img{
-    max-width:150px;
-    max-height:75px;
-    float:left;
-}
-
-.rss-description{
-    cursor: pointer;
-    text-decoration: none;
-    color:#545454
-}
-
-.rss-description p {
-    padding-left:155px;
-}
-
-.rss-title{
-    color: #545454;
-    cursor:pointer;
-    text-decoration:underline;
-    display:block;
-}
 
 .genres-panel .panel-body{
     height:400px;
@@ -390,8 +361,8 @@ body.navbar-more-show  {
 }
 
 .header{
-    background-image: url("#{resource['images/ambiance/bgt.jpg']}");
-    background-size:100%;
+    background-image: url("#{resource['images/ambiance/bgt4.jpg']}");
+    background-size:cover;
     min-height: 350px;
     vertical-align: middle;
 }
@@ -608,4 +579,57 @@ body.navbar-more-show  {
 
 .ui-button{
     padding:5px;
+}
+
+.genres-tab-xs{
+    background-color: #0D1217;
+    padding-right: 1em;
+    padding-left: 1em;
+    text-decoration: none;
+    display:none;
+}
+
+.genres-tab-xs ul li{
+    list-style-type: none;
+    border-right:none;   
+}
+
+
+
+@media (max-width: 600px) {
+    .genres-tab {
+        display: none; 
+    }
+    
+    .genres-tab-xs{
+        display:block;
+    }
+}
+
+.rss-panel{
+    border:solid 4px #336666;
+}
+
+.content-row{
+    padding-left: 1em;
+    padding-right: 1em;
+    
+}
+
+.content-panel{
+    background-color:#fff;
+}
+
+.content-header{
+    color:#fff;
+    background-color:#0D1217;
+    transform: translateX(-34px);
+    margin:0;
+    padding:3px;
+    margin-top: 10px;
+}
+
+.orange-back{
+    background-color:#FF7F50;
+    transform: translateX(  34px);
 }
