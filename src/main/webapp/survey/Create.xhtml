@@ -47,10 +47,10 @@
              
              </h:form>
              
-             <p:commandButton value="Save" action="#{surveyBacking.createSurvey()}">
+             <p:commandButton value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}">
              </p:commandButton>
              
-             <p:link outcome="List" value="Back"></p:link>
+             <p:link outcome="List" value="#{bundle.backBtn}"></p:link>
              
          </f:view>
 
