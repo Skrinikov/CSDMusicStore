@@ -115,8 +115,11 @@ public class TrackClientBacking implements Serializable {
     /**
      * Adding the current instance of the Track to the shopping cart
      */
-    public void addToCart() {
+    public String addToCart() {
+        track = trackControl.findTrack(trackId);
         this.cart.add(track);
+        
+        return "Track.xhtml?faces-redirect=true&id=" + trackId.toString();
     }
     
     ////////////Pagination Logic For Reviews///////////////

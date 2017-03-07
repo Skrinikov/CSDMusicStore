@@ -23,7 +23,7 @@
 
             <div class="row album-header album-row"> 
                 <div class="col-md-3 col-xs-12">
-                    <p:graphicImage name="images/covers/#{trackCLBack.track.coverFile}"  style="max-width: 100%;" styleClass="albumHeader"/>
+                    <p:graphicImage name="images/covers/#{trackCLBack.track.coverFile}"  style="max-width: 100%; max-height: 350px" styleClass="albumHeader"/>
                 </div>
                 <div class="col-md-9 col-xs-12" style="position:relative;">
                     <h3>Track</h3>
@@ -34,7 +34,7 @@
                     <h3>Writer(s): #{trackCLBack.writer}</h3>
                     <div class="album-actions">
                         <h:form>
-                            <h:commandButton value="#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart()}" class="btn btn-success" />
+                            <h:commandButton value="$#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart}" class="btn btn-success" />
                         </h:form>
                     </div>
                 </div>
