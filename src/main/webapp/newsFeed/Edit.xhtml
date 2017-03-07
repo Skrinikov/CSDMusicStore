@@ -25,27 +25,36 @@
 
             <h:form>
                 <h1><h:outputText value="#{bundle.nf_insertMsg}"/></h1>
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="3">
+                    
                     <p:outputLabel value="Id:" for="id" />
                     <p:outputLabel id="id" value="#{nfsBackingBean.current.id}" title="Id"/>
+                    <p:outputLabel />
+                    
                     <p:outputLabel value="Link" for="link" />
-                    <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" requiredMessage="The link field is required."/>
+                    <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" requiredMessage="#{bundle.error_msg1}"/>
+                    <p:messages for="link" autoUpdate="true" />    
+                    
                     <p:outputLabel value="Source" for="source" />
-                    <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="The source field is required."/>
-
+                    <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="#{bundle.error_msg2}"/>
+                    <p:messages for="source" autoUpdate="true" /> 
+                    
                     <p:outputLabel value="Visible:" />
                     <h:selectOneRadio value="#{nfsBackingBean.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
                     </h:selectOneRadio>	
+                    <p:outputLabel />
 
                 </p:panelGrid>
 
             </h:form>
 
-            <p:commandButton value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}">
+            <p:commandButton value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" >
             </p:commandButton>
 
+            
+            
             <p:button value="#{bundle.backBtn}" outcome="List">
             </p:button>
 
