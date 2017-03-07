@@ -19,16 +19,22 @@
 
              <h:form>
                  <h1><h:outputText value="#{bundle.createHeader}"/></h1>
-                 <p:panelGrid columns="2">
+                 <p:panelGrid columns="3">
+                     
                      <p:outputLabel value="Id:" for="id" />
                      <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
+                     <p:outputLabel />
+                     
                      <p:outputLabel value="Question:" for="question" />
-                     <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="The Question field is required."/>
+                     <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="#{bundle.survey_error_msg1}"/>
+                     <p:messages for="question" autoUpdate="true" /> 
+                     
                      <p:outputLabel value="Visible:" />
                      <h:selectOneRadio value="#{surveyBacking.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
                     </h:selectOneRadio>	
+                    <p:outputLabel />
                      
                  </p:panelGrid>
              
@@ -41,14 +47,19 @@
                          <f:facet name="header">
                              <h:outputText value="choice"/>
                          </f:facet> 
-                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="The Choice field is required."/>
-                     </p:column>        
+                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="#{bundle.survey_error_msg2}"/>
+                     </p:column>   
+                    <p:column>
+                        <p:messages for="choice" autoUpdate="true" />
+                    </p:column>
              </p:dataTable>
              
-             </h:form>
              
-             <p:commandButton value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}">
+             
+             <p:commandButton value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}" ajax="false">
              </p:commandButton>
+             
+             </h:form>
              
              <p:link outcome="List" value="#{bundle.backBtn}"></p:link>
              
