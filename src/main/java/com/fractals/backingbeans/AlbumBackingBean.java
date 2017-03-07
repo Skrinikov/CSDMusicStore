@@ -57,6 +57,7 @@ public class AlbumBackingBean implements Serializable {
     public boolean isEmpty() {return albumJpaController.isEmpty();}
 
     public String edit() throws Exception {
+        makeUneditable();
         albumJpaController.edit(selectedAlbum);
         return "/management/album/albumsList.xhtml";
     }
@@ -80,7 +81,6 @@ public class AlbumBackingBean implements Serializable {
     public String create() throws Exception {
         createdAlbum.setCreatedAt(LocalDateTime.now()); //maybe generated in bean
         createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
-        createdAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;

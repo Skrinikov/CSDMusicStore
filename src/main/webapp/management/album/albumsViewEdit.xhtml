@@ -7,7 +7,6 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
-        <a href="../management/albumsList.xhtml"></a>
         <h:outputText value="#{bundle.ListAlbumTitle}"></h:outputText>
     </ui:define>
 
@@ -15,7 +14,7 @@
 
         <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
-        <h:form>
+        <h:form id="form">
             
             <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
                 <h:outputText value="Id:"/>
@@ -45,9 +44,9 @@
                 
                 <h:outputText value="Tracks:"/>
                 <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
-                <p:column>
-                    <f:facet name="header"><h:outputText value="Id"/></f:facet><h:outputText value="#{item.id}"/>
-                </p:column>              
+                    <p:column headerText="Id">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>              
                 </p:dataTable>
                 
                 <h:outputText value="Total Sales :"/>
@@ -55,19 +54,16 @@
                     <f:convertNumber maxFractionDigits="2"/>
                 </h:outputText>
 
-
                 <p:commandButton action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton action="#{theAlbums.delete()}" value="Delete" ajax="false"/>
-<!--                 <p:confirm header="Delete album" message="Are you sure?" icon="ui-icon-alert" /> 
+                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
-            
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
-            https://stackoverflow.com/questions/24957293/pcommandbutton-action-not-working-in-pconfirmdialog
--->
-
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>       
+                
             </h:panelGrid>
 
             <h:panelGrid columns="2" rendered="#{theAlbums.editable and not empty theAlbums.selectedAlbum}">
@@ -99,18 +95,25 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
               
-                <p:commandButton action="#{theAlbums.edit()}" value="Save" ajax="false"/>
+                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form">
+                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>   
+                      
                 <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" ajax="false"/>
                 
             </h:panelGrid>
             
            <!--si l'artiste n'existe, dialog "voulez vous le creer"
           release date and artist greyed out because annoying (whole thing still not working yet)
-           On cascade delete avec les tracks si non impossible de supprimer un album...
            -->                
         </h:form>  
         
-        <p:button value="Retour à la liste" outcome="/management/album/albumsList.xhtml"/>
+        <p:button value="Return to list" outcome="/management/album/albumsList.xhtml"/>
           
     </ui:define>
 </ui:composition>
