@@ -20,7 +20,7 @@ public class UtilitiesBacking implements Serializable{
      * @return random id
      */
     public int generateRandomId(){
-        randomId = (int) (Math.random() * 10000);
+        randomId = (int) (Math.random() * 999999);
         return randomId;
     }
     
