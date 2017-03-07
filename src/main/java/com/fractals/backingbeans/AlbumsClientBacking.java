@@ -5,7 +5,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
-import com.fractals.controllers.CookiesController;
+import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewsWebController;
 import java.time.LocalDateTime;
@@ -47,7 +47,7 @@ public class AlbumsClientBacking {
     private LoginController loginControl;
     
     @Inject
-    private CookiesController cookiesControl;
+    private ClientTrackingController cookiesControl;
     
     //Initializes the Album entity
     public void init(){

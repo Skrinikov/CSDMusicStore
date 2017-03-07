@@ -5,7 +5,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
-import com.fractals.controllers.CookiesController;
+import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
@@ -63,7 +63,7 @@ public class TrackClientBacking implements Serializable {
     private ReviewsWebController reviewsControl;
 
     @Inject
-    private CookiesController cookiesControl;
+    private ClientTrackingController cookiesControl;
     
     @Inject
     private SimilarTracksController similarControl;
