@@ -162,6 +162,10 @@ public class AlbumsClientBacking {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    public boolean isLoggedIn(){
+        return loginControl.isLoggedIn();
+    }
+    
     private boolean canBuyAlbum(){
         List<Album> albumsInCart = shopControl.getAllAlbums();
         if (albumsInCart == null || albumsInCart.isEmpty())
