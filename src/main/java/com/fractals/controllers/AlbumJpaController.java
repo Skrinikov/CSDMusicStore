@@ -14,6 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
@@ -270,7 +271,34 @@ orderItemsCollectionOrderItemToAttach.getId());
         return ((Long) q.getSingleResult()).intValue();
     }
     
-    
+    public List<Album> findAlbumsByGenre(Genre genre, int count, boolean random){
+        if (genre == null || count <= 0)
+            throw new IllegalArgumentException("Cannot retrive albums");
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Album> query = cb.createQuery(Album.class);
+        Root<Album> root = query.from(Album.class);
+        Join genreJoin = root.join("tracks").join("genre");
+        query.where(cb.equal(genreJoin.get("id"), genre.getId()))
+                .distinct(true);
+        
+        
+        
+        List<Album> albums = new ArrayList<>();
+        
+        if (random == true){
+            albums = em.createQuery(query).getResultList();
+            //Will shuffle the list and trim the list with the count 
+            albums = getRandomAlbums(albums, count);
+        }
+        else{
+            //Since random is not needed, can just set the max results
+            albums = em.createQuery(query).setMaxResults(count).getResultList();
+        }
+        
+        return albums;
+        
+    }
     
     
     public boolean isEmpty(){
@@ -306,5 +334,27 @@ orderItemsCollectionOrderItemToAttach.getId());
         ).distinct(true);
  
         return em.createQuery(query).setMaxResults(count).getResultList();
+    }
+    
+    /**
+     * Takes the list of Album, shuffles it 
+     * and returns the first Tracks based on the limit
+     * @param albums
+     * @param limit
+     * @return Randomized List of n limit of Tracks
+     */
+    private List<Album> getRandomAlbums(List<Album> albums, int limit){
+        Collections.shuffle(albums);
+        
+        if (limit > albums.size())
+            limit = albums.size();
+        
+        List<Album> newAlbums = new ArrayList<>();
+        
+        for (int i = 0; i < limit; i++){
+            newAlbums.add(albums.get(i));
+        }
+        
+        return newAlbums;
     }
 }

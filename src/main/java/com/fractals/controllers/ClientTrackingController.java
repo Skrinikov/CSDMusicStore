@@ -48,7 +48,7 @@ public class ClientTrackingController {
         LOG.info("Genre ID from the cookie" + cookie.getValue());
         Integer genre_id = Integer.getInteger(cookie.getValue());
         return genreControl.findGenre(genre_id);
-    }
+    } 
     
     private boolean checkBrowser(){
         FacesContext context = FacesContext.getCurrentInstance();
