@@ -15,7 +15,7 @@ import javax.servlet.http.Cookie;
  */
 @Named("cookiesControl")
 @RequestScoped
-public class CookiesController {
+public class ClientTrackingController {
     
     private static final Logger LOG = Logger.getLogger("CookiesController.class");
 
