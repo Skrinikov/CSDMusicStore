@@ -8,6 +8,12 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     
+    <ui:define name="extra-meta">
+        <f:metadata>
+            <f:viewParam name="url" value="#{cart.url}" /> 
+        </f:metadata>
+    </ui:define>
+    
     <ui:define name="windowTitle">#{bundle.shopcart}</ui:define>
 
     <ui:define name="content">
@@ -63,7 +69,9 @@
                     <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login" class="text-center reg-link"/>
                     
                     <div>
-                        <h:link class="btn btn-default btn-continue" value="#{bundle.cart_return}" outcome="/index"/>
+                        <h:form>
+                            <h:commandLink class="btn btn-default btn-continue" value="#{bundle.cart_return}" action="#{cart.redirect()}" />
+                        </h:form>
                     </div>
 
                 </ui:fragment>

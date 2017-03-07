@@ -30,6 +30,7 @@
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
+                        <f:param name="url" value="#{request.requestURI}"/>
                     </h:link>
                 </li>
                 <li>
@@ -38,12 +39,14 @@
                         #{bundle.search}
                     </h:link>
                 </li>
+                <ui:fragment rendered="#{login.loggedIn}">
                 <li>
                     <h:link outcome="/downloads/library.xhtml">
                         <span class="menu-icon fa fa-download"></span>
                         Downloads
                     </h:link>
-                </li>  
+                </li>
+                </ui:fragment>
                 <li>
                     <h:link outcome="/client/help.xhtml">
                         <span class="menu-icon fa fa-question-circle"></span>
@@ -83,12 +86,14 @@
                     </h:link>
                 </li>
                
+                <ui:fragment rendered="#{login.loggedIn}">
                 <li class="hidden-xs">
                     <h:link outcome="/downloads/library.xhtml">
                         <span class="menu-icon fa fa-download"></span>
                         Downloads
                     </h:link>
                 </li>
+                </ui:fragment>
                
                <li class="hidden-xs">
                     <h:link outcome="/client/help.xhtml">
@@ -101,6 +106,7 @@
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
+                        <f:param name="url" value="#{request.requestURI}"/>
                     </h:link>
                 </li>
                 

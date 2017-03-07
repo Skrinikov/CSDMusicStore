@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 19/02/2017
+ * @version 07/03/2017
  * @since 1.8
  */
 @Named("login")
@@ -99,12 +99,21 @@ public class LoginController implements Serializable {
     }
     
     /**
-     * Logs out the user.
-     * @return null to stay on the same page.
+     * Logs out the user. If the user is an admin, for security, the user
+     * is redirected to the client index page. Otherwise, the user stays on the same page.
      */
-    public String logout() {
-        currentUser = null;
-        return null;
+    public void logout() {
+        if(currentUser != null && currentUser.getIsAdmin()) {           
+            try {
+                currentUser = null;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+            } 
+            catch (IOException io) {
+                log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
+            }
+        }
+        else
+            currentUser = null;
     }
     
     /**
