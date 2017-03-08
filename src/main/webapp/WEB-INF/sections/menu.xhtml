@@ -30,7 +30,7 @@
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
-                        <f:param name="url" value="#{request.requestURI}"/>
+                        <f:param name="url" value="#{request.requestURI}#{not empty request.queryString ? '?' : ''}#{request.queryString}"/>
                     </h:link>
                 </li>
                 <li>
@@ -106,7 +106,7 @@
                     <h:link outcome="/client/shopping_cart.xhtml" >
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
-                        <f:param name="url" value="#{request.requestURI}"/>
+                        <f:param name="url" value="#{request.requestURI}#{not empty request.queryString ? '?' : ''}#{request.queryString}"/>
                     </h:link>
                 </li>
                 
