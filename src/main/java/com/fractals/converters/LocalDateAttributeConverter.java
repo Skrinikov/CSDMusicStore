@@ -1,7 +1,7 @@
 /*
  * The courtesy of https://github.com/ancoron/pg-inet-maven/wiki/Support-custom-data-types-in-EclipseLink
  */
-package com.fractals.beans;
+package com.fractals.converters;
 
 import java.sql.Date;
 import java.time.LocalDate;

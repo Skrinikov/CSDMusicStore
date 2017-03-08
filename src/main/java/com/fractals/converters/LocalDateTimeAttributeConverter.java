@@ -1,7 +1,7 @@
 /*
  * The courtesy of https://github.com/ancoron/pg-inet-maven/wiki/Support-custom-data-types-in-EclipseLink
  */
-package com.fractals.beans;
+package com.fractals.converters;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -22,13 +22,14 @@ public class LocalDateTimeAttributeConverter implements Converter {
 	
     /**
      * Converts LocalDateTime to sql Timestamp.
-.     * @param o LocalDateTime object.
+     * @param o LocalDateTime object.
      * @param sn Session.
      * @return Timestamp sql object.
      */
     @Override
     public Object convertObjectValueToDataValue(Object o, Session sn) {
         LocalDateTime locDateTime = (LocalDateTime)o;
+        System.out.println(locDateTime);
         return (locDateTime == null ? null : Timestamp.valueOf(locDateTime));
     }
 
@@ -41,6 +42,7 @@ public class LocalDateTimeAttributeConverter implements Converter {
     @Override
     public Object convertDataValueToObjectValue(Object o, Session sn) {
         Timestamp sqlTimestamp = (Timestamp)o;
+        System.out.println(sqlTimestamp);
         return (sqlTimestamp == null ? null : sqlTimestamp.toLocalDateTime());
     }
 

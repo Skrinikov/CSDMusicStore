@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -22,12 +22,12 @@ import javax.inject.Named;
  * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
- * @version 25/02/2017
+ * @version 08/03/2017
  * @since 1.8
  */
 @Named("search")
-@RequestScoped
-public class SearchBacking {
+@SessionScoped
+public class SearchBacking implements Serializable {
     private List<String> options;
     private List<Album> albums;
     private List<Track> tracks;
@@ -181,7 +181,7 @@ public class SearchBacking {
      */
     public String search() {
         albums = new ArrayList<>();
-        tracks = new ArrayList<>();
+        tracks = new ArrayList<>();    
         if(key != null) {
             LocalDateTime from = LocalDateTime.ofInstant(dateStart.toInstant(), ZoneId.systemDefault());
             LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
@@ -218,6 +218,8 @@ public class SearchBacking {
     public void onItemSelect() {
         albums = new ArrayList<>();
         tracks = new ArrayList<>();
+        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         key = "";
         dateSelected = choice.equals(options.get(2));
     }

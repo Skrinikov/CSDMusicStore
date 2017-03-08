@@ -34,7 +34,7 @@ import org.eclipse.persistence.annotations.Converter;
  */
 @Entity
 @Table(name = "orders")
-@Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class)
+@Converter(name="datetimeConverter", converterClass=com.fractals.converters.LocalDateTimeAttributeConverter.class)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")

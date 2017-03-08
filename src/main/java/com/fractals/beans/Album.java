@@ -43,8 +43,8 @@ import org.eclipse.persistence.annotations.Converters;
 @Table(name = "albums")
 @XmlRootElement
 @Converters({
-        @Converter(name="datetimeConverter", converterClass=com.fractals.beans.LocalDateTimeAttributeConverter.class),
-        @Converter(name="dateConverter", converterClass=com.fractals.beans.LocalDateAttributeConverter.class)})
+        @Converter(name="datetimeConverter", converterClass=com.fractals.converters.LocalDateTimeAttributeConverter.class),
+        @Converter(name="dateConverter", converterClass=com.fractals.converters.LocalDateAttributeConverter.class)})
 @NamedQueries({
     @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a")
     , @NamedQuery(name = "Album.findById", query = "SELECT a FROM Album a WHERE a.id = :id")
