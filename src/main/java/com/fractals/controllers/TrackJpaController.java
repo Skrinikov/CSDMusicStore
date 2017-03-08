@@ -17,6 +17,7 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
@@ -232,6 +233,38 @@ public class TrackJpaController implements Serializable {
     }
     
     /**
+     * Selects tracks based on genre
+     * 
+     * @param genre Genre
+     * @param count int amount of tracks to return
+     * @param random true to return shuffled list
+     * @return list of tracks
+     */
+    public List<Track> findTracksByGenre(Genre genre, int count, boolean random){
+        if (genre == null || count <= 0)
+            throw new IllegalArgumentException ("Cannot retrieve tracks");
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
+        query.where(cb.equal(root.get("genre"), genre));
+        
+        List<Track> tracks = new ArrayList<>();
+        
+        if (random == true){
+            tracks = em.createQuery(query).getResultList();
+            tracks = getRandomTracks(tracks, count);
+            
+        }else{
+            tracks = em.createQuery(query).setMaxResults(count).getResultList();
+        }
+        
+        return tracks;
+        
+    }
+    
+    /**
      * Selects tracks based on their addition date to the database. 
      * 
      * @author Danieil Skrinikov
@@ -248,6 +281,28 @@ public class TrackJpaController implements Serializable {
         query.select(root);
         query.orderBy(cb.desc(root.get("createdAt")));
         return em.createQuery(query).setMaxResults(count).getResultList();
+    }
+    
+    /**
+     * Takes the list of Tracks, shuffles it 
+     * and returns the first Tracks based on the limit
+     * @param tracks
+     * @param limit
+     * @return Randomized List of n limit of Tracks
+     */
+    private List<Track> getRandomTracks(List<Track> tracks, int limit){
+        Collections.shuffle(tracks);
+        
+        if (limit > tracks.size())
+            limit = tracks.size();
+        
+        List<Track> newTracks = new ArrayList<>();
+        
+        for (int i = 0; i < limit; i++){
+            newTracks.add(tracks.get(i));
+        }
+        
+        return newTracks;
     }
     
 }
