@@ -700,7 +700,12 @@ body.navbar-more-show  {
     .album-presentation-inner .col-xs-12, .album-presentation-inner .col-xs-12 {
         text-align: center;
     } 
-
+    
+    .album-presentation-inner h3{
+        padding-left:0;
+        margin-bottom: 5px;
+    }
+    
     .album-presentation-inner h1{
         text-align: center;
         font-size: 2em;
