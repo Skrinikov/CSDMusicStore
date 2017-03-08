@@ -54,7 +54,7 @@ public class AlbumsClientBacking {
          album = albumControl.findAlbum(albumId);
          similarAlbums = albumControl.getSimilarAlbums(album, 3);
          
-         cookiesControl.registerGenreToCookies(album.getTracks().get(0).getGenre());
+         cookiesControl.saveGenre(album.getTracks().get(0).getGenre());
          isLoaded=true;
     }
     

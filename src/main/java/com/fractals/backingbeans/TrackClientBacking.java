@@ -80,7 +80,7 @@ public class TrackClientBacking implements Serializable {
      */
     public void init() {
         track = trackControl.findTrack(trackId);
-        cookiesControl.registerGenreToCookies(track.getGenre());
+        cookiesControl.saveGenre(track.getGenre());
     }
 
     /**
