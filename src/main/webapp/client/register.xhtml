@@ -100,8 +100,7 @@
                         <h:outputLabel for="province" value="#{bundle.province}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
                             <h:selectOneMenu id="province" value="#{User.user.province}" required="true" 
-                                             converter="omnifaces.SelectItemsConverter" class="form-control">
-                                <f:selectItem itemValue="#{null}" itemLabel="--- #{bundle.province_option} ---" />
+                                             class="form-control" converter="#{ProvinceConverter}">
                                 <f:selectItems value="#{Province.provinces}" />
                             </h:selectOneMenu>
                         </div>

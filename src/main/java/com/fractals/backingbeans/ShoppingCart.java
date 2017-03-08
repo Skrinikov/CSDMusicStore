@@ -36,10 +36,10 @@ public class ShoppingCart implements Serializable{
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
 
     //for test
-    @Inject
+    /*@Inject
     AlbumJpaController ajc;
     @Inject
-    private TrackJpaController tjc;
+    private TrackJpaController tjc;*/
 
     /**
      * Returns the list of all tracks in the shopping cart.
@@ -66,14 +66,14 @@ public class ShoppingCart implements Serializable{
     }
     
     //only for tests
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         empty();
         albums.add(ajc.findAlbum(1));
         albums.add(ajc.findAlbum(2));
         tracks.add(tjc.findTrack(1));
         tracks.add(tjc.findTrack(13));
-    }
+    }*/
    
     /**
      * Sets the url of the referrer page.
