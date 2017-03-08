@@ -1,56 +1,66 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- 
+<?xml version="1.0" encoding="UTF-8"?>
 
-    This xhtml will display the content related to news feed info 
-
-    @Author Renuchan 
+<!--
+    This page will display information about 1 newsFeed 
+    @author Renuchan 
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditNewsFeedTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+<ui:composition 
+    template="/WEB-INF/templates/mgmt_master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.nf_title}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <f:view>
+
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditNewsFeedLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{newsFeedController.selected.id}" title="#{bundle.EditNewsFeedTitle_id}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditNewsFeedLabel_link}" for="link" />
-                    <h:inputText id="link" value="#{newsFeedController.selected.link}" title="#{bundle.EditNewsFeedTitle_link}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_link}"/>
-                    <h:outputLabel value="#{bundle.EditNewsFeedLabel_source}" for="source" />
-                    <h:inputText id="source" value="#{newsFeedController.selected.source}" title="#{bundle.EditNewsFeedTitle_source}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_source}"/>
+                <h1><h:outputText value="#{bundle.nf_insertMsg}"/></h1>
+                <p:panelGrid columns="3">
                     
+                    <p:outputLabel value="Id:" for="id" />
+                    <p:outputLabel id="id" value="#{nfsBackingBean.current.id}" title="Id"/>
+                    <p:outputLabel />
                     
-                    <h:selectOneRadio value="#{newsFeedController.selected.visible}">
+                    <p:outputLabel value="Link" for="link" />
+                    <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" requiredMessage="#{bundle.error_msg1}"/>
+                    <p:messages for="link" autoUpdate="true" />    
+                    
+                    <p:outputLabel value="Source" for="source" />
+                    <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="#{bundle.error_msg2}"/>
+                    <p:messages for="source" autoUpdate="true" /> 
+                    
+                    <p:outputLabel value="Visible:" />
+                    <h:selectOneRadio value="#{nfsBackingBean.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
                     </h:selectOneRadio>	
-                    
-                    <!--
-                    <h:outputLabel value="#{bundle.EditNewsFeedLabel_visible}" for="visible" />
-                    <h:inputText id="visible" value="#{newsFeedController.selected.visible}" title="#{bundle.EditNewsFeedTitle_visible}" required="true" requiredMessage="#{bundle.EditNewsFeedRequiredMessage_visible}"/>
-                    -->
-                </h:panelGrid>
-                <h:commandLink action="#{newsFeedController.update}" value="#{bundle.EditNewsFeedSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditNewsFeedViewLink}"/>
-                <br />
-                <h:commandLink action="#{newsFeedController.prepareList}" value="#{bundle.EditNewsFeedShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditNewsFeedIndexLink}" />
-            </h:form>
-        </ui:define>
-    </ui:composition>
+                    <p:outputLabel />
 
-</html>
+                </p:panelGrid>
+
+            </h:form>
+
+            <p:commandButton value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" >
+            </p:commandButton>
+
+            
+            
+            <p:button value="#{bundle.backBtn}" outcome="List">
+            </p:button>
+
+        </f:view>
+
+
+    </ui:define>
+
+</ui:composition>
