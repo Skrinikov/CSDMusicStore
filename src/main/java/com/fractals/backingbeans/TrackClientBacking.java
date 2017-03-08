@@ -5,6 +5,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
@@ -62,6 +63,9 @@ public class TrackClientBacking implements Serializable {
     private ReviewsWebController reviewsControl;
 
     @Inject
+    private ClientTrackingController cookiesControl;
+    
+    @Inject
     private SimilarTracksController similarControl;
     
 
@@ -76,6 +80,7 @@ public class TrackClientBacking implements Serializable {
      */
     public void init() {
         track = trackControl.findTrack(trackId);
+        cookiesControl.registerGenreToCookies(track.getGenre());
     }
 
     /**
@@ -110,11 +115,14 @@ public class TrackClientBacking implements Serializable {
     /**
      * Adding the current instance of the Track to the shopping cart
      */
-    public void addToCart() {
+    public String addToCart() {
+        track = trackControl.findTrack(trackId);
         this.cart.add(track);
+        
+        return "Track.xhtml?faces-redirect=true&id=" + trackId.toString();
     }
     
-    ////////////Pagination Logic///////////////
+    ////////////Pagination Logic For Reviews///////////////
     
     public PaginationHelper getPagination(){
         if (pagination == null){
@@ -141,19 +149,21 @@ public class TrackClientBacking implements Serializable {
     }
     
     public String next(){
+        //TODO
         return null;
     }
     
     public String previous(){
+        //TODO
         return null;
     }
     
     
     
-    //////////////Pagination Logic Aboved////////////////
-
-   
-
+    //////////////Pagination Logic Above////////////////
+    
+    
+    
     public void setTrackId(Integer trackId) {
         this.trackId = trackId;
     }
@@ -177,6 +187,7 @@ public class TrackClientBacking implements Serializable {
         return formattedArtists;
 
     }
+    
 
     public Review getReview(){
         if (review == null)
@@ -223,10 +234,6 @@ public class TrackClientBacking implements Serializable {
         return (track != null) ? track.getIsIndividual() : false;
     }
     
-    public boolean reviewFormRender(){
-        return loginControl.isLoggedIn();
-    }
-
     public double getListedPrice() {
         return (track != null) ? track.getListPrice() : 0.00;
     }
@@ -280,6 +287,22 @@ public class TrackClientBacking implements Serializable {
         else{
             return available;
         }
+    }
+    
+    public boolean canBuy(){
+        List<Track> tracksInCart = cart.getAllTracks();
+        if (tracksInCart == null || tracksInCart.isEmpty())
+            return true;
+        
+        if (tracksInCart.contains(track))
+            return false;
+        else
+            return true;
+        
+    }
+    
+    public boolean isLoggedIn(){
+        return loginControl.isLoggedIn();
     }
     
 }
