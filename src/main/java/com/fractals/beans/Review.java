@@ -194,4 +194,12 @@ public class Review implements Serializable {
         return "com.fractals.beans.Review[ id=" + id + " ]";
     }
     
+    public String status(){
+        if(pending)
+            return "PENDING";
+        if(approved)
+            return "APPROVED";
+        return "DISAPPROVED";
+    }
+    
 }

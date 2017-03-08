@@ -42,6 +42,8 @@ public class UserJpaController implements Serializable {
     @PersistenceContext
     private EntityManager em;
 
+    public EntityManager getEntityManager(){ return em;}
+    
     public void create(User user) throws RollbackFailureException, Exception {
         if (user.getReviews() == null) {
             user.setReviews(new ArrayList<Review>());

@@ -15,7 +15,7 @@
 
         <h:outputText value="nothing selected" rendered="#{empty theTracks.selectedTrack}"/>
 
-        <h:form>
+        <h:form id="form">
             
             <h:panelGrid columns="2" rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">              
           
@@ -51,9 +51,16 @@
                             <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre"/>
                    
                 
-                <p:commandButton action="#{theTracks.makeEditable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton action="#{theTracks.delete()}" value="Delete" ajax="false"/>
-      
+                <p:commandButton action="#{theTracks.makeEditable()}" value="Edit" ajax="false"/>                                           
+                
+                <p:commandButton actionListener="#{theTracks.delete()}" value="Delete" update="form">
+                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>   
 
             </h:panelGrid>
 
@@ -82,7 +89,7 @@
                             <p:outputLabel value="RemovedAt:" for="removedAt" />
                             <p:inputText id="removedAt" value="#{theTracks.selectedTrack.removedAt}" disabled="true" title="RemovedAt" /> 
                             <p:outputLabel value="Available:" for="available" />
-                            <p:selectBooleanCheckbox id="available" value="#{theTracks.selectedTrack.available}" />             
+                            <p:selectBooleanCheckbox id="available" value="#{theTracks.selectedTrack.available}" disabled="true" />             
                             <p:outputLabel value="IsIndividual:" for="isIndividual" />
                             <p:selectBooleanCheckbox id="isIndividual" value="#{theTracks.selectedTrack.isIndividual}" />              
                             <p:outputLabel value="Album:" for="album" />
@@ -95,7 +102,15 @@
                             </p:selectOneMenu>
       
                 
-                <p:commandButton action="#{theTracks.edit()}" value="Save" ajax="false"/>
+                <p:commandButton actionListener="#{theTracks.edit()}" value="Save" update="form">
+                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>   
+                            
                 <p:commandButton action="#{theTracks.makeUneditable()}" value="Cancel" ajax="false"/>
                 
             </h:panelGrid>
@@ -103,7 +118,6 @@
         </h:form>  
         
         <p:button value="Retour à la liste" outcome="/management/track/tracksList.xhtml"/>
-         <!--update removed at with event listener if available checkbox is modified --> 
     </ui:define>
 </ui:composition>
 

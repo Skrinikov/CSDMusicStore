@@ -39,8 +39,8 @@
                         <h:outputText value="#{item.text}"/>
                     </p:column>
                     
-                    <p:column headerText="Approved">
-                        <h:outputText value="#{item.approved}"/>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{item.status()}"/>
                     </p:column>
                     
                     <p:column headerText="User">
@@ -48,7 +48,7 @@
                     </p:column>
                     
                     <p:column headerText="Track">
-                        <h:outputText value="#{item.track}"/>
+                        <h:outputText value="#{item.track.title}"/>
                     </p:column>
 
                                       

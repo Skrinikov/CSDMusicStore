@@ -29,6 +29,13 @@
                         <p:commandLink id="toggler" value="Change columns" style="float:right" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
+                    
+                    <p:column width="5%" headerText="Cover">
+                        <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
+                        <p:tooltip for="content" trackMouse="true">
+                            <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
+                        </p:tooltip>
+                    </p:column> 
 
                     <p:column headerText="Id">
                         <h:outputText value="#{item.id}"/>
@@ -48,10 +55,6 @@
                     
                     <p:column headerText="AlbumNum">
                         <h:outputText value="#{item.albumNum}"/>
-                    </p:column>
-                    
-                    <p:column headerText="CoverFile">
-                        <h:outputText value="#{item.coverFile}"/>
                     </p:column>
                     
                     <p:column headerText="CreatedAt">
@@ -97,12 +100,8 @@
 
                 </p:dataTable>
             </h:panelGroup>
-
-
         </h:form>
-
     </ui:define>
-
 </ui:composition>
 
 

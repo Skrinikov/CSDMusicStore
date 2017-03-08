@@ -21,63 +21,59 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theAlbums.selectedAlbum}" 
-                             rowKey="#{item.id}"
+                             rowKey="#{item.id}" widgetVar="albumTable"
                              draggableColumns="true" resizableColumns="true" >
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListAlbumTitle}"/>
-                        <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                        <p:commandLink id="toggler" value="Change columns" style="float:left" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
+                        <p:outputPanel style="float:right">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
                     </f:facet>
 
-
-                    <p:column width="5%" headerText="Cover">
-                        <p:graphicImage id="content" width="40px" name="/images/test_cover.jpg" />          
-                        <p:tooltip for="content" trackMouse="true">
-                            <p:graphicImage height="300px" name="/images/test_cover.jpg"/>
-                        </p:tooltip>
-                    </p:column> 
-
-                    <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}">
+                    <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}" filterStyle="display:none" filterBy="#{item.id}" >
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_title}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_title}" filterStyle="display:none" filterBy="#{item.title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_releaseDate}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_releaseDate}" filterStyle="display:none" filterBy="#{item.releaseDate}">
                         <h:outputText value="#{item.releaseDate}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_recordLabel}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_recordLabel}" filterStyle="display:none" filterBy="#{item.recordLabel}">
                         <h:outputText value="#{item.recordLabel}"/>
                     </p:column>
-                    <p:column headerText="#{bundle.ListAlbumTitle_numTracks}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_numTracks}" filterStyle="display:none" filterBy="#{item.numTracks}">
                         <h:outputText value="#{item.numTracks}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_createdAt}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_createdAt}" filterStyle="display:none" filterBy="#{item.createdAt}">
                         <h:outputText value="#{item.createdAt}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_costPrice}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_costPrice}" filterStyle="display:none" filterBy="#{item.costPrice}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_listPrice}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_listPrice}" filterStyle="display:none" filterBy="#{item.listPrice}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_salePrice}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_salePrice}" filterStyle="display:none" filterBy="#{item.salePrice}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_removedAt}">
+                    <p:column headerText="#{bundle.ListAlbumTitle_removedAt}" filterStyle="display:none" filterBy="#{item.removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column> 
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_available}">                       
+                    <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">                       
                         <h:outputText value="#{item.available}"/>            
                     </p:column>
 
@@ -96,12 +92,12 @@
                 <ui:include src="/management/album/testDialogViewEdit.xhtml" />  
             </p:dialog>
 
-                       
-<!--           
-            <p:dialog header="Create Album" widgetVar="dialogCreate" dynamic="true">            
-                <ui:include src="/management/album/testDialogCreate.xhtml" />          
-            </p:dialog>
--->
+
+            <!--           
+                        <p:dialog header="Create Album" widgetVar="dialogCreate" dynamic="true">            
+                            <ui:include src="/management/album/testDialogCreate.xhtml" />          
+                        </p:dialog>
+            -->
 
         </h:form>
 

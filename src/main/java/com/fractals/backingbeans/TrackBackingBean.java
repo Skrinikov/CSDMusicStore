@@ -57,20 +57,18 @@ public class TrackBackingBean implements Serializable {
     public void makeUneditable(){setEditable(false);}
 
        
-    public String edit()throws Exception {
-        trackJpaController.edit(selectedTrack);
-        
-        return "/management/track/tracksList.xhtml";
+    public void edit()throws Exception {
+        makeUneditable();
+        trackJpaController.edit(selectedTrack); 
     }
 
     public void delete() throws Exception {
         //trackJpaController.destroy(selectedTrack.getId());
         selectedTrack.setRemovedAt(LocalDateTime.now());
+        selectedTrack.setAvailable(false);
         edit();
     }
-    
-    
-        
+           
     
     @Inject private AlbumJpaController album;
     @Inject private ArtistJpaController artist;

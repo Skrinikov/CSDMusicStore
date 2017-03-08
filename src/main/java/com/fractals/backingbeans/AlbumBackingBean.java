@@ -7,6 +7,8 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
+import com.fractals.beans.Order;
+import com.fractals.beans.OrderItem;
 import com.fractals.controllers.AlbumJpaController;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,6 +17,10 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -51,6 +57,7 @@ public class AlbumBackingBean implements Serializable {
     public boolean isEmpty() {return albumJpaController.isEmpty();}
 
     public String edit() throws Exception {
+        makeUneditable();
         albumJpaController.edit(selectedAlbum);
         return "/management/album/albumsList.xhtml";
     }
@@ -74,11 +81,23 @@ public class AlbumBackingBean implements Serializable {
     public String create() throws Exception {
         createdAlbum.setCreatedAt(LocalDateTime.now()); //maybe generated in bean
         createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
-        createdAlbum.setArtist(getAlbums().get(0).getArtist());//A CHANGER
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;
         return "/management/album/albumsViewEdit.xhtml";
+    }
+    
+    
+        
+    public Number getTotalSales(){
+        CriteriaBuilder cb = albumJpaController.getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        Root<OrderItem> root = query.from(OrderItem.class);
+        Join<OrderItem,Order> order = root.join("order");
+        query.select(cb.sum(order.get("netCost")));
+        query.where(cb.equal(root.get("album"), selectedAlbum));
+        Number result = albumJpaController.getEntityManager().createQuery(query).getSingleResult();      
+        return result == null ? 0 : result;
     }
 
 }
