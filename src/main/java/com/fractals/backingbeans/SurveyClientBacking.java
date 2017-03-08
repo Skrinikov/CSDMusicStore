@@ -30,6 +30,9 @@ public class SurveyClientBacking implements Serializable{
     
     
     private Survey sur; 
+    private boolean isVoted = false;
+    private static final String ANSWERS = "/WEB-INF/sections/survey/answers.xhtml";
+    private static final String OPTIONS = "/WEB-INF/sections/survey/options.xhtml";
     
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager em;
@@ -56,8 +59,10 @@ public class SurveyClientBacking implements Serializable{
         
     }
     
-    
-    public String selectedOption(SurveyChoice sc)
+    /**
+     * Renuchan,this is not ajax ready. -Danieil
+     */
+    public void selectedOption(SurveyChoice sc)
     {
         sc.setNumVotes(sc.getNumVotes() + 1);
         
@@ -70,7 +75,8 @@ public class SurveyClientBacking implements Serializable{
         }
         //reset the survey
         sur = null; 
-        return null; 
+        
+        isVoted = true;
        
     }
     
@@ -82,5 +88,19 @@ public class SurveyClientBacking implements Serializable{
     }
     
     
+    /**
+     * Checks if the user has already voted. If he did, then it returns the answers interface.
+     * If he did not, returns the option's UI
+     * 
+     * @author: Danieil Skrinikov
+     * 
+     * @return path to a section.
+     */
+    public String getSurveryOptionsOrAnswers(){
+        if(isVoted == false ){
+            return OPTIONS;
+        }
+        return ANSWERS;
+    }    
     
 }

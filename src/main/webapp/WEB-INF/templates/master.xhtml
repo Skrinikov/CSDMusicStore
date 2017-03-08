@@ -11,14 +11,20 @@
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ui:insert name="extra-meta"/>
+        <f:event type="preRenderView"
+                 listener="#{localeChanger.checkCookieLocale}" />
         <title><ui:insert name="windowTitle" /></title>
         <!-- Style inputs -->
         <h:outputStylesheet library="webjars" name="bootstrap/3.3.7-1/css/bootstrap.min-jsf.css" />
-        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css" />      
+        <h:outputStylesheet library="css" name="hover-min.css" />
         <h:outputStylesheet library="css" name="style.css" />
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet"/>
 
     </h:head>
-    <h:body>
+    <h:body class="background">
 
         <!-- Menu -->
         <ui:insert name="menu">

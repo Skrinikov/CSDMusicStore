@@ -140,9 +140,9 @@
                 <li>
                     <h:form class="menu-form">
                         <h:commandLink immediate="true" actionListener="#{localeChanger.changeLocale}" 
-                                       value="#{bundle.code}" styleClass="nav-menu-form">    
+                                       value="#{bundle.codeLang}" styleClass="nav-menu-form">    
                             
-                            <f:param name="languageCode" value="#{bundle.countryCode}" /> 
+                            <f:param name="languageCode" value="#{bundle.code}" /> 
                             <span class="menu-icon fa fa-globe"></span>
                         </h:commandLink>
                     </h:form>
