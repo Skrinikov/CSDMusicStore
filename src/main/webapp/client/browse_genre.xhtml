@@ -16,37 +16,42 @@
 
     <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
 
-    <ui:define name="content">
-
+    <ui:define name="content">  
 
         <h:form id="form">
+
+            <h:panelGroup layout="block" style="text-align:center;">
+            
+             <!-- Change to bootstrap using http://www.bootply.com/132400 -->   
+                
             <ui:repeat value="#{browseBacking.allGenre}" var="genre">
 
-                <p:carousel value="#{browseBacking.getTracksByGenre(genre)}" headerText="Responsive" var="track" itemStyle="text-align:center">
-                    <p:panelGrid columns="1" style="width:100%;margin:0px 0px" >
+                <h1> #{genre.name} </h1>
+                <br />
+
+                <p:carousel value="#{browseBacking.getTracksByGenre(genre)}" headerText="Responsive" var="track" numVisible="3" itemStyle="text-align:center; width:400px" >
+                    <p:panelGrid columns="1" style="width:100%">
+
+                        <h:commandLink>
+                            <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                            <p:ajax event="click" listener="#{browseBacking.trackDetails(track)}"/>   
+                        </h:commandLink>
                         
+                        <div class="caption">
+                            <h4 class="centerText">#{track.title}</h4>
+                            <p class="centerText">#{track.album.recordLabel} </p>
+                        </div>
                             
-                        <p:graphicImage name="images/covers/#{item.coverFile}" style="max-height: 20px;max-width: 20px"/> 
-                        
-                        <h:outputText value="#{track.title}" />
-
-                        <h:outputText value="#{track.album.recordLabel}" />
-
-                        <h:outputText value="$#{track.salePrice}" />
+                         
                         
                     </p:panelGrid>
 
-                    <f:facet name="footer">
-                        In total there are 10 cars.
-                    </f:facet>
-                        
                 </p:carousel>
-                
-                <br />
-                <br />
 
+                <br />
+                <br />
             </ui:repeat>
-
+            </h:panelGroup>
         </h:form>
     </ui:define>
 

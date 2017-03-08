@@ -7,9 +7,14 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -71,6 +76,31 @@ public class BrowseGenreBacking {
         cq.where(cb.equal(track.get("genre"), genre));
         
         TypedQuery query = entityManager.createQuery(cq);
-        return query.getResultList(); 
-    }        
+        List<Track> all = query.getResultList(); 
+        
+        //just get 10 
+        List<Track> tracks = new ArrayList<>();
+        
+        int size = (all.size() < 10)? all.size() : 10; 
+        
+        for(int i = 0; i < size; i++)
+            tracks.add(all.get(i)); 
+        return tracks;
+    }   
+    
+    /**
+     * This method will be used to send the user to the track details page
+     * for the track clicked in the showcase. 
+     * 
+     * @param track 
+     */
+    public void trackDetails(Track track)
+    {
+        String path = "Track.xhtml?id=" + track.getId();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(path);
+        } catch (IOException ex) {
+            Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
