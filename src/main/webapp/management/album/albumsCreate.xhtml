@@ -37,19 +37,14 @@
                 <p:outputLabel value="Available:" for="available" />              
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.createdAlbum.available}" />
 
-                <!--                <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
-                                    <p:inputMask id="releaseDate" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99">
-                                    <f:convertDateTime pattern="yyyy-mm-dd"/>
-                                    </p:inputMask>
-                                  <p:outputLabel value="Artist:" for="artist" />
-                                    <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" required="true" requiredMessage="The Artist field is required.">
-                                        <f:selectItems value="#{theArtists.artists}"/>
-                                    </p:selectOneMenu>
-                -->
+                <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
+                <p:inputMask id="releaseDate" converter="#{localDateConverter}" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99"/>
+
+
                 <p:outputLabel value="Artist:" for="artist" />
 
-                <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" converter="artistConverter" panelStyle="width:180px"
-                                 effect="fade" var="a" style="width:160px" filter="true" filterMatchMode="startsWith">
+                <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" converter="#{artistConverter}" panelStyle="width:180px"
+                                 effect="fade" var="a" style="width:160px" editable="true">
 
                     <f:selectItems value="#{theArtists.artists}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" />
 
