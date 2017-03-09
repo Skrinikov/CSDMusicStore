@@ -1,5 +1,6 @@
 package com.fractals.controllers;
 
+import com.fractals.backingbeans.LoginBacking;
 import com.fractals.backingbeans.exceptions.NonexistentEntityException;
 import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
@@ -40,7 +41,7 @@ public class ClientTrackingController {
     private UserJpaController userControl;
     
     @Inject
-    private LoginController loginControl;
+    private LoginBacking loginControl;
     
     /**
      * Saves the last visited genre
@@ -50,8 +51,6 @@ public class ClientTrackingController {
         if(loginControl.isLoggedIn()){
             try {
                 saveGenreToDB(loginControl.getCurrentUser(), genre);
-            } catch (RollbackFailureException ex) {
-                Logger.getLogger(ClientTrackingController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(ClientTrackingController.class.getName()).log(Level.SEVERE, null, ex);
             }

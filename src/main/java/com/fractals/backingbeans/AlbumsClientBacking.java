@@ -71,7 +71,7 @@ public class AlbumsClientBacking implements Serializable{
 
             // Thai Vu I added this, because some albums have no tracks.
             if (album.getTracks().size() > 0) {
-                cookiesControl.registerGenreToCookies(album.getTracks().get(0).getGenre());
+                cookiesControl.saveGenre(album.getTracks().get(0).getGenre());
             }
             isLoaded = true;
         }
@@ -80,7 +80,7 @@ public class AlbumsClientBacking implements Serializable{
     /**
      * Function to add the current instance of the album to the shopping
      */
-    public void addAlbumToCart() {
+    public String addAlbumToCart() {
         shopControl.add(album);
         
         String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
