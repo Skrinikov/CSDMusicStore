@@ -20,7 +20,7 @@
         <f:metadata>
             <f:viewParam name="id" /> 
         </f:metadata>
-        
+
         <!-- Header -->
         <p:outputPanel styleClass="jumbotron album-jumbotron">
             <div class="row album-presentation-outer">
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-2 col-xs-12">
                                 <h:form>
-                                    <h:commandLink value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" styleClass="hvr-rectangle-out custom-price-buttons"/>
+                                    <p:commandLink value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(albumsCLBack.album)}"/>
                                 </h:form>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                 <div clas="row">
                     <div class="col-sm-4 col-xs-12">
                         <div class="info">
-                            <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}"/>
+                            <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}" style="width:100%;"/>
                             <h4>#{albumsCLBack.album.artist.name} - <span class="darker-color">#{albumsCLBack.album.title}</span></h4>
                             <p>#{albumsCLBack.album.recordLabel} - #{albumsCLBack.album.tracks.size()} Song(s)</p>
                             <ul>
@@ -63,38 +63,55 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-xs-12">
-                        <div class="album-track-list">
-                            <table class="table table-condensed table-responsive">
-                                <tbody>
-                                    <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
-                                        <tr>    
-                                            <td class="col-md-1 text-center toggle-reviews" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
-                                            <td class="col-md-6"><h:link outcome="Track" value="#{track.albumNum} - #{track.title}" styleClass="album-list-track"><f:param name="id" value="#{track.id}"/></h:link></td>
-                                            <td class="col-md-1">#{track.duration}</td>
-                                            <td class="col-md-1">
-                                                <h:form>
-                                                    <h:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}"/>
-                                                </h:form>
-                                            </td>
-                                        </tr>
-                                        <tr id="r#{utilBacking.randomId}" style="display:none">
-                                            <td colspan="12" class="review-container">
-                                            <ui:repeat var="review" value="#{track.reviews}">
-                                                <div class="review">
-                                                    <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
-                                                    <p>#{review.text}</p>
-                                                </div>
-                                            </ui:repeat>
-                                            </td>
-                                        </tr>
-                                    </ui:repeat>
-                                </tbody>
-                            </table>
+                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="album-track-list">
+                                <table class="table table-condensed table-responsive">
+                                    <tbody>
+                                        <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
+                                            <tr>    
+                                                <ui:fragment rendered="#{track.reviews.size() > 0}">
+                                                    <td class="col-md-1 text-center toggle-reviews" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{track.reviews.size() == 0}">
+                                                    <td class="col-md-1 text-center toggle-reviews-empty" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
+                                                </ui:fragment>
+                                                <td class="col-md-6"><h:link outcome="Track" value="#{track.albumNum} - #{track.title}" styleClass="album-list-track"><f:param name="id" value="#{track.id}"/></h:link></td>
+                                                <td class="col-md-1">#{track.duration}</td>
+                                                <td class="col-md-1">
+                                                    <h:form>
+                                                        <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}"/>
+                                                    </h:form>
+                                                </td>
+                                            </tr>
+                                            <ui:fragment rendered="#{track.reviews.size() > 0}">
+                                                <tr id="r#{utilBacking.randomId}" style="display:none">
+                                                    <td colspan="12" class="review-container">
+                                                        <ui:repeat var="review" value="#{track.reviews}">
+                                                            <div class="review">
+                                                                <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                                                <p>#{review.text}</p>
+                                                            </div>
+                                                        </ui:repeat>
+                                                    </td>
+                                                </tr>
+                                            </ui:fragment>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="album-track-list">
+                                No Tracks
+                            </div>                                
+                        </div>
+                    </ui:fragment>
                 </div>
             </div>
+
         </p:outputPanel>
     </ui:define> 
 
