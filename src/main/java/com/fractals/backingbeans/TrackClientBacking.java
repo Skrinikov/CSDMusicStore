@@ -123,8 +123,8 @@ public class TrackClientBacking implements Serializable {
     public String addToCart() {
         track = trackControl.findTrack(trackId);
         this.cart.add(track);
-        
-        return "Track.xhtml?faces-redirect=true&id=" + trackId.toString();
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
     ////////////Pagination Logic For Reviews///////////////
@@ -210,7 +210,7 @@ public class TrackClientBacking implements Serializable {
         return relatedTracks;
     }
     
-    public List<Album> getSimilarAlbums(){
+    public List<Album> getRelatedAlbums(){
        if (track == null)
            return new ArrayList<>();
        if (relatedAlbums == null){
@@ -264,7 +264,7 @@ public class TrackClientBacking implements Serializable {
     public String getWriter() {
         return (track != null) ? track.getSongwriter() : "";
     }
-
+    
     /**
      * Returns the real price for the track. If there is a sale, returns the
      * sale price, if not returns the list price.

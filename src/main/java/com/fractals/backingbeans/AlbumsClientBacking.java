@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The Backing bean for the client side Album page
@@ -61,8 +62,12 @@ public class AlbumsClientBacking {
     /**
      * Function to add the current instance of the album to the shopping
      */
-    public void addAlbumToCart(){
+    public String addAlbumToCart(){
+        album = albumControl.findAlbum(albumId);
         shopControl.add(album);
+        
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
     public Album getAlbum(){
@@ -95,7 +100,11 @@ public class AlbumsClientBacking {
 
     public void setSimilarAlbums(List<Album> similarAlbums) {
         this.similarAlbums = similarAlbums;
-    }     
+    }    
+    
+    public void setAlbum(Album album){
+        this.album = album;
+    }
 
     public boolean isIsLoaded() {
         return isLoaded;

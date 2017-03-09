@@ -35,6 +35,7 @@
                     <div class="album-actions">
                         <h:form>
                             <h:commandButton value="$#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart}" class="btn btn-success" />
+                            <f:param name="url" value="#{request.requestURI}"/>
                         </h:form>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
                     </h:link> 
                 </p>
             </div>
-            
+
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Related Tracks</h3>
             </div>
@@ -67,7 +68,26 @@
                     </div>
                 </ui:repeat>
             </div>
-            
+
+            <div class="row top-buffer">
+                <h3 class="similar-albums-header">Related Albums</h3>
+            </div>
+
+            <div class="row text-center" style="margin-bottom: 20px;">
+                <ui:repeat var="relatedAlbum" value="#{trackCLBack.relatedAlbums}">
+                    <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
+                        <div class="similar-albums-inner">
+                            <h:link outcome="Album">
+                                <p:graphicImage name="images/covers/#{relatedAlbum.tracks.get(0).coverFile}"  style="max-height: 275px"/>
+                                <h3>#{relatedAlbum.title}</h3>
+                                <h5>#{relatedAlbum.artist}</h5>
+                                <f:param name="id" value="#{relatedAlbum.id}" />
+                            </h:link>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Reviews</h3>
             </div>
@@ -79,20 +99,20 @@
                     <p:outputLabel>
                         <h3>Add a Review</h3>
                         <p:inputTextarea id="comment" rows="10" cols="75" value="#{trackCLBack.review.text}" label="comment" >
-                            
-                           <f:validateRequired />
+
+                            <f:validateRequired />
                         </p:inputTextarea>
                         <p:message for="comment" />
                         <br />
 
-                        
+
                         <p:rating id="rating" value="#{trackCLBack.review.rating}" >
                             <f:validateLongRange minimum="1" maximum="5"/>
                         </p:rating><p:message for="rating" />
                         <br />
 
                         <p:commandButton value="Submit" action="#{trackCLBack.addReview()}" styleClass="ui-priority-primary" />
-                           
+
                     </p:outputLabel>
                 </h:form>
 
@@ -110,15 +130,15 @@
                                 <p:outputLabel><span style=" font-weight: normal">User:</span> <span style="font-weight: bold;">#{review.user.username}</span> <p:rating readonly="true" value="#{review.rating}" /> </p:outputLabel> 
                             </f:facet>
                             <p:outputLabel>#{review.text}</p:outputLabel>
-                            
-                            
+
+
                         </p:panel>
                     </p:outputPanel>
 
 
                 </ui:repeat>
-                
-                
+
+
             </div>
         </div>
 

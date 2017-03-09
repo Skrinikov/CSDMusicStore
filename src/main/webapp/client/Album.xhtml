@@ -9,7 +9,7 @@
     <ui:define name="extra-meta">
 
         <f:metadata>
-            <f:viewParam name="id" value="#{albumsCLBack.albumId}" /> 
+            <f:viewParam name="id" value="#{albumsCLBack.albumId}" />            
             <f:event type="preRenderView" listener="#{albumsCLBack.init}" />
         </f:metadata>
 
@@ -30,7 +30,9 @@
                     <h4>#{albumsCLBack.album.recordLabel}</h4>
                     <div class="album-actions">
                         <h:form>
-                            <h:commandButton action="#{albumsCLBack.addAlbumToCart()}" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" class="btn btn-success"></h:commandButton>
+                            <h:commandButton action="#{albumsCLBack.addAlbumToCart()}" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" class="btn btn-success">
+                                <f:param name="url" value="#{request.requestURI}"/>
+                            </h:commandButton>
                         </h:form>
 
                     </div>
