@@ -8,8 +8,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The controller responsible to work with the province object.
@@ -22,7 +20,6 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public class ProvinceController implements Serializable {
     private List<Province> provinces;
-    private final transient Logger log = LoggerFactory.getLogger(getClass().getName());
         
     @PersistenceContext(unitName = "fractalsPU")
     private EntityManager entityManager;

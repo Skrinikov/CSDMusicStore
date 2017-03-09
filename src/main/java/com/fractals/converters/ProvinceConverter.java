@@ -5,7 +5,6 @@ import com.fractals.controllers.ProvinceController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

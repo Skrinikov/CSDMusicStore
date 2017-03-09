@@ -180,8 +180,10 @@ public class ShoppingCart implements Serializable{
     public void add(Object o) {
         if(o instanceof Album) {
             Album album = (Album)o;
-            if(!albums.contains(album))
+            if(!albums.contains(album)) {
                 albums.add(album);
+                deleteTracks(album);
+            }
         }
         else if(o instanceof Track) {
             Track track = (Track)o;

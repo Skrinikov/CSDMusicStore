@@ -8,6 +8,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.converters.LocalDateAttributeConverter;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
 import com.fractals.utilities.DatabaseSeedManager;
@@ -59,6 +60,7 @@ public class ShoppingCartTest {
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
                 .addPackage(FeedMessage.class.getPackage())
+                .addPackage(LocalDateAttributeConverter.class.getPackage())
                 .addPackage(SecurityHelper.class.getPackage())
                 .addPackage(DatabaseSeedManager.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -185,6 +187,15 @@ public class ShoppingCartTest {
         assertThat(cart.getAllAlbums()).hasSize(1);
         assertThat(cart.getAllTracks()).hasSize(0);
     }
+    
+    @Test
+    public void addTrackFirstThenSameAlbumTest() throws SQLException {
+        //track should be deleted since the whole album is added to the cart
+        cart.add(trackJpa.findTrack(1));
+        cart.add(albumJpa.findAlbum(1));
+        assertThat(cart.getAllAlbums()).hasSize(1);
+        assertThat(cart.getAllTracks()).hasSize(0);
+    }   
  
     @Test
     public void removeTest() throws SQLException {

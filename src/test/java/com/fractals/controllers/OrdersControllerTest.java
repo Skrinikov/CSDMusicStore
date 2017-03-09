@@ -8,6 +8,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.User;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.converters.ProvinceConverter;
 import com.fractals.email.EmailSender;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
@@ -66,6 +67,7 @@ public class OrdersControllerTest {
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
                 .addPackage(FeedMessage.class.getPackage())
+                .addPackage(ProvinceConverter.class.getPackage())
                 .addPackage(SecurityHelper.class.getPackage())
                 .addPackage(DatabaseSeedManager.class.getPackage())
                 .addPackage(EmailSender.class.getPackage())
