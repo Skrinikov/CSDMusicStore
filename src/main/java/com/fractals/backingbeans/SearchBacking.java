@@ -3,6 +3,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Album;
 import com.fractals.beans.Track;
 import com.fractals.controllers.SearchJPAController;
+import com.fractals.utilities.BundleLocaleResolution;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -229,18 +230,30 @@ public class SearchBacking implements Serializable {
      * Initializes fields.
      */
     @PostConstruct
-    public void init() {
-       bundle = ResourceBundle.getBundle("Bundle");
+    public void init() {      
+       bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
        albums = new ArrayList<>();
        tracks = new ArrayList<>();
        options = new ArrayList<>();
-       choice = "";
        options.add(bundle.getString("search_album"));
        options.add(bundle.getString("search_track"));
        options.add(bundle.getString("search_date"));
        options.add(bundle.getString("search_artist"));
+       choice = "";     
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-       dateSelected = choice != null ? options.get(2).equals(choice) : false;
+       dateSelected = choice != null ? options.get(2).equals(choice) : false; 
+    }
+    
+    /**
+     * Updates options array in case the locale was changed after the refresh.
+     */
+    public void onload() { 
+       bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
+       options = new ArrayList<>();
+       options.add(bundle.getString("search_album"));
+       options.add(bundle.getString("search_track"));
+       options.add(bundle.getString("search_date"));
+       options.add(bundle.getString("search_artist"));
     }
 }

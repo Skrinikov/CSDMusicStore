@@ -1,5 +1,6 @@
 package com.fractals.backingbeans;
 
+import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -43,7 +44,7 @@ public class CheckoutBacking {
         brands = new ArrayList<>();
         brands.add("Visa");
         brands.add("MasterCard");
-        bundle = ResourceBundle.getBundle("Bundle");
+        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
         credit.setBrand("MasterCard");
     }
 

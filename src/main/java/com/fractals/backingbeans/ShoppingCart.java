@@ -5,15 +5,14 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.TrackJpaController;
+import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,7 +23,7 @@ import javax.inject.Named;
  * and backing the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 07/03/2017
+ * @version 08/03/2017
  * @since 1.8
  */
 @Named("cart")
@@ -145,7 +144,7 @@ public class ShoppingCart implements Serializable{
      *         null if neither of those types are submitted.
      */
     public String getType(Object item) {
-        ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+        ResourceBundle bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
         if(item instanceof Album)
             return bundle.getString("album");
         if(item instanceof Track)

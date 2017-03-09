@@ -18,7 +18,7 @@ public class DateConverter extends DateTimeConverter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+        ResourceBundle bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
         super.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
         if (value != null && value.length() != getPattern().length()) {
             FacesMessage message = new FacesMessage(bundle.getString("invalid_format"));

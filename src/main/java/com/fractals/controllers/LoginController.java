@@ -2,10 +2,10 @@ package com.fractals.controllers;
 
 import com.fractals.backingbeans.UserBacking;
 import com.fractals.beans.User;
+import com.fractals.utilities.BundleLocaleResolution;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 07/03/2017
+ * @version 08/03/2017
  * @since 1.8
  */
 @Named("login")
@@ -49,7 +49,7 @@ public class LoginController implements Serializable {
             byte[] dbHash = userDb.getPassword();
             byte[] loginHash = security.hash(userBacking.getPassword(), userDb.getSalt());
             if(!security.isHashValid(dbHash, loginHash)) {
-                FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("invalid_uname_or_pass"));
+                FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_uname_or_pass"));
                 FacesContext.getCurrentInstance().addMessage("loginForm", message);
                 currentUser = null;
             }
@@ -64,7 +64,7 @@ public class LoginController implements Serializable {
             }
         }
         catch(EntityNotFoundException | NonUniqueResultException | NoResultException ex) {
-            FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("invalid_uname_or_pass"));
+            FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_uname_or_pass"));
             FacesContext.getCurrentInstance().addMessage(null, message);
             log.log(Level.WARNING,"invalid user: {0}", ex.getMessage());
             currentUser = null;
@@ -79,7 +79,7 @@ public class LoginController implements Serializable {
         try{
             getByUsername(newUser.getUsername());
             log.log(Level.INFO, "this user already exists");
-            FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("user_exists_error"));
+            FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("user_exists_error"));
             FacesContext.getCurrentInstance().addMessage("registerForm:username", message);
         }
         catch(EntityNotFoundException | NoResultException ex) {

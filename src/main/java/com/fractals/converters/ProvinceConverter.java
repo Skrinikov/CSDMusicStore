@@ -2,6 +2,7 @@ package com.fractals.converters;
 
 import com.fractals.beans.Province;
 import com.fractals.controllers.ProvinceController;
+import com.fractals.utilities.BundleLocaleResolution;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,7 +44,7 @@ public class ProvinceConverter implements Converter {
             if(p.getName().equals(value))
                 chosen = p;
         if(chosen == null) {
-            FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("invalid_province"));
+            FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_province"));
             context.addMessage("registerForm:province", message);
         }
         return chosen;
@@ -63,7 +64,7 @@ public class ProvinceConverter implements Converter {
             return province.getName();
         }
         else {
-            FacesMessage message = new FacesMessage(ResourceBundle.getBundle("Bundle").getString("invalid_province"));
+            FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_province"));
             context.addMessage("registerForm:province", message);
             return null;
         }
