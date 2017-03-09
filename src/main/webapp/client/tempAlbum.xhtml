@@ -17,6 +17,10 @@
     <ui:define name="windowTitle">#{albumsCLBack.album.title}</ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" /> 
+        </f:metadata>
+        
         <!-- Header -->
         <p:outputPanel styleClass="jumbotron album-jumbotron">
             <div class="row album-presentation-outer">
