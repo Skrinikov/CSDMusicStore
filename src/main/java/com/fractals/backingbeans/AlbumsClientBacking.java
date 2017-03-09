@@ -7,16 +7,19 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewsWebController;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The Backing bean for the client side Album page
@@ -24,8 +27,8 @@ import javax.inject.Named;
  * @author Thai-Vu Nguyen, Danieil Skrinikov
  */
 @Named("albumsCLBack")
-@RequestScoped
-public class AlbumsClientBacking {
+@SessionScoped
+public class AlbumsClientBacking implements Serializable {
     private Album album;
     private Integer albumId;
     private List<Album> similarAlbums;
@@ -53,18 +56,42 @@ public class AlbumsClientBacking {
          album = albumControl.findAlbum(albumId);
          similarAlbums = albumControl.getSimilarAlbums(album, 3);
          
-         cookiesControl.registerGenreToCookies(album.getTracks().get(0).getGenre());
+         cookiesControl.saveGenre(album.getTracks().get(0).getGenre());
          isLoaded=true;
     }
     
     /**
      * Function to add the current instance of the album to the shopping
      */
-    public void addAlbumToCart(){
+    public String addAlbumToCart(){
+        album = getAlbum();
         shopControl.add(album);
+        
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
+    }
+    
+    public String addTrackToCart(){
+        //album = getAlbum();
+        shopControl.add(selectedTrack);
+        
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
+
+    }
+    
+    public List<Track> getTracks(){
+        return getAlbum().getTracks();
     }
     
     public Album getAlbum(){
+        if (album == null){
+            if(albumId != null)
+                albumControl.findAlbum(albumId);
+            else
+                album = new Album();
+        }
+            
         return album;
     }
     
@@ -94,7 +121,11 @@ public class AlbumsClientBacking {
 
     public void setSimilarAlbums(List<Album> similarAlbums) {
         this.similarAlbums = similarAlbums;
-    }     
+    }    
+    
+    public void setAlbum(Album album){
+        this.album = album;
+    }
 
     public boolean isIsLoaded() {
         return isLoaded;

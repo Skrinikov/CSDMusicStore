@@ -9,7 +9,7 @@
     <ui:define name="extra-meta">
 
         <f:metadata>
-            <f:viewParam name="id" value="#{albumsCLBack.albumId}" /> 
+            <f:viewParam name="id" value="#{albumsCLBack.albumId}" />            
             <f:event type="preRenderView" listener="#{albumsCLBack.init}" />
         </f:metadata>
 
@@ -30,7 +30,9 @@
                     <h4>#{albumsCLBack.album.recordLabel}</h4>
                     <div class="album-actions">
                         <h:form>
-                            <h:commandButton action="#{albumsCLBack.addAlbumToCart()}" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" class="btn btn-success"></h:commandButton>
+                            <h:commandButton action="#{albumsCLBack.addAlbumToCart()}" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" class="btn btn-success">
+                                <f:param name="url" value="#{request.requestURI}"/>
+                            </h:commandButton>
                         </h:form>
 
                     </div>
@@ -68,7 +70,9 @@
                                 <td class="col-md-1">#{track.albumNum}</td>
                                 <td class="col-md-6"><h:link outcome="Track" value="#{track.title}"><f:param name="id" value="#{track.id}"/></h:link></td>
                                 <td class="col-md-1">#{track.duration}</td>
-                                <td class="col-md-1"><a href="#" class="btn btn-success">$#{trackCLBack.getPrice(track)}</a></td>
+                                <td class="col-md-1"><h:form><h:commandButton value="#{trackCLBack.getPrice(track)}" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(track)}" class="btn btn-success">
+                        
+                                        </h:commandButton> </h:form></td>
                                 <p:outputPanel rendered="#{albumsCLBack.loggedIn}">
                                 <td class="col-md-1">
                                     <h:link outcome="Track" value="Review"><f:param name="id" value="#{track.id}"/></h:link>
@@ -79,7 +83,7 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <!-- Similar albums -->
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Similar Albums</h3>             

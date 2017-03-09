@@ -5,6 +5,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
@@ -45,6 +46,7 @@ public class TrackClientBacking implements Serializable {
     private static final String inCart = "/WEB-INF/sections/client/trackTableRowInCart.xhtml";
 
     private List<Track> relatedTracks;
+    private List<Album> relatedAlbums;
     private Integer trackId;
     private Track track;    
     private Review review;
@@ -57,6 +59,9 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private TrackJpaController trackControl;
+    
+    @Inject
+    private AlbumJpaController albumControl;
 
     @Inject
     private ReviewsWebController reviewsControl;
@@ -79,7 +84,7 @@ public class TrackClientBacking implements Serializable {
      */
     public void init() {
         track = trackControl.findTrack(trackId);
-        cookiesControl.registerGenreToCookies(track.getGenre());
+        cookiesControl.saveGenre(track.getGenre());
     }
 
     /**
@@ -117,8 +122,8 @@ public class TrackClientBacking implements Serializable {
     public String addToCart() {
         track = trackControl.findTrack(trackId);
         this.cart.add(track);
-        
-        return "Track.xhtml?faces-redirect=true&id=" + trackId.toString();
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
     ////////////Pagination Logic For Reviews///////////////
@@ -203,6 +208,16 @@ public class TrackClientBacking implements Serializable {
         }
         return relatedTracks;
     }
+    
+    public List<Album> getRelatedAlbums(){
+       if (track == null)
+           return new ArrayList<>();
+       if (relatedAlbums == null){
+           relatedAlbums = albumControl.getSimilarAlbums(track.getAlbum(), 3);
+       }
+       
+       return relatedAlbums;
+    }
 
     public List<Review> getReviews() {
         return (track != null) ? track.getReviews() : (new ArrayList<Review>());
@@ -248,7 +263,7 @@ public class TrackClientBacking implements Serializable {
     public String getWriter() {
         return (track != null) ? track.getSongwriter() : "";
     }
-
+    
     /**
      * Returns the real price for the track. If there is a sale, returns the
      * sale price, if not returns the list price.
