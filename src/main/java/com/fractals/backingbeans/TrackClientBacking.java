@@ -5,6 +5,7 @@ import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewJpaController;
@@ -46,6 +47,7 @@ public class TrackClientBacking implements Serializable {
     private static final String inCart = "/WEB-INF/sections/client/trackTableRowInCart.xhtml";
 
     private List<Track> relatedTracks;
+    private List<Album> relatedAlbums;
     private Integer trackId;
     private Track track;    
     private Review review;
@@ -58,6 +60,9 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private TrackJpaController trackControl;
+    
+    @Inject
+    private AlbumJpaController albumControl;
 
     @Inject
     private ReviewsWebController reviewsControl;
@@ -203,6 +208,16 @@ public class TrackClientBacking implements Serializable {
             relatedTracks = similarControl.getSimilarTracks(track);
         }
         return relatedTracks;
+    }
+    
+    public List<Album> getSimilarAlbums(){
+       if (track == null)
+           return new ArrayList<>();
+       if (relatedAlbums == null){
+           relatedAlbums = albumControl.getSimilarAlbums(track.getAlbum(), 3);
+       }
+       
+       return relatedAlbums;
     }
 
     public List<Review> getReviews() {
