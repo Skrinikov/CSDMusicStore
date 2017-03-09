@@ -75,7 +75,10 @@ public class AlbumsClientBacking implements Serializable {
     public String addTrackToCart(){
         //album = getAlbum();
         shopControl.add(selectedTrack);
-        return "";
+        
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
+
     }
     
     public List<Track> getTracks(){

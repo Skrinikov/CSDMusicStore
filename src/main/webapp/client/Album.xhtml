@@ -70,7 +70,9 @@
                                 <td class="col-md-1">#{track.albumNum}</td>
                                 <td class="col-md-6"><h:link outcome="Track" value="#{track.title}"><f:param name="id" value="#{track.id}"/></h:link></td>
                                 <td class="col-md-1">#{track.duration}</td>
-                                <td class="col-md-1"><a href="#" class="btn btn-success">$#{trackCLBack.getPrice(track)}</a></td>
+                                <td class="col-md-1"><h:form><h:commandButton value="#{trackCLBack.getPrice(track)}" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(track)}" class="btn btn-success">
+                        
+                                        </h:commandButton> </h:form></td>
                                 <p:outputPanel rendered="#{albumsCLBack.loggedIn}">
                                 <td class="col-md-1">
                                     <h:link outcome="Track" value="Review"><f:param name="id" value="#{track.id}"/></h:link>
@@ -82,21 +84,6 @@
                 </table>
             </div>
             
-            
-            <h:form>
-            <h:dataTable var="tra" value="#{albumsCLBack.tracks}">
-                <p:column headerText="ID" >#{tra.id}</p:column>
-                <p:column headerText="Song" >#{tra.title}</p:column>
-                <p:column headerText="Duration" >#{tra.duration}</p:column>
-                <p:column headerText="Price" >
-                    <h:commandButton value="Buy" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(tra)}">
-                        
-                    </h:commandButton>
-                </p:column>
-                
-            </h:dataTable>
-            </h:form>
-
             <!-- Similar albums -->
             <div class="row top-buffer">
                 <h3 class="similar-albums-header">Similar Albums</h3>             
