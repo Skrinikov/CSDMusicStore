@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
     });
@@ -19,5 +19,30 @@ $(document).ready(function () {
         }
         return false;
     });
+
+    $('.toggle-reviews').click(function () {
+        var id = $(this).attr("id");
+
+        if ($(this).find("span").hasClass("toggle-reviews-active"))
+            $(this).find("span").removeClass("toggle-reviews-active");
+        else
+            $(this).find("span").addClass("toggle-reviews-active");
+        $('#r' + id).toggle("slow");
+    });
+
+    $('.album-track-list').find(".stars").each(function () {
+        var content = $(this).html().trim();
+        var stars = "";
+
+        for (var i = 0; i < 5; i++) {
+            if (content - i <= 0)
+                stars += '<span class="fa fa-star-o"></span>';
+            else
+                stars += '<span class="fa fa-star"></span>';
+        }
+
+        $(this).html(stars);
+    });
+
 });
 

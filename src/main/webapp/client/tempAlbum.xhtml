@@ -65,13 +65,23 @@
                                 <tbody>
                                     <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
                                         <tr>    
-                                            <td class="col-md-1 text-center"><span class="fa fa-music sub-info"></span></td>
+                                            <td class="col-md-1 text-center toggle-reviews" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
                                             <td class="col-md-6"><h:link outcome="Track" value="#{track.albumNum} - #{track.title}" styleClass="album-list-track"><f:param name="id" value="#{track.id}"/></h:link></td>
                                             <td class="col-md-1">#{track.duration}</td>
                                             <td class="col-md-1">
                                                 <h:form>
-                                                    <h:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn"/>
+                                                    <h:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}"/>
                                                 </h:form>
+                                            </td>
+                                        </tr>
+                                        <tr id="r#{utilBacking.randomId}" style="display:none">
+                                            <td colspan="12" class="review-container">
+                                            <ui:repeat var="review" value="#{track.reviews}">
+                                                <div class="review">
+                                                    <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                                    <p>#{review.text}</p>
+                                                </div>
+                                            </ui:repeat>
                                             </td>
                                         </tr>
                                     </ui:repeat>

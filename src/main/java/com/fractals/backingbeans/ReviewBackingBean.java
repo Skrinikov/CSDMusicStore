@@ -116,4 +116,27 @@ public class ReviewBackingBean implements Serializable {
        return "/management/review/pendingReviewsList.xhtml";    
     }
     
+    
+    /**
+     * Creates a graphic representation of the rating. Always returns 5 stars.
+     * If the rating is 3 will return 3 full stars followed by two empty stars.
+     * 
+     * @param r review for which to find a graphic representation of stars
+     * @return html <span> tags.
+     */
+    public String getReviewStars(Review r){
+        String star = "<span class=fa fa-star></span>";
+        String starEmpty = "<span class=fa fa-star></span>";
+        String review = "";
+        
+        for(int i = 0 ; i < 5 ; i++){
+            if(r.getRating() - i <= 0)
+                review += starEmpty;
+            else
+                review += star;
+        }
+        
+        return review;
+    }
+    
 }
