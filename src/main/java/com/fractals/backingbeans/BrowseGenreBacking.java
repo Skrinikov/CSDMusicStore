@@ -7,14 +7,17 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
+import com.fractals.controllers.GenreJpaController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +36,9 @@ import javax.transaction.UserTransaction;
 @Named("browseBacking")
 @RequestScoped
 public class BrowseGenreBacking {
+    
+    @Inject 
+    private GenreJpaController gjc; 
     
     
     @PersistenceContext(unitName = "fractalsPU")
@@ -68,6 +74,9 @@ public class BrowseGenreBacking {
      */
     public List<Track> getTracksByGenre(Genre genre)
     {
+        if(genre == null)
+            return null; 
+        
         //Build query 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery(Track.class);
@@ -81,12 +90,14 @@ public class BrowseGenreBacking {
         //just get 10 
         List<Track> tracks = new ArrayList<>();
         
-        int size = (all.size() < 10)? all.size() : 10; 
+        int numTracks = 4;
+        int size = (all.size() < numTracks)? all.size() : numTracks; 
         
         for(int i = 0; i < size; i++)
             tracks.add(all.get(i)); 
         return tracks;
     }   
+   
     
     /**
      * This method will be used to send the user to the track details page
@@ -103,4 +114,65 @@ public class BrowseGenreBacking {
             Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    /**
+     * This method will be used to suggest songs based on the data collected 
+     * about the user. 
+     * @return 
+     */
+    public List<Track> getRecommened()
+    {
+        return null;
+    }
+    
+    /**
+     * This method will load the genre to display all tracks for that genre. 
+     */
+    public String loadAllTrackForGenre(Genre genre)
+    {
+        String path = "browse_genreTracks?id=" + genre.getId();
+        return path; 
+        
+    }
+    
+    
+    
+    //Method below are used for browse_genreTracks
+    
+    public List<Track> getAllTracksForGenre()
+    {
+        Map<String, String> params =FacesContext.getCurrentInstance().
+                   getExternalContext().getRequestParameterMap();
+        
+        //possiblilty of the user entering bad values in query string
+        try{
+            
+            int id = Integer.parseInt(params.get("id"));
+            return getTracks(gjc.findGenre(id));
+               
+        }catch(IllegalArgumentException ex){
+            Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception ex){
+            Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null; 
+    }
+    
+    private List<Track> getTracks(Genre genre)
+    {
+        //Build query 
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery(Track.class);
+        Root<Track> track = cq.from(Track.class);
+        
+        cq.where(cb.equal(track.get("genre"), genre));
+        
+        TypedQuery query = entityManager.createQuery(cq);
+        return query.getResultList(); 
+    }
+    
+    
+    
 }
