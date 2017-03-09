@@ -20,38 +20,60 @@
 
         <h:form id="form">
 
-            <h:panelGroup layout="block" style="text-align:center;">
             
-             <!-- Change to bootstrap using http://www.bootply.com/132400 -->   
-                
-            <ui:repeat value="#{browseBacking.allGenre}" var="genre">
 
-                <h1> #{genre.name} </h1>
+                <!-- Change to bootstrap using http://www.bootply.com/132400 -->   
+
+                <h1 class="page-header"> Popular </h1>
                 <br />
 
-                <p:carousel value="#{browseBacking.getTracksByGenre(genre)}" headerText="Responsive" var="track" numVisible="3" itemStyle="text-align:center; width:400px" >
+                <p:carousel value="#{browseBacking.getTracksByGenre(null)}" headerText="Responsive" responsive="true" var="track" numVisible="4" itemStyle="text-align:center; width:100%;">
                     <p:panelGrid columns="1" style="width:100%">
 
                         <h:commandLink>
                             <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
                             <p:ajax event="click" listener="#{browseBacking.trackDetails(track)}"/>   
                         </h:commandLink>
-                        
+
                         <div class="caption">
                             <h4 class="centerText">#{track.title}</h4>
                             <p class="centerText">#{track.album.recordLabel} </p>
                         </div>
-                            
-                         
-                        
+
+
+
                     </p:panelGrid>
 
                 </p:carousel>
 
                 <br />
                 <br />
-            </ui:repeat>
-            </h:panelGroup>
+
+
+                <ui:repeat value="#{browseBacking.allGenre}" var="genre">
+
+                    <br />
+                    <h1><h:link value="#{genre.name}" outcome="#{browseBacking.loadAllTrackForGenre(genre)}"/></h1>
+                    
+                    <ui:repeat value="#{browseBacking.getTracksByGenre(genre)}" var="track">
+                        <div class="col-xs-18 col-sm-6 col-md-3">
+                            <div class="thumbnail" style="background-color: transparent; border-color: transparent">
+
+                                <h:commandLink>
+                                    <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                                    <p:ajax event="click" listener="#{browseBacking.trackDetails(track)}"/>   
+                                </h:commandLink>
+
+                                <div class="caption">
+                                    <h4 class="centerText">#{track.title}</h4>
+                                    <p class="centerText" style="font-size: 80%;">#{track.songwriter} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                    
+                </ui:repeat>
+            
         </h:form>
     </ui:define>
 

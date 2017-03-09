@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This page will be used to display tracks for each genre
+    @author Renuchan 
+-->
+
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
+
+    <ui:define name="content">  
+   
+        <h:form>
+            <ui:repeat value="#{browseBacking.getAllTracksForGenre()}" var="track">
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail" style="background-color: transparent; border-color: transparent">
+
+                        <h:commandLink>
+                            <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                            <p:ajax event="click" listener="#{browseBacking.trackDetails(track)}"/>   
+                        </h:commandLink>
+
+                        <div class="caption">
+                            <h4 class="centerText">#{track.title}</h4>
+                            <p class="centerText" style="font-size: 80%;">#{track.songwriter} </p>
+                        </div>
+                    </div>
+                </div>
+            </ui:repeat>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
