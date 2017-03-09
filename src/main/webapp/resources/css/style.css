@@ -924,3 +924,38 @@ body.navbar-more-show  {
 .album-list-track-btn{
     font-size: 1em;
 }
+
+.toggle-reviews{
+    cursor: pointer;
+}
+
+.toggle-reviews-empty .sub-info{
+    color:#fff;
+}
+
+.toggle-reviews-active{
+    animation-name: flash;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes flash{
+    0%{color:#FF7F50;}
+    50%{color:#50d0ff;}
+    100%{color:#FF7F50;}
+}
+
+.review{
+    padding-left:1em;
+    padding-right:1em;
+    border-bottom:1px solid #333;
+    margin-bottom: 10px;
+}
+
+.review:last-child{
+    border-bottom: none;
+}
+
+.stars{
+    color:#FF7F50;
+}

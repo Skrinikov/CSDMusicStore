@@ -317,7 +317,11 @@ orderItemsCollectionOrderItemToAttach.getId());
      */
     public List<Album> getSimilarAlbums(Album origin, int count){
         if(origin == null || count <= 0)
-            throw new IllegalArgumentException("Cannot retrieve similar albums");
+            return null;
+        
+        // Album with no songs. Cannot retrive tracks
+        if(origin.getTracks().isEmpty())
+            return null;
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         
