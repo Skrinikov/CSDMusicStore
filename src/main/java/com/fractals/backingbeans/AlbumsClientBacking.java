@@ -8,12 +8,14 @@ import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewsWebController;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,8 +28,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author Thai-Vu Nguyen, Danieil Skrinikov
  */
 @Named("albumsCLBack")
-@RequestScoped
-public class AlbumsClientBacking {
+@SessionScoped
+public class AlbumsClientBacking implements Serializable {
     private Album album;
     private Integer albumId;
     private List<Album> similarAlbums;
@@ -63,14 +65,31 @@ public class AlbumsClientBacking {
      * Function to add the current instance of the album to the shopping
      */
     public String addAlbumToCart(){
-        album = albumControl.findAlbum(albumId);
+        album = getAlbum();
         shopControl.add(album);
         
         String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
         return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
+    public String addTrackToCart(){
+        //album = getAlbum();
+        shopControl.add(selectedTrack);
+        return "";
+    }
+    
+    public List<Track> getTracks(){
+        return getAlbum().getTracks();
+    }
+    
     public Album getAlbum(){
+        if (album == null){
+            if(albumId != null)
+                albumControl.findAlbum(albumId);
+            else
+                album = new Album();
+        }
+            
         return album;
     }
     

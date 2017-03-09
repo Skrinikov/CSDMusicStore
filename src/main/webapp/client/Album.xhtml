@@ -81,6 +81,21 @@
                     </tbody>
                 </table>
             </div>
+            
+            
+            <h:form>
+            <h:dataTable var="tra" value="#{albumsCLBack.tracks}">
+                <p:column headerText="ID" >#{tra.id}</p:column>
+                <p:column headerText="Song" >#{tra.title}</p:column>
+                <p:column headerText="Duration" >#{tra.duration}</p:column>
+                <p:column headerText="Price" >
+                    <h:commandButton value="Buy" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(tra)}">
+                        
+                    </h:commandButton>
+                </p:column>
+                
+            </h:dataTable>
+            </h:form>
 
             <!-- Similar albums -->
             <div class="row top-buffer">
