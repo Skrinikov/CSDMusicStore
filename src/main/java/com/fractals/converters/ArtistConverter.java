@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fractals.utilities;
+package com.fractals.converters;
 
-import com.fractals.backingbeans.ArtistBackingBean;
+
 import com.fractals.beans.Artist;
 import com.fractals.controllers.ArtistJpaController;
 import javax.enterprise.context.RequestScoped;
@@ -14,15 +14,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author Sarah
  */
+@Named("artistConverter")
 @RequestScoped
-@FacesConverter("artistConverter")
 public class ArtistConverter implements Converter {
  
     @Inject

@@ -11,7 +11,6 @@ import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.controllers.AlbumJpaController;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -80,7 +79,7 @@ public class AlbumBackingBean implements Serializable {
 
     public String create() throws Exception {
         createdAlbum.setCreatedAt(LocalDateTime.now()); //maybe generated in bean
-        createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
+       // createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;
