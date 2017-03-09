@@ -6,7 +6,6 @@ import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.controllers.ClientTrackingController;
-import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.SimilarTracksController;
@@ -73,7 +72,7 @@ public class TrackClientBacking implements Serializable {
     private ShoppingCart cart;
     
     @Inject
-    private LoginController loginControl;
+    private LoginBacking loginControl;
 
     /**
      * Initialize the Track entity based on the trackId

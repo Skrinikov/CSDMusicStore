@@ -309,4 +309,13 @@ public class UserJpaController implements Serializable {
     public boolean isEmpty(){
         return getUserCount() == 0;
     }
+    
+    /**
+     * Searches users table by the username.
+     * @param username The username to search by in the users table.
+     * @return the user with the corresponding username.
+     */
+    public User getByUsername(String username) {
+        return (User)em.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
+    }
 }

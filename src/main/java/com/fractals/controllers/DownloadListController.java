@@ -1,6 +1,7 @@
 
 package com.fractals.controllers;
 
+import com.fractals.backingbeans.LoginBacking;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
@@ -58,7 +59,7 @@ public class DownloadListController implements Serializable
     private UserTransaction userTransaction;
     
     @Inject
-    private LoginController lc; 
+    private LoginBacking lc; 
     
     
     public DownloadListController()

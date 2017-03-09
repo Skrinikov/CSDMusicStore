@@ -1,6 +1,6 @@
 package com.fractals.filters;
 
-import com.fractals.controllers.LoginController;
+import com.fractals.backingbeans.LoginBacking;
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -32,7 +32,7 @@ public class ClientAuthenticationFilter implements Filter {
     private ServletContext context;
     
     @Inject
-    private LoginController login;
+    private LoginBacking login;
 
     /**
      * Gets the context if the current session.

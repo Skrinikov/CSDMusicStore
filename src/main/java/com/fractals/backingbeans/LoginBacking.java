@@ -1,7 +1,7 @@
-package com.fractals.controllers;
+package com.fractals.backingbeans;
 
-import com.fractals.backingbeans.UserBacking;
 import com.fractals.beans.User;
+import com.fractals.controllers.UserJpaController;
 import com.fractals.utilities.BundleLocaleResolution;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
@@ -12,11 +12,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
 
 /**
  * The controller responsible for register, login, and logout users.
@@ -28,16 +26,16 @@ import javax.persistence.PersistenceContext;
  */
 @Named("login")
 @SessionScoped
-public class LoginController implements Serializable {
+public class LoginBacking implements Serializable {
 
-    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("LoginController.class");
-    private SecurityHelper security = new SecurityHelper();
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("LoginBacking.class");
+    private final SecurityHelper security = new SecurityHelper();
     @Inject
     private UserBacking userBacking;
-    private User currentUser;   
+    @Inject
+    private UserJpaController userController;
     
-    @PersistenceContext(unitName = "fractalsPU")
-    private EntityManager entityManager;
+    private User currentUser;   
 
     /**
      * Performs the necessary actions to login the user.
@@ -45,7 +43,7 @@ public class LoginController implements Serializable {
     public void login() {
         currentUser = userBacking.getUser();
         try{
-            User userDb = getByUsername(currentUser.getUsername());
+            User userDb = userController.getByUsername(currentUser.getUsername());
             byte[] dbHash = userDb.getPassword();
             byte[] loginHash = security.hash(userBacking.getPassword(), userDb.getSalt());
             if(!security.isHashValid(dbHash, loginHash)) {
@@ -77,7 +75,7 @@ public class LoginController implements Serializable {
     public void register() {
         User newUser = userBacking.getUser();
         try{
-            getByUsername(newUser.getUsername());
+            userController.getByUsername(newUser.getUsername());
             log.log(Level.INFO, "this user already exists");
             FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("user_exists_error"));
             FacesContext.getCurrentInstance().addMessage("registerForm:username", message);
@@ -130,17 +128,6 @@ public class LoginController implements Serializable {
      */
     public User getCurrentUser() {
         return currentUser;
-   }
-    
-    /**
-     * Searches users table by the username.
-     * @param username The username to search by in the users table.
-     * @return the user with the corresponding username.
-     */
-    private User getByUsername(String username) {
-        return (User)entityManager.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
     }
     
-    
-
 }

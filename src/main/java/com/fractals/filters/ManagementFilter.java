@@ -1,6 +1,6 @@
 package com.fractals.filters;
 
-import com.fractals.controllers.LoginController;
+import com.fractals.backingbeans.LoginBacking;
 import java.io.IOException;
 import java.util.Enumeration;
 import javax.inject.Inject;
@@ -35,7 +35,7 @@ public class ManagementFilter implements Filter {
     private ServletContext context;
     
     @Inject
-    private LoginController login;
+    private LoginBacking login;
     
     /**
      * Is called whenever someone tries to access the management side of the site.

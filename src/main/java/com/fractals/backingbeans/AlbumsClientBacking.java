@@ -6,7 +6,6 @@ import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
-import com.fractals.controllers.LoginController;
 import com.fractals.controllers.ReviewsWebController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class AlbumsClientBacking {
     ReviewsWebController reviewControl;
     
     @Inject
-    private LoginController loginControl;
+    private LoginBacking loginControl;
     
     @Inject
     private ClientTrackingController cookiesControl;
