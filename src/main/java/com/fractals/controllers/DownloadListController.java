@@ -61,12 +61,23 @@ public class DownloadListController implements Serializable
     @Inject
     private LoginBacking lc; 
     
+    private List<Track> trackList; 
+    private List<Album> albumList; 
     
     public DownloadListController()
     {
         super();
     }
-   
+
+    public List<Track> getTrackList() {     
+        return trackList;     
+    }
+
+    public List<Album> getAlbumList() {
+        getAlbums();
+        return albumList;
+    }
+
     
     public List<Track> getTracks()
     {    
@@ -85,7 +96,8 @@ public class DownloadListController implements Serializable
         for(OrderItem oi : items)
             tracks.add(oi.getTrack());
 
-        return tracks;  
+        this.trackList = tracks;
+        return tracks;
     }
     
     public List<Album> getAlbums()
@@ -103,6 +115,7 @@ public class DownloadListController implements Serializable
         for(OrderItem oi : items)
             albums.add(oi.getAlbum());
         
+        this.albumList = albums;
         return albums; 
     }
     
@@ -138,8 +151,8 @@ public class DownloadListController implements Serializable
             return ""; 
     }
     
-    public int getCount(List<Track> list)
-    {
+    public int getCount(List<Object> list)
+    {            
         if(list == null)
             return 0; 
         else
