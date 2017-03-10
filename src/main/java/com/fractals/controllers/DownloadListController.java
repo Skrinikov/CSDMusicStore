@@ -129,4 +129,20 @@ public class DownloadListController implements Serializable
         StreamedContent file = new DefaultStreamedContent(stream, "audio/mpeg", "sample.mp3");
         return file; 
     }
+    
+    public String getArtistName(List<Artist> list)
+    {
+        if(list != null && list.size() > 0)
+            return list.get(0).getName();
+        else 
+            return ""; 
+    }
+    
+    public int getCount(List<Track> list)
+    {
+        if(list == null)
+            return 0; 
+        else
+            return list.size(); 
+    }
 }

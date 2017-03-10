@@ -24,83 +24,43 @@
         <h:outputText value="Purchase History"></h:outputText>
     </ui:define>
     
-    <ui:define name="content">
-        
-        
-        <h2> #{bundle.myTracks} </h2>
-        <br />
-        
-        <div class="container">
-            <div class="row">
-        
-                
-            <h:form>
-                <ui:repeat value="#{DLController.getTracks()}" var="item">    
-  
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                  <div class="thumbnail">
- 
-                        <p:graphicImage name="images/covers/#{item.coverFile}" style="max-height: 155px"/>
-                        
-                        <div class="caption">
-                            <h4 class="centerText">#{item.title}</h4>
-                            <p class="centerText">#{DLController.getArtistsName(item.artists)} </p>
-                            <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                <p:fileDownload value="#{DLController.downloadSong()}" />
+   <ui:define name="content">
+        <div id="shop-content" class="a-content">
+            <div class="panel-heading">
+                <h2 class="centerText">#{bundle.myTracks}</h2>
+            </div>
+            <div class="panel-body">
+                <ui:fragment rendered="true">
+                    <h:form >
+                    <h:dataTable value="#{DLController.getTracks()}" var="item"
+                                 class="table table-striped table-hover table-cart table-condensed">
+                        <h:column>    
+                            <p:graphicImage name="images/covers/#{item.coverFile}" style="max-height: 75px"/>
+                         </h:column>
+                        <h:column>    				
+                            <f:facet name="header">#{bundle.type}</f:facet>    				
+                            Track
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">#{bundle.title}</f:facet>
+                            #{item.title}
+                         </h:column>
+                         <h:column>
+                            <f:facet name="header">#{bundle.artist}</f:facet>
+                            #{DLController.getArtistName(item.artists)}
+                         </h:column>
+                         
+                        <h:column>                      
+                            <p:commandButton ajax="false" icon="ui-icon-arrowthick-1-s">
+                                    <p:fileDownload value="#{DLController.downloadSong()}" />
                             </p:commandButton>
- 
-                        </div>
-                    </div>
-                </div>              
-                </ui:repeat>
-            </h:form>        
-                    
-                    
-                    
-            </div><!--/row-->
-        </div><!--/container -->
-        
-        <h2> #{bundle.myAlbums} </h2>
-        <br />
-        
-        
-        <div class="container">
-            <div class="row">
-        
-            <h:form>
-                <ui:repeat value="#{DLController.albums}" var="alb">    
-  
-                <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="thumbnail">
- 
-                        <p:graphicImage name="images/covers/music-note.png" style="max-height: 155px"/>
-                        
-                        <div class="caption">
-                            <h4 class="centerText">#{alb.recordLabel}</h4>
-                            <p class="centerText">#{alb.artist.name} </p>
-                        </div>
-                    </div>
-                </div>
+                        </h:column>
+                    </h:dataTable>
+                    </h:form>            
 
-                    
-                </ui:repeat>
-            </h:form>        
-                 
-            </div><!--/row-->
-        </div><!--/container -->
-        
-        
-        <script type="text/javascript">
-            function start() {
-                PF('statusDialog').show();
-            }
-
-            function stop() {
-                PF('statusDialog').hide();
-            }
-        </script>
-        
-            
+                </ui:fragment>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
 
