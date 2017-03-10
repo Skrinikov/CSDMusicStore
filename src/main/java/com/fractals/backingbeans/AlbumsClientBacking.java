@@ -56,7 +56,9 @@ public class AlbumsClientBacking implements Serializable{
     @Inject
     private ClientTrackingController cookiesControl;
 
-    //Initializes the Album entity
+    /*
+    *   Initializes the Album entity
+    */
     public void init() {
         album = albumControl.findAlbum(albumId);
 
@@ -71,7 +73,7 @@ public class AlbumsClientBacking implements Serializable{
 
             // Thai Vu I added this, because some albums have no tracks.
             if (album.getTracks().size() > 0) {
-                cookiesControl.saveGenre(album.getTracks().get(0).getGenre());
+                cookiesControl.saveGenre(album.getTracks().get(0).getGenre(), FacesContext.getCurrentInstance());
             }
             isLoaded = true;
         }
@@ -79,6 +81,7 @@ public class AlbumsClientBacking implements Serializable{
 
     /**
      * Function to add the current instance of the album to the shopping
+     * @return Path to the shopping cart
      */
     public String addAlbumToCart() {
         shopControl.add(album);
@@ -87,8 +90,11 @@ public class AlbumsClientBacking implements Serializable{
         return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
+    /**
+     * Function to add a selected Track to the Cart
+     * @return Path to the shopping cart
+     */
     public String addTrackToCart(){
-        //album = getAlbum();
         shopControl.add(selectedTrack);
         
         String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
@@ -215,34 +221,12 @@ public class AlbumsClientBacking implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * Check if the user is logged in
+     * @return true if logged in, false is not logged in
+     */
     public boolean isLoggedIn() {
         return loginControl.isLoggedIn();
-    }
-
-    private boolean canBuyAlbum() {
-        List<Album> albumsInCart = shopControl.getAllAlbums();
-        if (albumsInCart == null || albumsInCart.isEmpty()) {
-            return true;
-        }
-
-        if (albumsInCart.contains(album)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean canBuyTrack() {
-        List<Track> tracksInCart = shopControl.getAllTracks();
-        if (tracksInCart == null || tracksInCart.isEmpty()) {
-            return true;
-        }
-
-        if (tracksInCart.contains(selectedTrack)) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
 }
