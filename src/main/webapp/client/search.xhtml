@@ -12,19 +12,19 @@
         <f:event type="preRenderView" listener="#{search.onload()}" />
     </f:metadata>
     
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    
     <ui:define name="windowTitle">#{bundle.search}</ui:define>
 
     <ui:define name="content">
-        <div class="a-content search-content">
+        <div class="a-content">
             <div class="panel-heading">
-                <h2 class="text-center">#{bundle.search}</h2>
+                <h2 class="text-center a-header">#{bundle.search}</h2>
             </div>
             
             <!-- Search Options -->
             <div class="panel-body">
                 <h:form id="searchForm" class="form-horizontal">   
-                    
-                    
                     
                     <div class="form-group" id="searchGrid">
                         <h:outputLabel for="choice" value="#{bundle.choose_from}" class="control-label col-sm-4"/>     
@@ -61,7 +61,7 @@
                     </div>           
                     
                     <div class="text-center">
-                        <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-search">
+                        <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-blue">
                             <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
                         </h:commandButton>
                     </div>
@@ -71,34 +71,34 @@
 
             <!-- Search Results -->    
             <div class="panel-heading">
-                <h2 class="centerText">#{bundle.search_results}</h2>
+                <h2 class="centerText a-header">#{bundle.search_results}:</h2>
             </div>
             <div class="panel-body">
                 <h:panelGroup id="results">
                     <ui:fragment rendered="#{!search.albumsEmpty}">
-                        <h3><h:outputText value="#{bundle.album_list}"></h:outputText></h3>
+                        <h3 class="a-header"><h:outputText value="#{bundle.album_list}"></h:outputText></h3>
                     </ui:fragment>
 
 
                     <ui:repeat value="#{search.albums}" rendered="#{!search.albumsEmpty}" var="album">
                         <h:link outcome="Album.xhtml" includeViewParams="true" style="color:black">
                             <f:param name="id" value="#{album.id}"/>
-                        <div class="well row">
-                            <div class="col-sm-4">
-                                <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="max-height: 150px"/>
+                        <div class="well well-outer row">
+                            <div class="col-sm-3">
+                                <p:graphicImage name="images/covers/#{search.getAlbumCover(album)}" style="width: 65%"/>
                             </div>
-                            <div class="well col-sm-8">
+                            <div class="well well-search col-sm-9">
                                 <ui:fragment rendered="#{album.available}">
                                     <b>#{album.title}</b> <br />
-                                    <i>#{bundle.artist}:</i> #{album.artist} <br />
-                                    <i>#{bundle.release}:</i> #{album.releaseDate} <br />
-                                    <i>#{bundle.num_tracks}:</i> #{album.numTracks} <br />
-                                    <i>#{bundle.label}:</i> #{album.recordLabel} <br />
+                                    <nobr><i>#{bundle.artist}:&#160;;</i> #{album.artist} </nobr><br />
+                                    <nobr><i>#{bundle.release}:&#160;</i> #{album.releaseDate}</nobr> <br />
+                                    <nobr><i>#{bundle.num_tracks}:&#160;</i> #{album.numTracks}</nobr> <br />
+                                    <nobr><i>#{bundle.label}:&#160;</i> #{album.recordLabel}</nobr> <br />
                                     <h:panelGroup rendered="#{album.salePrice == 0}">
-                                        <i>#{bundle.price}:</i> $#{album.listPrice} <br />
+                                        <nobr><i>#{bundle.price}:&#160;</i> $#{album.listPrice}</nobr> <br />
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{album.salePrice > 0}">
-                                        <i>#{bundle.price_sale}:</i> $#{album.salePrice} <br />
+                                        <nobr><i>#{bundle.price_sale}:&#160;</i> $#{album.salePrice}</nobr> <br />
                                     </h:panelGroup>
                                 </ui:fragment>
                             </div>
@@ -106,31 +106,30 @@
                         </h:link>
                     </ui:repeat>
 
-                    <hr/>
 
                     <ui:fragment rendered="#{!search.tracksEmpty}">
-                        <h3><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
+                        <h3 class="a-header"><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
                     </ui:fragment>
                     <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
                         <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
                             <f:param name="id" value="#{track.id}"/>
-                        <div class="well row">
-                            <div class="col-sm-4">
-                                <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
+                        <div class="well well-outer row">
+                            <div class="col-sm-3">
+                                <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 65%"/>
                             </div>
-                            <div class="well col-sm-8">
+                            <div class="well well-search col-sm-9">
                                 <ui:fragment rendered="#{track.available}">
                                     <b>#{track.title}</b> <br />
-                                    <i>#{bundle.songwriters}:</i> #{track.songwriter} <br />
-                                    <i>#{bundle.duration}:</i> #{track.duration} <br />
-                                    <i>#{bundle.album_num}:</i> #{track.albumNum} <br />
-                                    <i>#{bundle.album}:</i> #{track.album} <br />
-                                    <i>#{bundle.genre}:</i> #{track.genre} <br />
+                                    <nobr><i>#{bundle.songwriters}:&#160;</i> #{track.songwriter}</nobr> <br />
+                                    <nobr><i>#{bundle.duration}:&#160;</i> #{track.duration}</nobr> <br />
+                                    <nobr><i>#{bundle.album_num}:&#160;</i> #{track.albumNum}</nobr> <br />
+                                    <nobr><i>#{bundle.album}:&#160;</i> #{track.album}</nobr> <br />
+                                    <nobr><i>#{bundle.genre}:&#160;</i> #{track.genre}</nobr> <br />
                                     <h:panelGroup rendered="#{track.salePrice == 0}">
-                                        <i>#{bundle.price}:</i> $#{track.listPrice} <br />
+                                        <nobr><i>#{bundle.price}:&#160;</i> $#{track.listPrice}</nobr> <br />
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{track.salePrice > 0}">
-                                        <i>#{bundle.price_sale}:</i> $#{track.salePrice} <br />
+                                        <nobr><i>#{bundle.price_sale}:&#160;</i> $#{track.salePrice}</nobr> <br />
                                     </h:panelGroup>
                                 </ui:fragment>
                             </div>

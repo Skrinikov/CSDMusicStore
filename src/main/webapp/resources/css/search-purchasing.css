@@ -1,0 +1,8 @@
+/* 
+    Created on : 9-Mar-2017, 9:39:22 PM
+    Author     : lynn
+*/
+
+.background{
+    background-image: url("#{resource['images/2.jpg']}");
+}

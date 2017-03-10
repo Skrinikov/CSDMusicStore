@@ -1,0 +1,8 @@
+/* 
+    Created on : 9-Mar-2017, 8:40:36 PM
+    Author     : lynn
+*/
+
+.background{
+    background-image: url("#{resource['images/reg.jpg']}");
+}

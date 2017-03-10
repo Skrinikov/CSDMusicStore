@@ -10,12 +10,15 @@
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     
     <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
+    
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
 
     <ui:define name="content">
-        <div id="checkout-content" class="a-content">
+        <div class="a-content">
             <div class="panel-heading">
-                <h2 class="text-center">#{bundle.checkout}</h2>
+                <h2 class="text-center a-header">#{bundle.checkout}</h2>
             </div>
+            
             <div class="panel-body">
                 <ui:fragment rendered="#{login.loggedIn}">
                     <h4 class="text-center">#{bundle.checkout_title}</h4>
@@ -23,7 +26,7 @@
                         <h:message class="error" for="checkoutForm" id="checkoutFormMessage" />
                         <div class="text-center check-brands">
                             <ui:repeat value="#{checkout.brands}" var="brand">
-                                <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default" immediate="true">
+                                <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default btn-credit" immediate="true">
                                     <f:ajax execute="@form" render="@form"/>
                                 </h:commandLink>
                             </ui:repeat> 
@@ -61,14 +64,14 @@
                         </div>
                         
                         <div class="text-center">
-                            <h:commandButton value="#{bundle.submit}!" action="#{checkout.validate(credit.brand)}" class="btn btn-default btn-checkout"/>   
-                            <h:commandButton value="#{bundle.clear}" type="reset" immediate="true" class="btn btn-default"/>
+                            <h:commandButton value="#{bundle.submit}" action="#{checkout.validate(credit.brand)}" class="btn btn-default btn-blue"/>   
+                            <h:commandButton value="#{bundle.clear}" type="reset" immediate="true" class="btn btn-default btn-clear"/>
                         </div>
                     </h:form>     
                 </ui:fragment>
 
                 <ui:fragment rendered="#{!login.loggedIn}">
-                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login" class="text-center reg-link"/>
+                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login" class="text-center orange-link"/>
                 </ui:fragment>
             </div>
         </div>

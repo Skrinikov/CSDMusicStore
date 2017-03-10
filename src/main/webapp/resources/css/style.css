@@ -340,17 +340,19 @@ body.navbar-more-show  {
     margin-left: auto;
     margin-right: auto;   
     opacity: 0.9;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
     padding: 25px;
     margin-top: 2%;
-    font-size: 1.1em;
-    border-radius: 25px;
-    background-color: white;
-    color: black;
+    font-size: 1.2em;
+    background-color: black;
+    color: white;
+    font-family: Raleway;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 30px;
 }
 
-#login-content {
-    border: 5px solid #2d2366;
+.a-header {
+    font-weight: bold;
 }
 
 .text-center {
@@ -358,64 +360,74 @@ body.navbar-more-show  {
     display: block;
 }
 
+.orange-link {
+    color: #FF7F50;
+    font-family: Cinzel Decorative;
+    font-size: 1em;
+}
+
+.orange-link:hover, .orange-link:focus {
+    color: #ff571a;
+}
+
 .btn-login {
     color: white;
-    background-color: #2d2366;
+    background-color: #262626;
     font-size: 1.2em;
     margin: 5px;
+    margin-bottom:15px;
 }
 
 .btn-login.focus, .btn-login:focus, .btn-login:hover {
     color: white;
-    background-color:#314190;
+    background-color:#0a0a0a;
 }
 
-.login-link {
-    color: #a08b13;
-}
-
-.login-link:hover, .login-link:focus {
-    color: #e4c61b;
-}
-
-.btn-reg {
-    color: black;
-    background-color: #ead24c;
+.btn-clear {
     font-size: 1.2em;
     margin: 5px;
+    margin-bottom:15px;
+    margin-left: 20px;
+    background-color: black;
+    color: #F8F3EE;
 }
 
-.btn-reg.focus, .btn-reg:focus, .btn-reg:hover {
+.btn-clear.focus, .btn-clear:focus, .btn-clear:hover {
+    background-color: #F8F3EE;
     color: black;
-    background-color:#b79e15;
 }
 
-.reg-link {
-    color: #2d2366;
-}
 
-.reg-link:hover, .reg-link:focus {
-    color: #314190;
-}
-
-#reg-content {
-    border: 5px solid #ead24c;
-}
-
-.btn-search {
+.btn-blue {
     color: white;
-    background-color: #7d5d81;
+    background-color: #2F40B2;
     font-size: 1.2em;
     margin: 5px;
+    margin-bottom:15px;
 }
 
-.btn-search.focus, .btn-search:focus, .btn-search:hover {
+.btn-blue.focus, .btn-blue:focus, .btn-blue:hover {
     color: white;
-    background-color:#644b68;
+    background-color:black;
 }
 
-.search-content {
-    border: 5px solid #7d5d81;
+.well-outer {
+    color: white;
+    background-color: black;
+    border: none;
+    border-bottom: 1px solid #333;
+}
+
+.well-outer.focus, .well-outer:focus, .well-outer:hover {
+    color: #ffa280;
+    background-color: black;
+    border: none; 
+    border-bottom: 1px solid white;
+}
+
+.well-search {
+    background-color: black;
+    border: none;
 }
 
 .table-cart {
@@ -425,31 +437,35 @@ body.navbar-more-show  {
     margin-bottom: 20px;
 }
 
-.btn-continue {
+.table-cart tr.focus, .table-cart tr:focus, .table-cart tr:hover {
     color: black;
-    background-color: #c2efc8;
+}
+
+.table-cart  th, .table-cart th, .table-cart th {
+    color: white;
+}
+
+.btn-continue {
+    color: #F8F3EE;
+    background-color: black;
     margin: 15px;
 }
 
 .btn-continue.focus, .btn-continue:focus, .btn-continue:hover {
     color: black;
-    background-color: #d6f5da;
+    background-color: #F8F3EE;
 }
 
 .btn-shop {
-    color: white;
-    background-color: #279636;
+    color: black;
+    background-color: #FF7F50;
     font-size: 1.2em;
     margin: 5px;
 }
 
 .btn-shop.focus, .btn-shop:focus, .btn-shop:hover {
     color: white;
-    background-color: #1f7a2b;
-}
-
-#shop-content {
-    border: 5px solid #279636;
+    background-color: black;
 }
 
 .check-brands {
@@ -457,25 +473,35 @@ body.navbar-more-show  {
     padding-top: 10px;
 }
 
-
-.btn-checkout {
-    color: white;
-    background-color: #0fbd89;
-    font-size: 1.2em;
-    margin: 5px;
+.btn-credit {
+    margin-left: 15px;
+    background-color: #F8F3EE;
+    color: black;
 }
 
-.btn-checkout.focus, .btn-checkout:focus, .btn-checkout:hover {
-    color: white;
-    background-color: #0b8e67;
+.btn-credit.focus, .btn-credit:focus, .btn-credit:hover {
+    background-color: black;
+    color: #F8F3EE;
 }
 
-#checkout-content {
-    border: 5px solid #0fbd89;
+
+.invoice-content {
+    font-family: 'Arial, Helvetica, sans-serif';
 }
 
-#invoice-content {
-    border: 5px solid #064733;
+.invoice-container {
+    border-bottom: 1px solid #333333;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.space {
+    padding-bottom: 20px;
+}
+
+.blue {
+    color: #4a5bcf;
 }
 
 

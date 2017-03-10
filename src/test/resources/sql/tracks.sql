@@ -20,7 +20,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Intro','Markus Toivonen, Jari Mäenpää','01:50', '1', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (11, 1, 'Immigrant Song','Jimmy Page, Robert Plan','02:26', '1', 'led_zeppelin_iii.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (11, 1, 'Immigrant Song','Jimmy Page, Robert Plant','02:26', '1', 'led_zeppelin_iii.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (12, 1, 'Stairway to Heaven','Jimmy Page, Robert Plant','08:02', '4', 'led_zeppelin_iv.jpg', 0.5, 0.99);
 

@@ -14,20 +14,22 @@
         </f:metadata>
     </ui:define>
     
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    
     <ui:define name="windowTitle">#{bundle.shopcart}</ui:define>
 
     <ui:define name="content">
-        <div id="shop-content" class="a-content">
+        <div class="a-content">
             <div class="panel-heading">
-                <h2 class="centerText">#{bundle.shopcart}</h2>
+                <h2 class="centerText a-header">#{bundle.shopcart}</h2>
             </div>
             <div class="panel-body">
                 <ui:fragment rendered="#{cart.all.size() != 0}">
                     <h:form id="cart-form">
                     <h:dataTable value="#{cart.all}" var="item"
-                                 class="table table-striped table-hover table-cart table-condensed">
+                                 class="table  table-hover table-cart table-condensed">
                         <h:column>    
-                            <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="max-height: 75px"/>
+                            <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="width: 45%"/>
                          </h:column>
                         <h:column>    				
                             <f:facet name="header">#{bundle.type}</f:facet>    				
@@ -66,7 +68,7 @@
                         <h:link rendered="#{login.loggedIn}" outcome="checkout" value="#{bundle.checkout}" class="btn btn-default btn-shop"/>
                     </div>
 
-                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login" class="text-center reg-link"/>
+                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login" class="text-center orange-link"/>
                     
                     <div>
                         <h:form>

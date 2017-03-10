@@ -8,12 +8,14 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="reg-log.css" /></ui:define>
+    
     <ui:define name="windowTitle">#{bundle.login}</ui:define>
     
     <ui:define name="content">
-        <div id="login-content" class="a-content">
+        <div class="a-content">
             <div class="panel-heading">
-                <h2 class="text-center">#{bundle.login}</h2>
+                <h1 class="text-center a-header">#{bundle.login}</h1>
             </div>
             <div class="panel-body">
                 <h:message id="loginFormMessage" for="loginForm" class="error"/>
@@ -39,7 +41,7 @@
                     </div>
                 </h:form>
 
-                <h:link value="#{bundle.login_new}" outcome="register" class="text-center login-link"/>
+                <h:link value="#{bundle.login_new}" outcome="register" class="text-center orange-link"/>
             </div>
         </div>
     </ui:define> 
