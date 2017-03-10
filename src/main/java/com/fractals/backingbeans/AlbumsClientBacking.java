@@ -186,6 +186,7 @@ public class AlbumsClientBacking implements Serializable{
     }
 
     public String addReview() {
+        
         Review review = getReview();
 
         if (loginControl.isLoggedIn()) {
@@ -195,7 +196,8 @@ public class AlbumsClientBacking implements Serializable{
         }
         review.setApproved(false);
         review.setReviewDate(LocalDateTime.now());
-
+        log.info("Text:"+review.getText());
+        
         reviewControl.addReview(review);
 
         return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();

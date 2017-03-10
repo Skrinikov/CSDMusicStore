@@ -54,7 +54,12 @@
                             <ul>
                                 <li>
                                     <span class="sub-info">Genre:</span>
-                                    <span>Rock</span>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
+                                        <span>#{albumsCLBack.album.tracks.get(0).genre.name}</span>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
+                                        <span>N/E</span>
+                                    </ui:fragment>
                                 </li>
                                 <li>
                                     <span class="sub-info">Release Date:</span>
@@ -83,7 +88,7 @@
                                                         <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}"/>
                                                     </h:form>
                                                 </td>
-                                            </tr>
+                                            </tr>                                            
                                             <ui:fragment rendered="#{track.reviews.size() > 0}">
                                                 <tr id="r#{utilBacking.randomId}" style="display:none">
                                                     <td colspan="12" class="review-container">
@@ -91,14 +96,21 @@
                                                             <div class="review">
                                                                 <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
                                                                 <p>#{review.text}</p>
-                                                            </div>
+                                                            </div>                                                            
                                                         </ui:repeat>
+                                                        <ui:fragment rendered="#{login.loggedIn}">
+                                                            <ui:insert name="reviews">
+                                                                <ui:include src="/WEB-INF/sections/client/addReview.xhtml">
+                                                                    <ui:param name="trackId" value="#{track.id}" />
+                                                                </ui:include>
+                                                            </ui:insert>
+                                                        </ui:fragment>
                                                     </td>
                                                 </tr>
                                             </ui:fragment>
                                         </ui:repeat>
                                     </tbody>
-                                </table>
+                                </table>                                
                             </div>
                         </div>
                     </ui:fragment>

@@ -959,3 +959,38 @@ body.navbar-more-show  {
 .stars{
     color:#FF7F50;
 }
+
+.rating{
+    
+}
+
+.leave-review{
+    padding:1em;
+}
+
+.rating-stars-container{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.rating-stars-container-selected{
+    color:#FF7F50;
+    font-weight: bold;
+}
+
+.review-text-area{
+    width:100%;
+    max-width:100%;
+    resize:vertical;
+    color:#222;
+}
+
+
+
+@media screen and (max-width: 767px){
+    .table-responsive{
+        border-right:none;
+        border-left: none;
+        border-bottom: none;
+    }
+}

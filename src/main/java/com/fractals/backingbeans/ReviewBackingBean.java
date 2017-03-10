@@ -11,6 +11,7 @@ import com.fractals.beans.User;
 import com.fractals.controllers.ReviewJpaController;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,6 +30,8 @@ public class ReviewBackingBean implements Serializable {
     
     @Inject
     private ReviewJpaController reviewJpaController; 
+    
+    private static final Logger log = Logger.getLogger("ReviewBackingBean.class");
     
     private Review selectedReview;
     public Review getSelectedReview(){ return selectedReview;}
@@ -138,5 +141,7 @@ public class ReviewBackingBean implements Serializable {
         
         return review;
     }
+    
+    
     
 }

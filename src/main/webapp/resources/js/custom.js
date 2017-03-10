@@ -43,7 +43,72 @@ $(document).ready(function () {
 
         $(this).html(stars);
     });
-    
+
+    /**
+     * Removes the rating-stars-container-selected class from the element
+     * when the mouse hovers over it.
+     */
+    $('.rating-stars-container').on("mouseenter", function(){
+        $(this).removeClass('rating-stars-container-selected');
+    });
+
+    $('.rating-star').on("mouseenter", function (e) {
+        var pos = $(this).index();
+
+        //Iterating through siblings
+        $(this).siblings().andSelf().each(function () {
+            if ($(this).index() <= pos) {
+                $(this).removeClass('fa-star-o');
+                $(this).addClass('fa-star');
+            } else {
+                $(this).removeClass('fa-star');
+                $(this).addClass('fa-star-o');
+            }
+        });
+    });
+
+    /**
+     * When the user hover's over a star, it fills all the previous stars and displays
+     * new ones.
+     */
+    $('.rating-star').on("mouseleave", function () {
+        var pos = $(this).index();
+
+        $(this).siblings().andSelf().each(function () {
+            if ($(this).index() >= pos) {
+                $(this).removeClass('fa-star');
+                $(this).addClass('fa-star-o');
+            }
+        });
+    });
+
+    $('.rating-stars-container').on("mouseleave", function () {
+        var val = $(this).siblings().eq(0).val();
+        if (val !== "") {
+            $(this).children().each(function () {
+                if ($(this).index() <= val - 1) {
+                    $(this).removeClass('fa-star-o');
+                    $(this).addClass('fa-star');
+                } else {
+                    $(this).removeClass('fa-star');
+                    $(this).addClass('fa-star-o');
+                }
+            });
+            
+            $(this).addClass("rating-stars-container-selected");
+        }
+    });
+
+    $('.rating-star').click(function () {
+        var pos = $(this).index() + 1;        
+
+        // Setting the value to the hidden input.
+        $(this).parent().siblings().each(function () {
+            $(this).val(pos);
+        });
+        
+        $(this).parent().addClass("rating-stars-container-selected");
+    });
 
 });
 

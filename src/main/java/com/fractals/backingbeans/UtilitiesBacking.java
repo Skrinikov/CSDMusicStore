@@ -19,9 +19,9 @@ public class UtilitiesBacking implements Serializable{
      * 
      * @return random id
      */
-    public int generateRandomId(){
+    public String generateRandomId(){
         randomId = (int) (Math.random() * 999999);
-        return randomId;
+        return "w3mnse"+randomId;
     }
     
     /**
@@ -29,8 +29,8 @@ public class UtilitiesBacking implements Serializable{
      * 
      * @return 
      */
-    public int getRandomId() {
-        return randomId;
+    public String getRandomId() {
+        return "w3mnse"+randomId;
     }
        
 }
