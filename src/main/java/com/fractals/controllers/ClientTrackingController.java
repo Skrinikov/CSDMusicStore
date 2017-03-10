@@ -28,6 +28,7 @@ import javax.servlet.http.Cookie;
 public class ClientTrackingController implements Serializable {
     
     private static final Logger LOG = Logger.getLogger("CookiesController.class");
+    private static final String GENRE_KEY = "genreID";
 
     
     @Inject
@@ -49,7 +50,7 @@ public class ClientTrackingController implements Serializable {
      * Saves the last visited genre
      * @param genre Genre
      */
-    public void saveGenre(Genre genre){
+    public void saveGenre(Genre genre, FacesContext context){
         if(loginControl.isLoggedIn()){
             try {
                 saveGenreToDB(loginControl.getCurrentUser(), genre);
@@ -57,7 +58,7 @@ public class ClientTrackingController implements Serializable {
                 Logger.getLogger(ClientTrackingController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        FacesContext context = FacesContext.getCurrentInstance();
+        
         registerGenreToCookies(genre, context);
     }
     
@@ -79,13 +80,13 @@ public class ClientTrackingController implements Serializable {
     private void registerGenreToCookies(Genre genre, FacesContext context){
         LOG.info("Registering " + genre.toString() + "'s ID of "+ genre.getId().toString() + " to Cookie");
         
-        context.getExternalContext().addResponseCookie("genre", genre.getId().intValue() + "", null);
+        context.getExternalContext().addResponseCookie(GENRE_KEY, genre.getId().intValue() + "", null);
         
         Map<String, Object> cookies = FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequestCookieMap();
         
-        LOG.info("Is cookie saved? " + cookies.containsKey("lastGenre"));
+        LOG.info("Is cookie saved? " + cookies.containsKey(GENRE_KEY));
         
         
     }
@@ -101,7 +102,7 @@ public class ClientTrackingController implements Serializable {
                 .getExternalContext()
                 .getRequestCookieMap();
         
-        Cookie cookie = (Cookie) cookies.get("lastGenre");
+        Cookie cookie = (Cookie) cookies.get(GENRE_KEY);
         LOG.info("Genre ID from the cookie" + cookie.getValue());
         Integer genre_id = Integer.getInteger(cookie.getValue());
         return genreControl.findGenre(genre_id);
@@ -186,7 +187,7 @@ public class ClientTrackingController implements Serializable {
                 .getCurrentInstance()
                 .getExternalContext()
                 .getRequestCookieMap();
-        return cookies.containsKey("lastGenre");
+        return cookies.containsKey(GENRE_KEY);
         
     }
     
