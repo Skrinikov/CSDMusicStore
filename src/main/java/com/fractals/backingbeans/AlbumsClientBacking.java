@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named("albumsCLBack")
 @SessionScoped
-public class AlbumsClientBacking implements Serializable{ 
+public class AlbumsClientBacking implements Serializable {
 
     private Album album;
     private Integer albumId;
@@ -51,14 +52,13 @@ public class AlbumsClientBacking implements Serializable{
 
     @Inject
     private LoginBacking loginControl;
-    
 
     @Inject
     private ClientTrackingController cookiesControl;
 
     /*
     *   Initializes the Album entity
-    */
+     */
     public void init() {
         album = albumControl.findAlbum(albumId);
 
@@ -73,7 +73,7 @@ public class AlbumsClientBacking implements Serializable{
 
             // Thai Vu I added this, because some albums have no tracks.
             if (album.getTracks().size() > 0) {
-                cookiesControl.saveGenre(album.getTracks().get(0).getGenre(), FacesContext.getCurrentInstance());
+                cookiesControl.saveGenre(album.getTracks().get(0).getGenre());
             }
             isLoaded = true;
         }
@@ -85,36 +85,38 @@ public class AlbumsClientBacking implements Serializable{
      */
     public String addAlbumToCart() {
         shopControl.add(album);
-        
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+
+        String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
         return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
-    
+
     /**
      * Function to add a selected Track to the Cart
+     *
      * @return Path to the shopping cart
      */
-    public String addTrackToCart(){
+    public String addTrackToCart() {
         shopControl.add(selectedTrack);
-        
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
+
+        String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
         return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
 
     }
-    
-    public List<Track> getTracks(){
+
+    public List<Track> getTracks() {
         return getAlbum().getTracks();
     }
-    
-    public Album getAlbum(){
-        if (album == null){
-            if(albumId != null)
-                albumControl.findAlbum(albumId);
-            else
-                album = new Album();
-        }
-            
 
+    public Album getAlbum() {
+        if (album == null) {
+            if (albumId != null) {
+                albumControl.findAlbum(albumId);
+            } else {
+                album = new Album();
+            }
+        }
+
+        
         return album;
     }
 
@@ -146,9 +148,9 @@ public class AlbumsClientBacking implements Serializable{
 
     public void setSimilarAlbums(List<Album> similarAlbums) {
         this.similarAlbums = similarAlbums;
-    }    
-    
-    public void setAlbum(Album album){
+    }
+
+    public void setAlbum(Album album) {
         this.album = album;
     }
 
@@ -181,10 +183,11 @@ public class AlbumsClientBacking implements Serializable{
      * @return
      */
     public String getAlbumCover() {
-        if(!album.getTracks().isEmpty())
+        if (!album.getTracks().isEmpty()) {
             return album.getTracks().get(0).getCoverFile();
-        else
+        } else {
             return "2001.jpg";
+        }
     }
 
     public String getAlbumCover(Album album) {
@@ -223,6 +226,7 @@ public class AlbumsClientBacking implements Serializable{
 
     /**
      * Check if the user is logged in
+     *
      * @return true if logged in, false is not logged in
      */
     public boolean isLoggedIn() {

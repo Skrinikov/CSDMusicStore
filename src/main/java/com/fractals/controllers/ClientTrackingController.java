@@ -50,7 +50,7 @@ public class ClientTrackingController implements Serializable {
      * Saves the last visited genre
      * @param genre Genre
      */
-    public void saveGenre(Genre genre, FacesContext context){
+    public void saveGenre(Genre genre){
         if(loginControl.isLoggedIn()){
             try {
                 saveGenreToDB(loginControl.getCurrentUser(), genre);
@@ -59,7 +59,7 @@ public class ClientTrackingController implements Serializable {
             }
         }
         
-        registerGenreToCookies(genre, context);
+        registerGenreToCookies(genre);
     }
     
     /**
@@ -77,9 +77,10 @@ public class ClientTrackingController implements Serializable {
      * Stores the last genre of a Track or Album page visited by the user
      * @param genre 
      */
-    private void registerGenreToCookies(Genre genre, FacesContext context){
+    private void registerGenreToCookies(Genre genre){
         LOG.info("Registering " + genre.toString() + "'s ID of "+ genre.getId().toString() + " to Cookie");
         
+        FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().addResponseCookie(GENRE_KEY, genre.getId().intValue() + "", null);
         
         Map<String, Object> cookies = FacesContext.getCurrentInstance()

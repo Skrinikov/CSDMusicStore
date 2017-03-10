@@ -91,7 +91,7 @@ public class TrackClientBacking implements Serializable {
             String outcome = "/temp.xhtml"; // Maybe change to a Album 404 page.
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
         }else{
-            cookiesControl.saveGenre(track.getGenre(), FacesContext.getCurrentInstance());
+            cookiesControl.saveGenre(track.getGenre());
         }
         
         
