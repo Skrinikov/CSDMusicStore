@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Thai-Vu Nguyen, Danieil Skrinikov
  */
 @Named("trackCLBack")
-@RequestScoped
+@SessionScoped
 public class TrackClientBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("TrackClientBacking.class");
@@ -276,13 +276,15 @@ public class TrackClientBacking implements Serializable {
         return (track.getSalePrice() == 0) ? track.getListPrice() : track.getSalePrice();
     }
     
+    public Integer getRating(){
+        return rating;
+    }
+    
     public void setRating(Integer rating){
         this.rating = rating;
     }
     
-    public Integer getRating(){
-        return rating;
-    }
+    
 
     /**
      * 
