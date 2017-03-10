@@ -91,8 +91,11 @@
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.selectedAlbum.available}" />
                 <p:outputLabel value="Artist:" for="artist" />
 
-                <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" disabled="true">
+                <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" converter="#{artistConverter}">
                     <f:selectItems value="#{theArtists.artists}"/>
+                    <p:column>
+                        <h:outputText value="#{a.name}" />
+                    </p:column>
                 </p:selectOneMenu> 
               
                 <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form">
