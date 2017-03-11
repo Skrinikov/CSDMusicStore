@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Thai-Vu Nguyen, Danieil Skrinikov
  */
 @Named("trackCLBack")
-@RequestScoped
+@SessionScoped
 public class TrackClientBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("TrackClientBacking.class");
@@ -84,7 +84,17 @@ public class TrackClientBacking implements Serializable {
      */
     public void init() {
         track = trackControl.findTrack(trackId);
-        cookiesControl.saveGenre(track.getGenre());
+        
+        if(track == null){
+            log.info("Track is NULL");
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String outcome = "/temp.xhtml"; // Maybe change to a Album 404 page.
+            facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+        }else{
+            cookiesControl.saveGenre(track.getGenre());
+        }
+        
+        
     }
 
     /**
@@ -276,13 +286,15 @@ public class TrackClientBacking implements Serializable {
         return (track.getSalePrice() == 0) ? track.getListPrice() : track.getSalePrice();
     }
     
+    public Integer getRating(){
+        return rating;
+    }
+    
     public void setRating(Integer rating){
         this.rating = rating;
     }
     
-    public Integer getRating(){
-        return rating;
-    }
+    
 
     /**
      * 

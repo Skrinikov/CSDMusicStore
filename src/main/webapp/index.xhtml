@@ -3,9 +3,15 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="windowTitle">
         #{bundle.websiteTitle}
+    </ui:define>
+    <ui:define name="extra-meta">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{indexBacking.load}" />
+        </f:metadata>
     </ui:define>
     <ui:define name="content">
         <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
@@ -14,7 +20,7 @@
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
-                
+
             </ol>
 
             <!-- Wrapper for slides -->
@@ -34,7 +40,7 @@
                         <p>Lorem ipsum...</p>
                     </div>      
                 </div>
-                
+
                 <div class="item">
                     <h:graphicImage value="resources/images/ambiance/carousel_3.jpg" />
                     <div class="carousel-caption">
@@ -122,6 +128,49 @@
                     </h:form>
                 </p:outputPanel>
             </div>
+
+            <!-- Client Tracking -->
+
+            <p:outputPanel deferred="true" deferredMode="visible" rendered="#{indexBacking.genreSaved}">
+                <div class="row top-buffer">
+                    <h3 class="similar-albums-header">Album Recommendations for #{indexBacking.trackedGenre.name}</h3>
+                </div>
+
+                <div class="row text-center" style="margin-bottom: 20px;">
+                    <ui:repeat var="trackedAlbum" value="#{indexBacking.trackedAlbums}">
+                        <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
+                            <div class="similar-albums-inner">
+                                <!--<h:link outcome="#">-->
+                                    <p:graphicImage name="images/covers/#{trackedAlbum.tracks.get(0).coverFile}"  style="max-height: 275px"/>
+                                    <h3>#{trackedAlbum.title}</h3>
+                                    <h5>#{trackedAlbum.artist}</h5>
+                                    <f:param name="id" value="#{relatedAlbum.id}" />
+                                <!--</h:link>-->
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+                
+                <div class="row top-buffer">
+                    <h3 class="similar-albums-header">Track Recommendations for #{indexBacking.trackedGenre.name}</h3>
+                </div>
+                
+                <div class="row text-center" style="margin-bottom: 20px;">
+                    <ui:repeat var="trackedTrack" value="#{indexBacking.trackedTracks}" >
+                    <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
+                        <div class="similar-albums-inner">
+                            <!--<h:link outcome="Track">-->
+                                <p:graphicImage name="images/covers/#{trackedTrack.coverFile}"  style="max-height: 275px"/>
+                                <h3>#{trackedTrack.title}</h3>
+                                <h5>#{trackedTrack.album.artist.name}</h5>
+                                <h6>#{trackedTrack.album.title}</h6>
+                                <f:param name="id" value="#{trackedTrack.id}" />
+                            <!--</h:link>-->
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+            </p:outputPanel>
             
             <!-- Songs -->
             <div class="row">
@@ -131,6 +180,10 @@
                     </ui:repeat>
                 </h:form>
             </div>
+
+            
+
+
         </div>
     </ui:define>
 </ui:composition>

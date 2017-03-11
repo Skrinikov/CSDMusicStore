@@ -7,11 +7,13 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,9 +25,10 @@ import javax.servlet.http.Cookie;
  */
 @Named("clienttracking")
 @RequestScoped
-public class ClientTrackingController {
+public class ClientTrackingController implements Serializable {
     
     private static final Logger LOG = Logger.getLogger("CookiesController.class");
+    private static final String GENRE_KEY = "genreID";
 
     
     @Inject
@@ -75,9 +78,18 @@ public class ClientTrackingController {
      * @param genre 
      */
     private void registerGenreToCookies(Genre genre){
-        LOG.info(genre.toString());
+        LOG.info("Registering " + genre.toString() + "'s ID of "+ genre.getId().toString() + " to Cookie");
+        
         FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().addResponseCookie("LastGenre", genre.getId().toString(), null);
+        context.getExternalContext().addResponseCookie(GENRE_KEY, genre.getId().intValue() + "", null);
+        
+        Map<String, Object> cookies = FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequestCookieMap();
+        
+        LOG.info("Is cookie saved? " + cookies.containsKey(GENRE_KEY));
+        
+        
     }
     
     /**
@@ -85,13 +97,13 @@ public class ClientTrackingController {
      * Gets the last Genre of Track or Album page visited by a user 
      * @return Genre
      */
-    public Genre getGenreFromCookie(){
+    private Genre getGenreFromCookie(){
         Map<String, Object> cookies = FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
                 .getRequestCookieMap();
         
-        Cookie cookie = (Cookie) cookies.get("LastGenre");
+        Cookie cookie = (Cookie) cookies.get(GENRE_KEY);
         LOG.info("Genre ID from the cookie" + cookie.getValue());
         Integer genre_id = Integer.getInteger(cookie.getValue());
         return genreControl.findGenre(genre_id);
@@ -102,17 +114,10 @@ public class ClientTrackingController {
      * @return boolean
      */
     public boolean isGenreSaved(){
-        Map<String, Object> cookies = FacesContext
-                .getCurrentInstance()
-                .getExternalContext()
-                .getRequestCookieMap();
-        
-        Cookie cookie = (Cookie) cookies.get("LastGenre");
-        if (cookie == null){
-            return false;
-        }
+        if (loginControl.isLoggedIn())
+            return isGenreSavedInDB(loginControl.getCurrentUser());
         else
-            return true;
+            return isGenreSavedInCookie();
     }
     
     /**
@@ -176,6 +181,28 @@ public class ClientTrackingController {
     private void saveGenreToDB(User user, Genre genre) throws NonexistentEntityException, RollbackFailureException, Exception{
         user.setLastGenre(genre);
         userControl.edit(user);
+    }
+    
+    public boolean isGenreSavedInCookie(){
+        Map<String, Object> cookies = FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getRequestCookieMap();
+        return cookies.containsKey(GENRE_KEY);
+        
+    }
+    
+    public boolean isGenreSavedInDB(User user){
+        return user.getLastGenre() != null;
+    }
+    
+    public int cookieSize(){
+        Map<String, Object> cookies = FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getRequestCookieMap();
+        int num = cookies.size();
+        return num;
     }
     
 }
