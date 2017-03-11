@@ -29,17 +29,6 @@ import javax.persistence.criteria.Root;
 @SessionScoped
 public class AlbumBackingBean implements Serializable {
 
-    private String test2;
-    public String getTest2() {return test2;}
-    public void setTest2(String s) {test2 = s;}
-
-    private Artist test;
-    public Artist getTest() {return test;}
-    public void setTest(Artist stuff) {
-        test = stuff;
-        System.out.println("test = " + test.getName());
-    }
-
     private boolean editable = false;
     public boolean getEditable() {return editable;}
     public void setEditable(boolean b) {editable = b;}
@@ -55,16 +44,14 @@ public class AlbumBackingBean implements Serializable {
     public List<Album> getAlbums() {return albumJpaController.findAlbumEntities();}
     public boolean isEmpty() {return albumJpaController.isEmpty();}
 
-    public String edit() throws Exception {
+    public void edit() throws Exception {
         makeUneditable();
         albumJpaController.edit(selectedAlbum);
-        return "/management/album/albumsList.xhtml";
     }
 
-    public String delete() throws Exception {
-        //albumJpaController.destroy(selectedAlbum.getId());  
+    public void delete() throws Exception {
         selectedAlbum.setRemovedAt(LocalDateTime.now());
-        return edit();
+        edit();
     }
     
     private Album createdAlbum;
@@ -77,13 +64,11 @@ public class AlbumBackingBean implements Serializable {
 
     public void setCreatedAlbum(Album a) {createdAlbum = a;}
 
-    public String create() throws Exception {
-        createdAlbum.setCreatedAt(LocalDateTime.now()); //maybe generated in bean
-       // createdAlbum.setReleaseDate(LocalDate.now());//A CHANGER
+    public void create() throws Exception {
+        createdAlbum.setCreatedAt(LocalDateTime.now());
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;
-        return "/management/album/albumsViewEdit.xhtml";
     }
     
     

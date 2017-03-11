@@ -1,4 +1,4 @@
-<ui:composition 
+<ui:composition
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,16 +11,19 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="form">           
+
+
+
+        <h:form id="form">
 
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
-                <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item" 
+                <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
-                             selectionMode="single" selection="#{theAlbums.selectedAlbum}" 
+                             selectionMode="single" selection="#{theAlbums.selectedAlbum}"
                              rowKey="#{item.id}" widgetVar="albumTable"
                              draggableColumns="true" resizableColumns="true" >
 
@@ -71,35 +74,32 @@
 
                     <p:column headerText="#{bundle.ListAlbumTitle_removedAt}" filterStyle="display:none" filterBy="#{item.removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
-                    </p:column> 
+                    </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">                       
-                        <h:outputText value="#{item.available}"/>            
+                    <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">
+                        <h:outputText value="#{item.available}"/>
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Preview" icon="ui-icon-search" process="tbl" update=":form:testViewEdit" onclick="PF('dialogViewEdit').show()" />                
+                        <p:commandButton value="Preview" icon="ui-icon-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" />
                         <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false"/>
-                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false"/>       
-                        <!--                        
+                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false"/>
                         <p:commandButton value="Test Create" icon="ui-icon-search" onclick="PF('dialogCreate').show()" />
-                        -->
-                    </f:facet>   
+                    </f:facet>
                 </p:dataTable>
             </h:panelGroup>
-
-            <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
-                <ui:include src="/management/album/testDialogViewEdit.xhtml" />  
-            </p:dialog>
-
-
-            <!--           
-                        <p:dialog header="Create Album" widgetVar="dialogCreate" dynamic="true">            
-                            <ui:include src="/management/album/testDialogCreate.xhtml" />          
-                        </p:dialog>
-            -->
-
         </h:form>
+
+        <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/album/dialogViewEdit.xhtml" />
+        </p:dialog>
+
+
+        <p:dialog header="Create Album" widgetVar="dialogCreate" >
+            <h:outputLabel value="________"/>
+            <!--<ui:include src="/management/album/dialogCreate.xhtml" />-->
+        </p:dialog>
+
 
     </ui:define>
 </ui:composition>
