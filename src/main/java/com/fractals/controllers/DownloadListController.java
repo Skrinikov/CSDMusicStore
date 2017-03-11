@@ -61,12 +61,23 @@ public class DownloadListController implements Serializable
     @Inject
     private LoginBacking lc; 
     
+    private List<Track> trackList; 
+    private List<Album> albumList; 
     
     public DownloadListController()
     {
         super();
     }
-   
+
+    public List<Track> getTrackList() {     
+        return trackList;     
+    }
+
+    public List<Album> getAlbumList() {
+        getAlbums();
+        return albumList;
+    }
+
     
     public List<Track> getTracks()
     {    
@@ -85,7 +96,8 @@ public class DownloadListController implements Serializable
         for(OrderItem oi : items)
             tracks.add(oi.getTrack());
 
-        return tracks;  
+        this.trackList = tracks;
+        return tracks;
     }
     
     public List<Album> getAlbums()
@@ -103,6 +115,7 @@ public class DownloadListController implements Serializable
         for(OrderItem oi : items)
             albums.add(oi.getAlbum());
         
+        this.albumList = albums;
         return albums; 
     }
     
@@ -128,5 +141,21 @@ public class DownloadListController implements Serializable
         InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/mp3/sample.mp3");
         StreamedContent file = new DefaultStreamedContent(stream, "audio/mpeg", "sample.mp3");
         return file; 
+    }
+    
+    public String getArtistName(List<Artist> list)
+    {
+        if(list != null && list.size() > 0)
+            return list.get(0).getName();
+        else 
+            return ""; 
+    }
+    
+    public int getCount(List<Object> list)
+    {            
+        if(list == null)
+            return 0; 
+        else
+            return list.size(); 
     }
 }

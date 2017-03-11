@@ -23,10 +23,9 @@
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail" style="background-color: transparent; border-color: transparent">
 
-                        <h:commandLink>
+                        <a href="Track.xhtml?id=#{track.id}">
                             <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px"/>
-                            <p:ajax event="click" listener="#{browseBacking.trackDetails(track)}"/>   
-                        </h:commandLink>
+                        </a>
 
                         <div class="caption">
                             <h4 class="centerText">#{track.title}</h4>

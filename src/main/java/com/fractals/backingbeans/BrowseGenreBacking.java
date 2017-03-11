@@ -8,6 +8,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.controllers.GenreJpaController;
+import com.fractals.controllers.TrackJpaController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +41,8 @@ public class BrowseGenreBacking {
     @Inject 
     private GenreJpaController gjc; 
     
-    
-    @PersistenceContext(unitName = "fractalsPU")
-    private EntityManager entityManager;
-    
-    @Resource
-    private UserTransaction userTransaction;
+    @Inject 
+    private TrackJpaController tjc; 
     
     /**
      * This method will get all the genre in the database. 
@@ -54,15 +51,7 @@ public class BrowseGenreBacking {
      */
     public List<Genre> getAllGenre()
     {
-        //Build Query 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery(Genre.class); 
-        Root<Genre> genre = cq.from(Genre.class); 
-        cq.select(genre); 
-        
-        //execute the query
-        TypedQuery query = entityManager.createQuery(cq);
-        return query.getResultList();
+        return gjc.findGenreEntities();
     }
     
     /**
@@ -74,28 +63,9 @@ public class BrowseGenreBacking {
      */
     public List<Track> getTracksByGenre(Genre genre)
     {
-        if(genre == null)
-            return null; 
-        
-        //Build query 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery(Track.class);
-        Root<Track> track = cq.from(Track.class);
-        
-        cq.where(cb.equal(track.get("genre"), genre));
-        
-        TypedQuery query = entityManager.createQuery(cq);
-        List<Track> all = query.getResultList(); 
-        
-        //just get 10 
-        List<Track> tracks = new ArrayList<>();
-        
         int numTracks = 4;
-        int size = (all.size() < numTracks)? all.size() : numTracks; 
-        
-        for(int i = 0; i < size; i++)
-            tracks.add(all.get(i)); 
-        return tracks;
+        return tjc.findTracksByGenre(genre, numTracks, true);
+
     }   
    
     
@@ -135,11 +105,13 @@ public class BrowseGenreBacking {
         return path; 
         
     }
+
     
-    
-    
-    //Method below are used for browse_genreTracks
-    
+    /**
+     * This method is used by the browse_genreTracks page to display 
+     * all available tracks for a specific genre. 
+     * @return 
+     */
     public List<Track> getAllTracksForGenre()
     {
         Map<String, String> params =FacesContext.getCurrentInstance().
@@ -149,7 +121,7 @@ public class BrowseGenreBacking {
         try{
             
             int id = Integer.parseInt(params.get("id"));
-            return getTracks(gjc.findGenre(id));
+            return tjc.findTracksByGenre(gjc.findGenre(id), tjc.getTrackCount(), true);
                
         }catch(IllegalArgumentException ex){
             Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,20 +131,5 @@ public class BrowseGenreBacking {
         
         return null; 
     }
-    
-    private List<Track> getTracks(Genre genre)
-    {
-        //Build query 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery(Track.class);
-        Root<Track> track = cq.from(Track.class);
-        
-        cq.where(cb.equal(track.get("genre"), genre));
-        
-        TypedQuery query = entityManager.createQuery(cq);
-        return query.getResultList(); 
-    }
-    
-    
-    
+ 
 }

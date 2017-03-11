@@ -74,8 +74,7 @@ public class SurveyClientBacking implements Serializable{
             Logger.getLogger(SurveyClientBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
         //reset the survey
-        sur = null; 
-        
+        sur = null;        
         isVoted = true;
        
     }
