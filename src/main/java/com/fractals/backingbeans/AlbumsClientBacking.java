@@ -1,5 +1,7 @@
 package com.fractals.backingbeans;
 
+import com.fractals.backingbeans.exceptions.NonexistentEntityException;
+import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
@@ -9,12 +11,14 @@ import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.TrackJpaController;
+import com.fractals.controllers.UserJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -60,6 +64,9 @@ public class AlbumsClientBacking implements Serializable {
 
     @Inject
     private ClientTrackingController cookiesControl;
+    
+    @Inject
+    private UserJpaController userController;
 
     //Initializes the Album entity
     public void init() {
@@ -187,6 +194,7 @@ public class AlbumsClientBacking implements Serializable {
         log.info("Text:" + review.getText());
 
         reviewControl.addReview(review);
+        
 
         return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();
 
@@ -216,8 +224,10 @@ public class AlbumsClientBacking implements Serializable {
         review.setPending(true);
         review.setUser(user);
         review.setRating(rating);
-        review.setReviewDate(LocalDateTime.now());
+        review.setReviewDate(LocalDateTime.now());       
         reviewControl.addReview(review);
+        
+        Review temp = user.getReviews().get(user.getReviews().size()-1);
         
         // Refresh the page
         return null;
