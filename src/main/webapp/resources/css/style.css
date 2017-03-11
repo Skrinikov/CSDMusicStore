@@ -920,6 +920,11 @@ body.navbar-more-show  {
     color:#a0a0a0;
 }
 
+.album-track-list{
+    padding-left: 2em;
+    padding-right:1em;
+}
+
 .album-track-list tr{
     background-color: #262626;
 }
@@ -932,7 +937,7 @@ body.navbar-more-show  {
     border-bottom: solid 3px #0a0a0a;
 }
 
-.album-track-list .table{
+.tracks-table{
     border-top:2px solid #FF7F50;
 }
 
@@ -984,4 +989,45 @@ body.navbar-more-show  {
 
 .stars{
     color:#FF7F50;
+}
+
+.rating{
+    
+}
+
+.leave-review{
+    padding:1em;
+}
+
+.rating-stars-container{
+    display: inline-block;
+    font-size: 1.5em;
+    transition:color 0.5s;
+    cursor: pointer;
+}
+
+.rating-stars-container-selected{
+    color:#FF7F50;
+    font-weight: bold;
+}
+
+.review-text-area{
+    width:100%;
+    max-width:100%;
+    resize:vertical;
+    color:#222;
+}
+
+
+
+@media screen and (max-width: 767px){
+    .table-responsive{
+        border-right:none;
+        border-left: none;
+        border-bottom: none;
+    }
+}
+
+.ui-datatable table, .ui-datatable table > tbody > tr, .ui-datatable table > tbody,.ui-panelgrid .ui-panelgrid-cell, .ui-datatable tbody td{
+    border:none;
 }

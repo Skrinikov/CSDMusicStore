@@ -1,18 +1,24 @@
 package com.fractals.backingbeans;
 
+import com.fractals.backingbeans.exceptions.NonexistentEntityException;
+import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewsWebController;
+import com.fractals.controllers.TrackJpaController;
+import com.fractals.controllers.UserJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -38,6 +44,7 @@ public class AlbumsClientBacking implements Serializable {
     private boolean isLoaded = false;
     private Track selectedTrack;
     private Review createdReview;
+    private List<Review> reviews;
 
     private static final Logger log = Logger.getLogger("AlbumsClientBacking.class");
 
@@ -54,12 +61,20 @@ public class AlbumsClientBacking implements Serializable {
     private LoginBacking loginControl;
 
     @Inject
+    private TrackJpaController trackController;
+
+    @Inject
     private ClientTrackingController cookiesControl;
+    
+    @Inject
+    private UserJpaController userController;
 
     /*
     *   Initializes the Album entity
      */
     public void init() {
+        reviews = new ArrayList<>();
+
         album = albumControl.findAlbum(albumId);
 
         if (album == null) {
@@ -79,30 +94,6 @@ public class AlbumsClientBacking implements Serializable {
         }
     }
 
-    /**
-     * Function to add the current instance of the album to the shopping
-     * @return Path to the shopping cart
-     */
-    public String addAlbumToCart() {
-        shopControl.add(album);
-
-        String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
-        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
-    }
-
-    /**
-     * Function to add a selected Track to the Cart
-     *
-     * @return Path to the shopping cart
-     */
-    public String addTrackToCart() {
-        shopControl.add(selectedTrack);
-
-        String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
-        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
-
-    }
-
     public List<Track> getTracks() {
         return getAlbum().getTracks();
     }
@@ -115,7 +106,6 @@ public class AlbumsClientBacking implements Serializable {
                 album = new Album();
             }
         }
-
         
         return album;
     }
@@ -195,6 +185,7 @@ public class AlbumsClientBacking implements Serializable {
     }
 
     public String addReview() {
+
         Review review = getReview();
 
         if (loginControl.isLoggedIn()) {
@@ -204,33 +195,46 @@ public class AlbumsClientBacking implements Serializable {
         }
         review.setApproved(false);
         review.setReviewDate(LocalDateTime.now());
+        log.info("Text:" + review.getText());
 
         reviewControl.addReview(review);
+        
 
         return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();
 
     }
 
-    public void showReviewDialog() {
-        Map<String, Object> options = new HashMap<String, Object>();
-        options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        options.put("includeViewParams", true);
-
-        //TODO
-        //TESTING if the dialog pops out
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Hello - ", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
     /**
-     * Check if the user is logged in
      *
-     * @return true if logged in, false is not logged in
+     * @param trackId
+     * @param reviewText
+     * @param rating
+     * @return location where to go after this action is completed.
      */
-    public boolean isLoggedIn() {
-        return loginControl.isLoggedIn();
+    public String addReview(int trackId, String reviewText, int rating) {
+        Track track = trackController.findTrack(trackId);
+        User user = loginControl.getCurrentUser();
+
+        if (track == null) {
+            return "/index.xhtml";
+        }
+        if (user == null) {
+            return "/client/login.xhtml";
+        }
+        Review review = new Review();
+        review.setTrack(track);
+        review.setText(reviewText);
+        review.setApproved(false);
+        review.setPending(true);
+        review.setUser(user);
+        review.setRating(rating);
+        review.setReviewDate(LocalDateTime.now());       
+        reviewControl.addReview(review);
+        
+        Review temp = user.getReviews().get(user.getReviews().size()-1);
+        
+        // Refresh the page
+        return null;
     }
 
 }

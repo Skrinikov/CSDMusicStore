@@ -54,7 +54,12 @@
                             <ul>
                                 <li>
                                     <span class="sub-info">Genre:</span>
-                                    <span>Rock</span>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
+                                        <span>#{albumsCLBack.album.tracks.get(0).genre.name}</span>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
+                                        <span>N/E</span>
+                                    </ui:fragment>
                                 </li>
                                 <li>
                                     <span class="sub-info">Release Date:</span>
@@ -62,46 +67,76 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div>                   
+
+                    <!-- Test -->
                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
                         <div class="col-sm-8 col-xs-12">
-                            <div class="album-track-list">
-                                <table class="table table-condensed table-responsive">
-                                    <tbody>
-                                        <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
-                                            <tr>    
-                                                <ui:fragment rendered="#{track.reviews.size() > 0}">
-                                                    <td class="col-md-1 text-center toggle-reviews" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
-                                                </ui:fragment>
-                                                <ui:fragment rendered="#{track.reviews.size() == 0}">
-                                                    <td class="col-md-1 text-center toggle-reviews-empty" id="#{utilBacking.generateRandomId()}"><span class="fa fa-music sub-info"></span></td>
-                                                </ui:fragment>
-                                                <td class="col-md-6"><h:link outcome="Track" value="#{track.albumNum} - #{track.title}" styleClass="album-list-track"><f:param name="id" value="#{track.id}"/></h:link></td>
-                                                <td class="col-md-1">#{track.duration}</td>
-                                                <td class="col-md-1">
-                                                    <h:form>
+                            <h:form>
+                                <div class="album-track-list">
+                                    <p:dataTable var="track" value="#{albumsCLBack.album.tracks}" styleClass="tracks-table">
+                                        <p:column style="padding:0;border:none;">
+                                            <p:panelGrid style="border:none;">
+                                                <p:row style="border:none;border-bottom: solid 3px #0a0a0a;">
+                                                    <p:column styleClass="col-md-1 text-center toggle-reviews" style="border:none;" colspan="3">
+                                                        <span class="fa fa-music sub-info"></span>
+                                                    </p:column>
+                                                    <p:column styleClass="" style="border:none;" colspan="7">
+                                                        <h:outputText value="#{track.albumNum} - #{track.title}" />
+                                                    </p:column>
+                                                    <p:column styleClass="" style="border:none;" colspan="1">
+                                                        <h:outputText value="#{track.duration}"/>
+                                                    </p:column>
+                                                    <p:column styleClass="" style="border:none;" colspan="1">
+
                                                         <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}"/>
-                                                    </h:form>
-                                                </td>
-                                            </tr>
-                                            <ui:fragment rendered="#{track.reviews.size() > 0}">
-                                                <tr id="r#{utilBacking.randomId}" style="display:none">
-                                                    <td colspan="12" class="review-container">
-                                                        <ui:repeat var="review" value="#{track.reviews}">
-                                                            <div class="review">
-                                                                <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
-                                                                <p>#{review.text}</p>
-                                                            </div>
-                                                        </ui:repeat>
-                                                    </td>
-                                                </tr>
-                                            </ui:fragment>
-                                        </ui:repeat>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row style="display:none; border-bottom: solid 3px #0a0a0a;">
+                                                    <p:column colspan="12" class="review-container" style="border:none;">
+                                                        <ui:fragment rendered="#{track.reviews.size() > 0}">
+
+                                                            <ui:repeat var="review" value="#{track.reviews}">
+                                                                <div class="review">
+                                                                    <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                                                    <p>#{review.text}</p>
+                                                                </div>                                                            
+                                                            </ui:repeat>
+
+                                                        </ui:fragment>
+                                                        <ui:fragment rendered="#{login.loggedIn}">
+
+                                                            <div class="leave-review">
+                                                                <div>
+                                                                    <span>Rating: </span>
+                                                                    <div class="rating-stars-container" >
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                    </div>
+                                                                    <h:inputHidden binding="#{rating}"/>
+                                                                </div>
+
+                                                                <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" />
+
+                                                                <p:commandLink value="Submit" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                                                            </div>                                                              
+
+                                                        </ui:fragment>                                                   
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </h:form>
                         </div>
                     </ui:fragment>
+
+
                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
                         <div class="col-sm-8 col-xs-12">
                             <div class="album-track-list">
