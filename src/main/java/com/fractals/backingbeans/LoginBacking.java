@@ -130,4 +130,11 @@ public class LoginBacking implements Serializable {
         return currentUser;
     }
     
+    /**
+     * Refreshes the current user state to match the database.
+     */
+    public void refreshCurrenthUser() {
+        userController.refreshUser(currentUser);
+    }
+    
 }

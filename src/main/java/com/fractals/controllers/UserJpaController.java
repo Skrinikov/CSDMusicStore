@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.exceptions.IllegalOrphanException;
@@ -317,5 +312,13 @@ public class UserJpaController implements Serializable {
      */
     public User getByUsername(String username) {
         return (User)em.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
+    }
+    
+    /**
+     * Refreshes the user to the database state.
+     * @param user The user to refresh.
+     */
+    public void refreshUser(User user) {
+        em.refresh(user);
     }
 }
