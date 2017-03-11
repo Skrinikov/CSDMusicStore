@@ -83,14 +83,15 @@ public class TrackClientBacking implements Serializable {
      * Initialize the Track entity based on the trackId
      */
     public void init() {
-        track = trackControl.findTrack(trackId);
         
-        if(track == null){
+        if(trackId == null){
+            
             log.info("Track is NULL");
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            String outcome = "/temp.xhtml"; // Maybe change to a Album 404 page.
+            String outcome = "/error.xhtml"; 
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
         }else{
+            track = trackControl.findTrack(trackId);
             cookiesControl.saveGenre(track.getGenre());
         }
         
