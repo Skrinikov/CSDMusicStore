@@ -4,9 +4,11 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewsWebController;
+import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named("albumsCLBack")
 @SessionScoped
-public class AlbumsClientBacking implements Serializable{ 
+public class AlbumsClientBacking implements Serializable {
 
     private Album album;
     private Integer albumId;
@@ -37,6 +39,7 @@ public class AlbumsClientBacking implements Serializable{
     private boolean isLoaded = false;
     private Track selectedTrack;
     private Review createdReview;
+    private List<Review> reviews;
 
     private static final Logger log = Logger.getLogger("AlbumsClientBacking.class");
 
@@ -51,13 +54,17 @@ public class AlbumsClientBacking implements Serializable{
 
     @Inject
     private LoginBacking loginControl;
-    
+
+    @Inject
+    private TrackJpaController trackController;
 
     @Inject
     private ClientTrackingController cookiesControl;
 
     //Initializes the Album entity
     public void init() {
+        reviews = new ArrayList<>();
+
         album = albumControl.findAlbum(albumId);
 
         if (album == null) {
@@ -77,38 +84,18 @@ public class AlbumsClientBacking implements Serializable{
         }
     }
 
-    /**
-     * Function to add the current instance of the album to the shopping
-     */
-    public String addAlbumToCart() {
-        shopControl.add(album);
-        
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
-        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
-    }
-    
-    public String addTrackToCart(){
-        //album = getAlbum();
-        shopControl.add(selectedTrack);
-        
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
-        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
-
-    }
-    
-    public List<Track> getTracks(){
+    public List<Track> getTracks() {
         return getAlbum().getTracks();
     }
-    
-    public Album getAlbum(){
-        if (album == null){
-            if(albumId != null)
-                albumControl.findAlbum(albumId);
-            else
-                album = new Album();
-        }
-            
 
+    public Album getAlbum() {
+        if (album == null) {
+            if (albumId != null) {
+                albumControl.findAlbum(albumId);
+            } else {
+                album = new Album();
+            }
+        }
         return album;
     }
 
@@ -140,9 +127,9 @@ public class AlbumsClientBacking implements Serializable{
 
     public void setSimilarAlbums(List<Album> similarAlbums) {
         this.similarAlbums = similarAlbums;
-    }    
-    
-    public void setAlbum(Album album){
+    }
+
+    public void setAlbum(Album album) {
         this.album = album;
     }
 
@@ -175,10 +162,11 @@ public class AlbumsClientBacking implements Serializable{
      * @return
      */
     public String getAlbumCover() {
-        if(!album.getTracks().isEmpty())
+        if (!album.getTracks().isEmpty()) {
             return album.getTracks().get(0).getCoverFile();
-        else
+        } else {
             return "2001.jpg";
+        }
     }
 
     public String getAlbumCover(Album album) {
@@ -186,7 +174,7 @@ public class AlbumsClientBacking implements Serializable{
     }
 
     public String addReview() {
-        
+
         Review review = getReview();
 
         if (loginControl.isLoggedIn()) {
@@ -196,55 +184,57 @@ public class AlbumsClientBacking implements Serializable{
         }
         review.setApproved(false);
         review.setReviewDate(LocalDateTime.now());
-        log.info("Text:"+review.getText());
-        
+        log.info("Text:" + review.getText());
+
         reviewControl.addReview(review);
 
         return "Album.xhtml?faces-redirect=true&id=" + albumId.intValue();
 
     }
 
-    public void showReviewDialog() {
-        Map<String, Object> options = new HashMap<String, Object>();
-        options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        options.put("includeViewParams", true);
+    /**
+     *
+     * @param trackId
+     * @param reviewText
+     * @param rating
+     * @return location where to go after this action is completed.
+     */
+    public String addReview(int trackId, String reviewText, int rating) {
+        Track track = trackController.findTrack(trackId);
+        User user = loginControl.getCurrentUser();
 
-        //TODO
-        //TESTING if the dialog pops out
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Hello - ", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        if (track == null) {
+            return "/index.xhtml";
+        }
+        if (user == null) {
+            return "/client/login.xhtml";
+        }
+        Review review = new Review();
+        review.setTrack(track);
+        review.setText(reviewText);
+        review.setApproved(false);
+        review.setPending(true);
+        review.setUser(user);
+        review.setRating(rating);
+        review.setReviewDate(LocalDateTime.now());
+        reviewControl.addReview(review);
+        
+        // Refresh the page
+        return null;
     }
 
-    public boolean isLoggedIn() {
-        return loginControl.isLoggedIn();
+    public void nextReview() {
+        log.info("was here");
+        Review r = new Review();
+        reviews.add(r);
     }
 
-    private boolean canBuyAlbum() {
-        List<Album> albumsInCart = shopControl.getAllAlbums();
-        if (albumsInCart == null || albumsInCart.isEmpty()) {
-            return true;
-        }
-
-        if (albumsInCart.contains(album)) {
-            return false;
-        } else {
-            return true;
-        }
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    private boolean canBuyTrack() {
-        List<Track> tracksInCart = shopControl.getAllTracks();
-        if (tracksInCart == null || tracksInCart.isEmpty()) {
-            return true;
-        }
-
-        if (tracksInCart.contains(selectedTrack)) {
-            return false;
-        } else {
-            return true;
-        }
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }

@@ -21,13 +21,7 @@ $(document).ready(function () {
     });
 
     $('.toggle-reviews').click(function () {
-        var id = $(this).attr("id");
-
-        if ($(this).find("span").hasClass("toggle-reviews-active"))
-            $(this).find("span").removeClass("toggle-reviews-active");
-        else
-            $(this).find("span").addClass("toggle-reviews-active");
-        $('#r' + id).toggle("slow");
+        $(this).parent().siblings().eq(0).toggle("slow");       
     });
 
     $('.album-track-list').find(".stars").each(function () {

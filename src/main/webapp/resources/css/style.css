@@ -894,6 +894,11 @@ body.navbar-more-show  {
     color:#a0a0a0;
 }
 
+.album-track-list{
+    padding-left: 4em;
+    padding-right:1em;
+}
+
 .album-track-list tr{
     background-color: #262626;
 }
@@ -906,7 +911,7 @@ body.navbar-more-show  {
     border-bottom: solid 3px #0a0a0a;
 }
 
-.album-track-list .table{
+.tracks-table{
     border-top:2px solid #FF7F50;
 }
 
@@ -971,6 +976,8 @@ body.navbar-more-show  {
 .rating-stars-container{
     display: inline-block;
     font-size: 1.5em;
+    transition:color 0.5s;
+    cursor: pointer;
 }
 
 .rating-stars-container-selected{
@@ -993,4 +1000,8 @@ body.navbar-more-show  {
         border-left: none;
         border-bottom: none;
     }
+}
+
+.ui-datatable table, .ui-datatable table > tbody > tr, .ui-datatable table > tbody,.ui-panelgrid .ui-panelgrid-cell, .ui-datatable tbody td{
+    border:none;
 }
