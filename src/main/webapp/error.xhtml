@@ -8,11 +8,11 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
         
-    <ui:define name="windowTitle">404 Error</ui:define>
+    <ui:define name="windowTitle">#{bundle.error_page_title}</ui:define>
     
     <ui:define name="content" >
         <div class="text-center">
-            <h1>Music Not Found Exception</h1>
+            <h1>#{bundle.error_page_header}</h1>
         </div>
         
         <div class="text-center">
@@ -22,14 +22,14 @@
         
         <div class="text-center">
             <h:outputLabel>
-                <h1>The page you've requested does not exist.</h1>
+                <h1>#{bundle.error_page_subheader}</h1>
             </h:outputLabel>
         </div>
         
         
         
         <div class="text-center">
-            Should you keep having problems, please contact Sir Ken Fogel.
+            #{bundle.error_page_message}
         </div>
     </ui:define>
     
