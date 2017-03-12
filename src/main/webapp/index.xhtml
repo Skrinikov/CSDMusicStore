@@ -18,15 +18,15 @@
         <!-- header -->
         <div class="index-header text-center">
             <div class="header-group">
-                <h1>Discover the music</h1>
-                <h3>Fractals</h3>
-                <h:link value="Login" outcome="/client/login.xhtml" rendered="#{!login.loggedIn}" styleClass="hvr-underline-from-left header-button"/>
+                <h1>#{bundle.index_header_title}</h1>
+                <h3>#{bundle.index_header_subtitle}</h3>
+                <h:link value="#{bundle.index_header_button}" outcome="/client/login.xhtml" rendered="#{!login.loggedIn}" styleClass="hvr-underline-from-left header-button"/>
             </div>
         </div>
 
         <!-- New Releases -->
         <div class="container top-buffer text-center" id="latest-releases">
-            <h1>Latest releases</h1>
+            <h1>#{bundle.index_latest_releases}</h1>
             <div class="row">
                 <ui:repeat var="track" value="#{indexBacking.newTracks}">
                     <div class="col-xs-4" style="padding:4px;">
@@ -44,10 +44,10 @@
             <div class="container top-buffer">
                 <div class="col-md-6 col-xs-12 top-buffer">
                     <div class="row user-row">
-                        <h1><strong>Welcome back</strong> Danieil!</h1>
+                        <h1><strong>#{bundle.index_welcome} </strong><h:outputLabel rendered="#{login.loggedIn}" value=" #{login.currentUser.username}!" style="font-weight:500;"/></h1>
                     </div>
                     <div class="row user-row">
-                        <h3>Here are all the genres in this website!</h3>
+                        <h3>#{bundle.index_tracking}</h3>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12 top-buffer">
@@ -64,7 +64,7 @@
         <!-- Specials -->
         <div class="row specials-row" style="padding-bottom:40px;">
             <div class="container text-center" style="margin-top:40px;">
-                <h1 style="" class="header-h1">Today's Specials</h1>
+                <h1 style="" class="header-h1">#{bundle.index_specials_title}</h1>
                 <h2></h2>
                 <div class="row top-buffer-more">
                     <ui:repeat var="track" value="#{indexBacking.specialsTracks}">
@@ -98,10 +98,10 @@
         <p:outputPanel id="genres-panel" class="row">
             <!-- Header -->
             <div class="col-md-2 col-xs-12 genres-label text-center">
-                <h2><strong></strong>Genres</h2>
+                <h2><strong></strong>#{bundle.index_genres}</h2>
             </div>
             <div class="col-md-10 col-xs-12" style="padding-left: 2em; padding-right: 2em;">
-                <h3>Here you can find all the genres we currently sell:</h3>
+                <h3>#{bundle.index_genres_instructions}</h3>
                 <h4 style="text-transform: capitalize;">
                     <ui:repeat var="genre" value="#{indexBacking.genres}" varStatus="status">
                         #{genre}<ui:fragment rendered="#{!status.last}">, </ui:fragment>
