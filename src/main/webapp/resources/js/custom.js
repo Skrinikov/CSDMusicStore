@@ -103,6 +103,14 @@ $(document).ready(function () {
         
         $(this).parent().addClass("rating-stars-container-selected");
     });
+    
+    $('.cover-image').on("mouseenter", function(){
+       $(this).siblings().eq(0).fadeIn();
+    });
+    
+    $('.image-overlay').on("mouseleave",function(){
+        $(this).fadeOut();
+    });
 
 });
 

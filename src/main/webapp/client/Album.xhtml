@@ -73,7 +73,7 @@
                                 <td class="col-md-1"><h:form><h:commandButton value="#{trackCLBack.getPrice(track)}" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(track)}" class="btn btn-success">
                         
                                         </h:commandButton> </h:form></td>
-                                <p:outputPanel rendered="#{albumsCLBack.loggedIn}">
+                                <p:outputPanel>
                                 <td class="col-md-1">
                                     <h:link outcome="Track" value="Review"><f:param name="id" value="#{track.id}"/></h:link>
                                 </td>

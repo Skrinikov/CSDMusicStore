@@ -14,6 +14,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -281,6 +282,24 @@ public class TrackJpaController implements Serializable {
         query.select(root);
         query.orderBy(cb.desc(root.get("createdAt")));
         return em.createQuery(query).setMaxResults(count).getResultList();
+    }
+    
+    /**
+     * Randomly selects tracks which are on special and returns them as a List
+     * 
+     * @param count amount of tracks to return. 
+     * @return List of tracks.
+     */
+    public List<Track> getSpecials(int count){
+        if(count < 1)
+            return null;
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
+        query.where(cb.greaterThan(root.<Double>get(Track_.salePrice), 0.0));
+        return getRandomTracks(em.createQuery(query).getResultList(), count);
     }
     
     /**

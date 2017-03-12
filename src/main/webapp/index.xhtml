@@ -13,177 +13,72 @@
             <f:event type="preRenderView" listener="#{indexBacking.load}" />
         </f:metadata>
     </ui:define>
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="index-css.css" /></ui:define>
     <ui:define name="content">
-        <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-
-            </ol>
-
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <h:graphicImage value="resources/images/ambiance/carousel_1.jpg" />
-                    <div class="carousel-caption">
-                        <h3>#{bundle.carousel_title_1}</h3>
-                        <p>#{bundle.carousel_subtitle_1}</p>
-                    </div>      
-                </div>
-
-                <div class="item">
-                    <h:graphicImage value="resources/images/ambiance/carousel_2.jpg" />
-                    <div class="carousel-caption">
-                        <h3>More Sell $</h3>
-                        <p>Lorem ipsum...</p>
-                    </div>      
-                </div>
-
-                <div class="item">
-                    <h:graphicImage value="resources/images/ambiance/carousel_3.jpg" />
-                    <div class="carousel-caption">
-                        <h3>More Sell $</h3>
-                        <p>Lorem ipsum...</p>
-                    </div>      
-                </div>
+        <!-- header -->
+        <div class="index-header text-center">
+            <div class="header-group">
+                <h1>Discover the music</h1>
+                <h3>Fractals</h3>
+                <h:link value="Login" outcome="/client/login.xhtml" rendered="#{!login.loggedIn}" styleClass="hvr-underline-from-left header-button"/>
             </div>
-
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
 
-        <div class="container">
-            <!-- Ads -->
-            <div class="row text-center top-buffer">
-
-                <div class="col-md-6 col-xs-12 ad-container">
-                    <div class="ad-inner-c">
-                        Ad #1
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12 ad-container">
-                    <div class="ad-inner-c">
-                        Ad #2
-                    </div>
-                </div>
-            </div>
-
-            <!-- Survey -->
-            <div class="row top-buffer">
-                <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-xs-12">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">What kind of genre would you like us to add?</div>
-                        <div class="panel-body">
-                            <ul>
-                                <li>Genre 1</li>
-                                <li>Genre 2</li>
-                                <li>Genre 3</li>
-                                <li>Genre 4</li>
-                            </ul>
-                        </div>
-                    </div>
-                </p:outputPanel>
-            </div>
-
-            <!-- RSS & Genres -->
-            <div class="row top-buffer">
-                <!-- RSS -->
-                <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-6 col-xs-12">
-                    <h:form id="rssForm">
-                        <div class="panel panel-danger rss-panel">
-                            <div class="panel-heading">News Feed</div>
-                            <div class="panel-body">
-                                <ui:repeat var="msg" value="#{indexBacking.rssMsgs}">
-
-                                    <a href="#{msg.link}">
-                                        <h:outputLabel value="#{msg.title}" styleClass="rss-title"/>
-                                        <h:outputText value="#{msg.description}" escape="false" styleClass="rss-description"/>
-                                    </a>
-                                    <hr/>
-                                </ui:repeat>
-                            </div>
-                        </div>
-                    </h:form>
-                </p:outputPanel>
-                <!-- Genres -->
-                <p:outputPanel deferred="true" deferredMode="visible" styleClass="col-md-6 col-xs-12">
-                    <h:form id="genresList">
-                        <div class="panel panel-info genres-panel">
-                            <div class="panel-heading">Genres</div>
-                            <div class="panel-body text-center">
-                                <ui:repeat var="genre" value="#{indexBacking.genres}">
-                                    <p>#{genre.name}</p>
-                                </ui:repeat>
-                            </div>
-                        </div>
-                    </h:form>
-                </p:outputPanel>
-            </div>
-
-            <!-- Client Tracking -->
-
-            <p:outputPanel deferred="true" deferredMode="visible" rendered="#{indexBacking.genreSaved}">
-                <div class="row top-buffer">
-                    <h3 class="similar-albums-header">Album Recommendations for #{indexBacking.trackedGenre.name}</h3>
-                </div>
-
-                <div class="row text-center" style="margin-bottom: 20px;">
-                    <ui:repeat var="trackedAlbum" value="#{indexBacking.trackedAlbums}">
-                        <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
-                            <div class="similar-albums-inner">
-                                <!--<h:link outcome="#">-->
-                                    <p:graphicImage name="images/covers/#{trackedAlbum.tracks.get(0).coverFile}"  style="max-height: 275px"/>
-                                    <h3>#{trackedAlbum.title}</h3>
-                                    <h5>#{trackedAlbum.artist}</h5>
-                                    <f:param name="id" value="#{relatedAlbum.id}" />
-                                <!--</h:link>-->
-                            </div>
-                        </div>
-                    </ui:repeat>
-                </div>
-                
-                <div class="row top-buffer">
-                    <h3 class="similar-albums-header">Track Recommendations for #{indexBacking.trackedGenre.name}</h3>
-                </div>
-                
-                <div class="row text-center" style="margin-bottom: 20px;">
-                    <ui:repeat var="trackedTrack" value="#{indexBacking.trackedTracks}" >
-                    <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
-                        <div class="similar-albums-inner">
-                            <!--<h:link outcome="Track">-->
-                                <p:graphicImage name="images/covers/#{trackedTrack.coverFile}"  style="max-height: 275px"/>
-                                <h3>#{trackedTrack.title}</h3>
-                                <h5>#{trackedTrack.album.artist.name}</h5>
-                                <h6>#{trackedTrack.album.title}</h6>
-                                <f:param name="id" value="#{trackedTrack.id}" />
-                            <!--</h:link>-->
-                        </div>
+        <!-- New Releases -->
+        <div class="container top-buffer text-center" id="latest-releases">
+            <h1>Latest releases</h1>
+            <div class="row">
+                <ui:repeat var="track" value="#{indexBacking.newTracks}">
+                    <div class="col-xs-4" style="padding:4px;">
+                        <h:link outcome="/client/Track.xhtml" includeViewParams="true">
+                            <f:param name="id" value="#{track.id}"/>
+                            <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;border:1px solid #444;"/>
+                        </h:link>
                     </div>
                 </ui:repeat>
             </div>
-            </p:outputPanel>
-            
-            <!-- Songs -->
-            <div class="row">
-                <h:form id="newTracks">
-                    <ui:repeat var="track" value="#{indexBacking.newTracks}">
-                        <p>#{track.title}</p>
-                    </ui:repeat>
-                </h:form>
+        </div>
+
+        <!-- Browse genre -->
+        <div class="row genres-container top-buffer-more">
+            <div class="container top-buffer">
+                <div class="col-md-6 col-xs-12 top-buffer">
+                    <div class="row user-row">
+                        <h1><strong>Welcome back</strong> Danieil!</h1>
+                    </div>
+                    <div class="row user-row">
+                        <h3>Here are all the genres in this website!</h3>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 top-buffer">
+                    <h3 style="text-transform: uppercase;">
+                        <ui:repeat var="genre" value="#{indexBacking.genres}">
+                            #{genre},
+                        </ui:repeat>
+                    </h3>
+                </div>
             </div>
+        </div>
 
-            
 
-
+        <!-- Specials -->
+        <div class="row specials-row">
+            <div class="container text-center" style="margin-top:40px;">
+                <h1 style="" class="header-h1">Today's Specials</h1>
+                <h2></h2>
+                <div class="row top-buffer-more">
+                    <ui:repeat var="track" value="#{indexBacking.specialsTracks}">
+                        <div class="col-md-3 col-xs-12 specials-container">
+                            <div class="special">                           
+                                <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;"/>
+                                <h3>#{track.title}</h3>
+                                <h4>#{track.artists.get(0).name}</h4>
+                                <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-underline-from-left header-button" actionListener="#{cart.add(track)}"/>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
         </div>
     </ui:define>
 </ui:composition>

@@ -1,0 +1,134 @@
+/* 
+    Created on : 11-Mar-2017, 1:22:26 PM
+    Author     : Danieil
+*/
+.background{
+    background:#0a0a0a;
+}
+
+.index-header {
+    width: 100%;
+    min-height: 100%;
+    background: url("#{resource['images/ambiance/index.jpg']}");
+    background-size:cover;    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+html, body {
+    height: 100%;
+    color:#fff;
+}
+
+.fill { 
+    min-height: 100%;
+    height: 100%;
+}
+
+#content{
+    min-height: 100%;
+}
+
+.header-group{
+    padding-top:200px;
+    color:#fff;
+    padding-bottom:200px;
+    font-family: 'Lato', sans-serif;
+}
+
+.header-group h1{
+    text-transform: uppercase;
+    font-size:4em;
+    font-weight:800;
+    letter-spacing: 0;   
+}
+
+.header-group h3{
+    margin-top:0;
+    margin-bottom:1em;
+}
+
+.header-button{
+    color:#fff;
+    padding:0.5em;
+    padding-left:2em;
+    padding-right:2em;
+    font-size: 1.5em;
+    background:#e10052;
+    text-transform: uppercase;
+}
+
+.header-button:hover{
+    text-decoration: none;
+    color:#fff;
+}
+
+#latest-releases h1{
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.genres-container{
+    padding-left:1em;
+    padding-right:1em;
+    background: #e10052;
+    font-family: 'Lato', sans-serif;
+    padding-bottom:40px;
+}
+
+.top-buffer-more{
+    margin-top: 90px;
+}
+
+.user-row h1 strong{
+    margin:0;
+    text-transform: uppercase;
+}
+
+.user-row h1{
+    margin-bottom:0;
+    padding-bottom: 0;
+    font-size:43px;
+}
+
+.user-row h3{
+    margin-top:0;
+    padding-top:5px;
+}
+
+.specials-row{
+    background: url("#{resource['images/ambiance/index_bg.jpeg']}");
+    background-size:cover;    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    padding-left:1em;
+    padding-right:1em;
+    font-family: 'Lato', sans-serif;
+}
+
+.specials-container{
+    padding:10px;
+}
+
+.special{
+    background:rgba(0,0,0,0.831);
+    padding-bottom:15px;
+}
+
+.special h3{
+    padding-bottom:0;
+}
+
+.special h4{
+    padding-top:0;
+    color:#e10052;
+}
+
+.header-h1{
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 43px;
+    padding-bottom: 0;
+}
