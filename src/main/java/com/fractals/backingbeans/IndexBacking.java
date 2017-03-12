@@ -57,7 +57,7 @@ public class IndexBacking {
         rssMsgs = rss.getVisibleFeed();
         genres = genre.findGenreEntities();
         newTracks = tracks.getMostRecentTracks(3);
-        specialsTracks = tracks.getSpecials(4);
+        specialsTracks = tracks.getSpecials(4);            
     }
     
     /**

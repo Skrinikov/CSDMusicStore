@@ -6,6 +6,13 @@
     background:#0a0a0a;
 }
 
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
+}
+
 .index-header {
     width: 100%;
     min-height: 100%;
@@ -162,6 +169,7 @@ html, body {
 .survey-option{
     background:#e10052;
     transition: background 0.25s linear;
+    font-family: 'Lato', sans-serif;
 }
 
 .survey-option:hover{
@@ -209,6 +217,21 @@ html, body {
     display:inline-block;
 }
 
+.genres-label{    
+    background: #e10052;
+    font-family: 'Lato', sans-serif;
+    transition:background 0.25s;
+}
+
+.genres-label:hover{
+    background:#b20040;
+}
+
+.genres-label h2{
+    padding-top: 75px;
+    padding-bottom: 75px;
+}
+
 @media (max-width: 630px){
     .survey-desktop{
         display:none;
@@ -225,5 +248,10 @@ html, body {
         text-align:center;
         background:#1a1a1a;
         padding:5px 0;
+    }
+    
+    .genres-label h2{
+        padding-bottom: 10px;
+        padding-top:10px;
     }
 }

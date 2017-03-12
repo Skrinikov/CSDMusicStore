@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <!-- Browse genre -->
+        <!-- Tracking -->
         <div class="row genres-container top-buffer-more">
             <div class="container top-buffer">
                 <div class="col-md-6 col-xs-12 top-buffer">
@@ -89,6 +89,32 @@
                         <ui:include src="#{surveyCBacking.surveryOptionsOrAnswers}"/>
                     </ui:insert>
                 </h:form>
+            </div>
+        </p:outputPanel>
+
+        <!-- Insert Ad Here -->
+        
+        <!-- Genre List -->
+        <p:outputPanel id="genres-panel" class="row">
+            <!-- Header -->
+            <div class="col-md-2 col-xs-12 genres-label text-center">
+                <h2><strong></strong>Genres</h2>
+            </div>
+            <div class="col-md-10 col-xs-12" style="padding-left: 2em; padding-right: 2em;">
+                <h3>Here you can find all the genres we currently sell:</h3>
+                <h4 style="text-transform: capitalize;">
+                    <ui:repeat var="genre" value="#{indexBacking.genres}" varStatus="status">
+                        #{genre}<ui:fragment rendered="#{!status.last}">, </ui:fragment>
+                    </ui:repeat>
+                </h4>
+            </div>
+        </p:outputPanel>
+        
+        <!-- RSS -->
+        <p:outputPanel id="rss">
+            <div class="container">
+                
+                    
             </div>
         </p:outputPanel>
     </ui:define>

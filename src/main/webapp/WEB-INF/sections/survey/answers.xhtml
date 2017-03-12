@@ -22,13 +22,13 @@
                     </div>
                     <div class="col-xs-9">
                         <div class="survey-option" style="display:inline-block;width:#{surveyCBacking.getOptionPercentage(option)}%;}">
-                            <span>#{option.numVotes}</span>
+                            <span>#{surveyCBacking.getOptionPercentage(option)}%</span>
                         </div>
                     </div>                 
                 </div>
                 <div class="text-center survey-mobile">
                     <div class="survey-option">
-                    <p>#{option.choice} - #{option.numVotes}</p>
+                    <p>#{option.choice} - #{surveyCBacking.getOptionPercentage(option)}%</p>
                     </div>
                 </div>
             </ui:repeat>
