@@ -58,7 +58,6 @@ public class IndexBacking {
         genres = genre.findGenreEntities();
         newTracks = tracks.getMostRecentTracks(3);
         specialsTracks = tracks.getSpecials(4);
-        log.info(specialsTracks.size()+"");
     }
     
     /**

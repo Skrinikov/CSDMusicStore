@@ -62,7 +62,7 @@
 
 
         <!-- Specials -->
-        <div class="row specials-row">
+        <div class="row specials-row" style="padding-bottom:40px;">
             <div class="container text-center" style="margin-top:40px;">
                 <h1 style="" class="header-h1">Today's Specials</h1>
                 <h2></h2>
@@ -80,5 +80,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- Survey -->
+        <p:outputPanel class="row" id="survey-container">
+            <div class="container">
+                <h:form id="survey">
+                    <ui:insert name="totalSales">
+                        <ui:include src="#{surveyCBacking.surveryOptionsOrAnswers}"/>
+                    </ui:insert>
+                </h:form>
+            </div>
+        </p:outputPanel>
     </ui:define>
 </ui:composition>

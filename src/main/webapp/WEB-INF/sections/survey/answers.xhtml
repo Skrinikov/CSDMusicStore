@@ -5,18 +5,34 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-        <div class="survey-body">
-            <div class="question-header text-center">
-                <h3>#{surveyCBacking.survey.question}</h3>
-            </div>
 
-            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">
-                <div class="button-container text-center">
-                    <span class="custom-buttons">#{item.choice} - #{item.numVotes}</span>
+    <div class="top-buffer survey-container-inner">
+        <div class="text-center">
+            <h1>Thank you for voting</h1>
+            <h2>We will use your vote for upcoming updates!</h2>
+        </div>
+
+        <div class="survey">
+            <h4>#{surveyCBacking.survey.question}</h4>
+            <ui:repeat var="option" value="#{surveyCBacking.survey.surveyChoices}">
+                <div class=" row survey-option-container survey-desktop">
+                    <!-- Works well on desktop -->
+                    <div class="col-xs-3 option-label">                      
+                        <span>#{option.choice}</span>                      
+                    </div>
+                    <div class="col-xs-9">
+                        <div class="survey-option" style="display:inline-block;width:#{surveyCBacking.getOptionPercentage(option)}%;}">
+                            <span>#{option.numVotes}</span>
+                        </div>
+                    </div>                 
+                </div>
+                <div class="text-center survey-mobile">
+                    <div class="survey-option">
+                    <p>#{option.choice} - #{option.numVotes}</p>
+                    </div>
                 </div>
             </ui:repeat>
-
-        </div>               
+        </div>
+    </div>
 
 </ui:composition>

@@ -132,3 +132,98 @@ html, body {
     font-size: 43px;
     padding-bottom: 0;
 }
+
+#survey-container{
+    padding-left: 1em;
+    padding-right:1em;
+    font-family: 'Raleway', sans-serif;
+    padding-bottom: 40px;
+}
+
+.survey-container-inner h1{
+    font-size: 43px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    padding-top:40px;
+}
+
+.survey-container-inner h2{
+    padding-top:0;
+    margin-top:0;
+    font-family: 'Raleway', sans-serif;
+    color:#aaa;
+}
+
+.survey{
+    margin-top:50px;
+}
+
+.survey-option{
+    background:#e10052;
+    transition: background 0.25s linear;
+}
+
+.survey-option:hover{
+    background:#b20040;
+}
+
+.survey-option span{
+    padding-left: 5px;
+}
+
+.survey-option-container{
+    padding:2px;
+}
+
+.option-label, .survey-option{
+    font-size: 23px;
+}
+
+@media (min-width:630px){
+    .survey-mobile{
+        display:none;
+    }
+}
+
+.survey-choice-btn{
+    padding:10px;
+    color:#fff;
+    background:#e10052;
+    font-size:34px;
+    margin:5px;
+}
+
+.survey-choice-btn:hover{
+    color:#fff;
+    text-decoration: none;
+}
+
+.hvr-sweep-to-right::before{
+    background:#b20040;
+}
+
+.survey h4{
+    font-size:34px;
+    border-bottom: 4px solid #e10052;
+    display:inline-block;
+}
+
+@media (max-width: 630px){
+    .survey-desktop{
+        display:none;
+    }
+    
+    .survey-choice-btn{
+        display:block;
+        text-align: center;
+    }
+    
+    .survey h4{
+        display:block;
+        border-bottom: none;
+        text-align:center;
+        background:#1a1a1a;
+        padding:5px 0;
+    }
+}

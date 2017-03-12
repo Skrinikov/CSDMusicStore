@@ -5,18 +5,21 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-        <div class="survey-body">
-            <div class="question-header text-center">
-                <h3>#{surveyCBacking.survey.question}</h3>
+
+    <div class="top-buffer survey-container-inner">
+        <div class="text-center">
+            <h1>Got a minute?</h1>
+            <h2>Please take some time to answer our current survey</h2>
+        </div>
+
+        <div class="survey">
+            <div>
+            <h4>#{surveyCBacking.survey.question}</h4>
             </div>
-
-            <ui:repeat value="#{surveyCBacking.survey.surveyChoices}" var="item">
-                <div class="button-container">
-                    <p:commandButton styleClass="custom-buttons" style="padding: 5px;" value="#{item.choice}" actionListener="#{surveyCBacking.selectedOption(item)}" update=":#{p:component('survey-panel')}"/>
-                </div>
+            <ui:repeat var="option" value="#{surveyCBacking.survey.surveyChoices}">
+                <p:commandLink styleClass="survey-choice-btn hvr-sweep-to-right" value="#{option.choice}" actionListener="#{surveyCBacking.selectedOption(option)}" update=":#{p:component('survey-container')}"/>
             </ui:repeat>
-
-        </div>               
+        </div>
+    </div>
 
 </ui:composition>
