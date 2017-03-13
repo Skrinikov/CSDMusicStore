@@ -50,12 +50,8 @@ public class TrackClientBacking implements Serializable {
     private Integer trackId;
     private Track track;    
     private Review review;
-    private Integer rating;
-    private User user;
-    
-    private PaginationHelper pagination;
-    private int reviewItemIndex;
-    private DataModel datamodel;
+    private Integer rating;    
+
 
     @Inject
     private TrackJpaController trackControl;
@@ -103,8 +99,7 @@ public class TrackClientBacking implements Serializable {
      * @return 
      */
     public String addReview() throws Exception{
-        
-        track = trackControl.findTrack(trackId);
+
         if (loginControl.isLoggedIn()){
             
             getReview().setUser(loginControl.getCurrentUser());
@@ -117,66 +112,23 @@ public class TrackClientBacking implements Serializable {
         getReview().setReviewDate(LocalDateTime.now());
         
         boolean created = this.reviewsControl.addReview(review);
-        //review2Control.create(review);
         
         return "Track.xhtml?faces-redirect=true&id=" + trackId.intValue();
         
     }
     
-    public String testRedirect(){
-        return "client/Track.xhtml?id=3";
-    }
 
     /**
      * Adding the current instance of the Track to the shopping cart
      */
     public String addToCart() {
-        track = trackControl.findTrack(trackId);
+        
         this.cart.add(track);
         String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
         return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
     }
     
-    ////////////Pagination Logic For Reviews///////////////
-    
-    public PaginationHelper getPagination(){
-        if (pagination == null){
-            pagination = new PaginationHelper(10){
-                @Override
-                public int getItemsCount() {
-                    return getReviews().size();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getReviews().subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
-                }
-                
-            };
-        }
-        return pagination;
-    }
-    
-    public DataModel getDataModel(){
-        if (datamodel == null)
-            datamodel = getPagination().createPageDataModel();
-        return datamodel;
-    }
-    
-    public String next(){
-        //TODO
-        return null;
-    }
-    
-    public String previous(){
-        //TODO
-        return null;
-    }
-    
-    
-    
-    //////////////Pagination Logic Above////////////////
-    
+   
     
     
     public void setTrackId(Integer trackId) {
@@ -210,6 +162,12 @@ public class TrackClientBacking implements Serializable {
         return review;
     }
     
+    
+    /**
+     * Module to return a list of similar Tracks to the current instance
+     * of the track
+     * @return List of Track
+     */
     public List<Track> getSimilarTracks() {
         
         if (track == null)
@@ -220,6 +178,10 @@ public class TrackClientBacking implements Serializable {
         return relatedTracks;
     }
     
+    /**
+     * Module to return a list of similar Albums to the current Track 
+     * @return List of Album
+     */
     public List<Album> getRelatedAlbums(){
        if (track == null)
            return new ArrayList<>();
@@ -314,18 +276,6 @@ public class TrackClientBacking implements Serializable {
         else{
             return available;
         }
-    }
-    
-    public boolean canBuy(){
-        List<Track> tracksInCart = cart.getAllTracks();
-        if (tracksInCart == null || tracksInCart.isEmpty())
-            return true;
-        
-        if (tracksInCart.contains(track))
-            return false;
-        else
-            return true;
-        
     }
     
     public boolean isLoggedIn(){
