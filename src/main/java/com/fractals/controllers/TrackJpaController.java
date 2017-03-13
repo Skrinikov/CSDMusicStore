@@ -239,6 +239,7 @@ public class TrackJpaController implements Serializable {
      * @param count int amount of tracks to return
      * @param random true to return shuffled list
      * @return list of tracks
+     * @author Thai-Vu Nguyen
      */
     public List<Track> findTracksByGenre(Genre genre, int count, boolean random){
         if (genre == null || count <= 0)
@@ -288,6 +289,7 @@ public class TrackJpaController implements Serializable {
      * 
      * @param track Track
      * @return List of Tracks similar to the passed track
+     * @author Thai-Vu Nguyen
      */
     public List<Track> getSimilarTracks(Track track){
         //By Default, putting putting a limit of 3
@@ -300,6 +302,7 @@ public class TrackJpaController implements Serializable {
      * @param track
      * @param count amount of tracks to return
      * @return list of similar tracks
+     * @author Thai-Vu Nguyen
      */
     public List<Track> getSimilarTracks (Track track, int count){
         if (count < 1){
@@ -332,6 +335,7 @@ public class TrackJpaController implements Serializable {
      * @param tracks
      * @param limit
      * @return Randomized List of n limit of Tracks
+     * @author Thai-Vu Nguyen
      */
     private List<Track> getRandomTracks(List<Track> tracks, int limit){
         Collections.shuffle(tracks);
