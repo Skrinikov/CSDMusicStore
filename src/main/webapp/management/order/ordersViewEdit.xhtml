@@ -15,7 +15,7 @@
         <h:outputText value="nothing selected" rendered="#{empty theOrders.selectedOrder}"/>
 
                 <p:panelGrid columns="2">
-                    <h:outputText value="Id:"/>
+                    <h:outputText value="Order Id:"/>
                     <h:outputText value="#{theOrders.selectedOrder.id}" title="Id"/>
                     <h:outputText value="OrderDate:"/>
                     <h:outputText value="#{theOrders.selectedOrder.orderDate}" title="OrderDate"/>
@@ -24,16 +24,13 @@
                     <h:outputText value="GrossCost:"/>
                     <h:outputText value="#{theOrders.selectedOrder.grossCost}" title="GrossCost"/>
                     <h:outputText value="User:"/>
-                    <h:outputText value="#{theOrders.selectedOrder.user}" title="User"/>
+                    <h:outputText value="#{theOrders.selectedOrder.user.username}" title="User"/>
                 </p:panelGrid>
         
    
                 <p:dataTable value="#{theOrders.orderItemsOfOrder}" var="item">
                     <p:column headerText="Id">
                         <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column headerText="Order">
-                        <h:outputText value="#{item.order}"/>
                     </p:column>
                     <p:column headerText="Album">
                         <h:outputText value="#{item.album.title}"/>
