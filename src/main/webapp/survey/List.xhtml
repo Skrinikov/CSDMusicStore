@@ -19,7 +19,7 @@
              </p:commandButton>
             <h:form>
                  <h1><h:outputText value="#{bundle.listHeader}"/></h1>
-                 <p:dataTable value="#{surveyController.findSurveyEntities()}" var="item"
+                 <p:dataTable id="data" value="#{surveyController.findSurveyEntities()}" var="item"
                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                paginator="true" rows="10" style="margin-bottom:20px">
                      <p:column>
@@ -42,7 +42,7 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton icon="ui-icon-trash" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
+                         <p:commandButton update="data" icon="ui-icon-trash" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
                          <p:commandButton icon="ui-icon-pencil" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
