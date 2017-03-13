@@ -19,9 +19,9 @@
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theOrders.selectedOrder}" 
                          rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" >
+                         draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
-                <f:facet name="header">
+                <f:facet name="header" class="mgmt_table_header">
                     <h:outputText value="#{bundle.ListOrderTitle}"/>
                     <p:commandLink id="toggler" value="Change columns" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
@@ -48,7 +48,7 @@
                 </p:column>
 
 
-                <f:facet name="footer">
+                <f:facet name="footer" class="mgmt_table_footer">
                     <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/order/ordersViewEdit.xhtml" ajax="false"/>
                 </f:facet>  
 

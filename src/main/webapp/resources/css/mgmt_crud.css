@@ -19,14 +19,26 @@
     
 }
 
-.mgmt_table .ui-datatable-header{
-    
+.mgmt_table_header, .mgmt_table_footer{
+    background-color: #F8F3EE;
+    color: #0a0a0a;
 }
 
-.mgmt_table .ui-datatable-footer{
-    
-}
+
 
 .mgmt_table .ui-datatable-content{
     
+}
+
+.mgmt_table .ui-datatable-odd{
+    
+}
+
+.mgmt_table .ui-datatable-even{
+    
+}
+
+.mgmt_table_row {
+    background-color: #0a0a0a;
+    color: #fbcdcf;
 }
