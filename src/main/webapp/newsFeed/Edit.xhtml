@@ -32,7 +32,10 @@
                     <p:outputLabel />
                     
                     <p:outputLabel value="Link" for="link" />
-                    <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" requiredMessage="#{bundle.error_msg1}"/>
+                    <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" 
+                                 requiredMessage="#{bundle.error_msg1}" validatorMessage="#{bundle.error_msg3}">
+                        <f:validateRegex pattern=".*.xml"/>
+                    </p:inputText>
                     <p:messages for="link" autoUpdate="true" />    
                     
                     <p:outputLabel value="Source" for="source" />
