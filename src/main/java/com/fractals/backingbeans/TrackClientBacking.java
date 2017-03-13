@@ -9,7 +9,6 @@ import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
-import com.fractals.controllers.SimilarTracksController;
 import com.fractals.controllers.TrackJpaController;
 import com.fractals.jsf.util.PaginationHelper;
 import java.io.IOException;
@@ -65,8 +64,6 @@ public class TrackClientBacking implements Serializable {
     @Inject
     private ClientTrackingController cookiesControl;
     
-    @Inject
-    private SimilarTracksController similarControl;
     
 
     @Inject
@@ -173,7 +170,7 @@ public class TrackClientBacking implements Serializable {
         if (track == null)
             return new ArrayList<>();
         if (relatedTracks == null){
-            relatedTracks = similarControl.getSimilarTracks(track);
+            relatedTracks = trackControl.getSimilarTracks(track);
         }
         return relatedTracks;
     }

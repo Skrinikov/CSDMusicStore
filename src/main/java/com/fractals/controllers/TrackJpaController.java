@@ -284,6 +284,49 @@ public class TrackJpaController implements Serializable {
     }
     
     /**
+     * Gets a list of similar Tracks to a track
+     * 
+     * @param track Track
+     * @return List of Tracks similar to the passed track
+     */
+    public List<Track> getSimilarTracks(Track track){
+        //By Default, putting putting a limit of 3
+        return getSimilarTracks(track, 3);
+    }
+
+     /**
+     * Selects tracks based on a genre of a Track
+     * 
+     * @param track
+     * @param count amount of tracks to return
+     * @return list of similar tracks
+     */
+    public List<Track> getSimilarTracks (Track track, int count){
+        if (count < 1){
+            return new ArrayList<Track>();
+        }
+        
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
+        query.where(cb
+                .and(
+                    cb.equal(root.get("genre"), track.getGenre()),
+                    cb.notEqual(root.get("id"), track.getId())
+                )
+            );
+        
+        List<Track> tracks = em.createQuery(query).getResultList();
+        
+        
+        
+        
+        return getRandomTracks(tracks, count);
+    }
+    
+    /**
      * Takes the list of Tracks, shuffles it 
      * and returns the first Tracks based on the limit
      * @param tracks
