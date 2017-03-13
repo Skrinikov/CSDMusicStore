@@ -1,0 +1,17 @@
+/* 
+    Created on : 12-Mar-2017, 6:35:41 PM
+    Author     : Danieil
+*/
+
+.background{
+    background:#0a0a0a;
+}
+
+::selection {
+  background: #63b2d8; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #63b2d8; /* Gecko Browsers */
+}
+
+/*#3ca7db;*/
