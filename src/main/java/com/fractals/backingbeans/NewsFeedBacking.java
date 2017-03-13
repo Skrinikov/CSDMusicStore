@@ -107,10 +107,7 @@ public class NewsFeedBacking implements Serializable{
     {   
         
         try {
-            nfc.destroy(id);
-            //String path = "List.xhtml";
-            //FacesContext.getCurrentInstance().getExternalContext().redirect(path);
-            
+            nfc.destroy(id);            
         } catch (RollbackFailureException ex) {
             Logger.getLogger(NewsFeedBacking.class.getName()).log(Level.SEVERE, null, ex);
         }catch (IOException ex) {
