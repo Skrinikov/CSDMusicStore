@@ -39,6 +39,12 @@ public class BannerAdsClientBacking {
         int adsWantedPerPage = 2; 
         List<BannerAd> ads = new ArrayList<>();
         
+        //check if empty 
+        if(visibleAds == null)
+            return null; 
+        if(visibleAds.size() <= 2)
+            return visibleAds; 
+       
         for(int i = 0; i < adsWantedPerPage; i++)
             ads.add(selectRandom(visibleAds));
         
