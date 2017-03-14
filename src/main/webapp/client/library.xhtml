@@ -7,8 +7,8 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
-    
+
+
     <!-- 
     
     This jsf page will be used to display the tracks and albums purchased 
@@ -18,9 +18,9 @@
     @author Danieil Skrinikov
     
     -->
-    
-    
-    
+
+
+
     <ui:define name="windowTitle">
         <h:outputText value="Purchase History"></h:outputText>
     </ui:define>
@@ -32,13 +32,22 @@
     <ui:define name="placeholder-css">
         <h:outputStylesheet library="css" name="downloads.css" />
     </ui:define>
-    
-   <ui:define name="content">
-       <p:outputPanel>
-       <ui:repeat var="track" value="#{downloadsBacking.downloadableTracks}">
-           #{track.title}
-       </ui:repeat>
-       </p:outputPanel>
+
+    <ui:define name="content">
+        <p:outputPanel class="container top-buffer">
+            <div class="row">
+                <ui:repeat var="track" value="#{downloadsBacking.downloadableTracks}">
+                    <div class="col-md-2 col-xs-12 text-center download-container">
+                        <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;border:1px solid #444;"/>
+                        <h3>#{track.title}</h3>
+                        <h4>#{track.album.title}</h4>
+                        <h:outputLink value="#{downloadsBacking.downloadableFile}">
+                            <p>Test</p>
+                        </h:outputLink>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:outputPanel>
     </ui:define>
 </ui:composition>
 

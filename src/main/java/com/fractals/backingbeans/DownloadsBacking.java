@@ -2,12 +2,14 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Track;
 import com.fractals.controllers.DownloadListController;
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.StreamedContent;
 
 /**
  * This bean contains all the necessary logic to display the downloadable files 
@@ -46,6 +48,10 @@ public class DownloadsBacking implements Serializable{
         downloadableTracks = downloadController.getClientTracks(login.getCurrentUser());
     }
 
+    
+    public StreamedContent getDownloadableFile(){
+        return downloadController.downloadSong();
+    }
     
     /*
      * Getters and setters.

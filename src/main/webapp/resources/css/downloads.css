@@ -1,6 +1,6 @@
 /* 
     Created on : 12-Mar-2017, 6:35:41 PM
-    Author     : Danieil
+    Author     : Danieil SKrinikov
 */
 
 .background{
@@ -15,3 +15,30 @@
 }
 
 /*#3ca7db;*/
+
+.download-container{
+    font-family: 'Raleway', sans-serif;
+    color:#fff;
+    transition: background 0.25s linear;
+    margin-bottom: 10px;
+}
+
+.download-container:hover{
+    background: #101010;
+    
+}
+
+.download-container h3{
+    padding-top:0;
+    margin-top:0;
+    margin-bottom:0;
+    padding-bottom:0;
+    font-size:18px;
+}
+
+.download-container h4{
+    color:#3ca7db;
+    margin-top:5px;
+    font-size:12px;
+}
+
