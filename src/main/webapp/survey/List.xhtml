@@ -15,7 +15,7 @@
      <ui:define name="content">
                      
          <f:view>
-             <p:commandButton icon="ui-icon-plus" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
+             <p:commandButton value="#{bundle.createBtn}" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
              </p:commandButton>
             <h:form>
                  <h1><h:outputText value="#{bundle.listHeader}"/></h1>
@@ -42,10 +42,10 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton update="data" icon="ui-icon-trash" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
+                         <p:commandButton update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
-                         <p:commandButton icon="ui-icon-pencil" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
+                         <p:commandButton value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
                         </p:commandButton>
 
                      </p:column>
