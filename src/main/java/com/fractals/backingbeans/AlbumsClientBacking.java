@@ -1,7 +1,5 @@
 package com.fractals.backingbeans;
 
-import com.fractals.backingbeans.exceptions.NonexistentEntityException;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;

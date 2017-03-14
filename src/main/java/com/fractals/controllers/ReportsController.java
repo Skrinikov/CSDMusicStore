@@ -3,25 +3,20 @@ package com.fractals.controllers;
 import com.fractals.beans.Album;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.Order_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.beans.User_;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.lang.Long;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -60,10 +55,6 @@ public class ReportsController implements Serializable {
      * @return List of User entities who have never made a purchase.
      */
     public List<User> getZeroClients(LocalDateTime start, LocalDateTime end) {
-        List<User> users = new ArrayList<>();
-
-        TypedQuery<User> query = entityManager.createQuery(ZERO_USERS, User.class);
-        users = query.getResultList();
         if (start == null || end == null) {
             return null;
         }
@@ -75,15 +66,20 @@ public class ReportsController implements Serializable {
         }
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-
-        // Main Query
-        CriteriaQuery<User> mainQuery = cb.createQuery(User.class);
-        Root<User> mainRoot = mainQuery.from(User.class);
-        Join join = mainRoot.join("orders", JoinType.LEFT);
-        mainQuery.select(mainRoot).where(cb.isNull(join.get("user")));
-
-        return entityManager.createQuery(mainQuery).getResultList();
-
+        
+        CriteriaQuery<User> query = cb.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        
+        // Sub Query
+        Subquery<User> subQuery = query.subquery(User.class);
+        Root<User> subRoot = subQuery.from(User.class);
+        Join orderJoin = subRoot.join(User_.orders, JoinType.LEFT);
+        subQuery.select(subRoot.get("id"));
+        subQuery.where(cb.and(cb.between(orderJoin.<LocalDateTime>get("orderDate"), start, end), cb.isNotNull(orderJoin.get(Order_.id)))).distinct(true);
+        
+        query.select(root).where(cb.not(root.get("id").in(subQuery)));
+        
+        return entityManager.createQuery(query).getResultList();
     }
 
     /**
@@ -118,9 +114,10 @@ public class ReportsController implements Serializable {
 
         // Main query
         mainQuery.select(mainRoot);
-        mainQuery.where(mainRoot.get("id").in(subQuery)).distinct(true);
+        mainQuery.where(cb.not(mainRoot.get("id").in(subQuery))).distinct(true);
 
         return entityManager.createQuery(mainQuery).getResultList();
+        
     }
 
     /**
@@ -152,8 +149,8 @@ public class ReportsController implements Serializable {
         CriteriaQuery<User> query = cb.createQuery(User.class);
         Root<User> root = query.from(User.class);
         Join join = root.join("orders");
-        query.multiselect(root);
-        query.where(cb.between(join.<LocalDateTime>get("orderDate"), start, end));
+        query.select(root);
+        query.where(cb.between(join.<LocalDateTime>get("orderDate"), start, end)).distinct(true);
         //query.orderBy(cb.desc(cb.count(root.get("orders"))));   
         query.groupBy(join.get("user"));
 
@@ -231,7 +228,7 @@ public class ReportsController implements Serializable {
      * order.
      */
     public List<Order> getSalesByClient(String identifier, LocalDateTime start, LocalDateTime end) {
-        if (start == null || end == null) {
+        if (start == null || end == null || identifier == null) {
             return null;
         }
 

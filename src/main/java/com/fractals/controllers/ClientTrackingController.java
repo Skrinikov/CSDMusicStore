@@ -1,12 +1,12 @@
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.LoginBacking;
-import com.fractals.backingbeans.exceptions.NonexistentEntityException;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.controllers.exceptions.NonexistentEntityException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
