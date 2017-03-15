@@ -43,8 +43,12 @@
     color: #fbcdcf;
 }
 
-mgmt_table_row .ui-columntoggler{
-    background-color: #c9fff2;
+.ui-columntoggler{
+    background-color: #F8F3EE;
+}
+
+.ui-datatable-resizable th.ui-resizable-column{
+    background-color: #ff0000;
 }
 
 /*

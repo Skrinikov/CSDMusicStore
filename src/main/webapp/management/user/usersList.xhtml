@@ -19,7 +19,8 @@
         
         <h:form>
 
-            <p:dataTable class="mgmt_table" id="tbl" value="#{theUsers.users}" var="item" 
+            <div class="mgmt_table">
+            <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theUsers.selectedUser}" 
@@ -105,6 +106,8 @@
                 </f:facet>   
 
             </p:dataTable>
+                
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>
