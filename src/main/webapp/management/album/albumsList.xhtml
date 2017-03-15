@@ -9,6 +9,10 @@
     <ui:define name="title">
         <h:outputText value="#{bundle.ListAlbumTitle}"/>
     </ui:define>
+    
+    <ui:define name="placeholder-css">
+         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
 
     <ui:define name="content">
 
@@ -17,7 +21,7 @@
         <h:form id="form">
 
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
-
+            <div class="container">
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
@@ -25,11 +29,11 @@
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theAlbums.selectedAlbum}"
                              rowKey="#{item.id}" widgetVar="albumTable"
-                             draggableColumns="true" resizableColumns="true" >
+                             draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListAlbumTitle}"/>
-                        <p:commandLink id="toggler" value="Change columns" style="float:left" />
+                        <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:left" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                         <p:outputPanel style="float:right">
                             <h:outputText value="Search all fields:" />
@@ -81,13 +85,14 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Preview" icon="ui-icon-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" />
-                        <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false"/>
-                        <p:commandButton value="Create" icon="ui-icon-plus" action="/management/album/albumsCreate.xhtml" ajax="false"/>
-                        <p:commandButton value="Test Create" icon="ui-icon-search" onclick="PF('dialogCreate').show()" />
+                        <p:commandButton value="Preview" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton value="Create" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton value="Test Create" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
                     </f:facet>
                 </p:dataTable>
             </h:panelGroup>
+            </div>
         </h:form>
 
         <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">

@@ -29,7 +29,7 @@
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUserTitle}"/>
-                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton id="toggler" value="Change columns" style="float:right" class="mgmt_btn" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -102,7 +102,7 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
+                    <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
                 </f:facet>   
 
             </p:dataTable>
