@@ -57,7 +57,7 @@ public class LoginTestSelenium {
         
         driver.quit();
     }
-    
+
     @Test     
     public void testLoginForm_InvalidPassword() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/login.xhtml");
@@ -81,7 +81,7 @@ public class LoginTestSelenium {
         
         driver.quit();
     }
-    
+
     @Test     
     public void testLoginForm_InvalidUser() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/login.xhtml");
@@ -102,6 +102,24 @@ public class LoginTestSelenium {
         
         WebElement msg = driver.findElement(By.cssSelector("div span#loginFormMessage"));
         assertThat(msg.getText()).isEqualToIgnoringCase("Invalid username or password!");
+        
+        driver.quit();
+    }
+    
+    @Test     
+    public void testLoginForm_EmptyFields() throws Exception {
+        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Login"));
+        
+        driver.findElement(By.id("loginForm:login")).click();
+        
+        wait.until(ExpectedConditions.titleIs("Login"));
+        
+        WebElement msgP = driver.findElement(By.id("loginForm:passwordMessage"));
+        assertThat(msgP.getText()).isEqualToIgnoringCase("This value is required.");
+        WebElement msgU = driver.findElement(By.id("loginForm:usernameMessage"));
+        assertThat(msgU.getText()).isEqualToIgnoringCase("This value is required.");
         
         driver.quit();
     }

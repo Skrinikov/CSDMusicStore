@@ -23,7 +23,8 @@
                     <div class="form-group">
                         <h:outputLabel  for="username" value="#{bundle.username}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText  id="username" value="#{User.user.username}" required="true" class="form-control"/>   
+                            <h:inputText  id="username" value="#{User.user.username}" requiredMessage="#{bundle.empty_field}" 
+                                          required="true" class="form-control"/>   
                         </div>    
                         <h:message id="usernameMessage" for="username" class="error"/>
                     </div>
@@ -31,7 +32,8 @@
                     <div class="form-group">
                         <h:outputLabel for="password" value="#{bundle.password}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputSecret id="password" value="#{User.password}" required="true" class="form-control"/>
+                            <h:inputSecret id="password" value="#{User.password}" required="true" 
+                                           requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="passwordMessage" for="password" class="error"/>
                     </div>
