@@ -21,7 +21,7 @@ import javax.persistence.NonUniqueResultException;
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 08/03/2017
+ * @version 15/03/2017
  * @since 1.8
  */
 @Named("login")
@@ -54,7 +54,7 @@ public class LoginBacking implements Serializable {
             else {
                 try{
                     currentUser = userDb;
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
                 }
                 catch(IOException io) {
                     log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -63,7 +63,7 @@ public class LoginBacking implements Serializable {
         }
         catch(EntityNotFoundException | NonUniqueResultException | NoResultException ex) {
             FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_uname_or_pass"));
-            FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage("loginForm", message);
             log.log(Level.WARNING,"invalid user: {0}", ex.getMessage());
             currentUser = null;
         }   
@@ -88,7 +88,7 @@ public class LoginBacking implements Serializable {
             userBacking.saveUser();
             try{
                 currentUser = newUser;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -104,7 +104,7 @@ public class LoginBacking implements Serializable {
         if(currentUser != null && currentUser.getIsAdmin()) {           
             try {
                 currentUser = null;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
             } 
             catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());

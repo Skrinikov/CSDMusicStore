@@ -132,8 +132,8 @@ public class TrackClientBacking implements Serializable {
     public String addToCart() {
         track = trackControl.findTrack(trackId);
         this.cart.add(track);
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().toString();
-        return "shopping_cart.xhtml?faces-redirect=true?url=" + uri;
+        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
+        return "shopping_cart.xhtml?faces-redirect=true&url=" + uri;
     }
     
     ////////////Pagination Logic For Reviews///////////////

@@ -6,3 +6,7 @@
 .background{
     background-image: url("#{resource['images/reg.jpg']}");
 }
+
+.space {
+    margin-bottom: 5px;
+}
