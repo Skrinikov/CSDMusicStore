@@ -15,6 +15,8 @@
 
     <ui:define name="content">
 
+        <div></div>
+        
         <h:form>
 
             <p:dataTable class="mgmt_table" id="tbl" value="#{theUsers.users}" var="item" 
@@ -22,7 +24,7 @@
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theUsers.selectedUser}" 
                          rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" >
+                         draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUserTitle}"/>
@@ -99,7 +101,7 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false"/>
+                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
                 </f:facet>   
 
             </p:dataTable>
