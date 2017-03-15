@@ -8,10 +8,10 @@
 }
 
 ::selection {
-  background: #63b2d8; /* WebKit/Blink Browsers */
+    background: #63b2d8; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-  background: #63b2d8; /* Gecko Browsers */
+    background: #63b2d8; /* Gecko Browsers */
 }
 
 /*#3ca7db;*/
@@ -25,20 +25,64 @@
 
 .download-container:hover{
     background: #101010;
-    
+
 }
 
-.download-container h3{
-    padding-top:0;
-    margin-top:0;
-    margin-bottom:0;
-    padding-bottom:0;
-    font-size:18px;
-}
 
-.download-container h4{
-    color:#3ca7db;
+.download-track-title{
     margin-top:5px;
-    font-size:12px;
+    font-size:medium;
 }
 
+.download-track-extra{
+    font-size:smaller;
+}
+
+.album-link{
+    color:#3ca7db;
+    text-decoration: none;
+}
+
+.album-link:hover{
+    color:#3ca7db;
+    text-decoration: none;
+}
+
+.title-header{
+    color:#DDD;
+    font-family: 'Raleway', sans-serif;
+    border-bottom: solid 4px #3ca7db;
+    display:inline-block;
+    padding-right: 20px;
+    margin-bottom:1em;
+    text-transform: uppercase;
+}
+
+.no-tracks-download h1{
+    margin-top:200px;
+    color:#fff;
+    font-family: 'Raleway', sans-serif;
+}
+
+.no-tracks-download h3{
+    color:#fff;
+    font-family: 'Raleway', sans-serif;
+}
+
+.no-tracks-download h4{
+    color:#fff;
+    margin-top: 50px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.downloads-btn{
+    font-family: 'Raleway', sans-serif;
+    color:#fff;
+    background: #3ca7db;
+    padding:1em 2em;
+    font-size:1em;
+}
+
+.downloads-btn:hover{
+    text-decoration: none;
+}

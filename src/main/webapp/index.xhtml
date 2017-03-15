@@ -51,9 +51,12 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12 top-buffer">
-                    <h3 style="text-transform: uppercase;">
-                        <ui:repeat var="genre" value="#{indexBacking.genres}">
-                            #{genre},
+                    <h3 style="text-transform: capitalize;">
+                        <ui:repeat var="tTrack" value="#{indexBacking.trackedTracks}">
+                            #{tTrack.title},
+                        </ui:repeat>
+                        <ui:repeat var="tAlbum" value="#{indexBacking.trackedAlbums}">
+                            #{tAlbum.title},
                         </ui:repeat>
                     </h3>
                 </div>
@@ -71,7 +74,7 @@
                         <div class="col-md-3 col-xs-12 specials-container">
                             <div class="special">                           
                                 <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;"/>
-                                <h3>#{track.title}</h3>
+                                <h3><h:link outcome="/client/Track">#{track.title}<f:param name="id" value="#{track.id}"/></h:link></h3>
                                 <h4>#{track.artists.get(0).name}</h4>
                                 <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-underline-from-left header-button" actionListener="#{cart.add(track)}"/>
                             </div>
@@ -100,21 +103,33 @@
             <div class="col-md-2 col-xs-12 genres-label text-center">
                 <h2><strong></strong>#{bundle.index_genres}</h2>
             </div>
-            <div class="col-md-10 col-xs-12" style="padding-left: 2em; padding-right: 2em;">
+            <div class="col-md-10 col-xs-12" style="padding-left: 2em; padding-right: 2em;background:#1a1a1a;">
                 <h3>#{bundle.index_genres_instructions}</h3>
                 <h4 style="text-transform: capitalize;">
                     <ui:repeat var="genre" value="#{indexBacking.genres}" varStatus="status">
-                        #{genre}<ui:fragment rendered="#{!status.last}">, </ui:fragment>
+                        
+                        <h:link outcome="/client/browse_genreTracks.xhtml" styleClass="genre-item">
+                            #{genre.name}
+                            <f:param name="id" value="#{genre.id}"/>
+                        </h:link>
+                        
+                        <ui:fragment rendered="#{!status.last}">, </ui:fragment>
                     </ui:repeat>
                 </h4>
             </div>
         </p:outputPanel>
         
         <!-- RSS -->
-        <p:outputPanel id="rss">
-            <div class="container">
-                
-                    
+        <p:outputPanel id="rss" class="top-buffer">
+            <h1 style="font-family: 'Raleway', sans-serif;font-weight: 500;" class="header-h1 text-center">News Feed</h1>
+            <h2></h2>
+            <div class="container rss-container" style="max-height: 50vh; overflow-y: scroll;">
+                <ui:repeat var="msg" value="#{indexBacking.rssMsgs}">
+                    <div class="row rss-item">
+                        <h2><a href="#{msg.link}">#{msg.title}</a></h2>
+                        <h:outputText escape="false" value="#{msg.description}" />                      
+                    </div>
+                </ui:repeat>                   
             </div>
         </p:outputPanel>
     </ui:define>

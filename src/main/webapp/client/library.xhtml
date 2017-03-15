@@ -34,20 +34,47 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:outputPanel class="container top-buffer">
-            <div class="row">
-                <ui:repeat var="track" value="#{downloadsBacking.downloadableTracks}">
-                    <div class="col-md-2 col-xs-12 text-center download-container">
-                        <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;border:1px solid #444;"/>
-                        <h3>#{track.title}</h3>
-                        <h4>#{track.album.title}</h4>
-                        <h:outputLink value="#{downloadsBacking.downloadableFile}">
-                            <p>Test</p>
-                        </h:outputLink>
-                    </div>
-                </ui:repeat>
+        
+        <!-- Rendered if there are no results -->
+        <ui:fragment rendered="#{downloadsBacking.downloadableTracks.size() == 0}">
+            <div class="container text-center no-tracks-download" id="no-downloads-container">
+                <h1 style="display: none;">Sorry, you don't have any tracks.</h1>
+                <h3 style="display: none;">You can get tracks by buying them at our store.</h3>
+                <h4 style="display: none;">Go back to the home page</h4>
+                <h:link outcome="/index.xhtml" styleClass="hvr-bounce-to-top downloads-btn" style="display: none;">
+                    <span class="fa fa-home"></span> Home
+                </h:link>
             </div>
-        </p:outputPanel>
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{downloadsBacking.downloadableTracks.size() > 0}">
+            <p:outputPanel class="container top-buffer" id="downloads-container" style="display:none;">
+                <h1 class="title-header">
+                    Your tracks
+                </h1>
+
+                <h:form>
+                    <div class="row">
+                        <ui:repeat var="track" value="#{downloadsBacking.downloadableTracks}">
+                            <div class="col-md-2 col-xs-12 download-container">
+
+                                <h:commandLink>
+                                    <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;border:1px solid #444;"/>
+                                    <p:fileDownload value="#{downloadsBacking.downloadableFile}" />
+                                </h:commandLink>
+                                <p class="download-track-title">#{track.title}</p>
+                                <p class="download-track-extra">
+                                    <h:link outcome="Album" styleClass="album-link">
+                                        #{track.album.title}
+                                        <f:param name="id" value="#{track.album.id}"/>
+                                    </h:link>
+                                </p>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </h:form>
+            </p:outputPanel>
+        </ui:fragment>
     </ui:define>
 </ui:composition>
 

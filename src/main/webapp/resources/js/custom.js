@@ -111,6 +111,12 @@ $(document).ready(function () {
     $('.image-overlay').on("mouseleave",function(){
         $(this).fadeOut();
     });
+    
+    $('#no-downloads-container').children().each(function() {
+        $(this).fadeIn(3000);
+    });
+    
+    $('#downloads-container').fadeIn(3000);
 
 });
 

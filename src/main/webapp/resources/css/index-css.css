@@ -124,8 +124,15 @@ html, body {
     padding-bottom:15px;
 }
 
-.special h3{
+.special h3 a{
     padding-bottom:0;
+    color:#fff;
+    transition: color 0.5s linear;
+}
+
+.special h3 a:hover{
+    color:#e10052;
+    text-decoration: none;
 }
 
 .special h4{
@@ -230,6 +237,69 @@ html, body {
 .genres-label h2{
     padding-top: 75px;
     padding-bottom: 75px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.genre-item{
+    color:#fff;
+    text-decoration: none;
+    transition: color 0.25s linear;
+}
+
+.genre-item:hover{
+    color:#b20040;
+    text-decoration: none;
+}
+
+.rss-item{
+    width:100%;
+    padding-bottom: 1em;
+    border-bottom: solid 1px #e10052;
+}
+
+.rss-item:last-child{
+    border-bottom:none;
+    padding-bottom: 2em;
+}
+
+.rss-item h2{
+    clear:both;
+    width:100%;
+}
+
+.rss-item h2 a{
+    color:#aaa;
+    transition: color 1s ease;
+}
+
+.rss-item h2 a:hover{
+    text-decoration: none;
+    color:#e10052;
+}
+
+.rss-item img{
+    display:inline;
+    float: left;
+    width:20%;
+    height:100px;
+}
+
+.rss-item p{
+    display: inline;
+    width:68%;
+    float:right;    
+    padding-left: 2em;
+}
+
+#rss{
+    padding-left:1em;
+    padding-right:1em;
+    font-family: 'Lato', sans-serif;
+}
+
+.rss-container::-webkit-scrollbar { 
+    display: none; 
 }
 
 @media (max-width: 630px){
