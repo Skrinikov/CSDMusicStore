@@ -22,14 +22,16 @@
                     <div class="form-group">
                         <h:outputLabel  for="email" value="#{bundle.email}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText  id="email" value="#{User.user.email}" required="true" class="form-control"/>
+                            <h:inputText  id="email" value="#{User.user.email}" required="true" 
+                                          requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="emailMessage" for="email" class="error"/>
                     </div>
                     <div class="form-group">
                         <h:outputLabel  for="username" value="#{bundle.username}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText  id="username" value="#{User.user.username}" required="true" class="form-control"/>
+                            <h:inputText  id="username" value="#{User.user.username}" requiredMessage="#{bundle.empty_field}"
+                                          required="true" class="form-control"/>
                         </div>
                         <h:message id="usernameMessage" for="username" class="error"/>
                     </div>
@@ -37,7 +39,8 @@
                     <div class="form-group">
                         <h:outputLabel for="password" value="#{bundle.password}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputSecret id="password" value="#{User.password}" required="true" class="form-control"/>
+                            <h:inputSecret id="password" value="#{User.password}" required="true" 
+                                           requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="passwordMessage" for="password" class="error"/>
                     </div>
@@ -45,7 +48,8 @@
                     <div class="form-group">
                         <h:outputLabel for="title" value="#{bundle.title}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="title" value="#{User.user.title}" required="true" class="form-control"/>
+                            <h:inputText id="title" value="#{User.user.title}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="titleMessage" for="title" class="error"/>
                     </div>
@@ -53,7 +57,8 @@
                     <div class="form-group">
                         <h:outputLabel for="fname" value="#{bundle.fname}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="fname" value="#{User.user.firstName}" required="true" class="form-control"/>
+                            <h:inputText id="fname" value="#{User.user.firstName}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="fnameMessage" for="fname" class="error"/>
                     </div>
@@ -61,7 +66,8 @@
                     <div class="form-group">
                         <h:outputLabel for="lname" value="#{bundle.lname}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="lname" value="#{User.user.lastName}" required="true" class="form-control"/>
+                            <h:inputText id="lname" value="#{User.user.lastName}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="lnameMessage" for="lname" class="error"/>
                     </div>
@@ -69,7 +75,8 @@
                     <div class="form-group">
                         <h:outputLabel for="company" value="#{bundle.company}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="company" value="#{User.user.company}" required="true" class="form-control"/>
+                            <h:inputText id="company" value="#{User.user.company}" required="true" 
+                                        requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="companyMessage" for="company" class="error"/>
                     </div>
@@ -77,7 +84,8 @@
                     <div class="form-group">
                         <h:outputLabel for="addr1" value="#{bundle.address1}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="addr1" value="#{User.user.address1}" required="true" class="form-control"/>
+                            <h:inputText id="addr1" value="#{User.user.address1}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="addr1Message" for="addr1" class="error"/>
                     </div>
@@ -93,7 +101,8 @@
                     <div class="form-group">
                         <h:outputLabel for="city" value="#{bundle.city}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="city" value="#{User.user.city}" required="true" class="form-control"/>
+                            <h:inputText id="city" value="#{User.user.city}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}"  class="form-control"/>
                         </div>
                         <h:message id="cityMessage" for="city" class="error"/>
                     </div>
@@ -101,7 +110,7 @@
                     <div class="form-group">
                         <h:outputLabel for="province" value="#{bundle.province}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:selectOneMenu id="province" value="#{User.user.province}" required="true" 
+                            <h:selectOneMenu id="province" value="#{User.user.province}" required="true" requiredMessage="#{bundle.empty_field}" 
                                              class="form-control" converter="#{ProvinceConverter}">
                                 <f:selectItems value="#{Province.provinces}" />
                             </h:selectOneMenu>
@@ -112,7 +121,8 @@
                     <div class="form-group">
                         <h:outputLabel for="country" value="#{bundle.country}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="country" value="#{User.user.country}" required="true" class="form-control"/>
+                            <h:inputText id="country" value="#{User.user.country}" required="true" 
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="countryMessage" for="country" class="error"/>
                     </div>
@@ -120,7 +130,8 @@
                     <div class="form-group">
                         <h:outputLabel for="postal" value="#{bundle.postal}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="postal" value="#{User.user.postalCode}" required="true" class="form-control"/>
+                            <h:inputText id="postal" value="#{User.user.postalCode}" required="true" validatorMessage="#{bundle.invalid_postal}"
+                                         requiredMessage="#{bundle.empty_field}" class="form-control"/>
                         </div>
                         <h:message id="postalMessage" for="postal" class="error"/>
                     </div>
@@ -128,21 +139,21 @@
                     <div class="form-group">
                         <h:outputLabel for="hometel" value="#{bundle.htel}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="hometel" value="#{User.user.homeTel}" class="form-control"/>
+                            <h:inputText id="hometel" value="#{User.user.homeTel}" class="form-control" validatorMessage="#{bundle.invalid_phone}"/>
                         </div>
-                        <h:message id="hometelessage" for="hometel" class="error"/>
+                        <h:message id="hometelMessage" for="hometel" class="error"/>
                     </div>
                     
                     <div class="form-group">
                         <h:outputLabel for="celltel" value="#{bundle.ctel}:" class="control-label col-sm-4"/>
                         <div class="col-sm-4">
-                            <h:inputText id="celltel" value="#{User.user.cellTel}" class="form-control"/>
+                            <h:inputText id="celltel" value="#{User.user.cellTel}" class="form-control" validatorMessage="#{bundle.invalid_phone}"/>
                         </div>
-                        <h:message id="celltelessage" for="celltel" class="error"/>
+                        <h:message id="celltelMessage" for="celltel" class="error"/>
                     </div>
                     
                     <div class="text-center">
-                        <h:commandButton action="#{login.register}" value="#{bundle.register_submit}" class="btn btn-default btn-login"/>
+                        <h:commandButton id="register" action="#{login.register}" value="#{bundle.register_submit}" class="btn btn-default btn-login"/>
                         <h:commandButton  type="reset" immediate="true" value="#{bundle.clear}" class="btn btn-default btn-clear"/>
                     </div>
 

@@ -35,14 +35,15 @@
                         <div class="form-group">
                             <h:outputLabel  for="number" value="#{bundle.credit_number}" class="control-label col-sm-4"/>
                             <div class="col-sm-4">
-                                <h:inputText  id="number" value="#{credit.number}" required="true" class="form-control"/>
+                                <h:inputText  id="number" value="#{credit.number}" required="true" 
+                                              requiredMessage="#{bundle.empty_field}" class="form-control"/>
                             </div>
                             <h:message id="numberMessage" class="error" for="number" />
                         </div>
                         <div class="form-group">
                             <h:outputLabel  for="date" value="#{bundle.credit_date}" class="control-label col-sm-4"/>
                             <div class="col-sm-4">
-                                <h:inputText  id="date" value="#{credit.expirationDate}" required="true" 
+                                <h:inputText  id="date" value="#{credit.expirationDate}" required="true" requiredMessage="#{bundle.empty_field}" 
                                           pt:placeholder="mm/yyyy" converter="DateConverter" class="form-control"/>
                             </div>
                             <h:message id="dateMessage" class="error" for="date" />
@@ -50,7 +51,8 @@
                         <div class="form-group">
                             <h:outputLabel  for="name" value="#{bundle.credit_name}" class="control-label col-sm-4"/>
                             <div class="col-sm-4">
-                                <h:inputText  id="name" value="#{credit.name}" required="true" class="form-control"/>
+                                <h:inputText  id="name" value="#{credit.name}" required="true" 
+                                              requiredMessage="#{bundle.empty_field}" class="form-control"/>
                             </div>
                             <h:message id="nameMessage" class="error" for="name" />
                         </div>

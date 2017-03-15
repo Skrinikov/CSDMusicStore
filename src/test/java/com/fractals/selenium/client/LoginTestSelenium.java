@@ -19,15 +19,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginTestSelenium {
     
     private WebDriver driver;
-    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("LoginTestSelenium.class");
     
-     @Before     
-     public void setUp() {
-        /*FirefoxDriverManager.getInstance().setup();
-        driver = new FirefoxDriver();*/
+    @Before     
+    public void setUp() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-     }
+    }
 
     @Test     
     public void testLoginFormTitle() throws Exception {
@@ -111,6 +108,11 @@ public class LoginTestSelenium {
         driver.get("http://localhost:8080/Fractals/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
+        
+        WebElement inputElement = driver.findElement(By.id("loginForm:username"));
+        inputElement.clear();
+        inputElement = driver.findElement(By.id("loginForm:password"));         
+        inputElement.clear();
         
         driver.findElement(By.id("loginForm:login")).click();
         
