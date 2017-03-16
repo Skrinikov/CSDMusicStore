@@ -39,7 +39,7 @@ import org.junit.Assert;
  * Ensure that the survey backing returns proper surveys
  * @author Renuchan
  */
-
+@Ignore
 @RunWith(Arquillian.class)
 public class SurveyClientTest {
     

@@ -54,7 +54,7 @@ public class SurveyBacking implements Serializable {
     {
         this.surEditId = id;
         this.current = sc.findSurvey(surEditId);
-        return "/survey/Edit.xhtml";
+        return "/management/survey/Edit.xhtml";
     }
     
     public Survey getCurrent()
@@ -66,7 +66,7 @@ public class SurveyBacking implements Serializable {
     {      
         try {
             sc.edit(current);
-            return "/survey/List.xhtml"; 
+            return "/management/survey/List.xhtml"; 
             
         } catch (RollbackFailureException ex) {
             return "Failed message"; 
@@ -93,7 +93,7 @@ public class SurveyBacking implements Serializable {
         sur.setSurveyChoices(blankAnswers);
         this.current = sur; 
         //return "/survey/Edit.xhtml";
-        return "/survey/Create.xhtml"; 
+        return "/management/survey/Create.xhtml"; 
     }
     
     
@@ -125,7 +125,7 @@ public class SurveyBacking implements Serializable {
             em.getTransaction().rollback();
         }
         
-        return "/survey/List.xhtml";
+        return "/management/survey/List.xhtml";
     }
     
     
@@ -133,14 +133,14 @@ public class SurveyBacking implements Serializable {
     {
         SurveyChoice sc = new SurveyChoice();     
         currentSC = sc;     
-        return "/survey/surveyOptionForm.xhtml"; 
+        return "/management/survey/surveyOptionForm.xhtml"; 
     }
     
     public String saveOption()
     {
         currentSC.setSurvey(current);
         current.getSurveyChoices().add(currentSC);
-        return "/survey/Edit.xhtml";
+        return "/management/survey/Edit.xhtml";
     }
     
     public SurveyChoice getCurrentSC()
@@ -192,7 +192,7 @@ public class SurveyBacking implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
         }      
-        return "/survey/List.xhtml";
+        return "/management/survey/List.xhtml";
         
     }
     
