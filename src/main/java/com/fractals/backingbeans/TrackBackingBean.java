@@ -94,7 +94,8 @@ public class TrackBackingBean implements Serializable {
     * 
     */
        public Number getTotalCost(Track track){
-           return trackJpaController.getTotalSales(track);
+           Number sales = trackJpaController.getTotalSales(track);
+           return (sales != null)?sales: 0;
        }
        
 }

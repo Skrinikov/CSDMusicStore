@@ -83,6 +83,12 @@
                     <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
+                    
+                    <p:column headerText="Total Sales" >
+                        $<h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
+                            <f:convertNumber maxFractionDigits="2" /> 
+                        </h:outputText>
+                    </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton value="Preview" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />

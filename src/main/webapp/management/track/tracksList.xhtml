@@ -98,7 +98,10 @@
                     </p:column>
                     
                     <p:column headerText="Total Sales">
-                        <h:outputText value="" />
+                        $<h:outputText value="#{theTracks.getTotalCost(item)}" >
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    
                     </p:column>
 
                     <f:facet name="footer">
