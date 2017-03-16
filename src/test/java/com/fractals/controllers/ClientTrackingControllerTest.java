@@ -6,12 +6,12 @@
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.UserBacking;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import com.fractals.converters.ProvinceConverter;
 import com.fractals.email.EmailSender;
 import com.fractals.jsf.util.PaginationHelper;

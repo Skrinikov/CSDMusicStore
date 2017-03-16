@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 import com.fractals.backingbeans.SurveyClientBacking;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Survey;
 import com.fractals.beans.SurveyChoice; 
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import com.fractals.converters.ProvinceConverter;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;

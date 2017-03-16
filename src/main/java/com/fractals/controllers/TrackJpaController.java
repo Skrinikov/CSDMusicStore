@@ -25,7 +25,8 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author 1710030
+ * @author Danieil Skrinikov
+ * @author Thai Vu Nguyen
  */
 @Named
 @RequestScoped
@@ -292,28 +293,19 @@ public class TrackJpaController implements Serializable {
         return getSimilarTracks(track, 3);
     }
 
-     /**
+    /**
      * Selects tracks based on a genre of a Track
      * 
      * @param track
      * @param count amount of tracks to return
      * @return list of similar tracks
-     * @author Thai-Vu Nguyen
      */
     public List<Track> getSimilarTracks (Track track, int count){
-        if (count < 1){
-            return new ArrayList<Track>();
-        }
-        
-     * Randomly selects tracks which are on special and returns them as a List
-     * 
-     * @param count amount of tracks to return. 
-     * @return List of tracks.
-     */
-    public List<Track> getSpecials(int count){
-        if(count < 1)
-            return null;
-        
+         if (count < 1){
+             return new ArrayList<Track>();
+         }
+         
+         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Track> query = cb.createQuery(Track.class);
         Root<Track> root = query.from(Track.class);
@@ -326,10 +318,27 @@ public class TrackJpaController implements Serializable {
             );
         
         List<Track> tracks = em.createQuery(query).getResultList();
+                 
+        return getRandomTracks(tracks, count);
+    }
         
+     /**
+      * Randomly selects tracks which are on special and returns them as a List
+      * 
+      * @param count amount of tracks to return. 
+      * @return List of tracks.
+      */
+     public List<Track> getSpecials(int count){
+         if(count < 1)
+             return null;
+         
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
         query.where(cb.greaterThan(root.<Double>get(Track_.salePrice), 0.0));
         return getRandomTracks(em.createQuery(query).getResultList(), count);
-    }
+     }
     
     /**
      * Takes the list of Tracks, shuffles it 
