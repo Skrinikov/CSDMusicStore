@@ -100,6 +100,11 @@
                 <p:column headerText="LastGenre">
                     <h:outputText value="#{item.lastGenre}"/>
                 </p:column>
+                <p:column headerText="Total Sales">
+                    $<h:outputText value="#{theUsers.getTotalSalesByUser(item)}" >
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
 
                 <f:facet name="footer">
                     <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>

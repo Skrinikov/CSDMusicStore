@@ -25,45 +25,45 @@
 
 
                     <div class="form-group row">
-                        <h:outputText value="Id:" class="control-label col-sm-2"/>
+                        <h:outputText value="Id:" class="control-label mgmt_detail_label  col-sm-2"/>
                         
                         <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
                         
                     </div>
-                    <div class="form-group row"><h:outputText value="Username:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Username:" class="control-label mgmt_detail_label col-sm-2" />
                         <h:outputText value="#{theUsers.selectedUser.username}" title="Username"/></div>
-                    <div class="form-group row"><h:outputText value="Title:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.title}" title="Title"/></div>
-                    <div class="form-group row"><h:outputText value="FirstName:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="FirstName:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.firstName}" title="FirstName"/></div>
-                    <div class="form-group row"><h:outputText value="LastName:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="LastName:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.lastName}" title="LastName"/></div>
-                    <div class="form-group row"><h:outputText value="Company:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Company:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.company}" title="Company"/></div>
-                    <div class="form-group row"><h:outputText value="Address1:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Address1:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.address1}" title="Address1"/></div>
-                    <div class="form-group row"><h:outputText value="Address2:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Address2:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.address2}" title="Address2"/></div>
-                    <div class="form-group row"><h:outputText value="City:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="City:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.city}" title="City"/></div>
-                    <div class="form-group row"><h:outputText value="Country:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Country:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.country}" title="Country"/></div>
-                    <div class="form-group row"><h:outputText value="PostalCode:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="PostalCode:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.postalCode}" title="PostalCode"/></div>
-                    <div class="form-group row"><h:outputText value="HomeTel:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="HomeTel:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.homeTel}" title="HomeTel"/></div>
 
-                    <div class="form-group row"><h:outputText value="CellTel:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="CellTel:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.cellTel}" title="CellTel"/></div>
-                    <div class="form-group row"><h:outputText value="Email:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Email:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.email}" title="Email"/></div>
-                    <div class="form-group row"><h:outputText value="IsAdmin:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="IsAdmin:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.isAdmin}" title="IsAdmin"/></div>
-                    <div class="form-group row"><h:outputText value="Province:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="Province:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.province}" title="Province"/></div>
-                    <div class="form-group row"><h:outputText value="LastGenre:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="LastGenre:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.selectedUser.lastGenre}" title="LastGenre"/></div>
-                    <div class="form-group row"><h:outputText value="TotalSales:" class="control-label col-sm-2"/>
+                    <div class="form-group row"><h:outputText value="TotalSales:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theUsers.getTotalSales()}" title="LastGenre">
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
@@ -71,27 +71,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <p:commandButton action="#{theUsers.makeEditable()}" value="Edit" ajax="false"/>                             
+                    <p:commandButton icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="Edit" ajax="false"/>                             
 
 
                 </h:panelGroup>
 
 
-                <p:panelGrid columns="2" layout="tabular"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
+                <p:panelGrid columns="2" layout="tabular"   rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
 
                     <p:outputLabel value="Id:" for="id" />
@@ -134,14 +120,14 @@
                         <f:selectItems value="#{theGenres.genres}"/>
                     </p:selectOneMenu>
 
-                    <p:commandButton action="#{theUsers.edit()}" value="Save" ajax="false"/>
-                    <p:commandButton action="#{theUsers.makeUneditable()}" value="Cancel" ajax="false"/>
+                    <p:commandButton action="#{theUsers.edit()}" value="Save" ajax="false" class="mgmt_btn"/>
+                    <p:commandButton action="#{theUsers.makeUneditable()}" value="Cancel" ajax="false" class="mgmt_btn"/>
 
                 </p:panelGrid>
 
             </h:form>  
 
-            <p:button value="Retour à la liste" outcome="/management/user/usersList.xhtml"/>
+            <p:button icon="fa fa-backward" value="Retour à la liste" outcome="/management/user/usersList.xhtml" class="mgmt_btn"/>
         </div>
     </ui:define>
 </ui:composition>

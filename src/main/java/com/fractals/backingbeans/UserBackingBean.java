@@ -55,12 +55,17 @@ public class UserBackingBean implements Serializable {
     }
     
     public Number getTotalSales(){
+        return getTotalSalesByUser(selectedUser);
+    }
+    
+    public Number getTotalSalesByUser(User user){
         CriteriaBuilder cb = userJpaController.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         Root<Order> root = query.from(Order.class);
         query.select(cb.sum(root.get("netCost")));
-        query.where(cb.equal(root.get("user"), selectedUser));
-        Number result = userJpaController.getEntityManager().createQuery(query).getSingleResult();      
+        query.where(cb.equal(root.get("user"), user));
+        Number result = userJpaController.getEntityManager().createQuery(query).getSingleResult();
         return result == null ? 0 : result;
+        
     }
 }
