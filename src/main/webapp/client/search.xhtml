@@ -62,7 +62,7 @@
                     </div>           
                     
                     <div class="text-center">
-                        <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-blue">
+                        <h:commandButton id="search" value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-blue">
                             <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
                         </h:commandButton>
                     </div>

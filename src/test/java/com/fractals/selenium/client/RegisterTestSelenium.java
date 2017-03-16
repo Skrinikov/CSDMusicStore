@@ -37,7 +37,7 @@ public class RegisterTestSelenium {
         wait.until(ExpectedConditions.titleIs("Registration"));
         driver.quit();
     }
-    @Ignore
+
     @Test     
     public void testRegisterFormFill() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/register.xhtml");
