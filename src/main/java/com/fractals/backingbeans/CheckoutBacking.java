@@ -2,6 +2,7 @@ package com.fractals.backingbeans;
 
 import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -20,12 +21,12 @@ import javax.inject.Named;
  * the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 26/02/2017
+ * @version 16/03/2017
  * @since 1.8
  */
 @Named("checkout")
-@RequestScoped
-public class CheckoutBacking {
+@SessionScoped
+public class CheckoutBacking implements Serializable {
     @Inject
     private CreditCard credit;
     
@@ -76,14 +77,13 @@ public class CheckoutBacking {
     /**
      * Validates user-submitted information. If the information is valid, the user
      * is redirected to the invoice page; if it is not, the errors are displayed.
-     * @param brand The brand of the credit card provided.
      */
-    public void validate(String brand) {
+    public void validate() {
         error = false;
-        if(!brands.contains(brand)) {
-            FacesMessage message = new FacesMessage(bundle.getString("credit_brand_error"));
-            FacesContext.getCurrentInstance().addMessage("checkoutForm", message);
-            error = true;
+        String code = credit.getCode();
+        if(code != null) {
+            credit.setBrand("Visa");
+            isVisa = true;
         }
         String number = credit.getNumber();
         if(!number.matches("^\\s*[0-9][0-9\\s]*$") || !luhnCheck(number.replaceAll("\\D", ""))) {
@@ -104,7 +104,6 @@ public class CheckoutBacking {
             FacesContext.getCurrentInstance().addMessage("checkoutForm:name", message);
             error = true;
         }
-        String code = credit.getCode();
         if(isVisa && (code == null || !code.matches("^[0-9][0-9][0-9]$"))) {
             FacesMessage message = new FacesMessage(bundle.getString("credit_code_error"));
             FacesContext.getCurrentInstance().addMessage("checkoutForm:code", message);

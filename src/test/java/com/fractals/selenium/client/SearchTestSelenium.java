@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Test the search page of the application.
+ * Tests the search page of the application.
  * @author Aline Shulzhenko
  */
 public class SearchTestSelenium {

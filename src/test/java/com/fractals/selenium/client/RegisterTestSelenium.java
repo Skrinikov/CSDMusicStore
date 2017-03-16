@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Test the registration page of the application.
+ * Tests the registration page of the application.
  * @author Aline Shulzhenko
  */
 public class RegisterTestSelenium {
@@ -303,6 +303,45 @@ public class RegisterTestSelenium {
         driver.findElement(By.id("log-link")).click();
         
         wait.until(ExpectedConditions.titleIs("Login"));
+        
+        driver.quit();
+    }
+    
+    @Test     
+    public void testRegisterFormFill_Clear() throws Exception {
+        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Registration"));
+        
+        driver.findElement(By.id("registerForm:email")).sendKeys("selenium@selenium.com");       
+        driver.findElement(By.id("registerForm:username")).sendKeys("selenium"+randomInt);     
+        driver.findElement(By.id("registerForm:password")).sendKeys("abcd");      
+        driver.findElement(By.id("registerForm:title")).sendKeys("mr");
+        driver.findElement(By.id("registerForm:fname")).sendKeys("selenium");
+        driver.findElement(By.id("registerForm:lname")).sendKeys("hq");
+        driver.findElement(By.id("registerForm:company")).sendKeys("selenium sauce");
+        driver.findElement(By.id("registerForm:addr1")).sendKeys("3040 Sherbrooke St. W");
+        driver.findElement(By.id("registerForm:city")).sendKeys("Westmount");
+        driver.findElement(By.id("registerForm:country")).sendKeys("Canada");
+        driver.findElement(By.id("registerForm:postal")).sendKeys("h3z1a4");
+        
+        driver.findElement(By.id("registerForm:clear")).click();
+        
+        wait.until(ExpectedConditions.titleIs("Registration"));
+        
+        assertThat(driver.findElement(By.id("registerForm:email")).getText()).isEqualToIgnoringCase("");
+        
+        assertThat(driver.findElement(By.id("registerForm:username")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:password")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:title")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:fname")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:lname")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:company")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:addr1")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:city")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:country")).getText()).isEqualToIgnoringCase("");
+        assertThat(driver.findElement(By.id("registerForm:postal")).getText()).isEqualToIgnoringCase("");
+        
         
         driver.quit();
     }

@@ -23,7 +23,7 @@
                 <ui:fragment rendered="#{login.loggedIn}">
                     <h4 class="text-center">#{bundle.checkout_title}</h4>
                     <h:form id="checkoutForm" class="form-horizontal">
-                        <h:message class="error" for="checkoutForm" id="checkoutFormMessage" />
+                        <h:message class="error text-center space" for="checkoutForm" id="checkoutFormMessage" />
                         <div class="text-center check-brands">
                             <ui:repeat value="#{checkout.brands}" var="brand">
                                 <h:commandLink value="#{brand}" action="#{checkout.addField(brand)}" class="btn btn-default btn-credit" immediate="true">
@@ -59,15 +59,16 @@
                         <div class="form-group">
                             <h:outputLabel  for="code" rendered="#{checkout.isVisa}" value="#{bundle.credit_code}"  class="control-label col-sm-4"/>
                             <div class="col-sm-4">
-                                <h:inputText  id="code"  rendered="#{checkout.isVisa}" pt:placeholder="111"
+                                <h:inputText  id="code"  rendered="#{checkout.isVisa}" pt:placeholder="111" requiredMessage="#{bundle.empty_field}"
                                           value="#{credit.code}" required="true" class="form-control"/>
                             </div>
                             <h:message id="codeMessage" class="error" for="code" rendered="#{checkout.isVisa}" />
                         </div>
                         
                         <div class="text-center">
-                            <h:commandButton value="#{bundle.submit}" action="#{checkout.validate(credit.brand)}" class="btn btn-default btn-blue"/>   
-                            <h:commandButton value="#{bundle.clear}" type="reset" immediate="true" class="btn btn-default btn-clear"/>
+                            <h:commandButton id="checkout" value="#{bundle.submit}" 
+                                             action="#{checkout.validate()}" class="btn btn-default btn-blue"/>   
+                            <h:commandButton id="clear" value="#{bundle.clear}" type="reset" immediate="true" class="btn btn-default btn-clear"/>
                         </div>
                     </h:form>     
                 </ui:fragment>
