@@ -25,10 +25,10 @@
             <h:form>
                 <h1><h:outputText value="#{bundle.nf_list}"/></h1>
                 
-                <p:commandButton icon="ui-icon-plus" action="#{nfsBackingBean.prepareChange(0)}">               
+                <p:commandButton value="#{bundle.createBtn}" action="#{nfsBackingBean.prepareChange(0)}">               
                 </p:commandButton>
                 
-                <p:dataTable value="#{nfsBackingBean.allNews}" var="item"
+                <p:dataTable id="data" value="#{nfsBackingBean.allNews}" var="item"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" style="margin-bottom:20px">
                     <p:column>                      
@@ -60,10 +60,10 @@
                             <h:outputText value="Operation"/>
                         </f:facet>
 
-                        <p:commandButton icon="ui-icon-trash" action="#{nfsBackingBean.deleteNews(item.id)}">               
+                        <p:commandButton update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-pencil" action="#{nfsBackingBean.prepareChange(item.id)}">               
+                        <p:commandButton value="#{bundle.editBtn}" action="#{nfsBackingBean.prepareChange(item.id)}">               
                         </p:commandButton>
 
                     </p:column>

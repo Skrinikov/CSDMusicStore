@@ -4,12 +4,14 @@ package com.fractals.backingbeans;
 import com.fractals.controllers.NewsFeedJpaController;
 import com.fractals.beans.NewsFeed;
 import com.fractals.controllers.exceptions.RollbackFailureException;
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -95,17 +97,26 @@ public class NewsFeedBacking implements Serializable{
     
     
     //----- Destroy 
+    
+    /**
+     * This method will be used to delete a newsFeed in the database.  
+     * @param id        id of the newsFeed to delete
+     * @return 
+     */
     public String deleteNews(Integer id)
-    {
+    {   
+        
         try {
-            nfc.destroy(id);
+            nfc.destroy(id);            
         } catch (RollbackFailureException ex) {
             Logger.getLogger(NewsFeedBacking.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        }catch (IOException ex) {
+            Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (Exception ex) {
             Logger.getLogger(NewsFeedBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return "newsFeed/List.xhtml";
+        return null; 
     }
     
 }

@@ -165,7 +165,7 @@ public class SurveyBacking implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(SurveyBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/survey/List.xhtml";
+        return null;
     }
     
     

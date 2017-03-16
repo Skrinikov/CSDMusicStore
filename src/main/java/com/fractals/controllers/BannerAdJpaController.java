@@ -17,13 +17,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
 /**
  *
- * @author Sarah
+ * @author Sarah, Renuchan
  */
 @Named("bannerAdJpaController")
 @RequestScoped
@@ -132,5 +134,24 @@ public class BannerAdJpaController implements Serializable {
     public boolean isEmpty(){
         return getBannerAdCount() == 0;
     }
+    
+    
+    /**
+     * This method will obtain all visible ads from the database. 
+     * @author Renuchan
+     * @return 
+     */
+    public List<BannerAd> getVisible()
+    {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<BannerAd> cq = cb.createQuery(BannerAd.class); 
+        Root<BannerAd> ad = cq.from(BannerAd.class); 
+        cq.select(ad);
+        cq.where(cb.equal(ad.get("visible"), true));
+        
+        TypedQuery<BannerAd> query = em.createQuery(cq);
+        return query.getResultList();         
+    }
+    
     
 }

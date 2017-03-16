@@ -19,6 +19,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 
 /**
@@ -187,5 +188,14 @@ public class SurveyJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
       
     }
+    
+    public List<Survey> getVisibleSurveys()
+    {
+        String query = "Select s From Survey s Where s.visible = TRUE"; 
+        
+        TypedQuery<Survey> sur = em.createQuery(query, Survey.class);
+        return sur.getResultList();
+    }
+    
     
 }

@@ -7,6 +7,7 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
+import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.GenreJpaController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class BrowseGenreBacking {
     @Inject 
     private TrackJpaController tjc; 
     
+    @Inject 
+    private ClientTrackingController ctc; 
     /**
      * This method will get all the genre in the database. 
      * 
@@ -91,9 +94,23 @@ public class BrowseGenreBacking {
      * about the user. 
      * @return 
      */
-    public List<Track> getRecommened()
+    public List<Track> getRecommended()
     {
-        return null;
+        List<Track> list; 
+        
+        if(ctc.isCookiesEnabled() && ctc.isGenreSavedInCookie())
+        {
+            list = ctc.getTracks(20, true);
+        }
+        else
+            list = getTopSellers();
+        
+        return list;
+    }
+    
+    public List<Track> getTopSellers()
+    {
+        return null; 
     }
     
     /**
@@ -103,7 +120,6 @@ public class BrowseGenreBacking {
     {
         String path = "browse_genreTracks?id=" + genre.getId();
         return path; 
-        
     }
 
     
@@ -117,7 +133,7 @@ public class BrowseGenreBacking {
         Map<String, String> params =FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
         
-        //possiblilty of the user entering bad values in query string
+        //possiblilty of the user entering invalid values in query string
         try{
             
             int id = Integer.parseInt(params.get("id"));
@@ -128,7 +144,6 @@ public class BrowseGenreBacking {
         }catch(Exception ex){
             Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return null; 
     }
  
