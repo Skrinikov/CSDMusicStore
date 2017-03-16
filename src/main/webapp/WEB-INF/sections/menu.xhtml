@@ -39,11 +39,17 @@
                         #{bundle.search}
                     </h:link>
                 </li>
+                <li>
+                    <h:link outcome="/client/browse_genre.xhtml">
+                        <span class="menu-icon fa fa-eye"></span>
+                        #{bundle.browseMenu}
+                    </h:link>
+                </li>
                 <ui:fragment rendered="#{login.loggedIn}">
                 <li>
                     <h:link outcome="/downloads/library.xhtml">
                         <span class="menu-icon fa fa-download"></span>
-                        Downloads
+                        #{bundle.downloadMenu}
                     </h:link>
                 </li>
                 </ui:fragment>
@@ -83,6 +89,12 @@
                     <h:link outcome="/client/search.xhtml">
                         <span class="menu-icon fa fa-music"></span>
                         #{bundle.search}
+                    </h:link>
+                </li>
+                <li>
+                    <h:link outcome="/client/browse_genre.xhtml">
+                        <span class="menu-icon fa fa-eye"></span>
+                        #{bundle.browseMenu}
                     </h:link>
                 </li>
                
