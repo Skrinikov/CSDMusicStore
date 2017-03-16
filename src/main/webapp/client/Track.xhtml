@@ -33,8 +33,8 @@
                     <h3>Duration: #{trackCLBack.duration}</h3>
                     <h3>Writer(s): #{trackCLBack.writer}</h3>
                     <div class="album-actions">
-                        <h:form>
-                            <h:commandButton value="$#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart}" class="btn btn-success" />
+                        <h:form id="trackCartForm">
+                            <h:commandButton id="track-to-cart" value="$#{trackCLBack.getPrice(trackCLBack.track)}" action="#{trackCLBack.addToCart}" class="btn btn-success" />
                         </h:form>
                     </div>
                 </div>

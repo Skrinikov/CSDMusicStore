@@ -26,7 +26,7 @@
             <div class="panel-body">
                 <ui:fragment rendered="#{cart.all.size() != 0}">
                     <h:form id="cart-form">
-                    <h:dataTable value="#{cart.all}" var="item"
+                    <h:dataTable value="#{cart.all}" var="item" id="cart-table"
                                  class="table  table-hover table-cart table-condensed">
                         <h:column>    
                             <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="width: 45%"/>
@@ -55,8 +55,8 @@
                                  <h:outputText value="$#{item.salePrice}"></h:outputText>
                              </ui:fragment>
                          </h:column>
-                        <h:column>                      
-                            <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default">
+                        <h:column id="col-remove">                      
+                            <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default #{item.id}">
                                 <f:ajax execute="@all" render="@all"/>
                                 <i class="glyphicon glyphicon-trash"></i>                 
                             </h:commandLink>
@@ -65,14 +65,14 @@
                     </h:form>            
                     
                     <div class="text-center">
-                        <h:link rendered="#{login.loggedIn}" outcome="checkout" value="#{bundle.checkout}" class="btn btn-default btn-shop"/>
+                        <h:link id="checkout-link" rendered="#{login.loggedIn}" outcome="checkout" value="#{bundle.checkout}" class="btn btn-default btn-shop"/>
                     </div>
 
-                    <h:link rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login" class="text-center orange-link"/>
+                    <h:link id="log-link" rendered="#{!login.loggedIn}" value="#{bundle.cart_login}" outcome="login" class="text-center orange-link"/>
                     
                     <div>
-                        <h:form>
-                            <h:commandLink class="btn btn-default btn-continue" value="#{bundle.cart_return}" action="#{cart.redirect()}" />
+                        <h:form id="continueForm">
+                            <h:commandLink id="continue-shop-btn" class="btn btn-default btn-continue" value="#{bundle.cart_return}" action="#{cart.redirect()}" />
                         </h:form>
                     </div>
 

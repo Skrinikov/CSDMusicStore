@@ -1,5 +1,6 @@
-package com.fractals.utilities;
+package com.fractals.converters;
 
+import com.fractals.utilities.BundleLocaleResolution;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 import java.util.TimeZone;

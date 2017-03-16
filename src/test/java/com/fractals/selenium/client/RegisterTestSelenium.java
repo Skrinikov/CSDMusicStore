@@ -293,4 +293,17 @@ public class RegisterTestSelenium {
         
         driver.quit();
     }
+    
+    @Test     
+    public void testRegisterForm_LoginLink() throws Exception {
+        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Registration"));
+        
+        driver.findElement(By.id("log-link")).click();
+        
+        wait.until(ExpectedConditions.titleIs("Login"));
+        
+        driver.quit();
+    }
 }
