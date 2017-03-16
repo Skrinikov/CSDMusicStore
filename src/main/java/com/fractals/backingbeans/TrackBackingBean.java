@@ -90,4 +90,11 @@ public class TrackBackingBean implements Serializable {
         return "/management/track/tracksViewEdit.xhtml";
     }
        
+   /**
+    * 
+    */
+       public Number getTotalCost(Track track){
+           return trackJpaController.getTotalSales(track);
+       }
+       
 }

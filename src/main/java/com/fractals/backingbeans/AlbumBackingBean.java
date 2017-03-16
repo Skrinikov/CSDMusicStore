@@ -83,5 +83,9 @@ public class AlbumBackingBean implements Serializable {
         Number result = albumJpaController.getEntityManager().createQuery(query).getSingleResult();      
         return result == null ? 0 : result;
     }
+    
+    public Number getTotalSalesByAlbum(Album album){
+        return albumJpaController.getTotalSales(album);
+    }
 
 }

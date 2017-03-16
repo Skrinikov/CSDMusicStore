@@ -96,6 +96,10 @@
                     <p:column headerText="Genre">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
+                    
+                    <p:column headerText="Total Sales">
+                        <h:outputText value="" />
+                    </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />

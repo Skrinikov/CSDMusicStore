@@ -8,6 +8,8 @@ import javax.persistence.criteria.Root;
 import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Artist;
+import com.fractals.beans.OrderItem;
+import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Track;
 import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
@@ -339,6 +341,28 @@ public class TrackJpaController implements Serializable {
         query.where(cb.greaterThan(root.<Double>get(Track_.salePrice), 0.0));
         return getRandomTracks(em.createQuery(query).getResultList(), count);
      }
+     
+     /**
+      * Module to return the total sales of a track
+      * @param track
+      * @return Total Sales
+      * @author Thai-Vu Nguyen
+      */
+     public Number getTotalSales(Track track){
+         if (track == null)
+             return 0;
+         
+         CriteriaBuilder cb = em.getCriteriaBuilder();
+         CriteriaQuery<Number> query = cb.createQuery(Number.class);
+         
+         //Select sum(cost) from OrderItem where album_id = ?
+         
+         Root<OrderItem> root = query.from(OrderItem.class);
+         query.select(cb.sum(root.get("cost")));
+         query.where(cb.equal(root.get("track"), track));
+         
+         return em.createQuery(query).getSingleResult();
+     }
     
     /**
      * Takes the list of Tracks, shuffles it 
@@ -362,5 +386,5 @@ public class TrackJpaController implements Serializable {
         
         return newTracks;
     }
-    
+        
 }
