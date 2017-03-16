@@ -9,6 +9,7 @@ import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.GenreJpaController;
+import com.fractals.controllers.ReportsController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,18 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.UserTransaction;
+import java.time.LocalDateTime;
+
 
 /**
  *  This class will be used to interact with the browse xhtml page and
@@ -47,6 +42,10 @@ public class BrowseGenreBacking {
     
     @Inject 
     private ClientTrackingController ctc; 
+    
+    @Inject 
+    private ReportsController rc; 
+    
     /**
      * This method will get all the genre in the database. 
      * 
@@ -108,9 +107,18 @@ public class BrowseGenreBacking {
         return list;
     }
     
+    /**
+     * Shows the user the best sellers from 2 months ago if 
+     * @return 
+     */
     public List<Track> getTopSellers()
     {
-        return null; 
+        //get last month
+        LocalDateTime last2Month = LocalDateTime.now().minusMonths(2);
+        LocalDateTime today = LocalDateTime.now();
+        
+        return rc.getTopTrackSellers(last2Month, today); 
+  
     }
     
     /**
@@ -144,7 +152,7 @@ public class BrowseGenreBacking {
         }catch(Exception ex){
             Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null; 
+        return getRecommended(); 
     }
  
 }
