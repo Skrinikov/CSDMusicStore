@@ -3,8 +3,6 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
-import com.fractals.controllers.AlbumJpaController;
-import com.fractals.controllers.TrackJpaController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,7 +12,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 
@@ -23,7 +20,7 @@ import javax.inject.Named;
  * and backing the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 08/03/2017
+ * @version 16/03/2017
  * @since 1.8
  */
 @Named("cart")
@@ -33,12 +30,6 @@ public class ShoppingCart implements Serializable{
     private List<Track> tracks = new ArrayList<>();
     private  String url;
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
-
-    //for test
-    /*@Inject
-    AlbumJpaController ajc;
-    @Inject
-    private TrackJpaController tjc;*/
 
     /**
      * Returns the list of all tracks in the shopping cart.
@@ -63,16 +54,6 @@ public class ShoppingCart implements Serializable{
     public int totalItems() {
         return albums.size() + tracks.size();
     }
-    
-    //only for tests
-    /*@PostConstruct
-    public void init() {
-        empty();
-        albums.add(ajc.findAlbum(1));
-        albums.add(ajc.findAlbum(2));
-        tracks.add(tjc.findTrack(1));
-        tracks.add(tjc.findTrack(13));
-    }*/
    
     /**
      * Sets the url of the referrer page.
@@ -180,7 +161,7 @@ public class ShoppingCart implements Serializable{
     public void add(Object o) {
         if(o instanceof Album) {
             Album album = (Album)o;
-            if(!albums.contains(album)) {
+            if(!albums.contains(album) && album.getAvailable()) {
                 albums.add(album);
                 deleteTracks(album);
             }
@@ -188,7 +169,7 @@ public class ShoppingCart implements Serializable{
         else if(o instanceof Track) {
             Track track = (Track)o;
             Album album = track.getAlbum();
-            if(!tracks.contains(track) && !albums.contains(album)) { 
+            if(!tracks.contains(track) && !albums.contains(album) && track.getAvailable()) { 
                 resolveTrack(track, album);                
             }
         }
