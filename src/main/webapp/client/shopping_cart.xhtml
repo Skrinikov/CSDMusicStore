@@ -72,14 +72,15 @@
                     
                     <div>
                         <h:form id="continueForm">
-                            <h:commandLink id="continue-shop-btn" class="btn btn-default btn-continue" value="#{bundle.cart_return}" action="#{cart.redirect()}" />
+                            <h:commandLink id="continue-shop-btn" class="btn btn-default btn-continue" value="#{bundle.cart_return}" 
+                                           action="#{cart.redirect()}" />
                         </h:form>
                     </div>
 
                 </ui:fragment>
 
                 <ui:fragment rendered="#{cart.isEmpty()}">
-                    <p class="centerText"><h:outputText value="#{bundle.cart_nodata}"></h:outputText></p>
+                    <p id="nodata" class="centerText"><h:outputText value="#{bundle.cart_nodata}"></h:outputText></p>
                 </ui:fragment>
             </div>
         </div>

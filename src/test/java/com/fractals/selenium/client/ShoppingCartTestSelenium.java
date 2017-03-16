@@ -2,6 +2,7 @@ package com.fractals.selenium.client;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -106,6 +107,23 @@ public class ShoppingCartTestSelenium {
         driver.findElement(By.id("checkout-link")).click();
         
         wait.until(ExpectedConditions.titleIs("Checkout"));
+        
+        driver.quit();
+    }
+    
+    @Test     
+    public void testShoppingCart_NoItems() throws Exception {
+        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Shopping Cart"));
+        
+        helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:0:cart-remove\"]"));
+        helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:0:cart-remove\"]"));
+        
+        wait.until((ExpectedCondition<Boolean>) driver -> 
+                helper.retryFindGetText(By.cssSelector("li.hidden-xs:nth-child(4) > a:nth-child(1)"))
+                      .equalsIgnoreCase("Shopping Cart (0)"));
+        assertThat(driver.findElement(By.id("nodata")).getText()).isEqualToIgnoringCase("There are no items in your shopping cart.");
         
         driver.quit();
     }
