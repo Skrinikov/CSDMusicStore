@@ -99,10 +99,12 @@
                                                         <ui:fragment rendered="#{track.reviews.size() > 0}">
 
                                                             <ui:repeat var="review" value="#{track.reviews}">
-                                                                <div class="review">
-                                                                    <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
-                                                                    <p>#{review.text}</p>
-                                                                </div>                                                            
+                                                                <ui:fragment rendered="#{review.approved}">
+                                                                    <div class="review">
+                                                                        <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                                                        <p>#{review.text}</p>
+                                                                    </div>   
+                                                                </ui:fragment>
                                                             </ui:repeat>
 
                                                         </ui:fragment>
@@ -118,10 +120,14 @@
                                                                         <span class="fa fa-star-o rating-star"></span>
                                                                         <span class="fa fa-star-o rating-star"></span>
                                                                     </div>
-                                                                    <h:inputHidden binding="#{rating}"/>
+                                                                    <h:inputHidden binding="#{rating}" required="true">
+                                                                        <f:validateLongRange minimum="1" maximum="5" />
+                                                                    </h:inputHidden>
                                                                 </div>
 
-                                                                <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" />
+                                                                <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" required="true">
+                                                                    <f:validateLength minimum="1" maximum="2000"/>
+                                                                </p:inputTextarea>
 
                                                                 <p:commandLink value="Submit" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
                                                             </div>                                                              
@@ -147,7 +153,7 @@
                     </ui:fragment>
                 </div>                          
             </div>
-            
+
             <!-- Similar albums -->
             <div class="similar-albums top-buffer" style="background:#1a1a1a;">               
                 <div class="container">
@@ -155,7 +161,10 @@
                     <div class="row">
                         <ui:repeat var="sAlbum" value="#{albumsCLBack.similarAlbums}">
                             <div class="col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-0" style="padding:40px;">
-                                <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(sAlbum)}" style="width:100%;"/>
+                                <h:link outcome="Album">
+                                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(sAlbum)}" style="width:100%;"/>
+                                    <f:param name="id" value="#{sAlbum.id}"/>
+                                </h:link>
                                 <h4 style="color:#FF7F50;margin-bottom:0;">#{sAlbum.title}</h4>
                                 <h5 style="color:#aaa;">#{sAlbum.artist.name}</h5>
                             </div>
