@@ -1,6 +1,7 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Review;
+import com.fractals.beans.Review_;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +17,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -189,6 +191,25 @@ public class ReviewJpaController implements Serializable {
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
 
+    }
+    
+    /**
+     * Module to get the approved comments of a Track
+     * @param track
+     * @return 
+     */
+    public List<Review> getApprovedReviews(Track track){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Review> query = cb.createQuery(Review.class);
+        Root<Review> root = query.from(Review.class);
+        query.select(root);
+        query.where(cb.and(
+                cb.equal(root.get("track"), track),
+                cb.equal(root.get("approved"), true)
+        ));
+        
+        return em.createQuery(query).getResultList();
+        
     }
 
 }

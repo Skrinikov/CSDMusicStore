@@ -339,7 +339,7 @@ orderItemsCollectionOrderItemToAttach.getId());
                 )
         ).distinct(true);
  
-        return em.createQuery(query).setMaxResults(count).getResultList();
+        return getRandomAlbums( em.createQuery(query).getResultList(), 3);
     }
     
     /**

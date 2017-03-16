@@ -1,0 +1,101 @@
+/* 
+    Created on : Mar 13, 2017, 1:45:19 PM
+    Author     : Thai-Vu Nguyen
+*/
+
+/*
+    Details page css
+*/
+
+.mgmt_detail_label{
+    font-weight: bold;
+}
+
+/*
+    Create page css
+*/
+
+/*
+    List page css
+*/
+
+.mgmt_table .ui-datatable{
+    
+}
+
+
+
+
+
+.mgmt_table .ui-datatable-content{
+    
+}
+
+.mgmt_table .ui-datatable-odd{
+    
+}
+
+.mgmt_table .ui-datatable-even{
+    
+}
+
+.mgmt_table_row {
+    background-color: #0a0a0a;
+    color: #fbcdcf;
+}
+
+.ui-columntoggler{
+    background-color: #F8F3EE;
+}
+
+.ui-datatable-resizable th.ui-resizable-column{
+    background-color: #fbcdcf
+}
+
+.ui-dialog {
+    background-color: #F8F3EE;
+}
+/*
+    Misc
+*/
+
+.mgmt_btn {
+    color: white;
+    background-color: #2F40B2;
+    font-size: 1.2em;
+    margin: 5px;
+    margin-bottom:15px;
+}
+
+.toggler_mgmt{
+    background-color: #2F40B2;
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.mgmt-content {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;   
+    opacity: 0.9;
+    padding: 25px;
+    margin-top: 2%;
+    font-size: 1.2em;
+    background-color: #fbcdcf;
+    color: #121212;
+    font-family: Times New Roman;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 30px;
+}
+

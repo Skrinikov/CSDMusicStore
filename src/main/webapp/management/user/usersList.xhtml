@@ -6,24 +6,30 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+    <ui:define name="placeholder-css">
+         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
     <ui:define name="title">
         <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
     </ui:define>
 
     <ui:define name="content">
 
+        <div></div>
+        
         <h:form>
 
-            <p:dataTable id="tbl" value="#{theUsers.users}" var="item" 
+            <div class="mgmt_table">
+            <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theUsers.selectedUser}" 
                          rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" >
+                         draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUserTitle}"/>
-                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton id="toggler" value="Change columns" style="float:right" class="mgmt_btn" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -94,12 +100,19 @@
                 <p:column headerText="LastGenre">
                     <h:outputText value="#{item.lastGenre}"/>
                 </p:column>
+                <p:column headerText="Total Sales">
+                    $<h:outputText value="#{theUsers.getTotalSalesByUser(item)}" >
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false"/>
+                    <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
                 </f:facet>   
 
             </p:dataTable>
+                
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

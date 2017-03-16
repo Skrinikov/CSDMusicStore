@@ -1,0 +1,47 @@
+
+
+<ui:composition
+    template="/WEB-INF/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="windowTitle">#{bundle.error_page_title}</ui:define>
+
+    <ui:define name="content" >
+        
+
+        <div class="container">
+            <div class="row text-center top-buffer">
+                <div class="col-md-9 col-xs-12">
+                    <div class="text-center" style=" margin-top: 70px;">
+                        <h1>#{bundle.error_page_header}</h1>
+                        <h2>#{bundle.error_page_subheader}</h2>
+                        
+                        <p:outputLabel  style="margin-top: 15px;">
+                            <h4 style="font-weight: bold">#{bundle.error_page_message}</h4>
+                        </p:outputLabel>
+
+                        
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+
+                    <div >
+                        <!-- Image of 404 -->
+                        <p:graphicImage name="images/record-404.png" />
+                    </div>
+
+                </div>
+            </div>           
+            
+            
+        </div>
+        
+
+    </ui:define>
+
+</ui:composition>
+

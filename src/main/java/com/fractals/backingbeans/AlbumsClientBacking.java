@@ -75,15 +75,15 @@ public class AlbumsClientBacking implements Serializable {
     public void init() {
         reviews = new ArrayList<>();
 
-        album = albumControl.findAlbum(albumId);
-
-        if (album == null) {
+        
+        if (albumId == null) {
             log.info("Album is NULL");
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            String outcome = "/temp.xhtml"; // Maybe change to a Album 404 page.
+            String outcome = "/error.xhtml";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
         } else {
 
+            album = albumControl.findAlbum(albumId);
             similarAlbums = albumControl.getSimilarAlbums(album, 3);
 
             // Thai Vu I added this, because some albums have no tracks.

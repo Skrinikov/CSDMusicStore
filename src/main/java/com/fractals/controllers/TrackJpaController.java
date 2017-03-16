@@ -239,6 +239,7 @@ public class TrackJpaController implements Serializable {
      * @param count int amount of tracks to return
      * @param random true to return shuffled list
      * @return list of tracks
+     * @author Thai-Vu Nguyen
      */
     public List<Track> findTracksByGenre(Genre genre, int count, boolean random){
         if (genre == null || count <= 0)
@@ -284,11 +285,57 @@ public class TrackJpaController implements Serializable {
     }
     
     /**
+     * Gets a list of similar Tracks to a track
+     * 
+     * @param track Track
+     * @return List of Tracks similar to the passed track
+     * @author Thai-Vu Nguyen
+     */
+    public List<Track> getSimilarTracks(Track track){
+        //By Default, putting putting a limit of 3
+        return getSimilarTracks(track, 3);
+    }
+
+     /**
+     * Selects tracks based on a genre of a Track
+     * 
+     * @param track
+     * @param count amount of tracks to return
+     * @return list of similar tracks
+     * @author Thai-Vu Nguyen
+     */
+    public List<Track> getSimilarTracks (Track track, int count){
+        if (count < 1){
+            return new ArrayList<Track>();
+        }
+        
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Track> query = cb.createQuery(Track.class);
+        Root<Track> root = query.from(Track.class);
+        query.select(root);
+        query.where(cb
+                .and(
+                    cb.equal(root.get("genre"), track.getGenre()),
+                    cb.notEqual(root.get("id"), track.getId())
+                )
+            );
+        
+        List<Track> tracks = em.createQuery(query).getResultList();
+        
+        
+        
+        
+        return getRandomTracks(tracks, count);
+    }
+    
+    /**
      * Takes the list of Tracks, shuffles it 
      * and returns the first Tracks based on the limit
      * @param tracks
      * @param limit
      * @return Randomized List of n limit of Tracks
+     * @author Thai-Vu Nguyen
      */
     private List<Track> getRandomTracks(List<Track> tracks, int limit){
         Collections.shuffle(tracks);
