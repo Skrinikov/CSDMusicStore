@@ -36,7 +36,6 @@ public class SurveyClientBacking implements Serializable{
     @Inject 
     private SurveyJpaController sc; 
     
-    
     /**
      * Will obtain all visible surveys in the database and select 1 random 
      * survey to display to the user. 
