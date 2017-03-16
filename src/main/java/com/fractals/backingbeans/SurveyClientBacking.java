@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Survey;
@@ -60,7 +55,7 @@ public class SurveyClientBacking implements Serializable{
     }
     
     /**
-     * Renuchan,this is not ajax ready. -Danieil
+     * 
      */
     public void selectedOption(SurveyChoice sc)
     {
@@ -91,7 +86,7 @@ public class SurveyClientBacking implements Serializable{
      * Checks if the user has already voted. If he did, then it returns the answers interface.
      * If he did not, returns the option's UI
      * 
-     * @author: Danieil Skrinikov
+     * @author Danieil Skrinikov
      * 
      * @return path to a section.
      */
@@ -100,6 +95,32 @@ public class SurveyClientBacking implements Serializable{
             return OPTIONS;
         }
         return ANSWERS;
-    }    
+    }
+
+    /**
+     * Calculates this choice's popularity and returns a percentage which represents
+     * its total share of the vote.
+     * 
+     * @author Danieil Skrinikov
+     * 
+     * @param choice A choice from the survey.
+     * @return a percentage.
+     */
+    public int getOptionPercentage(SurveyChoice choice){
+        List<SurveyChoice> choices = sur.getSurveyChoices();
+        double max = 0;
+        
+        for(SurveyChoice c : choices){
+            max += c.getNumVotes();
+        }
+        
+        int percentage = (int)((choice.getNumVotes() / max ) * 100);
+        
+        //Just to leave normal padding
+        if(percentage == 0)
+            return 3;
+        
+        return percentage;
+    }
     
 }

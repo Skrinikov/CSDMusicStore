@@ -1,8 +1,5 @@
 package com.fractals.controllers;
 
-import com.fractals.backingbeans.exceptions.IllegalOrphanException;
-import com.fractals.backingbeans.exceptions.NonexistentEntityException;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -15,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fractals.beans.Order;
 import com.fractals.beans.User;
+import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.controllers.exceptions.NonexistentEntityException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;

@@ -2,12 +2,12 @@ package com.fractals.controllers;
 
 import com.fractals.backingbeans.ShoppingCart;
 import com.fractals.backingbeans.UserBacking;
-import com.fractals.backingbeans.exceptions.RollbackFailureException;
 import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
+import com.fractals.controllers.exceptions.RollbackFailureException;
 import com.fractals.converters.LocalDateAttributeConverter;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;

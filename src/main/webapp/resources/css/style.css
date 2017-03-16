@@ -854,6 +854,10 @@ body.navbar-more-show  {
     background-color: #FF7F50;
 }
 
+.custom-price-buttons::before{
+    background-color:#ff571a;
+}
+
 .custom-price-buttons:hover{
     text-decoration: none;
 }
@@ -920,11 +924,6 @@ body.navbar-more-show  {
     color:#a0a0a0;
 }
 
-.album-track-list{
-    padding-left: 2em;
-    padding-right:1em;
-}
-
 .album-track-list tr{
     background-color: #262626;
 }
@@ -958,10 +957,6 @@ body.navbar-more-show  {
 
 .toggle-reviews{
     cursor: pointer;
-}
-
-.toggle-reviews-empty .sub-info{
-    color:#fff;
 }
 
 .toggle-reviews-active{

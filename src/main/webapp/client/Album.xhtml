@@ -1,3 +1,4 @@
+<!-- @author Danieil Skrinikov -->
 <ui:composition
     template="/WEB-INF/templates/master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -9,7 +10,7 @@
     <ui:define name="extra-meta">
 
         <f:metadata>
-            <f:viewParam name="id" value="#{albumsCLBack.albumId}" />            
+            <f:viewParam name="id" value="#{albumsCLBack.albumId}" /> 
             <f:event type="preRenderView" listener="#{albumsCLBack.init}" />
         </f:metadata>
 
@@ -17,94 +18,162 @@
     <ui:define name="windowTitle">#{albumsCLBack.album.title}</ui:define>
 
     <ui:define name="content">
-        <!-- Heading -->
-        <div class="container top-buffer">
+        <f:metadata>
+            <f:viewParam name="id" /> 
+        </f:metadata>
 
-            <div class="row album-header album-row">
-                <div class="col-md-3 col-xs-12">
-                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}" style="max-width: 100%;" styleClass="albumHeader"/>
-                </div>
-                <div class="col-md-9 col-xs-12" style="position:relative;">
-                    <h3>Album</h3>
-                    <h1>#{albumsCLBack.album.title}</h1>
-                    <h4>#{albumsCLBack.album.recordLabel}</h4>
-                    <div class="album-actions">
-                        <h:form>
-                            <h:commandButton action="#{albumsCLBack.addAlbumToCart()}" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" class="btn btn-success">
-                                
-                            </h:commandButton>
-                        </h:form>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row album-additional-information">
-                <p>By #{albumsCLBack.album.artist.name} - #{albumsCLBack.album.tracks.size()} Track(s)</p>
-            </div>
-            <!-- Tracks for this album -->
-
-
-            <div class="row album-tracks album-container">
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Song
-                            </th>
-                            <th>
-                                <span class="fa fa-clock-o"/>
-                            </th>
-                            <th>
-                                Price
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ui:repeat var="track" value="#{albumsCLBack.album.tracks}">                            
-                            <tr>
-                                <td><span class="fa fa-music"></span></td>
-                                <td class="col-md-1">#{track.albumNum}</td>
-                                <td class="col-md-6"><h:link outcome="Track" value="#{track.title}"><f:param name="id" value="#{track.id}"/></h:link></td>
-                                <td class="col-md-1">#{track.duration}</td>
-                                <td class="col-md-1"><h:form><h:commandButton value="#{trackCLBack.getPrice(track)}" action="#{albumsCLBack.addTrackToCart()}" actionListener="#{albumsCLBack.setSelectedTrack(track)}" class="btn btn-success">
-                        
-                                        </h:commandButton> </h:form></td>
-                                <p:outputPanel rendered="#{albumsCLBack.loggedIn}">
-                                <td class="col-md-1">
-                                    <h:link outcome="Track" value="Review"><f:param name="id" value="#{track.id}"/></h:link>
-                                </td>
-                                </p:outputPanel>
-                            </tr>
-                        </ui:repeat>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Similar albums -->
-            <div class="row top-buffer">
-                <h3 class="similar-albums-header">Similar Albums</h3>             
-            </div>    
-            <div class="row text-center" style="margin-bottom: 20px;">
-
-                <ui:repeat var="album" value="#{albumsCLBack.similarAlbums}">
-                    <div class="col-md-4 col-xs-12 similar-albums small-margin-bottom">
-                        <div class="similar-albums-inner">
-                            <h:link outcome="Album">
-                                <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(album)}"/>
-                                <h3>#{album.title}</h3>
-                                <h5>#{album.artist.name}</h5>
-                                <h6>#{album.releaseDate}</h6>
-                                <f:param name="id" value="#{album.id}"/>
-                            </h:link>
+        <!-- Header -->
+        <p:outputPanel styleClass="jumbotron album-jumbotron">
+            <div class="row album-presentation-outer">
+                <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+                    <div class="album-presentation-inner">
+                        <h1><span class="orange">~</span>#{albumsCLBack.album.title}<span class="orange">~</span></h1>
+                        <hr/>
+                        <div class="row album-info">
+                            <div class="col-md-2 col-xs-12">
+                                <h3>#{albumsCLBack.album.artist.name}</h3>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <h:form>
+                                    <p:commandLink value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(albumsCLBack.album)}" update="shop-cart shop-cart-2"/>
+                                </h:form>
+                            </div>
                         </div>
                     </div>
-                </ui:repeat>
+                </div>
             </div>
-        </div>
+        </p:outputPanel>
+        <!-- Content -->
+        <p:outputPanel styleClass="album-content" style="margin-top:0;">
+            <div class="container">
+                <div clas="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="info">
+                            <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}" style="width:100%;"/>
+                            <h4>#{albumsCLBack.album.artist.name} - <span class="darker-color">#{albumsCLBack.album.title}</span></h4>
+                            <p>#{albumsCLBack.album.recordLabel} - #{albumsCLBack.album.tracks.size()} Song(s)</p>
+                            <ul>
+                                <li>
+                                    <span class="sub-info">Genre:</span>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
+                                        <span>#{albumsCLBack.album.tracks.get(0).genre.name}</span>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
+                                        <span>N/E</span>
+                                    </ui:fragment>
+                                </li>
+                                <li>
+                                    <span class="sub-info">Release Date:</span>
+                                    <span>#{albumsCLBack.album.releaseDate}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                   
+
+                    <!-- Album Info -->
+                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
+                        <div class="col-sm-8 col-xs-12">
+                            <h:form>
+                                <div class="album-track-list">
+                                    <p:dataTable var="track" value="#{albumsCLBack.album.tracks}" styleClass="tracks-table">
+                                        <p:column style="padding:0;border:none;">
+                                            <p:panelGrid style="border:none;">
+                                                <p:row style="border:none;border-bottom: solid 3px #0a0a0a;">
+                                                    <p:column styleClass="col-md-1 text-center toggle-reviews" style="border:none;" colspan="3">
+                                                        <span class="fa fa-music sub-info"></span>
+                                                    </p:column>
+                                                    <p:column styleClass="col-md-7 col-xs-6" style="border:none;" colspan="7">
+                                                        <h:outputText value="#{track.albumNum} - #{track.title}" />
+                                                    </p:column>
+                                                    <p:column styleClass="col-md-2" style="border:none;" colspan="2">
+                                                        <h:outputText value="#{track.duration}"/>
+                                                    </p:column>
+                                                    <p:column styleClass="col-md-2" style="border:none;" colspan="2">
+
+                                                        <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}" update="shop-cart shop-cart-2"/>
+
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row style="display:none; border-bottom: solid 3px #0a0a0a;">
+                                                    <p:column colspan="12" class="review-container" style="border:none;">
+                                                        <ui:fragment rendered="#{track.reviews.size() > 0}">
+
+                                                            <ui:repeat var="review" value="#{track.reviews}">
+                                                                <ui:fragment rendered="#{review.approved}">
+                                                                    <div class="review">
+                                                                        <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                                                        <p>#{review.text}</p>
+                                                                    </div>   
+                                                                </ui:fragment>
+                                                            </ui:repeat>
+
+                                                        </ui:fragment>
+                                                        <ui:fragment rendered="#{login.loggedIn}">
+
+                                                            <div class="leave-review">
+                                                                <div>
+                                                                    <span>Rating: </span>
+                                                                    <div class="rating-stars-container" >
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                        <span class="fa fa-star-o rating-star"></span>
+                                                                    </div>
+                                                                    <h:inputHidden binding="#{rating}" required="true">
+                                                                        <f:validateLongRange minimum="1" maximum="5" />
+                                                                    </h:inputHidden>
+                                                                </div>
+
+                                                                <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" required="true">
+                                                                    <f:validateLength minimum="1" maximum="2000"/>
+                                                                </p:inputTextarea>
+
+                                                                <p:commandLink value="Submit" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                                                            </div>                                                              
+
+                                                        </ui:fragment>                                                   
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </h:form>
+                        </div>
+                    </ui:fragment>
+
+
+                    <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="album-track-list">
+                                No Tracks
+                            </div>                                
+                        </div>
+                    </ui:fragment>
+                </div>                          
+            </div>
+
+            <!-- Similar albums -->
+            <div class="similar-albums top-buffer" style="background:#1a1a1a;">               
+                <div class="container">
+                    <h1>Similar albums</h1>
+                    <div class="row">
+                        <ui:repeat var="sAlbum" value="#{albumsCLBack.similarAlbums}">
+                            <div class="col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-0" style="padding:40px;">
+                                <h:link outcome="Album">
+                                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(sAlbum)}" style="width:100%;"/>
+                                    <f:param name="id" value="#{sAlbum.id}"/>
+                                </h:link>
+                                <h4 style="color:#FF7F50;margin-bottom:0;">#{sAlbum.title}</h4>
+                                <h5 style="color:#aaa;">#{sAlbum.artist.name}</h5>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </div>
+
+        </p:outputPanel>
     </ui:define> 
 
 </ui:composition>

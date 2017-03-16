@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import java.io.Serializable;
@@ -14,6 +9,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -309,6 +305,14 @@ public class TrackJpaController implements Serializable {
             return new ArrayList<Track>();
         }
         
+     * Randomly selects tracks which are on special and returns them as a List
+     * 
+     * @param count amount of tracks to return. 
+     * @return List of tracks.
+     */
+    public List<Track> getSpecials(int count){
+        if(count < 1)
+            return null;
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Track> query = cb.createQuery(Track.class);
@@ -323,10 +327,8 @@ public class TrackJpaController implements Serializable {
         
         List<Track> tracks = em.createQuery(query).getResultList();
         
-        
-        
-        
-        return getRandomTracks(tracks, count);
+        query.where(cb.greaterThan(root.<Double>get(Track_.salePrice), 0.0));
+        return getRandomTracks(em.createQuery(query).getResultList(), count);
     }
     
     /**

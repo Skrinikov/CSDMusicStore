@@ -103,6 +103,20 @@ $(document).ready(function () {
         
         $(this).parent().addClass("rating-stars-container-selected");
     });
+    
+    $('.cover-image').on("mouseenter", function(){
+       $(this).siblings().eq(0).fadeIn();
+    });
+    
+    $('.image-overlay').on("mouseleave",function(){
+        $(this).fadeOut();
+    });
+    
+    $('#no-downloads-container').children().each(function() {
+        $(this).fadeIn(3000);
+    });
+    
+    $('#downloads-container').fadeIn(3000);
 
 });
 

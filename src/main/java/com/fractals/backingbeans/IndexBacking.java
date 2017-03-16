@@ -9,6 +9,7 @@ import com.fractals.controllers.RssFeedController;
 import com.fractals.controllers.TrackJpaController;
 import com.fractals.rss.FeedMessage;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -26,6 +27,8 @@ import javax.inject.Named;
 @RequestScoped
 public class IndexBacking {
     
+    private static final Logger log = Logger.getLogger("IndexBacking.class");
+    
     // Controllers
     @Inject
     private RssFeedController rss;
@@ -42,6 +45,7 @@ public class IndexBacking {
     private List<Genre> genres;
     private List<Track> newTracks;
     private List<Track> trackedTracks;
+    private List<Track> specialsTracks;
     private List<Album> trackedAlbums;
     private Genre trackedGenre;
     
@@ -52,7 +56,8 @@ public class IndexBacking {
     public void init(){
         rssMsgs = rss.getVisibleFeed();
         genres = genre.findGenreEntities();
-        newTracks = tracks.getMostRecentTracks(3); 
+        newTracks = tracks.getMostRecentTracks(3);
+        specialsTracks = tracks.getSpecials(4);            
     }
     
     /**
@@ -122,4 +127,11 @@ public class IndexBacking {
         return tracker.isGenreSaved();
     }
 
+    public List<Track> getSpecialsTracks() {
+        return specialsTracks;
+    }
+
+    public void setSpecialsTracks(List<Track> specialsTracks) {
+        this.specialsTracks = specialsTracks;
+    }  
 }

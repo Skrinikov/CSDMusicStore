@@ -27,7 +27,7 @@
                  </li>
                 </ui:fragment>
                 <li>
-                    <h:link outcome="/client/shopping_cart.xhtml" >
+                    <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart">
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
                         <f:param name="url" value="#{request.requestURI}#{not empty request.queryString ? '?' : ''}#{request.queryString}"/>
@@ -47,7 +47,7 @@
                 </li>
                 <ui:fragment rendered="#{login.loggedIn}">
                 <li>
-                    <h:link outcome="/downloads/library.xhtml">
+                    <h:link outcome="/client/library.xhtml">
                         <span class="menu-icon fa fa-download"></span>
                         #{bundle.downloadMenu}
                     </h:link>
@@ -100,7 +100,7 @@
                
                 <ui:fragment rendered="#{login.loggedIn}">
                 <li class="hidden-xs">
-                    <h:link outcome="/downloads/library.xhtml">
+                    <h:link outcome="/client/library.xhtml">
                         <span class="menu-icon fa fa-download"></span>
                         Downloads
                     </h:link>
@@ -115,7 +115,7 @@
                 </li>
                 
                 <li class="hidden-xs">
-                    <h:link outcome="/client/shopping_cart.xhtml" >
+                    <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart-2">
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
                         <f:param name="url" value="#{request.requestURI}#{not empty request.queryString ? '?' : ''}#{request.queryString}"/>
