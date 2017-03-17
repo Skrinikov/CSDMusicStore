@@ -39,6 +39,7 @@ import org.junit.Ignore;
  *
  * @author Danieil Skrinikov
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class ReportsControllerTest {
 

@@ -133,10 +133,15 @@ public class BrowseGenreBacking {
         Map<String, String> params =FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
         
+        
         //possiblilty of the user entering invalid values in query string
         try{
+            //default value if an integer is invalid
+            String idStr = params.get("id");
+            if(idStr == null || !idStr.matches("^[1-9]+[0-9]*$"))
+                return tjc.findTracksByGenre(gjc.findGenre(1), tjc.getTrackCount(), true);
             
-            int id = Integer.parseInt(params.get("id"));
+            int id = Integer.parseInt(idStr);
             return tjc.findTracksByGenre(gjc.findGenre(id), tjc.getTrackCount(), true);
                
         }catch(IllegalArgumentException ex){
@@ -145,6 +150,22 @@ public class BrowseGenreBacking {
             Logger.getLogger(BrowseGenreBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null; 
+    }
+    
+    /**
+     * Returns the name of the genre currently stored in the cookie.
+     * @return the name of the genre currently stored in the cookie.
+     */
+    public String getCookieGenre() {
+        Map<String, String> params =FacesContext.getCurrentInstance().
+                   getExternalContext().getRequestParameterMap();
+        String idStr = params.get("id");
+        String genre;
+        if(idStr == null || !idStr.matches("^[1-9]+[0-9]*$"))
+            genre =  gjc.findGenre(1).getName();
+        else
+            genre = gjc.findGenre(Integer.parseInt(idStr)).getName();
+        return Character.toUpperCase(genre.charAt(0))+genre.substring(1);
     }
  
 }
