@@ -95,13 +95,19 @@ public class BrowseGenreBacking {
      */
     public List<Track> getRecommended()
     {
-        List<Track> list; 
+        List<Track> list = null;
         
-        if(ctc.isCookiesEnabled() && ctc.isGenreSavedInCookie())
-        {
-            list = ctc.getTracks(20, true);
+        try{
+            if(ctc.isCookiesEnabled() && ctc.isGenreSavedInCookie())           
+                list = ctc.getTracks(20, true);           
+        }catch(Exception ex){
+             Logger.getLogger(SurveyClientBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else
+        
+        //if the program wasn't capable of obtain anything about the user 
+        //show popular songs
+        
+        if(list == null)
             list = getTopSellers();
         
         return list;
