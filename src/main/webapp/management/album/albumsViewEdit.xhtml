@@ -28,46 +28,78 @@
 
                 <h:form id="form">
 
-                    <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
-                        <h:outputText value="Id:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
-                        <h:outputText value="Title:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
-                        <h:outputText value="ReleaseDate:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
-                        <h:outputText value="RecordLabel:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
-                        <h:outputText value="NumTracks:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
-                        <h:outputText value="CreatedAt:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/>
-                        <h:outputText value="CostPrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
-                        <h:outputText value="ListPrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
-                        <h:outputText value="SalePrice:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
-                        <h:outputText value="RemovedAt:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
-                        <h:outputText value="Available:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
-                        <h:outputText value="Artist:"/>
-                        <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
+                    <h:panelGroup  rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
 
-                        <h:outputText value="Tracks:"/>
-                        <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
-                            <p:column headerText="Id">
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>              
-                        </p:dataTable>
+                        <div class="form-group row">
+                            <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="ReleaseDate:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="RecordLabel:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="NumTracks:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="CreatedAt:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/> 
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="CostPrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="ListPrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="SalePrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="RemovedAt:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputText value="Available:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
+                        </div>
 
-                        <h:outputText value="Total Sales :"/>
-                        <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
-                            <f:convertNumber maxFractionDigits="2"/>
-                        </h:outputText>
+                        <div class="form-group row">
+                            <h:outputText value="Artist:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
+                        </div>
 
-                        <p:commandButton action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
-                        <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form">
+                        <div class="form-group row">
+                            <h:outputText value="Tracks:" class="control-label mgmt_detail_label col-sm-3"/>
+                            <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>              
+                            </p:dataTable>
+                        </div>
+
+                        <div class="form-group row">
+                            <h:outputText value="Total Sales :"  class="control-label mgmt_detail_label col-sm-3"/>
+                            <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
+                                <f:convertNumber maxFractionDigits="2"/>
+                            </h:outputText>
+                        </div>
+
+
+
+                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.delete()}" value="Delete" update="form">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -76,7 +108,7 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>       
 
-                    </h:panelGrid>
+                    </h:panelGroup>
 
                     <h:panelGrid columns="2" rendered="#{theAlbums.editable and not empty theAlbums.selectedAlbum}">
                         <p:outputLabel value="Id:" for="id" />
@@ -109,8 +141,8 @@
                                 <h:outputText value="#{a.name}" />
                             </p:column>
                         </p:selectOneMenu> 
-
-                        <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form">
+                        
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.edit()}" value="Save" update="form">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -119,7 +151,7 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>   
 
-                        <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" ajax="false"/>
+                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeUneditable()}" value="Cancel" ajax="false"/>
 
                     </h:panelGrid>
 
@@ -128,7 +160,7 @@
                     -->                
                 </h:form>  
 
-                <p:button value="Return to list" outcome="/management/album/albumsList.xhtml"/>
+                <p:button class="mgmt_btn" value="Return to list" outcome="/management/album/albumsList.xhtml"/>
             </div>
 
         </div>
