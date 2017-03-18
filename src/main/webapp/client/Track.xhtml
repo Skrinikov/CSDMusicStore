@@ -120,7 +120,7 @@
             <!-- Reviews -->
             <div class="container">
                 <ui:fragment rendered="#{trackCLBack.track.reviews.size() > 0}">
-                <h1 class="text-center" style="text-transform: uppercase; color:#00c49e;">#{bundle.tracks_reviews}</h1>                
+                <h1 class="text-center" style="text-transform: uppercase; color:#00c49e;padding-top:50px;">#{bundle.tracks_reviews}</h1>                
                 <div class="row top-buffer track-reviews">                  
 
                         <ui:repeat var="review" value="#{trackCLBack.track.reviews}">
@@ -158,7 +158,7 @@
                                 <f:validateLength minimum="1" maximum="2000"/>
                             </p:inputTextarea>
 
-                            <p:commandLink value="Submit" style="margin-top:10px;" styleClass="hvr-rectangle-out custom-price-buttons text-center" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                            <p:commandLink value="#{bundle.tracks_submit}" style="margin-top:10px;" styleClass="hvr-rectangle-out custom-price-buttons text-center" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
                         </div>                                                              
 
                     </ui:fragment>

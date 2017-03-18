@@ -262,6 +262,10 @@ body.navbar-more-show  {
     margin-bottom: 0;
 }
 
+.similar-albums{
+    font-family: 'Raleway', sans-serif;
+}
+
 .similar-albums img{
     max-width: 100%;
     display:block;
@@ -1026,3 +1030,14 @@ body.navbar-more-show  {
 .ui-datatable table, .ui-datatable table > tbody > tr, .ui-datatable table > tbody,.ui-panelgrid .ui-panelgrid-cell, .ui-datatable tbody td{
     border:none;
 }
+
+.album-track-link{
+    color:#fff;
+    transition: color 0.25s;
+}
+
+.album-track-link:hover{
+    color:#FF7F50;
+    text-decoration: none;
+}
+
