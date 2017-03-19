@@ -10,6 +10,10 @@
         <h:outputText value="#{bundle.ListBannerAdTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+    
     <ui:define name="content">
 
         <h:form>
@@ -23,7 +27,7 @@
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListBannerAdTitle}"/>
-                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -44,8 +48,8 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Create" icon="ui-icon-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
-                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
+                    <p:commandButton class="mgmt_btn" value="Create" icon="fa fa-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
+                    <p:commandButton class="mgmt_btn" value="Detail" icon="fa fa-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
                 </f:facet>  
 
             </p:dataTable>

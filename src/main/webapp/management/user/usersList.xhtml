@@ -24,7 +24,7 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theUsers.selectedUser}" 
-                         rowKey="#{item.id}"
+                         rowKey="#{item.id}" reflow="true"
                          draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
