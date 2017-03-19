@@ -21,7 +21,7 @@
         <h:form id="form">
 
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
-            <div class="container">
+        
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
@@ -98,7 +98,7 @@
                     </f:facet>
                 </p:dataTable>
             </h:panelGroup>
-            </div>
+           
         </h:form>
 
         <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
