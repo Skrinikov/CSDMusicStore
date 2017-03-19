@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.fractals.beans.User;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.Order_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -209,6 +212,24 @@ public class OrderJpaController implements Serializable {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    /**
+     * Returns all orders for the specific user.
+     * @param u A user, whose orders are queried.
+     * @return all orders for the specific user.
+     */
+    public List<Order> findOrdersByUser(User u) {
+        if(u == null)
+            throw new NullPointerException();
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Order> cqO = cb.createQuery(Order.class);      
+        Root<Order> order = cqO.from(Order.class);       
+        cqO.where(cb.equal(order.get(Order_.user), u));
+        TypedQuery<Order> tqO = em.createQuery(cqO);      
+        return (List<Order>)tqO.getResultList();  
     }
 }
 

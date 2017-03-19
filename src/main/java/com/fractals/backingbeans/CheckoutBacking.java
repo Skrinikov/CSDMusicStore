@@ -1,5 +1,11 @@
 package com.fractals.backingbeans;
 
+import com.fractals.beans.Album;
+import com.fractals.beans.Order;
+import com.fractals.beans.OrderItem;
+import com.fractals.beans.Track;
+import com.fractals.beans.User;
+import com.fractals.controllers.OrderJpaController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,7 +27,7 @@ import javax.inject.Named;
  * the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 16/03/2017
+ * @version 19/03/2017
  * @since 1.8
  */
 @Named("checkout")
@@ -29,6 +35,12 @@ import javax.inject.Named;
 public class CheckoutBacking implements Serializable {
     @Inject
     private CreditCard credit;
+    @Inject
+    private ShoppingCart cart;
+    @Inject
+    private LoginBacking login;
+    @Inject
+    private OrderJpaController orderJpa;
     
     private List<String> brands;
     private boolean isVisa = false;
@@ -42,10 +54,10 @@ public class CheckoutBacking implements Serializable {
      */
     @PostConstruct
     public void init() {
+        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
         brands = new ArrayList<>();
         brands.add("Visa");
-        brands.add("MasterCard");
-        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
+        brands.add("MasterCard");      
         credit.setBrand("MasterCard");
     }
 
@@ -137,5 +149,49 @@ public class CheckoutBacking implements Serializable {
             }
         }
         return sum % 10 == 0;
+    }
+    
+    /**
+     * Verifies if some items in the cart were already bought before.
+     * If they were, these items are deleted and the user gets the 
+     * warning message.
+     * If all items are deleted, the user is redirected to the shopping cart page
+     * with the error message.
+     * @return the page to redirect to or null to stay on the same page.
+     */
+    public String checkIfItemsBoughtBefore() {
+        List<Track> tracks = cart.getAllTracks();
+        List<Album> albums = cart.getAllAlbums();
+        User user = login.getCurrentUser();
+        List<Order> orders = orderJpa.findOrdersByUser(user);
+        String removed = "";
+        for(Order o : orders) {
+            for(OrderItem oi : o.getOrderItems()) {
+                Album a = oi.getAlbum();
+                Track t = oi.getTrack();
+                if(a != null && albums.contains(a)) {
+                    removed += a.getTitle() + " ";
+                    albums.remove(a);
+                }
+                if(t != null && tracks.contains(t)) {
+                    removed += t.getTitle() + " ";
+                    tracks.remove(t);
+                }
+            }
+        }
+        if(cart.isEmpty()) {
+            String message = bundle.getString("bought_items_err")+ ": " + removed;
+            cart.setErrorMsg(message);
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/client/shopping_cart.xhtml");
+            } catch (IOException io) {
+                log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
+            }
+        }
+        if(!removed.isEmpty()) {
+            FacesMessage message = new FacesMessage(bundle.getString("bought_items_err")+ ": " + removed);
+            FacesContext.getCurrentInstance().addMessage("checkoutForm", message);
+        }
+        return null;
     }
 }

@@ -11,6 +11,7 @@
     <ui:define name="extra-meta">
         <f:metadata>
             <f:viewParam name="url" value="#{cart.url}" /> 
+            <f:event type="preRenderView" listener="#{cart.setError()}" />
         </f:metadata>
     </ui:define>
     
@@ -24,44 +25,45 @@
                 <h2 class="centerText a-header">#{bundle.shopcart}</h2>
             </div>
             <div class="panel-body">
+                <h:message  class="error text-center space" for="cart-form" id="cartFormMessage" />
                 <ui:fragment rendered="#{cart.all.size() != 0}">
-                    <h:form id="cart-form">
-                    <h:dataTable value="#{cart.all}" var="item" id="cart-table"
-                                 class="table  table-hover table-cart table-condensed">
-                        <h:column>    
-                            <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="width: 45%"/>
-                         </h:column>
-                        <h:column>    				
-                            <f:facet name="header">#{bundle.type}</f:facet>    				
-                            #{cart.getType(item)}
-                         </h:column>
-                         <h:column>
-                            <f:facet name="header">#{bundle.title}</f:facet>
-                            <h:link outcome="#{cart.getDetailsLink(item)}" includeViewParams="true">
-                                <f:param name="id" value="#{item.id}"/>
-                                #{item.title}
-                            </h:link>
-                         </h:column>
-                         <h:column>
-                            <f:facet name="header">#{bundle.artist}</f:facet>
-                            #{cart.getArtist(item)}
-                         </h:column>
-                         <h:column>
-                            <f:facet name="header">#{bundle.price}</f:facet>
-                             <ui:fragment rendered="#{item.salePrice == 0}">
-                                 <h:outputText value="$#{item.listPrice}"></h:outputText>
-                             </ui:fragment>
-                            <ui:fragment rendered="#{item.salePrice > 0}">
-                                 <h:outputText value="$#{item.salePrice}"></h:outputText>
-                             </ui:fragment>
-                         </h:column>
-                        <h:column id="col-remove">                      
-                            <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default #{item.id}">
-                                <f:ajax execute="@all" render="@all"/>
-                                <i class="glyphicon glyphicon-trash"></i>                 
-                            </h:commandLink>
-                        </h:column>
-                    </h:dataTable>
+                    <h:form id="cart-form">                       
+                        <h:dataTable value="#{cart.all}" var="item" id="cart-table"
+                                     class="table  table-hover table-cart table-condensed">
+                            <h:column>    
+                                <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="width: 45%"/>
+                             </h:column>
+                            <h:column>    				
+                                <f:facet name="header">#{bundle.type}</f:facet>    				
+                                #{cart.getType(item)}
+                             </h:column>
+                             <h:column>
+                                <f:facet name="header">#{bundle.title}</f:facet>
+                                <h:link outcome="#{cart.getDetailsLink(item)}" includeViewParams="true">
+                                    <f:param name="id" value="#{item.id}"/>
+                                    #{item.title}
+                                </h:link>
+                             </h:column>
+                             <h:column>
+                                <f:facet name="header">#{bundle.artist}</f:facet>
+                                #{cart.getArtist(item)}
+                             </h:column>
+                             <h:column>
+                                <f:facet name="header">#{bundle.price}</f:facet>
+                                 <ui:fragment rendered="#{item.salePrice == 0}">
+                                     <h:outputText value="$#{item.listPrice}"></h:outputText>
+                                 </ui:fragment>
+                                <ui:fragment rendered="#{item.salePrice > 0}">
+                                     <h:outputText value="$#{item.salePrice}"></h:outputText>
+                                 </ui:fragment>
+                             </h:column>
+                            <h:column id="col-remove">                      
+                                <h:commandLink id="cart-remove" action="#{cart.remove(item)}" class="btn btn-default #{item.id}">
+                                    <f:ajax execute="@all" render="@all"/>
+                                    <i class="glyphicon glyphicon-trash"></i>                 
+                                </h:commandLink>
+                            </h:column>
+                        </h:dataTable>
                     </h:form>            
                     
                     <div class="text-center">

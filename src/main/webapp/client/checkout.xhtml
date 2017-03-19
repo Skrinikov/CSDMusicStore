@@ -9,6 +9,10 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{checkout.checkIfItemsBoughtBefore()}" />
+        </f:metadata>
+    
     <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
     
     <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -20,7 +21,7 @@ import javax.inject.Named;
  * and backing the appropriate page.
  *
  * @author Aline Shulzhenko
- * @version 16/03/2017
+ * @version 19/03/2017
  * @since 1.8
  */
 @Named("cart")
@@ -29,7 +30,25 @@ public class ShoppingCart implements Serializable{
     private List<Album> albums = new ArrayList<>();
     private List<Track> tracks = new ArrayList<>();
     private  String url;
+    private String errorMsg;
+    
     private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("ShoppingCart.class");
+    
+    /**
+     * Returns the error message for the shopping cart.
+     * @return the error message for the shopping cart.
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * Sets the error message for the shopping cart.
+     * @param errorMsg The error message for the shopping cart.
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }    
 
     /**
      * Returns the list of all tracks in the shopping cart.
@@ -76,6 +95,7 @@ public class ShoppingCart implements Serializable{
      * @return the list of all objects in the shopping cart.
      */
     public List<Object> getAll() {
+        errorMsg = "";
         List<Object> items = new ArrayList<>();
         for(Album a : albums)
             items.add(a);
@@ -194,6 +214,14 @@ public class ShoppingCart implements Serializable{
      */
     public boolean isEmpty() {
         return albums.isEmpty() && tracks.isEmpty();
+    }
+    
+    /**
+     * Sets the error message to the shopping cart
+     */
+    public void setError() {
+        FacesMessage message = new FacesMessage(errorMsg);
+        FacesContext.getCurrentInstance().addMessage("cart-form", message);
     }
     
     /**
