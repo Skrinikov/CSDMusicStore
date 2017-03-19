@@ -10,40 +10,68 @@
         <h:outputText value="#{bundle.ListGenreTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+
     <ui:define name="content">
 
-        <h:outputText value="nothing selected" rendered="#{empty theGenres.selectedGenre}"/>
+        <div class="container newContainer">
+            <div class="panel-heading">
+                <h1>Genre Details</h1>
+            </div>
+        </div>
+
+        <h:panelGroup rendered="#{empty theGenres.selectedGenre}">
+            <h:outputText value="nothing selected" />
+            <div class="row">
+                <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+            </div>
+
+        </h:panelGroup>
+
+
 
         <h:form>
 
-            <h:panelGrid columns="2" rendered="#{not theGenres.editable and not empty theGenres.selectedGenre}">
+            <h:panelGroup  rendered="#{not theGenres.editable and not empty theGenres.selectedGenre}">
+                <div class="container newContainer">
+                    <div class="form-group row">
+                        <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
+                        <h:outputText value="#{theGenres.selectedGenre.id}" title="Id"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
+                        <h:outputText value="#{theGenres.selectedGenre.name}" title="Name"/>
+                    </div>
+                    <p:commandButton class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
+                    <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
+                    <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+                </div>
 
-                <h:outputText value="Id:"/>
-                <h:outputText value="#{theGenres.selectedGenre.id}" title="Id"/>
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{theGenres.selectedGenre.name}" title="Name"/>
+            </h:panelGroup>
 
-                <p:commandButton action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton action="#{theArtists.delete()}" value="Delete" ajax="false"/>
 
-            </h:panelGrid>
+            <h:panelGroup rendered="#{theGenres.editable and not empty theGenres.selectedGenre}">
+                <div class="container newContainer">
+                    <h:panelGrid columns="2" >
 
-            <h:panelGrid columns="2" rendered="#{theGenres.editable and not empty theGenres.selectedGenre}">
-               
-                <p:outputLabel value="Id:" for="id" />
-                <p:inputText id="id" value="#{theGenres.selectedGenre.id}" title="Id" disabled="true"/>
-                <p:outputLabel value="Name:" for="name" />
-                <p:inputText id="name" value="#{theGenres.selectedGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                        <p:outputLabel value="Id:" for="id" />
+                        <p:inputText id="id" value="#{theGenres.selectedGenre.id}" title="Id" disabled="true"/>
+                        <p:outputLabel value="Name:" for="name" />
+                        <p:inputText id="name" value="#{theGenres.selectedGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
 
-                <p:commandButton action="#{theGenres.edit()}" value="Save" ajax="false"/>
-                <p:commandButton action="#{theGenres.makeUneditable()}" value="Cancel" ajax="false"/>
+                        <p:commandButton class="mgmt_btn" action="#{theGenres.edit()}" value="Save" ajax="false"/>
+                        <p:commandButton class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="Cancel" ajax="false"/>
 
-            </h:panelGrid>
-
+                    </h:panelGrid>
+                    <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+                </div>
+            </h:panelGroup>
 
         </h:form>  
 
-        <p:button value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+
 
     </ui:define>
 </ui:composition>
