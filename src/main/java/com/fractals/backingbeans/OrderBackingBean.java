@@ -7,8 +7,10 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.Province;
 import com.fractals.controllers.OrderItemJpaController;
 import com.fractals.controllers.OrderJpaController;
+import com.fractals.controllers.ProvinceController;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -43,6 +45,8 @@ public class OrderBackingBean implements Serializable {
     public String deleteOrderItem(OrderItem o) throws Exception {
         o.setCancelled(true);
         orderItemJpaController.edit(o);
+        Order order = changeNetCost(o.getOrder());
+        orderJpaController.edit(order);
         return "/management/order/ordersViewEdit";
     }
     
@@ -52,6 +56,11 @@ public class OrderBackingBean implements Serializable {
             o.setCancelled(true);
             orderItemJpaController.edit(o);
         }
+        if(!allItems.isEmpty()) {
+            Order order = changeNetCost(allItems.get(0).getOrder());
+            orderJpaController.edit(order);
+        }
+        
         return "/management/order/ordersViewEdit";      
     }
     
@@ -76,5 +85,23 @@ public class OrderBackingBean implements Serializable {
         selectedOrder = null;
         selectedOrderItem = null;
         return "/management/order/ordersList.xhtml";
+    }
+    
+    /**
+     * Changes net and gross costs if an order or order items were cancelled.
+     * @param order The order to modify.
+     */
+    private Order changeNetCost(Order order) {
+        double newNet = 0;
+        for(OrderItem oi : order.getOrderItems()) {
+            if (!oi.isCancelled())
+                newNet += oi.getCost();
+        }
+        order.setNetCost(newNet);
+        Province province = order.getUser().getProvince();
+        double newGross = newNet + newNet*province.getGst() + newNet*province.getHst() + newNet*province.getPst();
+        order.setGrossCost(Math.round(newGross*100000)/100000.0);
+        selectedOrder = order;
+        return order;
     }
 }
