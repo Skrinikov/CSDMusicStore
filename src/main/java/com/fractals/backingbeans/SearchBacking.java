@@ -23,13 +23,12 @@ import javax.inject.Named;
  * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
- * @version 08/03/2017
+ * @version 19/03/2017
  * @since 1.8
  */
 @Named("search")
 @SessionScoped
 public class SearchBacking implements Serializable {
-    private List<String> options;
     private List<Album> albums;
     private List<Track> tracks;
     
@@ -81,10 +80,18 @@ public class SearchBacking implements Serializable {
     
     /**
      * Returns the list of queried albums.
-     * @return  the list of queried albums.
+     * @return the list of queried albums.
      */
     public List<Album> getAlbums() {
         return albums;
+    }
+    
+    /**
+     * Sets the list of queried albums.
+     * @param albums The list of queried albums.
+     */
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
     }
     
     /**
@@ -93,6 +100,14 @@ public class SearchBacking implements Serializable {
      */
     public List<Track> getTracks() {
         return tracks;
+    }
+    
+    /**
+     * Returns the list of queried tracks.
+     * @param tracks The list of queried tracks.
+     */
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
     
     /**
@@ -125,14 +140,6 @@ public class SearchBacking implements Serializable {
      */
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
-    }
-    
-    /**
-     * Returns all available search options.
-     * @return all available search options.
-     */
-    public List<String> getOptions() {
-        return options;
     }
     
     /**
@@ -186,21 +193,21 @@ public class SearchBacking implements Serializable {
         if(key != null) {
             LocalDateTime from = LocalDateTime.ofInstant(dateStart.toInstant(), ZoneId.systemDefault());
             LocalDateTime to = LocalDateTime.ofInstant(dateEnd.toInstant(), ZoneId.systemDefault());
-
+            
             if(from.isAfter(to)) {
                 FacesMessage message = new FacesMessage(bundle.getString("date_seq_error"));
                 FacesContext.getCurrentInstance().addMessage("searchForm", message);
             }
             else {
-                if(choice.equals(options.get(0)))
+                if(choice.equals(bundle.getString("search_album")))
                     albums = jpa.searchByAlbumTitle(key);
-                else if(choice.equals(options.get(1)))
+                else if(choice.equals(bundle.getString("search_track")))
                     tracks = jpa.searchByTrackName(key);
-                else if(choice.equals(options.get(2))) {
+                else if(choice.equals(bundle.getString("search_date"))) {
                     albums = jpa.searchByDateAlbums(from, to);
                     tracks = jpa.searchByDateTracks(from, to);
                 }
-                else if(choice.equals(options.get(3))) {
+                else if(choice.equals(bundle.getString("search_artist"))) {
                     albums = jpa.searchByArtistNameAlbums(key);
                     tracks = jpa.searchByArtistNameTracks(key);
                 }
@@ -222,7 +229,7 @@ public class SearchBacking implements Serializable {
         dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
         dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         key = "";
-        dateSelected = choice.equals(options.get(2));
+        dateSelected = choice.equals(bundle.getString("search_date"));
     }
 
     
@@ -234,26 +241,16 @@ public class SearchBacking implements Serializable {
        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
        albums = new ArrayList<>();
        tracks = new ArrayList<>();
-       options = new ArrayList<>();
-       options.add(bundle.getString("search_album"));
-       options.add(bundle.getString("search_track"));
-       options.add(bundle.getString("search_date"));
-       options.add(bundle.getString("search_artist"));
        choice = "";     
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-       dateSelected = choice != null ? options.get(2).equals(choice) : false; 
+       dateSelected = choice != null ? bundle.getString("search_date").equals(choice) : false; 
     }
     
     /**
-     * Updates options array in case the locale was changed after the refresh.
+     * Updates the bundle if the locale is changed.
      */
-    public void onload() { 
-       bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
-       options = new ArrayList<>();
-       options.add(bundle.getString("search_album"));
-       options.add(bundle.getString("search_track"));
-       options.add(bundle.getString("search_date"));
-       options.add(bundle.getString("search_artist"));
+    public void onload() {
+        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
     }
 }

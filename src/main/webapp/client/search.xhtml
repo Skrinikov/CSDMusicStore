@@ -32,7 +32,10 @@
                             <h:selectOneMenu id="choice" value="#{search.choice}" required="true" class="form-control">
                                 <f:ajax listener="#{search.onItemSelect()}" render="@all" />
                                 <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
-                                <f:selectItems value="#{search.options}" />
+                                <f:selectItem itemLabel="#{bundle.search_album}" itemValue="#{bundle.search_album}" />
+                                <f:selectItem itemLabel="#{bundle.search_track}" itemValue="#{bundle.search_track}" />
+                                <f:selectItem itemLabel="#{bundle.search_date}" itemValue="#{bundle.search_date}"/>
+                                <f:selectItem itemLabel="#{bundle.search_artist}" itemValue="#{bundle.search_artist}"/>
                             </h:selectOneMenu>
                         </div>       
                         <h:message class="error" for="searchForm" id="searchFormMessage" />  
@@ -42,7 +45,7 @@
                         <h:outputLabel  for="key" rendered="#{!search.dateSelected}" value="#{bundle.search_key}" 
                                         class="control-label col-sm-4"/>
                          <div class="col-sm-4">
-                            <h:inputText  id="key"  rendered="#{!search.dateSelected}"
+                            <h:inputText  id="key"  rendered="#{!search.dateSelected}" requiredMessage="#{bundle.empty_field}"
                                     value="#{search.key}" required="true" class="form-control"/>
                         </div>
                         <h:message id="keyMessage" class="error" for="key" rendered="#{!search.dateSelected}" />
