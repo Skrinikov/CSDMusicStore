@@ -112,6 +112,19 @@
     flex-direction: column;
 }
 
+.newContainer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+    background-color: #fff;
+    color: #121212;
+    margin-top: 2%;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+}
+
 .mgmt-content {
     width: 75%;
     margin-left: auto;
@@ -119,7 +132,7 @@
     opacity: 0.9;
     padding: 25px;
     margin-top: 2%;
-    font-size: 1.2em;
+    
     background-color: #fff;
     color: #121212;
     border-top: 1px solid #333333;

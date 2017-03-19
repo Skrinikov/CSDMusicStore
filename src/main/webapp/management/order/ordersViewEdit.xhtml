@@ -35,14 +35,14 @@
 
                 <!-- Header -->
 
-                <div class="mgmt-content">
+                <div class="container newContainer">
                     <div class="panel-heading">
                         <h1>Order Details</h1>
                     </div>
                 </div>
 
                 
-                <div class="container">
+                <div class="container newContainer" >
                     <div style="margin-bottom: 5px;" >
                         <h:panelGroup>
                             <div class="form-group row"><h:outputText value="Order Id:" class="control-label mgmt_detail_label col-sm-2"/>
@@ -61,7 +61,7 @@
                 </div>
                 
                 
-                <div class="container">
+                <div class="container newContainer">
                     
                     <p:dataTable draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row"  value="#{theOrders.orderItemsOfOrder}" var="item">
                             <p:column headerText="Id" >
