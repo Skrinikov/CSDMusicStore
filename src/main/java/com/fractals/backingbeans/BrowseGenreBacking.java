@@ -65,9 +65,7 @@ public class BrowseGenreBacking {
      */
     public List<Track> getTracksByGenre(Genre genre)
     {
-        int numTracks = 4;
-        return tjc.findTracksByGenre(genre, numTracks, true);
-
+        return tjc.findTracksByGenre(genre, tjc.getTrackCount(), true);
     }   
    
     
