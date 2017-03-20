@@ -239,8 +239,7 @@ public class SearchBacking implements Serializable {
     @PostConstruct
     public void init() {      
        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
-       albums = new ArrayList<>();
-       tracks = new ArrayList<>();
+       
        choice = "";     
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -252,5 +251,13 @@ public class SearchBacking implements Serializable {
      */
     public void onload() {
         bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
+        if(key != null && !key.isEmpty()) {
+            albums = jpa.searchByAlbumTitle(key);
+            tracks = jpa.searchByTrackName(key);
+        }
+        else {
+            albums = new ArrayList<>();
+            tracks = new ArrayList<>();
+        }
     }
 }

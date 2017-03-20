@@ -10,16 +10,17 @@
     
     <f:metadata>
         <f:event type="preRenderView" listener="#{search.onload()}" />
+        <f:viewParam name="key" value="#{search.key}" /> 
     </f:metadata>
     
     <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
     
-    <ui:define name="windowTitle">#{bundle.search}</ui:define>
+    <ui:define name="windowTitle">#{bundle.advanced_search}</ui:define>
 
     <ui:define name="content">
         <div class="a-content">
             <div class="panel-heading">
-                <h2 class="text-center a-header">#{bundle.search}</h2>
+                <h2 class="text-center a-header">#{bundle.advanced_search}</h2>
             </div>
             
             <!-- Search Options -->
@@ -93,7 +94,7 @@
                             <div class="well well-search col-sm-9">
                                 <ui:fragment rendered="#{album.available}">
                                     <b>#{album.title}</b> <br />
-                                    <nobr><i>#{bundle.artist}:&#160;;</i> #{album.artist} </nobr><br />
+                                    <nobr><i>#{bundle.artist}:&#160;</i> #{album.artist} </nobr><br />
                                     <nobr><i>#{bundle.release}:&#160;</i> #{album.releaseDate}</nobr> <br />
                                     <nobr><i>#{bundle.num_tracks}:&#160;</i> #{album.numTracks}</nobr> <br />
                                     <nobr><i>#{bundle.label}:&#160;</i> #{album.recordLabel}</nobr> <br />
