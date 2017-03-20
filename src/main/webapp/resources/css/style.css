@@ -339,7 +339,7 @@ body.navbar-more-show  {
     width: 70%;
     margin-left: auto;
     margin-right: auto;   
-    opacity: 0.9;
+    opacity: 0.92;
     padding: 25px;
     margin-top: 2%;
     font-size: 1.2em;
@@ -404,18 +404,18 @@ body.navbar-more-show  {
 }
 
 
-.btn-blue {
-    color: white;
-    background-color: #2F40B2;
+.btn-search {
+    color: black;
+    background-color: #e0a800; /*#2F40B2*/
     font-size: 1.2em;
     margin: 5px;
     margin-bottom:15px;
     border-radius: 0px;
     padding: 8px 40px;
-    border: 1px solid #2F40B2;
+    border: 1px solid #e0a800;
 }
 
-.btn-blue.focus, .btn-blue:focus, .btn-blue:hover {
+.btn-search.focus, .btn-search:focus, .btn-search:hover {
     color: white;
     background-color:black;
 }
@@ -428,9 +428,6 @@ body.navbar-more-show  {
 }
 
 .well-outer.focus, .well-outer:focus, .well-outer:hover {
-    color: #ffa280;
-    background-color: black;
-    border: none; 
     border-bottom: 1px solid white;
 }
 
@@ -444,14 +441,6 @@ body.navbar-more-show  {
     margin-right: auto;
     table-layout: fixed;
     margin-bottom: 20px;
-}
-
-.table-cart tr.focus, .table-cart tr:focus, .table-cart tr:hover {
-    color: black;
-}
-
-.table-cart  th, .table-cart th, .table-cart th {
-    color: white;
 }
 
 .btn-continue {
@@ -470,13 +459,13 @@ body.navbar-more-show  {
 
 .btn-shop {
     color: black;
-    background-color: #a8e000;
+    background-color: #2F40B2;
     font-size: 1.2em;
     margin: 5px;
     margin-bottom:15px;
     border-radius: 0px;
     padding: 8px 40px;
-    border: 1px solid #a8e000;
+    border: 1px solid #2F40B2;
 }
 
 .btn-shop.focus, .btn-shop:focus, .btn-shop:hover {

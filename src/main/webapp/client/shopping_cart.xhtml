@@ -29,7 +29,7 @@
                 <ui:fragment rendered="#{cart.all.size() != 0}">
                     <h:form id="cart-form">                       
                         <h:dataTable value="#{cart.all}" var="item" id="cart-table"
-                                     class="table  table-hover table-cart table-condensed">
+                                     class="table table-cart table-condensed">
                             <h:column>    
                                 <p:graphicImage name="images/covers/#{cart.getCover(item)}" style="width: 45%"/>
                              </h:column>

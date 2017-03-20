@@ -51,7 +51,7 @@
 .title-header{
     color:#DDD;
     font-family: 'Raleway', sans-serif;
-    border-bottom: solid 4px #3ca7db;
+    border-bottom: solid 4px #2F40B2/*#3ca7db*/;
     display:inline-block;
     padding-right: 20px;
     margin-bottom:1em;
