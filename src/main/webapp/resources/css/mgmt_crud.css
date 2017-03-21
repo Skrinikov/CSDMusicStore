@@ -49,6 +49,17 @@
     color: #fbcdcf;
 }
 
+.mgmt_table_row:hover{
+    background-color: #0fad0f;
+}
+
+
+.ui-state-highlight{
+    background-color: #ec0a0a;
+}
+
+
+
 .ui-columntoggler{
     background-color: #F8F3EE;
 }
