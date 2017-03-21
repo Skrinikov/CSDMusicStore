@@ -70,8 +70,8 @@
                     </p:dataTable>
                 </h:panelGroup>
 
-                <p:commandButton class="mgmt_btn" action="#{theArtists.makeEditable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
+                <p:commandButton class="mgmt_btn" action="#{theArtists.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
+                <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="#{bundle.mgmt_btn_delete}" ajax="false"/>
 
 
             </h:panelGroup>
@@ -82,8 +82,8 @@
                 <p:outputLabel value="Name:" for="name" />
                 <p:inputText id="name" value="#{theArtists.selectedArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
 
-                <p:commandButton class="mgmt_btn" action="#{theArtists.edit()}" value="Save" ajax="false"/>
-                <p:commandButton class="mgmt_btn" action="#{theArtists.makeUneditable()}" value="Cancel" ajax="false"/>
+                <p:commandButton class="mgmt_btn" action="#{theArtists.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
+                <p:commandButton class="mgmt_btn" action="#{theArtists.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
 
             </h:panelGrid>
 
@@ -92,7 +92,7 @@
             
         
 
-            <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
+            <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/artist/artistsList.xhtml"/>
         </div>
     </ui:define>
 </ui:composition>

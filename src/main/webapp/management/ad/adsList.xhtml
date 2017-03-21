@@ -27,7 +27,7 @@
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListBannerAdTitle}"/>
-                    <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -48,8 +48,8 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton class="mgmt_btn" value="Create" icon="fa fa-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
-                    <p:commandButton class="mgmt_btn" value="Detail" icon="fa fa-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
+                    <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
+                    <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
                 </f:facet>  
 
             </p:dataTable>

@@ -98,8 +98,8 @@
 
 
 
-                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeEditable()}" value="Edit" ajax="false"/>                             
-                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.delete()}" value="Delete" update="form">
+                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.delete()}" value="#{bundle.mgmt_btn_delete}" update="form">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -151,7 +151,7 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>   
 
-                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeUneditable()}" value="Cancel" ajax="false"/>
+                        <p:commandButton class="mgmt_btn" action="#{theAlbums.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
 
                     </h:panelGrid>
 
@@ -160,7 +160,7 @@
                     -->                
                 </h:form>  
 
-                <p:button class="mgmt_btn" value="Return to list" outcome="/management/album/albumsList.xhtml"/>
+                <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/album/albumsList.xhtml"/>
             </div>
 
         </div>

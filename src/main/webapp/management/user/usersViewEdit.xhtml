@@ -74,7 +74,7 @@
 
 
 
-                            <p:commandButton icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="Edit" ajax="false"/>                             
+                            <p:commandButton icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
 
 
                         </h:panelGroup>
@@ -123,14 +123,14 @@
                                 <f:selectItems value="#{theGenres.genres}"/>
                             </p:selectOneMenu>
 
-                            <p:commandButton action="#{theUsers.edit()}" value="Save" ajax="false" class="mgmt_btn"/>
-                            <p:commandButton action="#{theUsers.makeUneditable()}" value="Cancel" ajax="false" class="mgmt_btn"/>
+                            <p:commandButton action="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false" class="mgmt_btn"/>
+                            <p:commandButton action="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false" class="mgmt_btn"/>
 
                         </p:panelGrid>
 
                     </h:form>  
 
-                    <p:button icon="fa fa-backward" value="Retour à la liste" outcome="/management/user/usersList.xhtml" class="mgmt_btn"/>
+                    <p:button icon="fa fa-backward" value="#{bundle.mgmt_btn_return_list}" outcome="/management/user/usersList.xhtml" class="mgmt_btn"/>
                 </div>
             </div>
         </div>

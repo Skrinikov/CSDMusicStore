@@ -31,7 +31,7 @@
 
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListGenreTitle}"/>
-                            <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                            <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                             <p:columnToggler datasource="tbl" trigger="toggler" />
                         </f:facet>
 
@@ -44,8 +44,8 @@
 
 
                         <f:facet name="footer">
-                            <p:commandButton value="Create" icon="fa fa-plus" action="/management/genre/genresCreate.xhtml" class="mgmt_btn" ajax="false"/>       
-                            <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/genre/genresViewEdit.xhtml" class="mgmt_btn" ajax="false"/>
+                            <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/genre/genresCreate.xhtml" class="mgmt_btn" ajax="false"/>       
+                            <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/genre/genresViewEdit.xhtml" class="mgmt_btn" ajax="false"/>
                         </f:facet>  
 
                     </p:dataTable>
