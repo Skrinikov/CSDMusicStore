@@ -170,17 +170,17 @@ public class CheckoutBacking implements Serializable {
                 Album a = oi.getAlbum();
                 Track t = oi.getTrack();
                 if(a != null && albums.contains(a)) {
-                    removed += a.getTitle() + " ";
+                    removed += a.getTitle() + ", ";
                     albums.remove(a);
                 }
                 if(t != null && tracks.contains(t)) {
-                    removed += t.getTitle() + " ";
+                    removed += t.getTitle() + ", ";
                     tracks.remove(t);
                 }
             }
         }
         if(cart.isEmpty()) {
-            String message = bundle.getString("bought_items_err")+ ": " + removed;
+            String message = bundle.getString("bought_items_err")+ ": " + removed.substring(0, removed.length()-2);
             cart.setErrorMsg(message);
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/client/shopping_cart.xhtml");
@@ -189,7 +189,7 @@ public class CheckoutBacking implements Serializable {
             }
         }
         if(!removed.isEmpty()) {
-            FacesMessage message = new FacesMessage(bundle.getString("bought_items_err")+ ": " + removed);
+            FacesMessage message = new FacesMessage(bundle.getString("bought_items_err")+ ": " + removed.substring(0, removed.length()-2));
             FacesContext.getCurrentInstance().addMessage("checkoutForm", message);
         }
         return null;

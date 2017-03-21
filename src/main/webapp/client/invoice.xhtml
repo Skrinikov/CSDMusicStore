@@ -39,7 +39,7 @@
                     <h4 class="text-center blue a-header">#{bundle.items_email}</h4>
 
                     <ui:repeat value="#{invoice.order.orderItems}" var="item">
-                        <div class="invoice-container space">
+                        <div class="invoice-container space padding-10">
                         <b>#{bundle.sale_item_number}:</b> #{item.id}<br/>
                         <ui:fragment rendered="#{item.album.id != null}"><b>#{bundle.item_name}:</b> #{item.album.title} <br/></ui:fragment>
                         <ui:fragment rendered="#{item.track.id != null}"><b>#{bundle.item_name}:</b> #{item.track.title} <br/></ui:fragment>

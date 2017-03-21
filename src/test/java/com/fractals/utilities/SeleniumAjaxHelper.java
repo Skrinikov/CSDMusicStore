@@ -111,12 +111,35 @@ public class SeleniumAjaxHelper {
         
         WebElement inputElement = driver.findElement(By.id("loginForm:username"));
         inputElement.clear();        
-        inputElement.sendKeys("lynn");
+        inputElement.sendKeys("selenium");
         
         inputElement = driver.findElement(By.id("loginForm:password"));         
         inputElement.clear();         
         inputElement.sendKeys("abcd");
         
         driver.findElement(By.id("loginForm:login")).click();
+    }
+    
+    /**
+     * Buys tracks with ids #2 and #3
+     */
+    public void buy() {
+        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Checkout"));
+        
+        WebElement inputElement = driver.findElement(By.id("checkoutForm:number"));
+        inputElement.clear();        
+        inputElement.sendKeys("79927398713");
+        
+        inputElement = driver.findElement(By.id("checkoutForm:date"));         
+        inputElement.clear();         
+        inputElement.sendKeys("12/2112");
+        
+        inputElement = driver.findElement(By.id("checkoutForm:name"));         
+        inputElement.clear();         
+        inputElement.sendKeys("selenium");
+        
+        driver.findElement(By.id("checkoutForm:checkout")).click();
     }
 }

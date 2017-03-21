@@ -2,6 +2,7 @@ package com.fractals.selenium.client;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import java.util.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -27,11 +28,13 @@ public class ShoppingCartTestSelenium {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         helper = new SeleniumAjaxHelper(driver);
+        Random random = new Random();
         
         //add items to the cart
         driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=13");
+        int val = random.nextInt(132)+4;
+        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id="+val);
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
     }
 
@@ -75,10 +78,10 @@ public class ShoppingCartTestSelenium {
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
-       helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:0:cart-remove\"]"));
+        helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:0:cart-remove\"]"));
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
-                helper.retryFindGetText(By.cssSelector("li.hidden-xs:nth-child(4) > a:nth-child(1)"))
+                helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
                       .equalsIgnoreCase("Shopping Cart (1)"));
         
         driver.quit();
@@ -121,7 +124,7 @@ public class ShoppingCartTestSelenium {
         helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:0:cart-remove\"]"));
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
-                helper.retryFindGetText(By.cssSelector("li.hidden-xs:nth-child(4) > a:nth-child(1)"))
+                helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
                       .equalsIgnoreCase("Shopping Cart (0)"));
         assertThat(driver.findElement(By.id("nodata")).getText()).isEqualToIgnoringCase("There are no items in your shopping cart.");
         
