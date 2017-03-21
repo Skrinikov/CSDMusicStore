@@ -3,6 +3,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Survey;
 import com.fractals.beans.SurveyChoice;
 import com.fractals.controllers.SurveyChoiceJpaController;
+import com.fractals.controllers.SurveyJpaController;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
@@ -11,12 +12,12 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
 
 /**
- *
+ *  This backing bean will be used to interact with the index page of the 
+ *  web app and supply surveys to display to the user. 
+ * 
  * @author Renuchan
  */
 @Named("surveyCBacking")
@@ -27,21 +28,21 @@ public class SurveyClientBacking implements Serializable{
     private Survey sur; 
     private boolean isVoted = false;
     private static final String ANSWERS = "/WEB-INF/sections/survey/answers.xhtml";
-    private static final String OPTIONS = "/WEB-INF/sections/survey/options.xhtml";
-    
-    @PersistenceContext(unitName = "fractalsPU")
-    private EntityManager em;
+    private static final String OPTIONS = "/WEB-INF/sections/survey/options.xhtml";    
     
     @Inject 
     private SurveyChoiceJpaController scc; 
     
+    @Inject 
+    private SurveyJpaController sc; 
     
+    /**
+     * Will obtain all visible surveys in the database and select 1 random 
+     * survey to display to the user. 
+     */
     private void getRandomSurvey()   
     {
-        String query = "Select s From Survey s Where s.visible = TRUE"; 
-        
-        TypedQuery<Survey> sur = em.createQuery(query, Survey.class);
-        List<Survey> list = sur.getResultList();
+        List<Survey> list = sc.getVisibleSurveys();
         Survey surveyPicked = null; 
         
         if(list != null && list.size() > 0)
@@ -50,12 +51,12 @@ public class SurveyClientBacking implements Serializable{
             surveyPicked = list.get(index);
         }
         
-        this.sur = surveyPicked; 
-        
+        this.sur = surveyPicked;       
     }
     
     /**
-     * 
+     * Will be used to inc the upvotes for that specific choice of the survey
+     * and save it in the database. 
      */
     public void selectedOption(SurveyChoice sc)
     {

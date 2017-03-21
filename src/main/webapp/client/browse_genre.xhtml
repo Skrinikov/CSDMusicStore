@@ -26,6 +26,9 @@
                         <h3 class="browse-header">#{bundle.gen_header}</h3>
                         <ul class="nav nav-pills nav-stacked nav-genre">
                             <ui:repeat value="#{browseBacking.allGenre}" var="genre">
+                    <ul class="nav nav-pills nav-stacked">
+                        
+                            <ui:repeat value="#{browseBacking.allGenre}" var="genre">
 
                                 <li class=""><a href="?id=#{genre.id}">#{genre.name}</a></li>
 

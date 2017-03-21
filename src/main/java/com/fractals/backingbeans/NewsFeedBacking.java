@@ -70,7 +70,7 @@ public class NewsFeedBacking implements Serializable{
         else
             this.current = nfc.findNewsFeed(id);
         
-        return "/newsFeed/Edit.xhtml"; 
+        return "/management/newsFeed/Edit.xhtml"; 
     }
 
     /**

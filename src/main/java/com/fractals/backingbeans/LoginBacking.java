@@ -137,4 +137,14 @@ public class LoginBacking implements Serializable {
         userController.refreshUser(currentUser);
     }
     
+    /**
+     * Sets the current user. Will mainly be used for testing. 
+     * @param user      the current user you wish to set. 
+     */
+    public void setCurrentUser(User user)
+    {
+        this.currentUser = user; 
+    }
+    
+    
 }
