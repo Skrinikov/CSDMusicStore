@@ -25,12 +25,12 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theTracks.selectedTrack}" 
-                             rowKey="#{item.id}"
+                             rowKey="#{item.id}" reflow="true"
                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListTrackTitle}"/>
-                        <p:commandButton id="toggler" value="Change columns" style="float:right" class="mgmt_btn" />
+                        <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
                     
@@ -96,10 +96,17 @@
                     <p:column headerText="Genre">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
+                    
+                    <p:column headerText="Total Sales">
+                        $<h:outputText value="#{theTracks.getTotalCost(item)}" >
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    
+                    </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
-                        <p:commandButton value="Create" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
+                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
                     </f:facet>   
 
                 </p:dataTable>

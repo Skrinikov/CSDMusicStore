@@ -23,11 +23,11 @@
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theArtists.selectedArtist}" 
                          rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
+                         draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListArtistTitle}"/>
-                    <p:commandButton id="toggler" value="Change columns" style="float:right" class="mgmt_btn" />
+                    <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -40,8 +40,8 @@
 
 
                 <f:facet name="footer">
-                    <p:commandButton value="Create" icon="fa fa-plus" action="/management/artist/artistsCreate.xhtml" ajax="false" class="mgmt_btn"/>       
-                    <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/artist/artistsViewEdit.xhtml" ajax="false" class="mgmt_btn" />
+                    <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/artist/artistsCreate.xhtml" ajax="false" class="mgmt_btn"/>       
+                    <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/artist/artistsViewEdit.xhtml" ajax="false" class="mgmt_btn" />
 
                 </f:facet>  
 

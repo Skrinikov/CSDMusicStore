@@ -11,6 +11,11 @@
     font-weight: bold;
 }
 
+.mgmt_edit{
+    background-color: #edf0f5;
+    
+}
+
 /*
     Create page css
 */
@@ -52,12 +57,31 @@
     background-color: #fbcdcf
 }
 
+.ui-widget-content .ui-datatable-even .ui-datatable-selectable .mgmt_table_row .ui-state-hover{
+    background-color: white;
+}
+
 .ui-dialog {
     background-color: #F8F3EE;
 }
 /*
     Misc
 */
+
+.ui-paginator-page {
+    color: white;
+    background-color: #2F40B2;
+    font-size: 1.2em;
+    margin: 5px;
+}
+
+.ui-paginator-page .ui-state-hover{
+    background-color: red; 
+}
+
+.ui-paginator-current{
+    font-weight: bold;
+}
 
 .mgmt_btn {
     color: white;
@@ -69,6 +93,11 @@
 
 .toggler_mgmt{
     background-color: #2F40B2;
+}
+
+.ui-columntoggler-item:hover{
+    background-color: #2F40B2;
+    color: white;
 }
 
 .row {
@@ -83,19 +112,36 @@
     flex-direction: column;
 }
 
+.newContainer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+    background-color: #fff;
+    color: #121212;
+    margin-top: 2%;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+}
+
 .mgmt-content {
-    width: 70%;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;   
     opacity: 0.9;
     padding: 25px;
     margin-top: 2%;
-    font-size: 1.2em;
-    background-color: #fbcdcf;
+    
+    background-color: #fff;
     color: #121212;
-    font-family: Times New Roman;
     border-top: 1px solid #333333;
     border-bottom: 1px solid #333333;
     margin-bottom: 30px;
+    min-width: 400px;
+}
+
+.mgmt-inner-contnet{
+    margin: 0 auto;
 }
 

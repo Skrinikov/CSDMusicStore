@@ -11,61 +11,102 @@
         <h:outputText value="#{bundle.ListTrackTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+
     <ui:define name="content">
 
-        <h:outputText value="nothing selected" rendered="#{empty theTracks.selectedTrack}"/>
+        <div class="container">
+            <div class="mgmt-content">
+                <div class="panel-heading">
+                    <h1 class="row">Track Details</h1>
+                    <p:graphicImage name="images/covers/#{theTracks.selectedTrack.coverFile}" style="max-height: 255px;" />
+                </div>
+                <div class="panel-body">
+                    <h:outputText value="nothing selected" rendered="#{empty theTracks.selectedTrack}"/>
 
-        <h:form id="form">
-            
-            <h:panelGrid columns="2" rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">              
-          
-                            <h:outputText value="Id:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.id}" title="Id"/>
-                            <h:outputText value="Title:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.title}" title="Title"/>
-                            <h:outputText value="Songwriter:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.songwriter}" title="Songwriter"/>
-                            <h:outputText value="Duration:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.duration}" title="Duration"/>
-                            <h:outputText value="AlbumNum:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.albumNum}" title="AlbumNum"/>
-                            <h:outputText value="CoverFile:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.coverFile}" title="CoverFile"/>
-                            <h:outputText value="CreatedAt:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.createdAt}" title="CreatedAt"/>
-                            <h:outputText value="CostPrice:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.costPrice}" title="CostPrice"/>
-                            <h:outputText value="ListPrice:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.listPrice}" title="ListPrice"/>
-                            <h:outputText value="SalePrice:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.salePrice}" title="SalePrice"/>
-                            <h:outputText value="RemovedAt:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.removedAt}" title="RemovedAt"/>
-                            <h:outputText value="Available:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.available}" title="Available"/>
-                            <h:outputText value="IsIndividual:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.isIndividual}" title="IsIndividual"/>
-                            <h:outputText value="Album:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.album}" title="Album"/>
-                            <h:outputText value="Genre:"/>
-                            <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre"/>
-                   
-                
-                <p:commandButton action="#{theTracks.makeEditable()}" value="Edit" ajax="false"/>                                           
-                
-                <p:commandButton actionListener="#{theTracks.delete()}" value="Delete" update="form">
-                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
+                    <h:form id="form">
 
-            </h:panelGrid>
+                        <h:panelGroup  rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">              
 
-            <h:panelGrid columns="2" rendered="#{theTracks.editable and not empty theTracks.selectedTrack}">
-       
+                            <div class="form-group row">
+                                <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.id}" title="Id" class="col-sm-4" />
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.title}" title="Title" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Songwriter:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.songwriter}" title="Songwriter" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Duration:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.duration}" title="Duration" class="col-sm-4" />
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="AlbumNum:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.albumNum}" title="AlbumNum" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="CoverFile:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.coverFile}" title="CoverFile" class="col-sm-4"  />
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="CreatedAt:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.createdAt}" title="CreatedAt" class="col-sm-4" />
+                            </div>
+                          
+                            <div class="form-group row">
+                                <h:outputText value="CostPrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.costPrice}" title="CostPrice" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="ListPrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.listPrice}" title="ListPrice" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="SalePrice:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.salePrice}" title="SalePrice" class="col-sm-4"  />
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="RemovedAt:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.removedAt}" title="RemovedAt" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Available:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.available}" title="Available" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="IsIndividual:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.isIndividual}" title="IsIndividual" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Album:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.album}" title="Album" class="col-sm-4"/>
+                            </div>
+                            <div class="form-group row">
+                                <h:outputText value="Genre:" class="control-label mgmt_detail_label col-sm-3"/>
+                                <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre" class="col-sm-4"/>
+                            </div>
+
+                            <p:commandButton action="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                                           
+
+                            <p:commandButton actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="form">
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>   
+
+                        </h:panelGroup>
+
+                        <h:panelGrid columns="2" rendered="#{theTracks.editable and not empty theTracks.selectedTrack}">
+
                             <p:outputLabel value="Id:" for="id" />
                             <p:inputText id="id" value="#{theTracks.selectedTrack.id}" title="Id" disabled="true" required="true" requiredMessage="The Id field is required."/>
                             <p:outputLabel value="Title:" for="title" />
@@ -100,24 +141,27 @@
                             <p:selectOneMenu id="genre" value="#{theTracks.selectedTrack.genre}" disabled="true" required="true" requiredMessage="The Genre field is required.">
                                 <f:selectItems value="#{theGenres.genres}"/>
                             </p:selectOneMenu>
-      
-                
-                <p:commandButton actionListener="#{theTracks.edit()}" value="Save" update="form">
-                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
-                            
-                <p:commandButton action="#{theTracks.makeUneditable()}" value="Cancel" ajax="false"/>
-                
-            </h:panelGrid>
-                        
-        </h:form>  
-        
-        <p:button value="Retour à la liste" outcome="/management/track/tracksList.xhtml"/>
+
+
+                            <p:commandButton actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="form">
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>   
+
+                            <p:commandButton action="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+
+                        </h:panelGrid>
+
+                    </h:form>  
+
+                    <p:button value="#{bundle.mgmt_btn_return_list}" class="mgmt_btn" outcome="/management/track/tracksList.xhtml"/>
+                </div>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
 

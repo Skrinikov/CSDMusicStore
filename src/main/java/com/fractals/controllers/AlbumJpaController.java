@@ -343,6 +343,24 @@ orderItemsCollectionOrderItemToAttach.getId());
     }
     
     /**
+     * Module that returns the total sales of an album
+     * @param album Album
+     * @return total sales of an album
+     */
+    public Number getTotalSales(Album album){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        //Select sum (cost) from from OrderItem where album_id = ?
+        
+        Root<OrderItem> root = query.from(OrderItem.class);
+        query.select(cb.sum(root.get("cost")));
+        query.where(cb.equal(root.get("album"), album));
+        
+        return em.createQuery(query).getSingleResult();
+    }
+    
+    /**
      * Takes the list of Album, shuffles it 
      * and returns the first Tracks based on the limit
      * @param albums

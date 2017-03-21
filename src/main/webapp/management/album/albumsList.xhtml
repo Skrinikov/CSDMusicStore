@@ -21,7 +21,7 @@
         <h:form id="form">
 
             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
-            <div class="container">
+        
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
@@ -29,15 +29,15 @@
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theAlbums.selectedAlbum}"
                              rowKey="#{item.id}" widgetVar="albumTable"
-                             draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
+                             draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListAlbumTitle}"/>
-                        <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:left" />
+                        <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                         <p:outputPanel style="float:right">
-                            <h:outputText value="Search all fields:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            <h:outputText value="#{bundle.row_search}" />
+                            <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
                         </p:outputPanel>
                     </f:facet>
 
@@ -83,16 +83,22 @@
                     <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
+                    
+                    <p:column headerText="Total Sales" >
+                        $<h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
+                            <f:convertNumber maxFractionDigits="2" /> 
+                        </h:outputText>
+                    </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Preview" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
-                        <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
-                        <p:commandButton value="Create" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>
                         <p:commandButton value="Test Create" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
                     </f:facet>
                 </p:dataTable>
             </h:panelGroup>
-            </div>
+           
         </h:form>
 
         <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">

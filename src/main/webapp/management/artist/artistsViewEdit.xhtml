@@ -11,42 +11,89 @@
         <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+
     <ui:define name="content">
 
-        <h:outputText value="nothing selected" rendered="#{empty theArtists.selectedArtist}"/>
+        <div class="container newContainer">
+            <div class="panel-heading">
+                <h1>Artist Details</h1>
+            </div>
+        </div>
 
+        <h:panelGroup rendered="#{empty theArtists.selectedArtist}">
+
+            <div class="container newContainer">
+                <h:outputText value="nothing selected" />
+                <div class="row">
+                    <p:button value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
+                </div>
+            </div>
+
+        </h:panelGroup>
+
+        <div class="container newContainer">
         <h:form>
             
-            <h:panelGrid columns="2" rendered="#{not theArtists.editable and not empty theArtists.selectedArtist}">
-               
-                <h:outputText value="Id:"/>
-                <h:outputText value="#{theArtists.selectedArtist.id}" title="Id"/>
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{theArtists.selectedArtist.name}" title="Name"/>
-                
-                
-                <p:commandButton action="#{theArtists.makeEditable()}" value="Edit" ajax="false"/>                             
-                <p:commandButton action="#{theArtists.delete()}" value="Delete" ajax="false"/>
-      
+            <h:panelGroup  rendered="#{not theArtists.editable and not empty theArtists.selectedArtist}">
 
-            </h:panelGrid>
+                <div class="form-group row">
+                     <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
+                <h:outputText value="#{theArtists.selectedArtist.id}" title="Id"/>
+                </div>
+                
+                
+                <div class="form-group row">
+                    <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
+                <h:outputText value="#{theArtists.selectedArtist.name}" title="Name"/>
+                </div>
+                
+                
+
+                <!-- Displaying Albums of Artist -->
+                <div class="form-group row">
+                    <div class="control-label mgmt_detail_label col-sm-6"><h2>List of Albums</h2></div>
+                </div>
+                <h:panelGroup rendered="#{not empty theArtists.selectedArtist.albums}">
+                    <p:dataTable var="album" value="#{theArtists.selectedArtist.albums}"
+                                 reflow="true" resizableColumns="true" draggableColumns="true" >
+                        
+                        <p:column headerText="Album Title">
+                            <h:outputText value="#{album.title}" />
+                        </p:column>
+                        <p:column headerText="Record Label" >
+                            <h:outputText value="#{album.recordLabel}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+                <p:commandButton class="mgmt_btn" action="#{theArtists.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
+                <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="#{bundle.mgmt_btn_delete}" ajax="false"/>
+
+
+            </h:panelGroup>
 
             <h:panelGrid columns="2" rendered="#{theArtists.editable and not empty theArtists.selectedArtist}">
-                  <p:outputLabel value="Id:" for="id" />
-                  <p:inputText id="id" value="#{theArtists.selectedArtist.id}" title="Id" disabled="true"/>
+                <p:outputLabel value="Id:" for="id" />
+                <p:inputText id="id" value="#{theArtists.selectedArtist.id}" title="Id" disabled="true"/>
                 <p:outputLabel value="Name:" for="name" />
                 <p:inputText id="name" value="#{theArtists.selectedArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-                
-                <p:commandButton action="#{theArtists.edit()}" value="Save" ajax="false"/>
-                <p:commandButton action="#{theArtists.makeUneditable()}" value="Cancel" ajax="false"/>
-                
+
+                <p:commandButton class="mgmt_btn" action="#{theArtists.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
+                <p:commandButton class="mgmt_btn" action="#{theArtists.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+
             </h:panelGrid>
-            
-              
+
+
         </h:form>  
+            
         
-        <p:button value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
-          
+
+            <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/artist/artistsList.xhtml"/>
+        </div>
     </ui:define>
 </ui:composition>
 

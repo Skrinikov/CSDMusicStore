@@ -10,18 +10,31 @@
         <h:outputText value="#{bundle.ListGenretTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+
     <ui:define name="content">
-        <h:form>
-            
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Name:" for="name" />
-                <h:inputText id="name" value="#{theGenres.createdGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-            </h:panelGrid>
+        <div class="container newContainer">
+            <div class="panel-heading">
+                <h1>Create a Genre</h1>
+            </div>
+            <div class="panel-body">
+            <h:form>
 
-            <p:commandButton  action="#{theGenres.create()}" icon="fa-edit" ajax="false"/>
-            <p:button value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+                <h:panelGroup >
+                    <div class="form-group row">
+                        <h:outputLabel value="Name:" for="name" class="control-label mgmt_detail_label col-sm-1" />
+                        <h:inputText id="name" value="#{theGenres.createdGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                    </div>
+                </h:panelGroup>
 
-        </h:form>
+                <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theGenres.create()}" icon="fa fa-plus" ajax="false"/>
+                <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
+
+            </h:form>
+            </div>
+        </div>
 
     </ui:define>
 </ui:composition>

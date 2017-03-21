@@ -24,12 +24,12 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theUsers.selectedUser}" 
-                         rowKey="#{item.id}"
+                         rowKey="#{item.id}" reflow="true"
                          draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUserTitle}"/>
-                    <p:commandButton id="toggler" value="Change columns" style="float:right" class="mgmt_btn" />
+                    <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -107,7 +107,7 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
+                    <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
                 </f:facet>   
 
             </p:dataTable>

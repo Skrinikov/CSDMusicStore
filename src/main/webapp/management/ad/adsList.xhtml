@@ -10,6 +10,10 @@
         <h:outputText value="#{bundle.ListBannerAdTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+    
     <ui:define name="content">
 
         <h:form>
@@ -23,29 +27,29 @@
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListBannerAdTitle}"/>
-                    <p:commandLink id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
-                <p:column headerText="Id">
+                <p:column headerText="#{bundle.banner_id}">
                     <h:outputText value="#{item.id}"/>
                 </p:column>
                 
-                <p:column headerText="Link">
+                <p:column headerText="#{bundle.banner_link}">
                     <h:outputText value="#{item.link}"/>
                 </p:column>
                 
-                <p:column headerText="Source">
+                <p:column headerText="#{bundle.banner_source}">
                     <h:outputText value="#{item.source}"/>
                 </p:column>
                 
-                <p:column headerText="Visible">
+                <p:column headerText="#{bundle.banner_visible}">
                     <h:outputText value="#{item.visible}"/>
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Create" icon="ui-icon-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
-                    <p:commandButton value="Detail" icon="ui-icon-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
+                    <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/ad/adsCreate.xhtml" ajax="false"/>       
+                    <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/ad/adsViewEdit.xhtml" ajax="false"/>
                 </f:facet>  
 
             </p:dataTable>

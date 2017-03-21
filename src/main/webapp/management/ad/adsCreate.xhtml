@@ -10,7 +10,14 @@
         <h:outputText value="#{bundle.ListBannerAdTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="placeholder-css">
+         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+    
     <ui:define name="content">
+        
+        <div class="container newContainer">
+        
         <h:form>
 
             <p:panelGrid columns="2">
@@ -22,10 +29,11 @@
                 <p:selectBooleanCheckbox value="#{theBannerAds.createdBannerAd.visible}" id="visible"/>
             </p:panelGrid>
 
-            <p:commandButton  action="#{theBannerAds.create()}" icon="fa-edit" ajax="false"/>
-            <p:button value="Retour à la liste" outcome="/management/ad/adsList.xhtml"/>
+            <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theBannerAds.create()}" icon="fa fa-edit" ajax="false"/>
+            <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/ad/adsList.xhtml"/>
 
         </h:form>
+        </div>
 
     </ui:define>
 </ui:composition>
