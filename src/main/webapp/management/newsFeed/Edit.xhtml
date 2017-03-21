@@ -53,12 +53,12 @@
 
             </h:form>
 
-            <p:commandButton value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" >
+            <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" >
             </p:commandButton>
 
             
             
-            <p:button value="#{bundle.backBtn}" outcome="List">
+            <p:button id="edit" value="#{bundle.backBtn}" outcome="List">
             </p:button>
 
         </f:view>
