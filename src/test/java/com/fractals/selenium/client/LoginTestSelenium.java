@@ -28,7 +28,7 @@ public class LoginTestSelenium {
 
     @Test     
     public void testLoginFormTitle() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         driver.quit();
@@ -36,7 +36,7 @@ public class LoginTestSelenium {
 
     @Test     
     public void testLoginFormFill() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -50,14 +50,14 @@ public class LoginTestSelenium {
         
         driver.findElement(By.id("loginForm:login")).click();
         
-        wait.until(ExpectedConditions.titleIs("Fractals"));
+        wait.until(ExpectedConditions.titleIs("CSDMusicStore"));
         
         driver.quit();
     }
 
     @Test     
     public void testLoginForm_InvalidPassword() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -81,7 +81,7 @@ public class LoginTestSelenium {
 
     @Test     
     public void testLoginForm_InvalidUser() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -105,7 +105,7 @@ public class LoginTestSelenium {
     
     @Test     
     public void testLoginForm_EmptyFields() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -128,7 +128,7 @@ public class LoginTestSelenium {
     
     @Test     
     public void testLoginForm_RegisterLink() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         

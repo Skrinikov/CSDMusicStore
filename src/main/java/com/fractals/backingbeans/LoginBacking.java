@@ -54,7 +54,7 @@ public class LoginBacking implements Serializable {
             else {
                 try{
                     currentUser = userDb;
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
                 }
                 catch(IOException io) {
                     log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -88,7 +88,7 @@ public class LoginBacking implements Serializable {
             userBacking.saveUser();
             try{
                 currentUser = newUser;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -104,7 +104,7 @@ public class LoginBacking implements Serializable {
         if(currentUser != null && currentUser.getIsAdmin()) {           
             try {
                 currentUser = null;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
             } 
             catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());

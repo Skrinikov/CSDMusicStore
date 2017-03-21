@@ -183,7 +183,7 @@ public class CheckoutBacking implements Serializable {
             String message = bundle.getString("bought_items_err")+ ": " + removed.substring(0, removed.length()-2);
             cart.setErrorMsg(message);
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Fractals/client/shopping_cart.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/client/shopping_cart.xhtml");
             } catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
             }

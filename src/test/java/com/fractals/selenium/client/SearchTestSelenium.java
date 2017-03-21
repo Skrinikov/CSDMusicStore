@@ -30,7 +30,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearchTitle() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
         driver.quit();
@@ -38,7 +38,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearchFormFill() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
@@ -56,7 +56,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearch_EmptyKey() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
      
@@ -72,7 +72,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearch_NoResults() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
        
@@ -90,7 +90,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearch_Date() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
@@ -106,7 +106,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearch_OneResultRedirect() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
@@ -123,7 +123,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearch_LinkToNextPage() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
@@ -141,7 +141,7 @@ public class SearchTestSelenium {
     
     @Test     
     public void testSearchForm_WithQueryString() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/search.xhtml?key=blind");
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml?key=blind");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Advanced Search"));
         

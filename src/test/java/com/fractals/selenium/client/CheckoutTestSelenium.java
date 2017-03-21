@@ -34,18 +34,18 @@ public class CheckoutTestSelenium {
         
         //add items to the cart
         int val = random.nextInt(79)+4;
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id="+val);
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id="+val);
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=2");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=3");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
     }
 
     @Test     
     public void testCheckoutTitle() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         driver.quit();
@@ -53,7 +53,7 @@ public class CheckoutTestSelenium {
 
     @Test     
     public void testCheckout_NotLoggedIn() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         driver.quit();
@@ -62,7 +62,7 @@ public class CheckoutTestSelenium {
     @Test     
     public void testCheckoutFormFill_MasterCard() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
@@ -88,7 +88,7 @@ public class CheckoutTestSelenium {
     @Test     
     public void testCheckoutFormFill_Visa() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
@@ -112,7 +112,7 @@ public class CheckoutTestSelenium {
     @Test     
     public void testCheckoutFormFill_Clear() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
@@ -147,7 +147,7 @@ public class CheckoutTestSelenium {
     @Test     
     public void testCheckoutFormFill_EmptyFields() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
@@ -182,7 +182,7 @@ public class CheckoutTestSelenium {
     @Test     
     public void testCheckoutFormFill_InvalidData() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
@@ -219,15 +219,15 @@ public class CheckoutTestSelenium {
         helper.login();
         
         helper.buy();      
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=2");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=3");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         int val = random.nextInt(53) + 84;
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id="+val);
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id="+val);
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
                  
         wait.until(ExpectedConditions.titleIs("Checkout"));       
         
@@ -246,17 +246,17 @@ public class CheckoutTestSelenium {
         helper.login();
         
         helper.buy();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=2");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=3");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         
         //remove the unique item so that the rest were already bought by the user
-        /*driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");     
+        /*driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");     
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));       
         helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:2:cart-remove\"]"));*/
         
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
                
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));       
         

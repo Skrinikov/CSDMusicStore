@@ -32,7 +32,7 @@ public class RegisterTestSelenium {
     
     @Test     
     public void testRegisterFormTitle() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         driver.quit();
@@ -40,7 +40,7 @@ public class RegisterTestSelenium {
 
     @Test     
     public void testRegisterFormFill() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         
@@ -97,14 +97,14 @@ public class RegisterTestSelenium {
         
         driver.findElement(By.id("registerForm:register")).click();
         
-        wait.until(ExpectedConditions.titleIs("Fractals"));
+        wait.until(ExpectedConditions.titleIs("CSDMusicStore"));
         
         driver.quit();
     }
     
     @Test     
     public void testRegisterForm_EmptyFields() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         
@@ -155,7 +155,7 @@ public class RegisterTestSelenium {
     
     @Test     
     public void testRegisterForm_InvalidValues() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         
@@ -229,7 +229,7 @@ public class RegisterTestSelenium {
     
     @Test
     public void testRegisterForm_InvalidUsername() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         
@@ -296,7 +296,7 @@ public class RegisterTestSelenium {
     
     @Test     
     public void testRegisterForm_LoginLink() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         
@@ -309,7 +309,7 @@ public class RegisterTestSelenium {
     
     @Test     
     public void testRegisterFormFill_Clear() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/register.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/register.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Registration"));
         

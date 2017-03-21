@@ -34,7 +34,7 @@ import org.junit.Assert;
  * 
  * @author Renuchan
  */
-
+@Ignore
 @RunWith(Arquillian.class)
 public class BrowseGenreTest {
     

@@ -105,7 +105,7 @@ public class SeleniumAjaxHelper {
      * Logs in the tester.
      */
     public void login() {
-        driver.get("http://localhost:8080/Fractals/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -124,7 +124,7 @@ public class SeleniumAjaxHelper {
      * Buys tracks with ids #2 and #3
      */
     public void buy() {
-        driver.get("http://localhost:8080/Fractals/client/checkout.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         

@@ -31,16 +31,16 @@ public class ShoppingCartTestSelenium {
         Random random = new Random();
         
         //add items to the cart
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=2");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         int val = random.nextInt(132)+4;
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id="+val);
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id="+val);
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
     }
 
     @Test     
     public void testShoppingCartTitle() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         driver.quit();
@@ -50,7 +50,7 @@ public class ShoppingCartTestSelenium {
     public void testShoppingCart_ContinueShoppingLink() throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         
-        driver.get("http://localhost:8080/Fractals/client/Track.xhtml?id=28");
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=28");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         
         driver.findElement(By.id("continueForm:continue-shop-btn")).click();
@@ -61,7 +61,7 @@ public class ShoppingCartTestSelenium {
 
     @Test     
     public void testShoppingCart_LoginLink() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
@@ -74,7 +74,7 @@ public class ShoppingCartTestSelenium {
 
     @Test     
     public void testShoppingCart_DeleteItem() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
@@ -89,7 +89,7 @@ public class ShoppingCartTestSelenium {
 
     @Test     
     public void testShoppingCart_ItemLink() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
@@ -103,7 +103,7 @@ public class ShoppingCartTestSelenium {
     @Test     
     public void testShoppingCart_CheckoutLink() throws Exception {
         helper.login();
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
@@ -116,7 +116,7 @@ public class ShoppingCartTestSelenium {
     
     @Test     
     public void testShoppingCart_NoItems() throws Exception {
-        driver.get("http://localhost:8080/Fractals/client/shopping_cart.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));
         
