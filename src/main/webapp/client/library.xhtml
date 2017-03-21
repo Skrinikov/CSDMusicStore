@@ -22,7 +22,7 @@
 
 
     <ui:define name="windowTitle">
-        <h:outputText value="Purchase History"></h:outputText>
+        #{bundle.downloads}
     </ui:define>
     <ui:define name="extra-meta">
         <f:metadata>
@@ -38,11 +38,11 @@
         <!-- Rendered if there are no results -->
         <ui:fragment rendered="#{downloadsBacking.downloadableTracks.size() == 0}">
             <div class="container text-center no-tracks-download" id="no-downloads-container">
-                <h1 style="display: none;">Sorry, you don't have any tracks.</h1>
-                <h3 style="display: none;">You can get tracks by buying them at our store.</h3>
-                <h4 style="display: none;">Go back to the home page</h4>
+                <h1 style="display: none;">#{bundle.downloads_title}</h1>
+                <h3 style="display: none;">#{bundle.downloads_subtitle}</h3>
+                <h4 style="display: none;">#{bundle.downloads_instructions}</h4>
                 <h:link outcome="/index.xhtml" styleClass="hvr-bounce-to-top downloads-btn" style="display: none;">
-                    <span class="fa fa-home"></span> Home
+                    <span class="fa fa-home"></span> #{bundle.downloads_btn}
                 </h:link>
             </div>
         </ui:fragment>

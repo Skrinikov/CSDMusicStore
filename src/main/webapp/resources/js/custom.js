@@ -24,7 +24,7 @@ $(document).ready(function () {
         $(this).parent().siblings().eq(0).toggle("slow");       
     });
 
-    $('.album-track-list').find(".stars").each(function () {
+    $('.review').find(".stars").each(function () {
         var content = $(this).html().trim();
         var stars = "";
 

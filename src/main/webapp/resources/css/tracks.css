@@ -1,0 +1,134 @@
+/* 
+    Created on : 16-Mar-2017, 3:15:02 PM
+    Author     : Danieil
+*/
+
+::selection {
+  background: #17a589; /* WebKit/Blink Browsers */
+  color:#fff;
+}
+::-moz-selection {
+  background: #17a589; /* Gecko Browsers */
+  color:#fff;
+}
+
+.green{
+    color:#00c49e;
+}
+
+.track-content{
+    background:#0a0a0a;
+    padding-top:2em;
+    font-family: 'Raleway', sans-serif;
+    color:#fff;
+}
+
+.custom-price-buttons{
+    background: #00c49e;
+}
+
+.custom-price-buttons::before{
+    background: #01997b;
+}
+
+.track-info{
+    list-style: none;
+}
+
+.track-info li{
+    display:inline-block;
+    border-right: solid 2px #222;
+    padding:0 20px;
+}
+
+.track-info li:first-child{
+    padding-left:0;
+}
+
+.track-info li:last-child{
+    border-right:none;
+}
+
+.track-info li span{
+    display:block;
+}
+
+.track-info li span:nth-child(odd){
+    color:#00c49e;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.track-info li span:nth-child(even){
+    text-transform: capitalize;
+    font-size:1em;
+}
+
+.track-content p{
+    font-size: 1.25em;
+}
+
+.stars{
+    color:#00c49e;
+}
+
+.review{
+    width:100%;
+    color:#aaa;
+}
+
+.rating-stars-container-selected{
+    color:#00c49e;
+}
+
+.submit-review-btn{
+    display:inline-block;
+}
+
+.ui-state-hover{
+    background:#fff;
+}
+
+.track-reviews{
+    max-height:100vh;
+    overflow-y:scroll;
+}
+
+.track-reviews::-webkit-scrollbar { 
+    display: none; 
+}
+
+.tracks-in-album{
+    border:none;
+    border-bottom: solid 3px #0a0a0a; 
+    background: #1a1a1a;
+    
+}
+
+.tracks-table{
+    border-top:solid 2px #00c49e;
+}
+
+.sub-info{
+    color:#00c49e;
+}
+
+.track-name{
+    color:#fff;
+    transition: color 0.25s linear;
+}
+
+.track-name:hover{
+    text-decoration: none;
+    color:#00c49e;
+}
+
+.track-album{
+    color:#aaa;
+    transition: color 0.25s linear;
+    text-decoration: underline;
+}
+
+.track-album:hover{
+    color:#00c49e;
+}

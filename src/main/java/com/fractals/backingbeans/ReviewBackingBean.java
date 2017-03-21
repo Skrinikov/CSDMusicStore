@@ -5,7 +5,10 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.controllers.ReviewJpaController;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -160,12 +163,15 @@ public class ReviewBackingBean implements Serializable {
 
         return review;
     }
-
-    // Testing this
-    private List<Review> reviews;
-
-    public void init() {
-
+    
+    /**
+     * Formats dates into a simpler user friendly display.
+     * 
+     * @param local date to format
+     * @return string representation of the formated date
+     */
+    public String formatDate(LocalDateTime local) {
+        return local.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a", Locale.CANADA));
     }
 
 }

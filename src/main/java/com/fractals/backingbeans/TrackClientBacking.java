@@ -38,23 +38,17 @@ import javax.servlet.http.HttpServletRequest;
 public class TrackClientBacking implements Serializable {
 
     private static final Logger log = Logger.getLogger("TrackClientBacking.class");
-    
-    // Strings used for cost buttons;
-    private static final String available = "/WEB-INF/sections/client/trackTableRowAvailable.xhtml";
-    private static final String unavailable = "/WEB-INF/sections/client/trackTableRowUnavailable.xhtml";
-    private static final String inCart = "/WEB-INF/sections/client/trackTableRowInCart.xhtml";
 
     private List<Track> relatedTracks;
     private List<Album> relatedAlbums;
     private Integer trackId;
-    private Track track;    
+    private Track track;
     private Review review;
-    private Integer rating;    
-
+    private Integer rating;
 
     @Inject
     private TrackJpaController trackControl;
-    
+
     @Inject
     private AlbumJpaController albumControl;
 
@@ -63,12 +57,10 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private ClientTrackingController cookiesControl;
-    
-    
 
     @Inject
     private ShoppingCart cart;
-    
+
     @Inject
     private LoginBacking loginControl;
 
@@ -76,58 +68,52 @@ public class TrackClientBacking implements Serializable {
      * Initialize the Track entity based on the trackId
      */
     public void init() {
-        
-        if(trackId == null){
-            
+        if (trackId == null) {
+
             log.info("Track is NULL");
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            String outcome = "/error.xhtml"; 
+            String outcome = "/error.xhtml";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
-        }else{
+        } else {
             track = trackControl.findTrack(trackId);
             cookiesControl.saveGenre(track.getGenre());
         }
-        
-        
+
     }
 
     /**
      * Action to add a review to a track
-     * @return 
+     *
+     * @return
      */
-    public String addReview() throws Exception{
+    public String addReview() throws Exception {
 
-        if (loginControl.isLoggedIn()){
-            
+        if (loginControl.isLoggedIn()) {
+
             getReview().setUser(loginControl.getCurrentUser());
-        }
-        else{
+        } else {
             return "/index.xhtml";
         }
         getReview().setApproved(false);
         getReview().setTrack(track);
         getReview().setReviewDate(LocalDateTime.now());
-        
+
         boolean created = this.reviewsControl.addReview(review);
-        
+
         return "Track.xhtml?faces-redirect=true&id=" + trackId.intValue();
-        
+
     }
-    
 
     /**
      * Adding the current instance of the Track to the shopping cart
      */
     public String addToCart() {
-        
+
         this.cart.add(track);
-        String uri = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
+        String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
         return "shopping_cart.xhtml?faces-redirect=true&url=" + uri;
     }
-    
-   
-    
-    
+
     public void setTrackId(Integer trackId) {
         this.trackId = trackId;
     }
@@ -151,49 +137,44 @@ public class TrackClientBacking implements Serializable {
         return formattedArtists;
 
     }
-    
 
-    public Review getReview(){
-        if (review == null)
+    public Review getReview() {
+        if (review == null) {
             review = new Review();
+        }
         return review;
     }
-    
-    
+
     /**
-     * Module to return a list of similar Tracks to the current instance
-     * of the track
+     * Module to return a list of similar Tracks to the current instance of the
+     * track
+     *
      * @return List of Track
      */
     public List<Track> getSimilarTracks() {
-        
-        if (track == null)
+
+        if (track == null) {
             return new ArrayList<>();
-        if (relatedTracks == null){
-            relatedTracks = trackControl.getSimilarTracks(track);
         }
-        return relatedTracks;
+        return relatedTracks = trackControl.getSimilarTracks(track);
     }
-    
+
     /**
-     * Module to return a list of similar Albums to the current Track 
+     * Module to return a list of similar Albums to the current Track
+     *
      * @return List of Album
      */
-    public List<Album> getRelatedAlbums(){
-       if (track == null)
-           return new ArrayList<>();
-       if (relatedAlbums == null){
-           relatedAlbums = albumControl.getSimilarAlbums(track.getAlbum(), 3);
-       }
-       
-       return relatedAlbums;
+    public List<Album> getRelatedAlbums() {
+        if (track == null) {
+            return new ArrayList<>();
+        }
+        return relatedAlbums = albumControl.getSimilarAlbums(track.getAlbum(), 3);
     }
 
     public List<Review> getReviews() {
         return (track != null) ? track.getReviews() : (new ArrayList<Review>());
     }
 
-    
     public Integer getTrackId() {
         return this.trackId;
     }
@@ -217,7 +198,7 @@ public class TrackClientBacking implements Serializable {
     public boolean isIndividual() {
         return (track != null) ? track.getIsIndividual() : false;
     }
-    
+
     public double getListedPrice() {
         return (track != null) ? track.getListPrice() : 0.00;
     }
@@ -233,7 +214,7 @@ public class TrackClientBacking implements Serializable {
     public String getWriter() {
         return (track != null) ? track.getSongwriter() : "";
     }
-    
+
     /**
      * Returns the real price for the track. If there is a sale, returns the
      * sale price, if not returns the list price.
@@ -245,38 +226,17 @@ public class TrackClientBacking implements Serializable {
         log.info("Track Backing - track sale check:" + track.getTitle());
         return (track.getSalePrice() == 0) ? track.getListPrice() : track.getSalePrice();
     }
-    
-    public Integer getRating(){
+
+    public Integer getRating() {
         return rating;
     }
-    
-    public void setRating(Integer rating){
+
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
-    
-    
 
-    /**
-     * 
-     * @param track
-     * @return 
-     */
-    public String getProperlayout(Track track){
-        if(track == null){
-            log.info("Track is null");
-            return inCart;          
-        }
-            
-        if(!track.getAvailable()){
-            return unavailable;
-        }
-        else{
-            return available;
-        }
-    }
-    
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return loginControl.isLoggedIn();
     }
-    
+
 }
