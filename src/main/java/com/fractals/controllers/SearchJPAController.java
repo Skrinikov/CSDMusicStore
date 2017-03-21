@@ -80,7 +80,7 @@ public class SearchJPAController implements Serializable {
         cqA.where(cb.like(artistJ.get(Artist_.name), "%"+name+"%"));
         TypedQuery<Album> tqA = entityManager.createQuery(cqA);      
         List<Album> albums = (List<Album>)tqA.getResultList(); 
-        
+
         return albums;
     }
     

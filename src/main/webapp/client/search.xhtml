@@ -10,7 +10,7 @@
     
     <f:metadata>
         <f:event type="preRenderView" listener="#{search.onload()}" />
-        <f:viewParam name="key" value="#{search.key}" /> 
+        <f:viewParam name="key" value="#{search.keyQuery}" /> 
     </f:metadata>
     
     <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
@@ -65,7 +65,7 @@
                     </div>           
                     
                     <div class="text-center">
-                        <h:commandButton value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-search">
+                        <h:commandButton id="search" value="#{bundle.search}!" action="#{search.search()}" class="btn btn-default btn-search">
                             <f:ajax execute="@form" render="results searchFormMessage keyMessage"/>
                         </h:commandButton>
                     </div>
@@ -114,6 +114,7 @@
                     <ui:fragment rendered="#{!search.tracksEmpty}">
                         <h3 class="a-header"><h:outputText value="#{bundle.track_list}"></h:outputText></h3>
                     </ui:fragment>
+                    <div id="search-track-list">
                     <ui:repeat value="#{search.tracks}" rendered="#{!search.tracksEmpty}" var="track">
                         <h:link outcome="Track.xhtml" includeViewParams="true" style="color:black">
                             <f:param name="id" value="#{track.id}"/>
@@ -140,7 +141,7 @@
                         </div>
                         </h:link>
                     </ui:repeat>
-
+                    </div>
 
                     <ui:fragment rendered="#{search.noData()}">
                         <p class="centerText"><h:outputText value="#{bundle.nodata}"></h:outputText> :(</p>

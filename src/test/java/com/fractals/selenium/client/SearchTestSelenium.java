@@ -32,7 +32,7 @@ public class SearchTestSelenium {
     public void testSearchTitle() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
         driver.quit();
     }
     
@@ -40,7 +40,7 @@ public class SearchTestSelenium {
     public void testSearchFormFill() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by artist name");
         
@@ -58,7 +58,7 @@ public class SearchTestSelenium {
     public void testSearch_EmptyKey() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
      
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by artist name");              
         
@@ -74,7 +74,7 @@ public class SearchTestSelenium {
     public void testSearch_NoResults() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
        
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by artist name");
         
@@ -92,14 +92,14 @@ public class SearchTestSelenium {
     public void testSearch_Date() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by created date");
         
         helper.retryFindClick(By.id("searchForm:search"));
         
-        wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(By.xpath("//*[contains(text(), 'A Twist in the Myth')]")).isDisplayed());
-        wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(By.xpath("//*[contains(text(), 'Turn the Page')]")).isDisplayed());
+        String msg = helper.retryFindGetText(By.cssSelector("span#results p"));
+        assertThat(msg).isEqualToIgnoringCase("There is no data available to display :(");
         
         driver.quit();
     }
@@ -108,7 +108,7 @@ public class SearchTestSelenium {
     public void testSearch_OneResultRedirect() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by track name");
         
@@ -125,7 +125,7 @@ public class SearchTestSelenium {
     public void testSearch_LinkToNextPage() throws Exception {
         driver.get("http://localhost:8080/Fractals/client/search.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Search"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
 
         helper.retryFindSelect(By.id("searchForm:choice"), "Search by artist name");
         
@@ -135,6 +135,17 @@ public class SearchTestSelenium {
         helper.clickNextLink();
         
         wait.until(ExpectedConditions.titleIs("Turn the Page"));
+        
+        driver.quit();
+    }
+    
+    @Test     
+    public void testSearchForm_WithQueryString() throws Exception {
+        driver.get("http://localhost:8080/Fractals/client/search.xhtml?key=blind");
+        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
+        
+        wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(By.xpath("//*[contains(text(), 'Blind Eye')]")).isDisplayed());
         
         driver.quit();
     }

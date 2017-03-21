@@ -23,7 +23,7 @@ import javax.inject.Named;
  * Responsible for backing search pages.
  *
  * @author Aline Shulzhenko
- * @version 19/03/2017
+ * @version 20/03/2017
  * @since 1.8
  */
 @Named("search")
@@ -37,6 +37,7 @@ public class SearchBacking implements Serializable {
     
     private String choice;
     private String key;
+    private String keyQuery;
     private boolean dateSelected;
     private Date dateStart;
     private Date dateEnd;
@@ -183,6 +184,22 @@ public class SearchBacking implements Serializable {
     }
     
     /**
+     * Sets the search key from URL.
+     * @return The search key from URL.
+     */
+    public String getKeyQuery() {
+        return keyQuery;
+    }
+    
+    /**
+     * Sets the search key from URL.
+     * @param keyQuery The search key from URL.
+     */
+    public void setKeyQuery(String keyQuery) {
+        this.keyQuery = keyQuery;
+    }
+    
+    /**
      * Queries for albums based on user-defined search keys and the chosen option.
      * @return the album or a track page if one item is found; null to stay
      *         on the same page if multiple items are found.
@@ -229,6 +246,7 @@ public class SearchBacking implements Serializable {
         dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
         dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         key = "";
+        keyQuery = "";
         dateSelected = choice.equals(bundle.getString("search_date"));
     }
 
@@ -239,7 +257,7 @@ public class SearchBacking implements Serializable {
     @PostConstruct
     public void init() {      
        bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
-       
+       keyQuery = "";
        choice = "";     
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -248,16 +266,13 @@ public class SearchBacking implements Serializable {
     
     /**
      * Updates the bundle if the locale is changed.
+     * Queries the database for tracks if the query string was supplied.
      */
     public void onload() {
         bundle = new BundleLocaleResolution().returnBundleWithCurrentLocale();
-        if(key != null && !key.isEmpty()) {
-            albums = jpa.searchByAlbumTitle(key);
-            tracks = jpa.searchByTrackName(key);
-        }
-        else {
-            albums = new ArrayList<>();
-            tracks = new ArrayList<>();
+        if(keyQuery != null && !keyQuery.isEmpty()) {
+            albums = jpa.searchByAlbumTitle(keyQuery);
+            tracks = jpa.searchByTrackName(keyQuery);
         }
     }
 }
