@@ -27,7 +27,7 @@ public class UserBackingBean implements Serializable {
     @Inject
     private UserController userController;
     private User selectedUser;
-    private boolean editable;
+    private boolean editable = false;
 
     public User getSelectedUser() {
         return selectedUser;
@@ -62,14 +62,18 @@ public class UserBackingBean implements Serializable {
         setEditable(false);
     }
 
+    public Number getTotalSales(User u) {
+        return userController.getTotalSalesByUser(u);
+    }
+    
     public Number getTotalSales() {
-        return userController.getTotalSalesByUser(selectedUser);
+        return getTotalSales(selectedUser);
     }
 
-    public String edit() throws Exception {
+    public void edit() throws Exception {
+        makeUneditable();
+        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
         userJpaController.edit(selectedUser);
-        editable = false;
-        return "/management/user/usersViewEdit.xhtml";
     }
 
 }

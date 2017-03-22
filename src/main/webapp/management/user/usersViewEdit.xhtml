@@ -7,32 +7,31 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
-        <a href="../management/artistsList.xhtml"></a>
-        <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+        <h:outputText value="#{bundle.ListUserTitle}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
-        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css"/>
     </ui:define>
 
     <ui:define name="content">
 
         <div class="container">
             <div class="mgmt-content">
+                
+                <div class="panel-heading"><h1 class="text-center">User Details</h1></div>
+                
                 <div class="panel-body">
                     <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
-
-                    <h:form>
+                    <h:form id="form">
+                        
+                         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                         
                         <h:panelGroup rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
 
-
-                            <div class="form-group row">
-                                <h:outputText value="Id:" class="control-label mgmt_detail_label  col-sm-2"/>
-
-                                <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
-
-                            </div>
+                            <div class="form-group row"><h:outputText value="Id:" class="control-label mgmt_detail_label  col-sm-2"/>
+                                <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/></div>
                             <div class="form-group row"><h:outputText value="Username:" class="control-label mgmt_detail_label col-sm-2" />
                                 <h:outputText value="#{theUsers.selectedUser.username}" title="Username"/></div>
                             <div class="form-group row"><h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-2"/>
@@ -55,7 +54,6 @@
                                 <h:outputText value="#{theUsers.selectedUser.postalCode}" title="PostalCode"/></div>
                             <div class="form-group row"><h:outputText value="HomeTel:" class="control-label mgmt_detail_label col-sm-2"/>
                                 <h:outputText value="#{theUsers.selectedUser.homeTel}" title="HomeTel"/></div>
-
                             <div class="form-group row"><h:outputText value="CellTel:" class="control-label mgmt_detail_label col-sm-2"/>
                                 <h:outputText value="#{theUsers.selectedUser.cellTel}" title="CellTel"/></div>
                             <div class="form-group row"><h:outputText value="Email:" class="control-label mgmt_detail_label col-sm-2"/>
@@ -72,16 +70,11 @@
                                 </h:outputText>
                             </div>
 
-
-
-                            <p:commandButton icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
-
-
+                            <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="form"/>                             
                         </h:panelGroup>
 
 
                         <p:panelGrid columns="2" layout="tabular" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
-
 
                             <p:outputLabel value="Id:" for="id" />
                             <p:inputText id="id" value="#{theUsers.selectedUser.id}" title="Id" disabled="true"/>
@@ -113,19 +106,17 @@
                             <p:inputText id="email" value="#{theUsers.selectedUser.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
                             <p:outputLabel value="IsAdmin:" for="isAdmin" />
                             <p:selectBooleanButton id="isAdmin" value="#{theUsers.selectedUser.isAdmin}" onLabel="True" offLabel="False"/>
-
                             <p:outputLabel value="Province:" for="province" />
-                            <p:selectOneMenu id="province" value="#{theUsers.selectedUser.province}" disabled="true">
+                            <p:selectOneMenu id="province" value="#{theUsers.selectedUser.province}" converter="#{ProvinceConverter}">
                                 <f:selectItems value="#{Province.provinces}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="LastGenre:" for="lastGenre" />
-                            <p:selectOneMenu id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true">                           
-                                <f:selectItems value="#{theGenres.genres}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
+                               
 
-                            <p:commandButton action="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false" class="mgmt_btn"/>
-                            <p:commandButton action="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false" class="mgmt_btn"/>
-
+                            <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form" class="mgmt_btn"/>
+                            <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="form"/> 
+                            
                         </p:panelGrid>
 
                     </h:form>  

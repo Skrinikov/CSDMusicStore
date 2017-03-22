@@ -15,11 +15,10 @@
 
     <ui:define name="content">
 
-        <div></div>
+
         
         <h:form>
 
-            <div class="mgmt_table">
             <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
@@ -101,7 +100,7 @@
                     <h:outputText value="#{item.lastGenre}"/>
                 </p:column>
                 <p:column headerText="Total Sales">
-                    $<h:outputText value="#{theUsers.getTotalSalesByUser(item)}" >
+                    <h:outputText value="#{theUsers.getTotalSales(item)}" >
                         <f:convertNumber maxFractionDigits="2" />
                     </h:outputText>
                 </p:column>
@@ -111,8 +110,7 @@
                 </f:facet>   
 
             </p:dataTable>
-                
-            </div>
+       
         </h:form>
     </ui:define>
 </ui:composition>

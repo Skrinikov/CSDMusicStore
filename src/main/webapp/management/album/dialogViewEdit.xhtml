@@ -8,8 +8,7 @@
     <h:form id="dialogForm">
         <p:outputPanel id="testViewEdit">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
- 
-            <h:outputText value="rien de selectionné" rendered="#{empty theAlbums.selectedAlbum}"/>
+            <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
             <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
                 <h:outputText value="Id:"/>
