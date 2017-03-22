@@ -3,6 +3,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
+import com.fractals.controllers.ReviewController;
 import com.fractals.controllers.ReviewJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -27,10 +28,13 @@ public class ReviewBackingBean implements Serializable {
 
     @Inject
     private ReviewJpaController reviewJpaController;
-
+    @Inject
+    private ReviewController reviewController;
+    
     private static final Logger log = Logger.getLogger("ReviewBackingBean.class");
-
     private Review selectedReview;
+    private Track selectedTrack;
+    private User selectedUser;
 
     public Review getSelectedReview() {
         return selectedReview;
@@ -40,8 +44,6 @@ public class ReviewBackingBean implements Serializable {
         selectedReview = r;
     }
 
-    private User selectedUser;
-
     public User getSelectedUser() {
         return selectedUser;
     }
@@ -49,8 +51,6 @@ public class ReviewBackingBean implements Serializable {
     public void setSelectedUser(User u) {
         selectedUser = u;
     }
-
-    private Track selectedTrack;
 
     public Track getSelectedTrack() {
         return selectedTrack;
@@ -79,69 +79,34 @@ public class ReviewBackingBean implements Serializable {
         return "/management/review/reviewsView.xhtml";
     }
 
-    public List<Review> getPendingReviews() {
-        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(cb.isTrue(root.get("pending")));
-        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
-    }
-
-    public List<Review> getApprovedReviews() {
-        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(
-                cb.and(
-                        cb.isTrue(root.get("approved")),
-                        cb.isFalse(root.get("pending"))
-                )
-        );
-        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
-    }
-
-    public List<Review> getDisapprovedReviews() {
-        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(
-                cb.and(
-                        cb.isFalse(root.get("approved")),
-                        cb.isFalse(root.get("pending"))
-                )
-        );
-        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
-    }
-
-    public List<Review> getReviewsByUser() {
-        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(cb.equal(root.get("user"), selectedUser));
-        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
-    }
-
-    public List<Review> getReviewsByTrack() {
-        CriteriaBuilder cb = reviewJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(cb.equal(root.get("track"), selectedTrack));
-        return reviewJpaController.getEntityManager().createQuery(query).getResultList();
-    }
-
     public String returnToPage() {
         selectedReview = null;
         selectedUser = null;
         selectedTrack = null;
         return "/management/review/pendingReviewsList.xhtml";
     }
+    
+    public List<Review> getPendingReviews() {
+        return reviewController.getPendingReviews();
+    }
 
-    /**
+    public List<Review> getApprovedReviews() {
+        return reviewController.getApprovedReviews();
+    }
+
+    public List<Review> getDisapprovedReviews() {
+        return reviewController.getDisapprovedReviews();
+    }
+
+    public List<Review> getReviewsByUser() {
+        return reviewController.getReviewsByUser(selectedUser);
+    }
+
+    public List<Review> getReviewsByTrack() {
+        return reviewController.getReviewsByTrack(selectedTrack);
+    }
+
+       /**
      * Creates a graphic representation of the rating. Always returns 5 stars.
      * If the rating is 3 will return 3 full stars followed by two empty stars.
      *
@@ -163,10 +128,10 @@ public class ReviewBackingBean implements Serializable {
 
         return review;
     }
-    
+
     /**
      * Formats dates into a simpler user friendly display.
-     * 
+     *
      * @param local date to format
      * @return string representation of the formated date
      */

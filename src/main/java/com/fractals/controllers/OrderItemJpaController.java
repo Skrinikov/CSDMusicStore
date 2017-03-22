@@ -26,7 +26,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author Sarah
+ * @author MOUFFOK Sarah
  */
 @Named("orderItemJpaController")
 @RequestScoped

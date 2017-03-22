@@ -84,7 +84,7 @@ public class OrdersControllerTest {
     }
 
     @Inject
-    private OrdersController ordersController;    
+    private OrderController ordersController;    
     @Inject
     private ShoppingCart cart;
     @Inject
