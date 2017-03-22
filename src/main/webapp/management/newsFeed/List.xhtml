@@ -22,10 +22,10 @@
 
         <f:view>
 
-            <h:form>
+            <h:form id="nf_form">
                 <h1><h:outputText value="#{bundle.nf_list}"/></h1>
                 
-                <p:commandButton value="#{bundle.createBtn}" action="#{nfsBackingBean.prepareChange(0)}">               
+                <p:commandButton id="create" value="#{bundle.createBtn}" action="#{nfsBackingBean.prepareChange(0)}">               
                 </p:commandButton>
                 
                 <p:dataTable id="data" value="#{nfsBackingBean.allNews}" var="item"
@@ -60,7 +60,7 @@
                             <h:outputText value="Operation"/>
                         </f:facet>
 
-                        <p:commandButton update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
+                        <p:commandButton id="delete" update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
                         </p:commandButton>
 
                         <p:commandButton value="#{bundle.editBtn}" action="#{nfsBackingBean.prepareChange(item.id)}">               

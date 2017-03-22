@@ -23,8 +23,8 @@
 
         <f:view>
 
-            <h:form>
-                <h1><h:outputText value="#{bundle.nf_insertMsg}"/></h1>
+            <h:form id="nf_editForm">
+                <h1><h:outputText id="pageHeader" value="#{bundle.nf_insertMsg}"/></h1>
                 <p:panelGrid columns="3">
                     
                     <p:outputLabel value="Id:" for="id" />
@@ -58,7 +58,7 @@
 
             
             
-            <p:button id="edit" value="#{bundle.backBtn}" outcome="List">
+            <p:button id="back" value="#{bundle.backBtn}" outcome="List">
             </p:button>
 
         </f:view>
