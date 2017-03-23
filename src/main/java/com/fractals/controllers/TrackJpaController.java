@@ -315,9 +315,13 @@ public class TrackJpaController implements Serializable {
         query.where(cb
                 .and(
                     cb.equal(root.get("genre"), track.getGenre()),
-                    cb.notEqual(root.get("id"), track.getId())
+                    cb.notEqual(root.get("id"), track.getId()),
+                    cb.isNotMember(track.getArtists().get(0), root.get(Track_.artists) )
+                    
                 )
             );
+        
+      
         
         List<Track> tracks = em.createQuery(query).getResultList();
                  
