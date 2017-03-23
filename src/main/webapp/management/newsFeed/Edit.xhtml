@@ -22,48 +22,46 @@
     <ui:define name="content">
 
         <f:view>
-
             <h:form id="nf_editForm">
+                <p:growl id="growl" showDetail="true" sticky="true" />  
+                
                 <h1><h:outputText id="pageHeader" value="#{bundle.nf_insertMsg}"/></h1>
-                <p:panelGrid columns="3">
+                <p:panelGrid columns="2">
                     
                     <p:outputLabel value="Id:" for="id" />
                     <p:outputLabel id="id" value="#{nfsBackingBean.current.id}" title="Id"/>
-                    <p:outputLabel />
+
                     
                     <p:outputLabel value="Link" for="link" />
                     <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" 
                                  requiredMessage="#{bundle.error_msg1}" validatorMessage="#{bundle.error_msg3}">
                         <f:validateRegex pattern=".*.xml"/>
+                        <f:validateLength minimum="0" maximum="100" />
                     </p:inputText>
-                    <p:messages for="link" autoUpdate="true" />    
+  
                     
                     <p:outputLabel value="Source" for="source" />
-                    <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="#{bundle.error_msg2}"/>
-                    <p:messages for="source" autoUpdate="true" /> 
+                    <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="#{bundle.error_msg2}"
+                                 validatorMessage="#{bundle.error_msg4}">
+                        <f:validateLength minimum="0" maximum="100" />
+                    </p:inputText>
+
                     
                     <p:outputLabel value="Visible:" />
                     <h:selectOneRadio value="#{nfsBackingBean.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
                     </h:selectOneRadio>	
-                    <p:outputLabel />
-
                 </p:panelGrid>
-
+                
+                <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" 
+                             update="growl">
+                </p:commandButton>
+                
+                <p:button id="back" value="#{bundle.backBtn}" outcome="List">
+                </p:button>                
             </h:form>
-
-            <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" >
-            </p:commandButton>
-
-            
-            
-            <p:button id="back" value="#{bundle.backBtn}" outcome="List">
-            </p:button>
-
         </f:view>
-
-
     </ui:define>
 
 </ui:composition>

@@ -16,24 +16,25 @@
          
          <f:view>
 
-
              <h:form>
+                 <p:growl id="growl" showDetail="true" sticky="true" /> 
+                 
                  <h1><h:outputText value="#{bundle.editHeader}"/></h1>
-                 <p:panelGrid columns="3">
+                 <p:panelGrid columns="2">
                      <p:outputLabel value="Id:" for="id" />
                      <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
-                     <p:outputLabel />
                      
                      <p:outputLabel value="Question:" for="question" />
-                     <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="#{bundle.survey_error_msg1}"/>
-                     <p:messages for="question" autoUpdate="true" />
+                     <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="#{bundle.survey_error_msg1}"
+                                  validatorMessage="#{bundle.error_msg4}">
+                            <f:validateLength minimum="0" maximum="100" />
+                        </p:inputText>
                      
                      <p:outputLabel value="Visible:" />
                      <h:selectOneRadio value="#{surveyBacking.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
                     </h:selectOneRadio>	
-                     <p:outputLabel />
                      
                  </p:panelGrid>
              
@@ -46,16 +47,17 @@
                          <f:facet name="header">
                              <h:outputText value="choice"/>
                          </f:facet> 
-                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="#{bundle.survey_error_msg2}"/>
+                         <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="#{bundle.survey_error_msg2}"
+                                      validatorMessage="#{bundle.error_msg4}">
+                            <f:validateLength minimum="0" maximum="100" />
+                        </p:inputText>
                      </p:column>
-                    <p:column>
-                        <p:messages for="choice" autoUpdate="true" />
-                    </p:column>
              </p:dataTable>
              
              
              
-             <p:commandButton value="Save" action="#{surveyBacking.editItem()}" ajax="false">
+             <p:commandButton value="Save" action="#{surveyBacking.editItem()}" ajax="false"
+                              update="growl">
              </p:commandButton>
              
              </h:form>
