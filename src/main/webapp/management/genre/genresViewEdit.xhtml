@@ -22,20 +22,19 @@
             </div>
         </div>
 
+        <div class="container newContainer">
         <h:panelGroup rendered="#{empty theGenres.selectedGenre}">
             <h:outputText value="nothing selected" />
-            <div class="row">
-                <p:button id="return" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
-            </div>
+            
 
         </h:panelGroup>
 
 
 
-        <h:form>
+        <h:form id="genre_form">
 
             <h:panelGroup  rendered="#{not theGenres.editable and not empty theGenres.selectedGenre}">
-                <div class="container newContainer">
+                
                     <div class="form-group row">
                         <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theGenres.selectedGenre.id}" title="Id"/>
@@ -46,14 +45,12 @@
                     </div>
                     <p:commandButton id="edit" class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
                     <p:commandButton id="delete" class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
-                    <p:button id="return" class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
-                </div>
-
+                    
             </h:panelGroup>
 
 
             <h:panelGroup rendered="#{theGenres.editable and not empty theGenres.selectedGenre}">
-                <div class="container newContainer">
+                
                     <h:panelGrid columns="2" >
 
                         <p:outputLabel value="Id:" for="id" />
@@ -65,12 +62,14 @@
                         <p:commandButton id="cancel" class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
 
                     </h:panelGrid>
-                    <p:button id="return2" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
-                </div>
+                    
+                
             </h:panelGroup>
 
         </h:form>  
-
+        
+        <p:button id="return1" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
+        </div>
 
 
     </ui:define>
