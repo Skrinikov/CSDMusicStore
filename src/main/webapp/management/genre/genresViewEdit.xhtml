@@ -25,7 +25,7 @@
         <h:panelGroup rendered="#{empty theGenres.selectedGenre}">
             <h:outputText value="nothing selected" />
             <div class="row">
-                <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
+                <p:button id="return" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
             </div>
 
         </h:panelGroup>
@@ -44,9 +44,9 @@
                         <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theGenres.selectedGenre.name}" title="Name"/>
                     </div>
-                    <p:commandButton class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
-                    <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
-                    <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
+                    <p:commandButton id="edit" class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
+                    <p:commandButton id="delete" class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
+                    <p:button id="return" class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
                 </div>
 
             </h:panelGroup>
@@ -61,11 +61,11 @@
                         <p:outputLabel value="Name:" for="name" />
                         <p:inputText id="name" value="#{theGenres.selectedGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
 
-                        <p:commandButton class="mgmt_btn" action="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
-                        <p:commandButton class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+                        <p:commandButton id="save" class="mgmt_btn" action="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
+                        <p:commandButton id="cancel" class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
 
                     </h:panelGrid>
-                    <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}e" outcome="/management/genre/genresList.xhtml"/>
+                    <p:button id="return2" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
                 </div>
             </h:panelGroup>
 

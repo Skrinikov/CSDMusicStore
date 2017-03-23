@@ -55,8 +55,8 @@
 
             </h:panelGrid>
 
-            <p:commandButton  action="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
-            <p:button value="Retour à la liste" outcome="/management/album/albumsList.xhtml"/>
+            <p:commandButton id="create"  action="#{theAlbums.create()}" icon="fa-edit" ajax="false"/>
+            <p:button id="return" value="Retour à la liste" outcome="/management/album/albumsList.xhtml"/>
 
         </h:form>
 

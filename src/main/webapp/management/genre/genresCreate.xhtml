@@ -29,8 +29,8 @@
                     </div>
                 </h:panelGroup>
 
-                <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theGenres.create()}" icon="fa fa-plus" ajax="false"/>
-                <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
+                <p:commandButton id="create" class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theGenres.create()}" icon="fa fa-plus" ajax="false"/>
+                <p:button id="return" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
 
             </h:form>
             </div>

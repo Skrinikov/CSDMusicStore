@@ -28,11 +28,11 @@
                 <h:outputText value="#{theBannerAds.selectedBannerAd.visible}" title="Visible"/>
             </h:panelGrid>
             
-            <h:commandButton value="Return to List" action="/management/ad/adsList.xhtml" />
+            <h:commandButton id="return2" value="Return to List" action="/management/ad/adsList.xhtml" />
 
         </h:form>  
 
-        <p:button value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
+        <p:button id="return" value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
 
     </ui:define>
 </ui:composition>

@@ -56,12 +56,12 @@
              
              
              
-             <p:commandButton value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}" ajax="false">
+             <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}" ajax="false">
              </p:commandButton>
              
              </h:form>
              
-             <p:link outcome="List" value="#{bundle.backBtn}"></p:link>
+             <p:link id="return" outcome="List" value="#{bundle.backBtn}"></p:link>
              
          </f:view>
 

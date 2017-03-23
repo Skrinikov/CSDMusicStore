@@ -32,9 +32,9 @@
         </p:panelGrid>
         
         <h:form>
-            <h:commandButton value="Retour à la liste" action="#{theReviews.returnToPage()}"/>
-            <h:commandButton value="Approve" action="#{theReviews.approveReview()}" rendered="#{theReviews.selectedReview.pending}"/>
-            <h:commandButton value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.pending || theReviews.selectedReview.approved}"/>
+            <h:commandButton id="return" value="Retour à la liste" action="#{theReviews.returnToPage()}"/>
+            <h:commandButton id="approve" value="Approve" action="#{theReviews.approveReview()}" rendered="#{theReviews.selectedReview.pending}"/>
+            <h:commandButton id="disapprove" value="Disapprove" action="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.pending || theReviews.selectedReview.approved}"/>
         </h:form>
         
     </ui:define>

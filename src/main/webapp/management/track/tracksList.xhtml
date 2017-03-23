@@ -105,8 +105,8 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
+                        <p:commandButton id="detail" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
+                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
                     </f:facet>   
 
                 </p:dataTable>

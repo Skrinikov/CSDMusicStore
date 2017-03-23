@@ -42,10 +42,10 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
+                         <p:commandButton id="delete_#{item.id.toString()}" update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
-                         <p:commandButton value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
+                         <p:commandButton id="edit_#{item.id.toString()}" value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
                         </p:commandButton>
 
                      </p:column>

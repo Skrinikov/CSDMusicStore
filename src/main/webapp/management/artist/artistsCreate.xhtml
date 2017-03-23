@@ -18,8 +18,8 @@
                 <h:inputText id="name" value="#{theArtists.createdArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
             </h:panelGrid>
 
-            <p:commandButton  action="#{theArtists.create()}" icon="fa-edit" ajax="false"/>
-            <p:button value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
+            <p:commandButton id="create"  action="#{theArtists.create()}" icon="fa-edit" ajax="false"/>
+            <p:button id="return" value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
 
         </h:form>
 

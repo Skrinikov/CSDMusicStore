@@ -83,12 +83,12 @@
 
 
                             <p:column headerText="Delete order item">
-                                <h:commandButton class="mgmt_btn" value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
+                                <h:commandButton  class="mgmt_btn" value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
                             </p:column>
                         </p:dataTable>
                     
-                    <h:commandButton class="mgmt_btn" value="Delete Order" action="#{theOrders.deleteOrder()}"/>
-                <h:commandButton class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
+                    <h:commandButton id="delete_order" class="mgmt_btn" value="Delete Order" action="#{theOrders.deleteOrder()}"/>
+                <h:commandButton id="return" class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
                 </div>
 
 

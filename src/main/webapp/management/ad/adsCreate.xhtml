@@ -29,8 +29,8 @@
                 <p:selectBooleanCheckbox value="#{theBannerAds.createdBannerAd.visible}" id="visible"/>
             </p:panelGrid>
 
-            <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theBannerAds.create()}" icon="fa fa-edit" ajax="false"/>
-            <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/ad/adsList.xhtml"/>
+            <p:commandButton id="create" class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  action="#{theBannerAds.create()}" icon="fa fa-edit" ajax="false"/>
+            <p:button id="return" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/ad/adsList.xhtml"/>
 
         </h:form>
         </div>
