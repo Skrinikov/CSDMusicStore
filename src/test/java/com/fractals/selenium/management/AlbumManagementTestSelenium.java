@@ -9,6 +9,8 @@ import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -31,14 +33,19 @@ public class AlbumManagementTestSelenium {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         helper = new SeleniumAjaxHelper(driver);
+        
+        //pray the user is admin
+        helper.login();
     }
     
+    /**
+     * Check if we can reach the Album List page of the management
+     */
     @Test
     public void getAlbumListPage(){
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+        //Title of Page is stored to bundle
         String title = bundle.getString("ListAlbumTitle");
-        
-        helper.login();
         
         driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);  
@@ -47,18 +54,29 @@ public class AlbumManagementTestSelenium {
         
     }
     
+    @Test
     public void getAlbumDetailsPage(){
-        driver.get("http://localhost:8080/Fractals/management/album/albumsList.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);  
-        //TODO: FIND A WAY TO CLICK ROW OF TABLE
-        List<WebElement> items = driver.findElements(By.id("tbl"));
         
-        if (items.size() > 0){
-            items.get(0).click();
-            
-        }
+        WebElement row = driver.findElement(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
         
+        row.click();
+        
+        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:detail\"]"));
+        
+        detail.click();
+        
+        wait.until(ExpectedConditions.titleIs("Album Details"));
         driver.quit();
+        
+    }
+    
+    public void createAlbum(){
+        
+    }
+    
+    public void editAlbum(){
         
     }
   
