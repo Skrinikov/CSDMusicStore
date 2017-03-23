@@ -56,6 +56,7 @@ public class BrowseGenreTest {
                 .addPackage(Genre.class.getPackage())
                 .addPackage(BrowseGenreBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
+                .addPackage(org.primefaces.model.StreamedContent.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())

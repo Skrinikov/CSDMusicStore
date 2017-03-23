@@ -61,6 +61,7 @@ public class SurveyClientTest {
                 .addPackage(Survey.class.getPackage())
                 .addPackage(SurveyClientBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
+                .addPackage(org.primefaces.model.StreamedContent.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
