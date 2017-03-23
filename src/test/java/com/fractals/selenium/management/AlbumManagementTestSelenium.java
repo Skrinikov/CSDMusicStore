@@ -10,6 +10,7 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,10 +33,14 @@ public class AlbumManagementTestSelenium {
         helper = new SeleniumAjaxHelper(driver);
     }
     
+    @Test
     public void getAlbumListPage(){
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
         String title = bundle.getString("ListAlbumTitle");
-        driver.get("http://localhost:8080/Fractals/management/album/albumsList.xhtml");
+        
+        helper.login();
+        
+        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();
@@ -50,7 +55,7 @@ public class AlbumManagementTestSelenium {
         
         if (items.size() > 0){
             items.get(0).click();
-            //TODO
+            
         }
         
         driver.quit();
