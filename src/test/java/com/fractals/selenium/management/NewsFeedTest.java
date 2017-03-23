@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Renuchan
  */
+@Ignore
 public class NewsFeedTest {
 
     private WebDriver driver;
@@ -101,7 +102,7 @@ public class NewsFeedTest {
         we2.clear();
         we2.sendKeys(source);
 
-        driver.findElement(By.id("save")).click();
+        driver.findElement(By.id("nf_editForm:save")).click();
 
         Thread.sleep(6000);
 
@@ -121,7 +122,7 @@ public class NewsFeedTest {
         WebElement we2 = driver.findElement(By.id("nf_editForm:source"));
         we2.clear();
 
-        driver.findElement(By.id("save")).click();
+        driver.findElement(By.id("nf_editForm:save")).click();
 
         wait(6000);
 
@@ -155,6 +156,76 @@ public class NewsFeedTest {
         driver.quit();
     }
 
+    @Test
+    public void testInvalidLink()
+    {
+        driver.get("http://localhost:8080/CSDMusicStore/management/newsFeed/List.xhtml");
+        driver.findElement(By.id("nf_form:create")).click();
+
+        wait(3000);
+        //clear link
+        WebElement we = driver.findElement(By.id("nf_editForm:link"));
+        we.clear();
+        we.sendKeys("newLink");
+
+        //clear source 
+        WebElement we2 = driver.findElement(By.id("nf_editForm:source"));
+        we2.clear();
+        we2.sendKeys("cbc");
+
+        driver.findElement(By.id("nf_editForm:save")).click();
+
+        wait(6000);
+
+        //the page shouldn't change
+        WebElement headerEle = driver.findElement(By.id("nf_editForm:pageHeader"));
+        String text = headerEle.getText();
+
+        assertThat(text.equals("Insert Data Below"));
+        driver.quit();
+    }
+    
+    @Test
+    public void testLongString()
+    {
+        driver.get("http://localhost:8080/CSDMusicStore/management/newsFeed/List.xhtml");
+        driver.findElement(By.id("nf_form:create")).click();
+
+        wait(3000);
+        //clear link
+        WebElement we = driver.findElement(By.id("nf_editForm:link"));
+        we.clear();
+        we.sendKeys("newLink.xml");
+
+        //clear source 
+        WebElement we2 = driver.findElement(By.id("nf_editForm:source"));
+        we2.clear();
+        we2.sendKeys(getLongString());
+
+        driver.findElement(By.id("nf_editForm:save")).click();
+
+        wait(6000);
+
+        //the page shouldn't change
+        WebElement headerEle = driver.findElement(By.id("nf_editForm:pageHeader"));
+        String text = headerEle.getText();
+
+        assertThat(text.equals("Insert Data Below"));
+        driver.quit();
+    }
+    
+    private String getLongString()
+    {
+        StringBuilder str = new StringBuilder();
+        
+        for(int i = 0; i < 110; i++)
+            str.append("a");
+        
+        return str.toString();
+    }
+    
+    
+    
     private void wait(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
