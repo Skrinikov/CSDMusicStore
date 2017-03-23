@@ -11,7 +11,6 @@
             <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
             <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
-
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
                 <h:outputText value="Username:"/>
@@ -93,7 +92,6 @@
                 </p:selectOneMenu>
                 <p:outputLabel value="LastGenre:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
-
                 
                 <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm:testViewEdit" class="mgmt_btn">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
@@ -101,12 +99,10 @@
 
                 <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
 
-
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
-
 
             </p:panelGrid>
 

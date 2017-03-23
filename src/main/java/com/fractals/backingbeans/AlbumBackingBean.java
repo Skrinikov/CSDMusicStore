@@ -14,6 +14,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -91,6 +92,7 @@ public class AlbumBackingBean implements Serializable {
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;
+     
     }
 
     public Number getTotalSalesByAlbum(Album album) {
@@ -100,5 +102,9 @@ public class AlbumBackingBean implements Serializable {
 
     public Number getTotalSales() {
         return albumController.getTotalSales(selectedAlbum);
+    }
+    
+    public int getPageCount(){
+        return albumJpaController.getAlbumCount() / 10;
     }
 }

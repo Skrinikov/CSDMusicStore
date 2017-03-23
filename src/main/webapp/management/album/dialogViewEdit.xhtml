@@ -6,9 +6,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
-        <p:outputPanel id="testViewEdit">
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
+            <h:outputText value="Nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
             <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
                 <h:outputText value="Id:"/>
@@ -48,8 +46,8 @@
                     <f:convertNumber maxFractionDigits="2"/>
                 </h:outputText>
 
-                <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm:testViewEdit"/>                             
-                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm:testViewEdit">
+                <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm"/>                             
+                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
 
@@ -84,11 +82,11 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
 
-                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form,dialogForm:testViewEdit">
+                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form,dialogForm">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
 
-                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm:testViewEdit"/>
+                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm"/>
                 
             </h:panelGrid>
 
@@ -99,7 +97,6 @@
 
             <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
 
-        </p:outputPanel>
     </h:form>
 </ui:composition>
 
