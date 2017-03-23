@@ -35,8 +35,8 @@
                                 <h3>#{trackCLBack.track.album.title}</h3>
                             </div>
                             <div class="col-md-2 col-xs-12">
-                                <h:form>
-                                    <p:commandLink value="$#{trackCLBack.getPrice(trackCLBack.track)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(trackCLBack.track)}" update="shop-cart shop-cart-2"/>
+                                <h:form id="trackCartForm">
+                                    <p:commandLink id="track-to-cart" value="$#{trackCLBack.getPrice(trackCLBack.track)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(trackCLBack.track)}" update="shop-cart shop-cart-2"/>
                                 </h:form>
                             </div>
                         </div>

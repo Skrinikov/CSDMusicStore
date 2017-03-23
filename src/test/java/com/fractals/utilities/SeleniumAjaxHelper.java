@@ -121,7 +121,7 @@ public class SeleniumAjaxHelper {
     }
     
     /**
-     * Buys tracks with ids #2 and #3
+     * Buys tracks that are currently in the shopping cart.
      */
     public void buy() {
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");

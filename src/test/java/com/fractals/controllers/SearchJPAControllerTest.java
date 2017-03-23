@@ -65,6 +65,7 @@ public class SearchJPAControllerTest {
                 .addPackage(ProvinceConverter.class.getPackage())
                 .addPackage(SecurityHelper.class.getPackage())
                 .addPackage(DatabaseSeedManager.class.getPackage())
+                .addPackage(org.primefaces.model.StreamedContent.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")

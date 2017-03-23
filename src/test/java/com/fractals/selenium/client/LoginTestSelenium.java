@@ -50,7 +50,7 @@ public class LoginTestSelenium {
         
         driver.findElement(By.id("loginForm:login")).click();
         
-        wait.until(ExpectedConditions.titleIs("CSDMusicStore"));
+        wait.until(ExpectedConditions.titleIs("Fractals"));
         
         driver.quit();
     }

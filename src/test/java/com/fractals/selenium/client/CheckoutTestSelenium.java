@@ -3,7 +3,6 @@ package com.fractals.selenium.client;
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;;
 
@@ -63,7 +61,7 @@ public class CheckoutTestSelenium {
     public void testCheckoutFormFill_MasterCard() throws Exception {
         helper.login();
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
         WebElement inputElement = driver.findElement(By.id("checkoutForm:number"));
@@ -89,7 +87,7 @@ public class CheckoutTestSelenium {
     public void testCheckoutFormFill_Visa() throws Exception {
         helper.login();
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
         helper.retryFindClick(By.linkText("Visa"));
@@ -113,7 +111,7 @@ public class CheckoutTestSelenium {
     public void testCheckoutFormFill_Clear() throws Exception {
         helper.login();
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
         WebElement inputElement = driver.findElement(By.id("checkoutForm:number"));
@@ -148,7 +146,7 @@ public class CheckoutTestSelenium {
     public void testCheckoutFormFill_EmptyFields() throws Exception {
         helper.login();
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
         WebElement inputElement = driver.findElement(By.id("checkoutForm:number"));
@@ -183,7 +181,7 @@ public class CheckoutTestSelenium {
     public void testCheckoutFormFill_InvalidData() throws Exception {
         helper.login();
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         wait.until(ExpectedConditions.titleIs("Checkout"));
         
         helper.retryFindClick(By.linkText("Visa"));
@@ -215,7 +213,7 @@ public class CheckoutTestSelenium {
     
     @Test     
     public void testCheckout_OneTrackBoughtBefore() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         helper.login();
         
         helper.buy();      
@@ -223,6 +221,9 @@ public class CheckoutTestSelenium {
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
+        //generate a random id, which should not be bought before by the user;
+        //the data in orders table for this user should be cleaned up each time
+        //when this class executes to ensure this uniqueness
         int val = random.nextInt(53) + 84;
         driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id="+val);
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
@@ -242,7 +243,7 @@ public class CheckoutTestSelenium {
     
     @Test     
     public void testCheckout_AllTracksBoughtBefore() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 10);         
+        WebDriverWait wait = new WebDriverWait(driver, 20);         
         helper.login();
         
         helper.buy();
@@ -251,18 +252,15 @@ public class CheckoutTestSelenium {
         driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
         
-        //remove the unique item so that the rest were already bought by the user
-        /*driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");     
-        wait.until(ExpectedConditions.titleIs("Shopping Cart"));       
-        helper.retryFindClick(By.xpath("//*[@id=\"cart-form:cart-table:2:cart-remove\"]"));*/
-        
         driver.get("http://localhost:8080/CSDMusicStore/client/checkout.xhtml");
                
         wait.until(ExpectedConditions.titleIs("Shopping Cart"));       
         
-        assertThat(helper.retryFindGetText(By.id("cartFormMessage")))
-                .isEqualToIgnoringCase("These items were already bought by you, so they were removed from the shopping cart: "
-                        + "Turn the Page, Shots");
+        String message = helper.retryFindGetText(By.id("cartFormMessage"));
+        assertThat(message).isIn("These items were already bought by you, so they were removed from the shopping cart: "
+                        + "Turn the Page, Shots",
+                                "These items were already bought by you, so they were removed from the shopping cart: "
+                        + "Shots, Turn the Page");
         
         driver.quit();
     }

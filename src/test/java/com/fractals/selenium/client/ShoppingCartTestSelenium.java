@@ -2,7 +2,6 @@ package com.fractals.selenium.client;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import java.util.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -28,13 +27,11 @@ public class ShoppingCartTestSelenium {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         helper = new SeleniumAjaxHelper(driver);
-        Random random = new Random();
         
         //add items to the cart
         driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=2");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
-        int val = random.nextInt(132)+4;
-        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id="+val);
+        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=3");
         driver.findElement(By.id("trackCartForm:track-to-cart")).click();
     }
 
@@ -50,12 +47,12 @@ public class ShoppingCartTestSelenium {
     public void testShoppingCart_ContinueShoppingLink() throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         
-        driver.get("http://localhost:8080/CSDMusicStore/client/Track.xhtml?id=28");
-        driver.findElement(By.id("trackCartForm:track-to-cart")).click();
+        driver.get("http://localhost:8080/CSDMusicStore/client/search.xhtml");
+        driver.findElement(By.xpath("//*[@id=\"shop-cart-2\"]")).click();
         
         driver.findElement(By.id("continueForm:continue-shop-btn")).click();
                
-        wait.until(ExpectedConditions.titleIs("Blind Eye"));
+        wait.until(ExpectedConditions.titleIs("Advanced Search"));
         driver.quit();
     }
 
@@ -95,11 +92,12 @@ public class ShoppingCartTestSelenium {
         
         driver.findElement(By.xpath("//*[@id=\"cart-form:cart-table\"]/tbody/tr[1]/td[3]/a")).click();
         
-        wait.until(ExpectedConditions.titleIs("Turn the Page"));
+        String title = driver.getTitle();
+        assertThat(title).isIn("Turn the Page", "Shots");
         
         driver.quit();
     }
-    
+ 
     @Test     
     public void testShoppingCart_CheckoutLink() throws Exception {
         helper.login();
@@ -113,7 +111,7 @@ public class ShoppingCartTestSelenium {
         
         driver.quit();
     }
-    
+
     @Test     
     public void testShoppingCart_NoItems() throws Exception {
         driver.get("http://localhost:8080/CSDMusicStore/client/shopping_cart.xhtml");

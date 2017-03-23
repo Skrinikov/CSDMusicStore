@@ -97,7 +97,7 @@ public class RegisterTestSelenium {
         
         driver.findElement(By.id("registerForm:register")).click();
         
-        wait.until(ExpectedConditions.titleIs("CSDMusicStore"));
+        wait.until(ExpectedConditions.titleIs("Fractals"));
         
         driver.quit();
     }
