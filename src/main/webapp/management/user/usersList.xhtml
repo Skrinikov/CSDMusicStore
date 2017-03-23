@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
     <ui:define name="title">
         <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
@@ -16,15 +16,15 @@
     <ui:define name="content">
 
 
-        
-        <h:form>
+
+        <h:form id="form">
 
             <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
-                         selectionMode="single" selection="#{theUsers.selectedUser}" 
-                         rowKey="#{item.id}" reflow="true"
-                         draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
+                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                          paginator="true" rows="10" style="margin-bottom:20px"
+                          selectionMode="single" selection="#{theUsers.selectedUser}" 
+                          rowKey="#{item.id}" reflow="true"
+                          draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUserTitle}"/>
@@ -107,10 +107,17 @@
 
                 <f:facet name="footer">
                     <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
-                </f:facet>   
+                    <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
+                </f:facet> 
+         
 
             </p:dataTable>
-       
+            
+           
         </h:form>
+        
+          <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
+                    <ui:include src="/management/user/dialogViewEdit.xhtml" />
+                </p:dialog>
     </ui:define>
 </ui:composition>

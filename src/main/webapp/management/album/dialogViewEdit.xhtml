@@ -35,28 +35,23 @@
                 <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
                 <h:outputText value="Artist:"/>
                 <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
-                
+
                 <h:outputText value="Tracks:"/>
                 <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
                     <p:column headerText="Id">
                         <h:outputText value="#{item.id}"/>
                     </p:column>              
                 </p:dataTable>
-                
+
                 <h:outputText value="Total Sales :"/>
                 <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
                     <f:convertNumber maxFractionDigits="2"/>
                 </h:outputText>
 
-                <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update=":dialogForm:testViewEdit"/>                             
-                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update=":form,:dialogForm:testViewEdit">
+                <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm:testViewEdit"/>                             
+                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm:testViewEdit">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
 
             </h:panelGrid>
 
@@ -83,26 +78,24 @@
                 <p:inputText id="removedAt" value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt" disabled="true"/>
                 <p:outputLabel value="Available:" for="available" />
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.selectedAlbum.available}" />
-                
-                
-                  <p:outputLabel value="Artist:" for="artist" />
+                <p:outputLabel value="Artist:" for="artist" />
 
                 <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" disabled="true">
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
-              
-                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update=":form,:dialogForm:testViewEdit">
-                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+
+                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form,dialogForm:testViewEdit">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
-                      
-                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update=":dialogForm:testViewEdit"/>
+
+                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm:testViewEdit"/>
                 
             </h:panelGrid>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>   
 
             <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
 

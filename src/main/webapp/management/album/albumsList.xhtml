@@ -89,10 +89,11 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
-<!--                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>-->
-                        <p:commandButton value="Create" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
+                   
+                       <!--  <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
+                       <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>-->
                     </f:facet>
                 </p:dataTable>
             </h:panelGroup>         
@@ -105,7 +106,6 @@
         <p:dialog header="Create Album" widgetVar="dialogCreate" >         
             <ui:include src="/management/album/dialogCreate.xhtml" />
         </p:dialog>
-
 
     </ui:define>
 </ui:composition>

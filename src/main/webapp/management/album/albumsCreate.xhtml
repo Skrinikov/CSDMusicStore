@@ -1,4 +1,4 @@
-<ui:composition 
+<!--<ui:composition 
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -12,6 +12,9 @@
 
     <ui:define name="content">
         <h:form>
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
             <h:panelGrid columns="2">
 
                 <p:outputLabel value="Title:" for="title" />
@@ -41,8 +44,6 @@
                 <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
                 <p:inputMask id="releaseDate" converter="#{localDateConverter}" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99"/>
 
-
-
                 <p:outputLabel value="Artist:" for="artist" />
 
                 <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" converter="#{artistConverter}" panelStyle="width:180px"
@@ -50,9 +51,9 @@
 
                     <f:selectItems value="#{theArtists.artists}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" />
 
-                    <p:column>
+                  
                         <h:outputText value="#{a.name}" />
-                    </p:column>
+                 
                 </p:selectOneMenu>
 
             </h:panelGrid>
@@ -63,6 +64,6 @@
         </h:form>
 
     </ui:define>
-</ui:composition>
+</ui:composition>-->
 
 

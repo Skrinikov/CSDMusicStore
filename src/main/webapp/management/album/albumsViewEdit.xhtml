@@ -1,4 +1,4 @@
-<ui:composition 
+<!--<ui:composition 
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -19,11 +19,14 @@
 
         <div class="mgmt-content">
             <div class="panel-heading"><h1 class="text-center">Album Details</h1></div>
-            
+
             <div class="panel-body">
                 <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
                 <h:form id="form">
+
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
 
                     <h:panelGroup  rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
 
@@ -133,7 +136,7 @@
                         <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" converter="#{artistConverter}">
                             <f:selectItems value="#{theArtists.artists}"/>                       
                         </p:selectOneMenu> 
-                        
+
                         <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.edit()}" value="#{bundle.mgmt_btn_save}" update="form">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
@@ -146,7 +149,7 @@
                         <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="form"/>
 
                     </h:panelGrid>
-          
+
                 </h:form>  
 
                 <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/album/albumsList.xhtml"/>
@@ -156,4 +159,4 @@
     </ui:define>
 </ui:composition>
 
-
+-->

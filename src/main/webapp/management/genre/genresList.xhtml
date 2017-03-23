@@ -7,54 +7,63 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
-        <h:outputText value="#{bundle.ListGenreTitle}"></h:outputText>
+        <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
     </ui:define>
 
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
-    
+
     <ui:define name="content">
+        <h:form id="form">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{theGenres.isEmpty()}"/>
 
-        <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{theGenres.isEmpty()}"/>
-        <div class="container">
             <h:panelGroup rendered="#{!theGenres.isEmpty()}">    
-                <h:form>
 
-                    <p:dataTable class="mgmt_table" id="tbl" value="#{theGenres.genres}" var="item" 
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 paginator="true" rows="10" style="margin-bottom:20px"
-                                 selectionMode="single" selection="#{theGenres.selectedGenre}" 
-                                 rowKey="#{item.id}"
-                                 draggableColumns="true" resizableColumns="true" reflow="true"
-                                 rowStyleClass="mgmt_table_row" >
+                <p:dataTable class="mgmt_table" id="tbl" value="#{theGenres.genres}" var="item" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theGenres.selectedGenre}" 
+                             rowKey="#{item.id}"
+                             draggableColumns="true" resizableColumns="true" reflow="true"
+                             rowStyleClass="mgmt_table_row" >
 
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListGenreTitle}"/>
-                            <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
-                            <p:columnToggler datasource="tbl" trigger="toggler" />
-                        </f:facet>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListGenreTitle}"/>
+                    </f:facet>
 
-                        <p:column headerText="Id">              
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column headerText="Name">                          
-                            <h:outputText value="#{item.name}"/>
-                        </p:column>
+                    <p:column headerText="Id">              
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
 
+                    <p:column headerText="Name">                          
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
 
-                        <f:facet name="footer">
-                            <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/genre/genresCreate.xhtml" class="mgmt_btn" ajax="false"/>       
-                            <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/genre/genresViewEdit.xhtml" class="mgmt_btn" ajax="false"/>
-                        </f:facet>  
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()" />       
+                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" class="mgmt_btn" onclick="PF('dialogViewEdit').show()" update="dialogForm" />
+                    </f:facet>  
 
-                    </p:dataTable>
-
-                </h:form>
+                </p:dataTable>
 
             </h:panelGroup>
-        </div>
+
+        </h:form>
+
+        <p:dialog header="Create Genre" widgetVar="dialogCreate">
+            <ui:include src="/management/genre/dialogCreate.xhtml" />
+        </p:dialog>
+
+        <p:dialog header="View Genre" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/genre/dialogViewEdit.xhtml" />
+        </p:dialog>
 
     </ui:define>
 
 </ui:composition>
+
+
+
+

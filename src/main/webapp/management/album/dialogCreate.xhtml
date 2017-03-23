@@ -44,9 +44,12 @@
 
             </h:panelGrid>
 
-            <p:commandButton  value="Create" action="#{theAlbums.create()}" ajax="false"/>
+            <p:commandButton  value="Create" actionListener="#{theAlbums.create()}" update="form,dialogForm" onclick="PF('dialogCreate').hide(),PF('dialogViewEdit').show()" oncomplete="PF('albumTable').paginator.setPage(5)" />
             <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()"/>
 
         </p:outputPanel> 
     </h:form>    
 </ui:composition>
+
+
+<!--PF('albumTable').pagina‌​tor.cfg.pageCount-1-->

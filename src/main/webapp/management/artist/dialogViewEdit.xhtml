@@ -1,0 +1,37 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:outputText value="nothing selected" rendered="#{empty theArtists.selectedArtist}"/>
+
+    <h:form id="dialogForm">
+
+        <h:panelGrid  columns="2" rendered="#{not theArtists.editable and not empty theArtists.selectedArtist}">
+            <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
+            <h:outputText value="#{theArtists.selectedArtist.id}" title="Id"/>
+            <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
+            <h:outputText value="#{theArtists.selectedArtist.name}" title="Name"/>
+
+            <p:commandButton class="mgmt_btn" actionListener="#{theArtists.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                             
+        </h:panelGrid>
+
+        <h:panelGrid columns="2" rendered="#{theArtists.editable and not empty theArtists.selectedArtist}">
+            <p:outputLabel value="Id:" for="id" />
+            <p:inputText id="id" value="#{theArtists.selectedArtist.id}" title="Id" disabled="true"/>
+            <p:outputLabel value="Name:" for="name" />
+            <p:inputText id="name" value="#{theArtists.selectedArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+
+            <p:commandButton class="mgmt_btn" actionListener="#{theArtists.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm"/>
+            <p:commandButton class="mgmt_btn" actionListener="#{theArtists.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
+        </h:panelGrid>
+
+        <p:commandButton  class="mgmt_btn" value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+
+    </h:form>             
+    
+</ui:composition>
+
+

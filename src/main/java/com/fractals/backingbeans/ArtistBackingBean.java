@@ -19,28 +19,48 @@ import javax.inject.Named;
  */
 @Named("theArtists")
 @SessionScoped
-public class ArtistBackingBean implements Serializable{
-    
-    private Artist selectedArtist;
-    public Artist getSelectedArtist(){ return selectedArtist;}
-    public void setSelectedArtist(Artist a){ selectedArtist = a;}
-    
-    private Artist createdArtist;
-    public Artist getCreatedArtist(){
-        if(createdArtist == null)
-            createdArtist = new Artist();
-        return createdArtist;
-    }
-    public void setCreatedArtist(Artist a){ createdArtist = a; makeUneditable();} 
-        
-    private boolean editable = false;
-    public boolean getEditable() {return editable;}
-    public void setEditable(boolean b) {editable = b;}
-    public void makeEditable(){setEditable(true);};
-    public void makeUneditable(){setEditable(false);}
-    
+public class ArtistBackingBean implements Serializable {
+
     @Inject
     private ArtistJpaController artistJpaController;
+    private Artist selectedArtist, createdArtist;
+    private boolean editable = false;
+
+    public Artist getSelectedArtist() {
+        return selectedArtist;
+    }
+
+    public void setSelectedArtist(Artist a) {
+        selectedArtist = a;
+    }
+
+    public Artist getCreatedArtist() {
+        if (createdArtist == null) {
+            createdArtist = new Artist();
+        }
+        return createdArtist;
+    }
+
+    public void setCreatedArtist(Artist a) {
+        createdArtist = a;
+        makeUneditable();
+    }
+
+    public boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean b) {
+        editable = b;
+    }
+
+    public void makeEditable() {
+        setEditable(true);
+    }
+
+    public void makeUneditable() {
+        setEditable(false);
+    }
 
     public List<Artist> getArtists() {
         return artistJpaController.findArtistEntities();
@@ -49,22 +69,20 @@ public class ArtistBackingBean implements Serializable{
     public boolean isEmpty() {
         return artistJpaController.isEmpty();
     }
-    
-    
-       public String create() throws Exception {
+
+    public void create() throws Exception {
         artistJpaController.create(createdArtist);
         selectedArtist = createdArtist;
         createdArtist = null;
-        return "/management/artist/artistsViewEdit.xhtml";
     }
-       
-       public String edit()throws Exception {
-           artistJpaController.edit(selectedArtist);
-           return "/management/artist/artistsList.xhtml";
-       }
-       
-       public void delete() throws Exception {
-           artistJpaController.destroy(selectedArtist.getId());
-       }
+
+    public void edit() throws Exception {
+        makeUneditable();
+        artistJpaController.edit(selectedArtist);
+    }
+
+    /*public void delete() throws Exception {
+        artistJpaController.destroy(selectedArtist.getId());
+    }*/
 
 }

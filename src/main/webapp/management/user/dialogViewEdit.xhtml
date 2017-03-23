@@ -10,53 +10,52 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
-            <h:panelGroup rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
+            <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
 
-                <div class="form-group row"><h:outputText value="Id:" class="control-label mgmt_detail_label  col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/></div>
-                <div class="form-group row"><h:outputText value="Username:" class="control-label mgmt_detail_label col-sm-2" />
-                    <h:outputText value="#{theUsers.selectedUser.username}" title="Username"/></div>
-                <div class="form-group row"><h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.title}" title="Title"/></div>
-                <div class="form-group row"><h:outputText value="FirstName:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.firstName}" title="FirstName"/></div>
-                <div class="form-group row"><h:outputText value="LastName:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.lastName}" title="LastName"/></div>
-                <div class="form-group row"><h:outputText value="Company:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.company}" title="Company"/></div>
-                <div class="form-group row"><h:outputText value="Address1:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.address1}" title="Address1"/></div>
-                <div class="form-group row"><h:outputText value="Address2:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.address2}" title="Address2"/></div>
-                <div class="form-group row"><h:outputText value="City:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.city}" title="City"/></div>
-                <div class="form-group row"><h:outputText value="Country:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.country}" title="Country"/></div>
-                <div class="form-group row"><h:outputText value="PostalCode:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.postalCode}" title="PostalCode"/></div>
-                <div class="form-group row"><h:outputText value="HomeTel:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.homeTel}" title="HomeTel"/></div>
-                <div class="form-group row"><h:outputText value="CellTel:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.cellTel}" title="CellTel"/></div>
-                <div class="form-group row"><h:outputText value="Email:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.email}" title="Email"/></div>
-                <div class="form-group row"><h:outputText value="IsAdmin:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.isAdmin}" title="IsAdmin"/></div>
-                <div class="form-group row"><h:outputText value="Province:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.province}" title="Province"/></div>
-                <div class="form-group row"><h:outputText value="LastGenre:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.selectedUser.lastGenre}" title="LastGenre"/></div>
-                <div class="form-group row"><h:outputText value="TotalSales:" class="control-label mgmt_detail_label col-sm-2"/>
-                    <h:outputText value="#{theUsers.getTotalSales()}" title="LastGenre">
-                        <f:convertNumber maxFractionDigits="2" />
-                    </h:outputText>
-                </div>
+                <h:outputText value="Id:"/>
+                <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
+                <h:outputText value="Username:"/>
+                <h:outputText value="#{theUsers.selectedUser.username}" title="Username"/>            
+                <h:outputText value="Title:"/>
+                <h:outputText value="#{theUsers.selectedUser.title}" title="Title"/>
+                <h:outputText value="FirstName:"/>
+                <h:outputText value="#{theUsers.selectedUser.firstName}" title="FirstName"/>
+                <h:outputText value="LastName:"/>
+                <h:outputText value="#{theUsers.selectedUser.lastName}" title="LastName"/>
+                <h:outputText value="Company:"/>
+                <h:outputText value="#{theUsers.selectedUser.company}" title="Company"/>
+                <h:outputText value="Address1:"/>
+                <h:outputText value="#{theUsers.selectedUser.address1}" title="Address1"/>
+                <h:outputText value="Address2:"/>
+                <h:outputText value="#{theUsers.selectedUser.address2}" title="Address2"/>
+                <h:outputText value="City:"/>
+                <h:outputText value="#{theUsers.selectedUser.city}" title="City"/>
+                <h:outputText value="Country:"/>
+                <h:outputText value="#{theUsers.selectedUser.country}" title="Country"/>
+                <h:outputText value="PostalCode:"/>
+                <h:outputText value="#{theUsers.selectedUser.postalCode}" title="PostalCode"/>
+                <h:outputText value="HomeTel:"/>
+                <h:outputText value="#{theUsers.selectedUser.homeTel}" title="HomeTel"/>
+                <h:outputText value="CellTel:"/>
+                <h:outputText value="#{theUsers.selectedUser.cellTel}" title="CellTel"/>
+                <h:outputText value="Email:"/>
+                <h:outputText value="#{theUsers.selectedUser.email}" title="Email"/>
+                <h:outputText value="IsAdmin:"/>
+                <h:outputText value="#{theUsers.selectedUser.isAdmin}" title="IsAdmin"/>
+                <h:outputText value="Province:"/>
+                <h:outputText value="#{theUsers.selectedUser.province}" title="Province"/>               
+                <h:outputText value="LastGenre:"/>
+                <h:outputText value="#{theUsers.selectedUser.lastGenre}" title="LastGenre"/>
+                <h:outputText value="TotalSales:"/>
+                <h:outputText value="#{theUsers.getTotalSales()}" title="LastGenre">
+                    <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>
 
-                <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="form"/>                             
-            </h:panelGroup>
+                <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
+            </h:panelGrid>
 
 
-            <p:panelGrid columns="2" layout="tabular" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
+            <p:panelGrid columns="2" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
                 <p:outputLabel value="Id:" for="id" />
                 <p:inputText id="id" value="#{theUsers.selectedUser.id}" title="Id" disabled="true"/>
@@ -95,9 +94,19 @@
                 <p:outputLabel value="LastGenre:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
 
+                
+                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm:testViewEdit" class="mgmt_btn">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
+                </p:commandButton>
 
-                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form" class="mgmt_btn"/>
-                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="form"/> 
+                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
+
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>   
+
 
             </p:panelGrid>
 
