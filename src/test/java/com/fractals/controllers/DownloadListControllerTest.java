@@ -63,6 +63,7 @@ public class DownloadListControllerTest {
                 .addPackage(Track.class.getPackage())
                 .addPackage(SurveyClientBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
+                .addPackage(org.primefaces.model.StreamedContent.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
@@ -94,7 +95,7 @@ public class DownloadListControllerTest {
    
    
     
-    private int[] expectedArray = {4,6,0,1};
+    private int[] expectedArray = {4,6,0,7};
     private int[] idArray = {2,50,90,51};
     private List<User> user; 
     
@@ -102,6 +103,8 @@ public class DownloadListControllerTest {
     @Before
     public void setup()
     {
+        
+        //when seeded 
         // Legend - Currently set db
         //user 2, 4 tracks bought
         //user 50, 6 tracks
@@ -129,7 +132,7 @@ public class DownloadListControllerTest {
             
             List<Track> tracks = dl.getClientTracks(cur);
             
-            int obtained = 0; 
+            int obtained = tracks.size(); 
             
             if(tracks != null)
                 obtained = tracks.size(); 
@@ -142,6 +145,16 @@ public class DownloadListControllerTest {
             Assert.assertEquals(expected, obtained);
                         
         }
+    }
+    
+    
+    @Before
+    public void seedDatabase() {
+        
+       log.info("Seeding the database");
+        
+        DatabaseSeedManager db = new DatabaseSeedManager(ds);
+        db.seed();
     }
     
 }

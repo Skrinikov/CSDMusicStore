@@ -142,12 +142,12 @@ public class BrowseGenreTest {
         Assert.assertTrue(valid);
         
     }
-    /*
+    
      @Before
     public void seedDatabase() {
         DatabaseSeedManager db = new DatabaseSeedManager(ds);
         db.seed();
     }
     
-    */
+    
 }
