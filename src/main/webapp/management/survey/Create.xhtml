@@ -15,8 +15,8 @@
      <ui:define name="content">
          
          <f:view>
-             <h:form>
-                 <p:growl id="growl" showDetail="true" sticky="true" />  
+             <h:form id="survey_form">
+                 <p:growl id="growl" showDetail="false" sticky="true" />  
                  
                  <h1><h:outputText value="#{bundle.createHeader}"/></h1>
                  <p:panelGrid columns="2">
@@ -40,7 +40,7 @@
      
              <h1><h:outputText value="#{bundle.surOpHeader}"/></h1>
              
-             <p:dataTable value="#{surveyBacking.current.surveyChoices}" var="item">
+             <p:dataTable id="choicesInput" value="#{surveyBacking.current.surveyChoices}" var="item">
                      <p:column>
                          <f:facet name="header">
                              <h:outputText value="choice"/>
@@ -52,13 +52,11 @@
                      </p:column>   
              </p:dataTable>
              
-             <p:commandButton value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}" ajax="false"
+             <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{surveyBacking.createSurvey()}" ajax="false"
                               update="growl">
              </p:commandButton>
-             
+             <p:button outcome="List" value="#{bundle.backBtn}"></p:button>
              </h:form>
-             
-             <p:link outcome="List" value="#{bundle.backBtn}"></p:link>
              
          </f:view>      
      </ui:define>

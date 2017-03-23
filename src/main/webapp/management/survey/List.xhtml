@@ -15,9 +15,9 @@
      <ui:define name="content">
                      
          <f:view>
-             <p:commandButton value="#{bundle.createBtn}" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
+             <p:commandButton id="create" value="#{bundle.createBtn}" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
              </p:commandButton>
-            <h:form>
+            <h:form id="surveyInfo">
                  <h1><h:outputText value="#{bundle.listHeader}"/></h1>
                  <p:dataTable id="data" value="#{surveyController.findSurveyEntities()}" var="item"
                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -42,10 +42,10 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
+                         <p:commandButton id="delete" update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
-                         <p:commandButton value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
+                         <p:commandButton id="edit" value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
                         </p:commandButton>
 
                      </p:column>
