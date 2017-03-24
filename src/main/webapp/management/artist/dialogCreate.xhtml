@@ -10,11 +10,21 @@
         <h:panelGrid columns="2">
             <h:outputLabel value="Name:" for="name" />
             <h:inputText id="name" value="#{theArtists.createdArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+
+            <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}" actionListener="#{theArtists.create()}" update="form,dialogForm,dialogForm2" icon="fa-edit"/>
+            <p:commandButton class="mgmt_btn" value="Exit" onclick="PF('dialogCreate').hide()"/>
+
+            <h:panelGroup>
+                <script>
+                    if (#{!facesContext.validationFailed}) {
+                        PF('dialogCreate').hide();
+                        PF('dialogViewEdit').show();
+                        PF('artistTable').paginator.setPage(#{theArtists.getPageCount()});
+                    }
+                </script>
+            </h:panelGroup>
+            
         </h:panelGrid>
-
-        <p:commandButton  class="mgmt_btn" value="#{bundle.mgmt_btn_create}" actionListener="#{theArtists.create()}" onclick="PF('dialogCreate').hide(), PF('dialogViewEdit').show()" update="form,dialogForm" icon="fa-edit"/>
-        <p:commandButton  class="mgmt_btn" value="Exit" onclick="PF('dialogCreate').hide()"/>
-
     </h:form>
 
 </ui:composition>

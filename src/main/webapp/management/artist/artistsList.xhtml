@@ -18,33 +18,39 @@
 
         <h:form id="form">
 
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:outputText escape="false" value="#{bundle.ListArtistEmpty}" rendered="#{theArtists.isEmpty()}"/>
 
-            <p:dataTable id="tbl" value="#{theArtists.artists}" var="item" 
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
-                         selectionMode="single" selection="#{theArtists.selectedArtist}" 
-                         rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row">
 
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListArtistTitle}"/>
-                </f:facet>
+            <h:panelGroup rendered="#{!theArtists.isEmpty()}">  
 
-                <p:column headerText="Id">              
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                <p:dataTable id="tbl" value="#{theArtists.artists}" var="item" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theArtists.selectedArtist}" 
+                             rowKey="#{item.id}"  widgetVar="artistTable"
+                             draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArtistTitle}"/>
+                    </f:facet>
+
+                    <p:column headerText="Id">              
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Name">                          
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" onclick="PF('dialogViewEdit').show()" update="dialogForm" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
+                    </f:facet>  
+
+                </p:dataTable>
                 
-                <p:column headerText="Name">                          
-                    <h:outputText value="#{item.name}"/>
-                </p:column>
-
-                <f:facet name="footer">
-                    <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" onclick="PF('dialogViewEdit').show()" update="dialogForm" class="mgmt_btn" />
-                    <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
-                </f:facet>  
-
-            </p:dataTable>
+            </h:panelGroup>
 
         </h:form>
 

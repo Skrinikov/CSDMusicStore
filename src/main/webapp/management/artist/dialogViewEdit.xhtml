@@ -5,9 +5,9 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <h:outputText value="nothing selected" rendered="#{empty theArtists.selectedArtist}"/>
-
     <h:form id="dialogForm">
+
+        <h:outputText value="nothing selected" rendered="#{empty theArtists.selectedArtist}"/>
 
         <h:panelGrid  columns="2" rendered="#{not theArtists.editable and not empty theArtists.selectedArtist}">
             <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
@@ -31,7 +31,7 @@
         <p:commandButton  class="mgmt_btn" value="Exit" onclick="PF('dialogViewEdit').hide()"/>
 
     </h:form>             
-    
+
 </ui:composition>
 
 

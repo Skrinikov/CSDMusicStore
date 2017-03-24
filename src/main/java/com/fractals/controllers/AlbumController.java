@@ -10,8 +10,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Order_;
-import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,8 +24,8 @@ import javax.persistence.criteria.Root;
  * @author MOUFFOK Sarah
  */
 @Named
-@SessionScoped
-public class AlbumController implements Serializable {
+@RequestScoped
+public class AlbumController {
    
     @PersistenceContext
     private EntityManager em;

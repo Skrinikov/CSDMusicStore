@@ -8,7 +8,6 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
-import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,12 +26,12 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author 1710030, Danieil Skrinikov
+ * @author MOUFFOK Sarah, Danieil Skrinikov
  */
 
 @Named
-@SessionScoped
-public class AlbumJpaController implements Serializable {
+@RequestScoped
+public class AlbumJpaController {
 
     @Resource
     private UserTransaction utx;

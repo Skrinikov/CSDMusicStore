@@ -1,5 +1,4 @@
 <ui:composition 
-    template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
@@ -18,7 +17,7 @@
             <h:outputText value="Name:"/>
             <h:outputText value="#{theGenres.selectedGenre.name}" title="Name"/>
 
-            <p:commandButton class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
+            <p:commandButton class="mgmt_btn" actionListener="#{theGenres.makeEditable()}" value="Edit" update="dialogForm"/>                             
 
         </h:panelGrid>
 

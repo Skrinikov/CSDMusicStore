@@ -16,7 +16,7 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
             <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{theGenres.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theGenres.isEmpty()}">    
@@ -25,7 +25,7 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theGenres.selectedGenre}" 
-                             rowKey="#{item.id}"
+                             rowKey="#{item.id}" widgetVar="genreTable"
                              draggableColumns="true" resizableColumns="true" reflow="true"
                              rowStyleClass="mgmt_table_row" >
 
@@ -43,7 +43,7 @@
 
                     <f:facet name="footer">
                         <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()" />       
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" class="mgmt_btn" onclick="PF('dialogViewEdit').show()" update="dialogForm" />
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" class="mgmt_btn" onclick="PF('dialogViewEdit').show()" update="dialogForm" />
                     </f:facet>  
 
                 </p:dataTable>

@@ -84,5 +84,8 @@ public class ArtistBackingBean implements Serializable {
     /*public void delete() throws Exception {
         artistJpaController.destroy(selectedArtist.getId());
     }*/
-
+    
+    public int getPageCount(){
+        return artistJpaController.getArtistCount() / 10;
+    }
 }

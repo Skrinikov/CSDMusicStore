@@ -84,4 +84,8 @@ public class GenreBackingBean implements Serializable {
     public void delete() throws Exception {
         genreJpaController.destroy(selectedGenre.getId());
     }
+    
+    public int getPageCount(){
+        return genreJpaController.getGenreCount()/10;
+    }
 }
