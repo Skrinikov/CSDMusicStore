@@ -8,10 +8,12 @@ import com.fractals.controllers.GenreJpaController;
 import com.fractals.controllers.RssFeedController;
 import com.fractals.controllers.TrackJpaController;
 import com.fractals.rss.FeedMessage;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,11 +23,10 @@ import javax.inject.Named;
  * @author Danieil Skrinikov
  * @author Thai-Vu Nguyen
  * @version 1.0.0
- * @since 2017-02-17
  */
 @Named("indexBacking")
-@RequestScoped
-public class IndexBacking {
+@SessionScoped
+public class IndexBacking implements Serializable {
     
     private static final Logger log = Logger.getLogger("IndexBacking.class");
     
@@ -48,9 +49,11 @@ public class IndexBacking {
     private List<Track> specialsTracks;
     private List<Album> trackedAlbums;
     private Genre trackedGenre;
+    private boolean isTracking;
     
     /**
      * Generates all components which are needed to display the page.
+     * @author Danieil Skrinikov
      */
     @PostConstruct
     public void init(){
@@ -71,6 +74,7 @@ public class IndexBacking {
             trackedGenre = tracker.getGenre();
             trackedAlbums = tracker.getAlbums(3, true);
             trackedTracks = tracker.getTracks(3, true);
+            isTracking = tracker.isGenreSaved();
         }
     }
     /* Getters and Setters */
@@ -133,5 +137,8 @@ public class IndexBacking {
 
     public void setSpecialsTracks(List<Track> specialsTracks) {
         this.specialsTracks = specialsTracks;
-    }  
+    } 
+    public boolean getIsTracking() {
+        return isTracking;
+    } 
 }

@@ -20,14 +20,14 @@
             <div class="header-group">
                 <h1>#{bundle.index_header_title}</h1>
                 <h3>#{bundle.index_header_subtitle}</h3>
-                <h:link value="#{bundle.index_header_button}" outcome="/client/login.xhtml" rendered="#{!login.loggedIn}" styleClass="hvr-underline-from-left header-button"/>
+                <h:link value="#{bundle.index_header_button}" outcome="/client/login.xhtml" rendered="#{!login.loggedIn}" styleClass="hvr-underline-from-left header-button" id="to-login-btn"/>
             </div>
         </div>
 
         <!-- New Releases -->
         <div class="container top-buffer text-center" id="latest-releases">
             <h1>#{bundle.index_latest_releases}</h1>
-            <div class="row">
+            <div class="row" id="releases">
                 <ui:repeat var="track" value="#{indexBacking.newTracks}">
                     <div class="col-xs-4" style="padding:4px;">
                         <h:link outcome="/client/Track.xhtml" includeViewParams="true">
@@ -41,26 +41,16 @@
 
         <!-- Tracking -->
         <div class="row genres-container top-buffer-more">
-            <div class="container top-buffer">
-                <div class="col-md-6 col-xs-12 top-buffer">
-                    <div class="row user-row">
-                        <h1><strong>#{bundle.index_welcome} </strong><h:outputLabel rendered="#{login.loggedIn}" value=" #{login.currentUser.username}!" style="font-weight:500;"/></h1>
-                    </div>
-                    <div class="row user-row">
-                        <h3>#{bundle.index_tracking}</h3>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12 top-buffer">
-                    <h3 style="text-transform: capitalize;">
-                        <ui:repeat var="tTrack" value="#{indexBacking.trackedTracks}">
-                            #{tTrack.title},
-                        </ui:repeat>
-                        <ui:repeat var="tAlbum" value="#{indexBacking.trackedAlbums}">
-                            #{tAlbum.title},
-                        </ui:repeat>
-                    </h3>
-                </div>
-            </div>
+            <ui:fragment rendered="#{indexBacking.isTracking}">
+                <ui:insert name="totalSales">
+                    <ui:include src="/WEB-INF/sections/client/tracked.xhtml"/>
+                </ui:insert>
+            </ui:fragment>
+            <ui:fragment rendered="#{!indexBacking.isTracking}">
+                <ui:insert name="totalSales">
+                    <ui:include src="/WEB-INF/sections/client/noTracking.xhtml"/>
+                </ui:insert>
+            </ui:fragment>
         </div>
 
 
@@ -70,16 +60,20 @@
                 <h1 style="" class="header-h1">#{bundle.index_specials_title}</h1>
                 <h2></h2>
                 <div class="row top-buffer-more">
-                    <ui:repeat var="track" value="#{indexBacking.specialsTracks}">
-                        <div class="col-md-3 col-xs-12 specials-container">
-                            <div class="special">                           
-                                <p:graphicImage name="images/covers/#{track.coverFile}" style="width: 100%;"/>
-                                <h3><h:link outcome="/client/Track">#{track.title}<f:param name="id" value="#{track.id}"/></h:link></h3>
-                                <h4>#{track.artists.get(0).name}</h4>
-                                <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-underline-from-left header-button" actionListener="#{cart.add(track)}"/>
+                    <h:form id="specials-form">
+                        <ui:repeat var="specialsTrack" value="#{indexBacking.specialsTracks}">
+                            <div class="col-md-3 col-xs-12 specials-container">
+                                <div class="special">                           
+                                    <p:graphicImage name="images/covers/#{specialsTrack.coverFile}" style="width: 100%;"/>
+                                    <h3><h:link outcome="/client/Track">#{specialsTrack.title}<f:param name="id" value="#{specialsTrack.id}"/></h:link></h3>
+                                    <h4>#{specialsTrack.artists.get(0).name}</h4>
+                                    <h:commandLink value="$#{trackCLBack.getPrice(specialsTrack)}" styleClass="hvr-underline-from-left header-button" actionListener="#{cart.add(specialsTrack)}">
+                                        <f:ajax render="shop-cart shop-cart-2"/>
+                                    </h:commandLink>
+                                </div>
                             </div>
-                        </div>
-                    </ui:repeat>
+                        </ui:repeat>
+                    </h:form>
                 </div>
             </div>
         </div>
@@ -95,8 +89,19 @@
             </div>
         </p:outputPanel>
 
+        <!-- Ads --> 
+        <p:outputPanel class="row" id="ads" style="max-height:200px; margin-bottom:40px;">
+            <ui:repeat var="ad" value="#{bannerAdClient.visibleAds}">
+                <div class="col-md-6 col-xs-10 col-md-offset-0 col-xs-offset-1">
+                    <a href="#{ad.link}">
+                        <h:graphicImage value="#{ad.source}" style="width:100%; max-height: 200px;" />
+                    </a>
+                </div>         
+            </ui:repeat>
+        </p:outputPanel>
+
         <!-- Insert Ad Here -->
-        
+
         <!-- Genre List -->
         <p:outputPanel id="genres-panel" class="row">
             <!-- Header -->
@@ -107,18 +112,18 @@
                 <h3>#{bundle.index_genres_instructions}</h3>
                 <h4 style="text-transform: capitalize;">
                     <ui:repeat var="genre" value="#{indexBacking.genres}" varStatus="status">
-                        
+
                         <h:link outcome="/client/browse_genreTracks.xhtml" styleClass="genre-item">
                             #{genre.name}
                             <f:param name="id" value="#{genre.id}"/>
                         </h:link>
-                        
+
                         <ui:fragment rendered="#{!status.last}">, </ui:fragment>
                     </ui:repeat>
                 </h4>
             </div>
         </p:outputPanel>
-        
+
         <!-- RSS -->
         <p:outputPanel id="rss" class="top-buffer">
             <h1 style="font-family: 'Raleway', sans-serif;font-weight: 500;" class="header-h1 text-center">#{bundle.index_news}</h1>
