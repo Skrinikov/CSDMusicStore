@@ -6,10 +6,11 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
-        <p:outputPanel id="testViewEdit">
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
+           
+        <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
+        <p:outputPanel  rendered="#{not empty theUsers.selectedUser}">
+            
             <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
@@ -93,7 +94,7 @@
                 <p:outputLabel value="LastGenre:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
                 
-                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm:testViewEdit" class="mgmt_btn">
+                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
                 </p:commandButton>
 
@@ -106,7 +107,7 @@
 
             </p:panelGrid>
 
-            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
         </p:outputPanel>
     </h:form>  

@@ -15,8 +15,9 @@
 
     <ui:define name="content">
 
-        <h:form>           
-
+        <h:form id="form">           
+           
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
             <h:outputText escape="false" value="#{bundle.ListTracksEmpty}" rendered="#{theTracks.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
@@ -25,7 +26,7 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theTracks.selectedTrack}" 
-                             rowKey="#{item.id}" reflow="true"
+                             rowKey="#{item.id}" reflow="true" widgetVar="trackTable"
                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
@@ -98,27 +99,29 @@
                     </p:column>
 
                     <p:column headerText="Total Sales">
-                        $<h:outputText value="#{theTracks.getTotalCost(item)}" >
+                        <h:outputText value="#{theTracks.getTotalCost(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
 
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />     
-                    </f:facet>   
-
-
-                    <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true">
-                        <ui:include src="/management/track/dialogViewEdit.xhtml" />
-                    </p:dialog>
-
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()"/>                        
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />     
+                    </f:facet>  
 
                 </p:dataTable>
             </h:panelGroup>
         </h:form>
+
+        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/track/dialogViewEdit.xhtml" />
+        </p:dialog>
+
+        <p:dialog header="Track Info" widgetVar="dialogCreate">
+            <ui:include src="/management/track/dialogCreate.xhtml" />
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 

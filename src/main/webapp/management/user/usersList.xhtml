@@ -15,109 +15,111 @@
 
     <ui:define name="content">
 
-
-
         <h:form id="form">
 
-            <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
-                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                          paginator="true" rows="10" style="margin-bottom:20px"
-                          selectionMode="single" selection="#{theUsers.selectedUser}" 
-                          rowKey="#{item.id}" reflow="true"
-                          draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:outputText escape="false" value="#{bundle.ListUserEmpty}" rendered="#{theUsers.isEmpty()}"/>
 
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUserTitle}"/>
-                    <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
-                    <p:columnToggler datasource="tbl" trigger="toggler" />
-                </f:facet>
+            <h:panelGroup rendered="#{!theTracks.isEmpty()}">
+                <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
+                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                              paginator="true" rows="10" style="margin-bottom:20px"
+                              selectionMode="single" selection="#{theUsers.selectedUser}" 
+                              rowKey="#{item.id}" reflow="true"
+                              draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
 
-                <p:column headerText="Id">
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUserTitle}"/>
+                        <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
+                        <p:columnToggler datasource="tbl" trigger="toggler" />
+                    </f:facet>
 
-                <p:column headerText="Username">
-                    <h:outputText value="#{item.username}"/>
-                </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
 
-                <p:column headerText="Title">
-                    <h:outputText value="#{item.title}"/>
-                </p:column>
+                    <p:column headerText="Username">
+                        <h:outputText value="#{item.username}"/>
+                    </p:column>
 
-                <p:column headerText="FirstName">
-                    <h:outputText value="#{item.firstName}"/>
-                </p:column>
+                    <p:column headerText="Title">
+                        <h:outputText value="#{item.title}"/>
+                    </p:column>
 
-                <p:column headerText="LastName">
-                    <h:outputText value="#{item.lastName}"/>
-                </p:column>
+                    <p:column headerText="FirstName">
+                        <h:outputText value="#{item.firstName}"/>
+                    </p:column>
 
-                <p:column headerText="Company">
-                    <h:outputText value="#{item.company}"/>
-                </p:column>
+                    <p:column headerText="LastName">
+                        <h:outputText value="#{item.lastName}"/>
+                    </p:column>
 
-                <p:column headerText="Address1">
-                    <h:outputText value="#{item.address1}"/>
-                </p:column>
+                    <p:column headerText="Company">
+                        <h:outputText value="#{item.company}"/>
+                    </p:column>
 
-                <p:column headerText="Address2">
-                    <h:outputText value="#{item.address2}"/>
-                </p:column>
+                    <p:column headerText="Address1">
+                        <h:outputText value="#{item.address1}"/>
+                    </p:column>
 
-                <p:column headerText="City">
-                    <h:outputText value="#{item.city}"/>
-                </p:column>
+                    <p:column headerText="Address2">
+                        <h:outputText value="#{item.address2}"/>
+                    </p:column>
 
-                <p:column headerText="Country">
-                    <h:outputText value="#{item.country}"/>
-                </p:column>
+                    <p:column headerText="City">
+                        <h:outputText value="#{item.city}"/>
+                    </p:column>
 
-                <p:column headerText="PostalCode">
-                    <h:outputText value="#{item.postalCode}"/>
-                </p:column>
+                    <p:column headerText="Country">
+                        <h:outputText value="#{item.country}"/>
+                    </p:column>
 
-                <p:column headerText="HomeTel">
-                    <h:outputText value="#{item.homeTel}"/>
-                </p:column>
+                    <p:column headerText="PostalCode">
+                        <h:outputText value="#{item.postalCode}"/>
+                    </p:column>
 
-                <p:column headerText="CellTel">
-                    <h:outputText value="#{item.cellTel}"/>
-                </p:column>
+                    <p:column headerText="HomeTel">
+                        <h:outputText value="#{item.homeTel}"/>
+                    </p:column>
 
-                <p:column headerText="Email">
-                    <h:outputText value="#{item.email}"/>
-                </p:column>
+                    <p:column headerText="CellTel">
+                        <h:outputText value="#{item.cellTel}"/>
+                    </p:column>
 
-                <p:column headerText="isAdmin">
-                    <h:outputText value="#{item.isAdmin}"/>
-                </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{item.email}"/>
+                    </p:column>
 
-                <p:column headerText="Province">
-                    <h:outputText value="#{item.province}"/>
-                </p:column>
+                    <p:column headerText="isAdmin">
+                        <h:outputText value="#{item.isAdmin}"/>
+                    </p:column>
 
-                <p:column headerText="LastGenre">
-                    <h:outputText value="#{item.lastGenre}"/>
-                </p:column>
-                <p:column headerText="Total Sales">
-                    <h:outputText value="#{theUsers.getTotalSales(item)}" >
-                        <f:convertNumber maxFractionDigits="2" />
-                    </h:outputText>
-                </p:column>
+                    <p:column headerText="Province">
+                        <h:outputText value="#{item.province}"/>
+                    </p:column>
 
-                <f:facet name="footer">
-                    <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
-                    <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
-                </f:facet> 
-         
+                    <p:column headerText="LastGenre">
+                        <h:outputText value="#{item.lastGenre}"/>
+                    </p:column>
+                    <p:column headerText="Total Sales">
+                        <h:outputText value="#{theUsers.getTotalSales(item)}" >
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    </p:column>
 
-            </p:dataTable>
-            
-           
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
+                    </f:facet> 
+                    
+                </p:dataTable>
+            </h:panelGroup>
+
         </h:form>
+
+        <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/user/dialogViewEdit.xhtml" />
+        </p:dialog>
         
-          <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
-                    <ui:include src="/management/user/dialogViewEdit.xhtml" />
-                </p:dialog>
     </ui:define>
 </ui:composition>

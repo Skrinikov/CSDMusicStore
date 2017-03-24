@@ -71,9 +71,9 @@
                     <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre" class="col-sm-4"/>
                 </div>
 
-                <p:commandButton action="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                                           
+                <p:commandButton actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 
-                <p:commandButton actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="form">
+                <p:commandButton actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="dialogForm,form">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
 
@@ -122,7 +122,7 @@
                 </p:selectOneMenu>
 
 
-                <p:commandButton actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="form">
+                <p:commandButton actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
 
@@ -131,10 +131,13 @@
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
 
-                <p:commandButton action="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+                <p:commandButton actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
 
             </h:panelGrid>
-            
+
+
+            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+
         </p:outputPanel>
     </h:form>
 </ui:composition>
