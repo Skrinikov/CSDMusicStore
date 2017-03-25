@@ -6,16 +6,17 @@
 
     <h:form id="totalSales" styleClass="col-md-12 col-xs-12 reports-form">
 
+        <p:messages  id="totalSalesMsgs"/>
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
-            <p:calendar id="trackSaleDateStart" binding="#{allOrdersDateStart}" />
+            <p:calendar id="trackSaleDateStart" binding="#{allOrdersDateStart}" required="true"/>
 
             <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
-            <p:calendar id="trackSaleDateEnd" binding="#{allOrdersDateEnd}" />
+            <p:calendar id="trackSaleDateEnd" binding="#{allOrdersDateEnd}" required="true"/>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales(allOrdersDateStart.value, allOrdersDateEnd.value)}" update="totalOrderSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTotalSales(allOrdersDateStart.value, allOrdersDateEnd.value)}" update="totalOrderSales totalSales" id="totalSalesSubmit" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="totalOrderSales">
 
@@ -29,7 +30,7 @@
                         <th>Email</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="totalSalesItems">
                     <ui:repeat var="order" value="#{reportsBacking.totalSalesOrders}">
                         <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle darker">
                             <td>#{order.id}</td>

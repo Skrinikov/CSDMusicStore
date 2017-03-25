@@ -1,10 +1,13 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Artist_;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Order_;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.beans.User;
 import com.fractals.beans.User_;
 import java.io.Serializable;
@@ -376,10 +379,10 @@ public class ReportsController implements Serializable {
         CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
         Root<OrderItem> root = query.from(OrderItem.class);
         Join order = root.join("order");
-        Join artist = root.join("track").join("artist");
+        Join artist = root.join(OrderItem_.track).join(Track_.artists);
         query.select(root);
         query.orderBy(cb.desc(order.get("orderDate")));
-        query.where(cb.and(cb.equal(artist.get("id"), artistId), cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
+        query.where(cb.and(cb.equal(artist.get(Artist_.id), artistId), cb.between(order.<LocalDateTime>get("orderDate"), start, end)));
 
         return entityManager.createQuery(query).getResultList();
     }

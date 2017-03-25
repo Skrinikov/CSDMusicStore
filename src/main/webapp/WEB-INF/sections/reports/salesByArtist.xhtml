@@ -6,22 +6,22 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form id="totalArtistSales" styleClass="col-md-12 col-xs-12 reports-form">
-
+        <p:messages  id="totalArtistSalesMsgs"/>
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="artistSaleDateStart" value="Start:" />
-            <p:calendar id="artistSaleDateStart" binding="#{artistDateStart}" />
+            <p:calendar id="artistSaleDateStart" binding="#{artistDateStart}" required="true"/>
 
             <p:outputLabel for="artistSaleDateEnd" value="End:" />
-            <p:calendar id="artistSaleDateEnd" binding="#{artistDateEnd}" />
+            <p:calendar id="artistSaleDateEnd" binding="#{artistDateEnd}" required="true"/>
             
             <p:outputLabel for="artistSaleInput" value="Name" />
             <p:inputText id="artistSaleInput" binding="#{artistId}" required="true">
-                <f:validateLength minimum="3" />
+                <f:convertNumber integerOnly="true" />
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByArtist(artistId.value,artistDateStart.value, artistDateEnd.value)}" update="orderArtistSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByArtist(artistId.value,artistDateStart.value, artistDateEnd.value)}" id="salesByArtistSubmit" update="orderArtistSales totalArtistSales" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="orderArtistSales">
 
@@ -35,7 +35,7 @@
                         <th>Email</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="totalSalesArtistItems">
                     <ui:repeat var="item" value="#{reportsBacking.ordersFromArtist}">
                         <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle">
                             <td>#{item.order.id}</td>
