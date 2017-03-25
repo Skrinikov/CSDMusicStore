@@ -345,7 +345,7 @@ public class Track implements Serializable {
 
     @Override
     public String toString() {
-        return "com.fractals.beans.Track[ id=" + id + " ]";
+        return "com.fractals.beans.Track[ id=" + id + "; title=" + title + " ]";
     }
     
 }
