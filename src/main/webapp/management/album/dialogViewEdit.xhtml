@@ -37,12 +37,12 @@
             <h:outputText value="Tracks:"/>
             <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
                 <p:column headerText="Id">
-                    <h:outputText value="#{item.id}"/>
+                    <h:outputText value="#{item.title}"/>
                 </p:column>              
             </p:dataTable>
 
             <h:outputText value="Total Sales :"/>
-            <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
+            <h:outputText value="#{theAlbums.getTotalSales()}" title="Total Sales">
                 <f:convertNumber maxFractionDigits="2"/>
             </h:outputText>
 

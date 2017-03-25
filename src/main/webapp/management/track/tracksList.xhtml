@@ -99,10 +99,9 @@
                     </p:column>
 
                     <p:column headerText="Total Sales">
-                        <h:outputText value="#{theTracks.getTotalCost(item)}" >
+                        <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
-
                     </p:column>
 
                     <f:facet name="footer">
@@ -114,8 +113,8 @@
             </h:panelGroup>
         </h:form>
 
-        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true">
-            <ui:include src="/management/track/dialogViewEdit.xhtml" />
+        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true" draggable="true" position="center" responsive="true">
+            <ui:include src="/management/track/dialogViewEdit.xhtml" /> 
         </p:dialog>
 
         <p:dialog header="Track Info" widgetVar="dialogCreate">

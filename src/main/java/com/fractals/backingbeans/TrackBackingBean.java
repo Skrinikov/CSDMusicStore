@@ -10,6 +10,7 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ArtistJpaController;
 import com.fractals.controllers.GenreJpaController;
+import com.fractals.controllers.TrackController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -28,14 +29,9 @@ import javax.inject.Named;
 public class TrackBackingBean implements Serializable {
 
     @Inject
-    private AlbumJpaController album;
-    @Inject
-    private ArtistJpaController artist;
-    @Inject
-    private GenreJpaController genre;
-
-    @Inject
     private TrackJpaController trackJpaController;
+    @Inject
+    private TrackController trackController;
     private boolean editable = false;
     private Track createdTrack, selectedTrack;
 
@@ -96,21 +92,18 @@ public class TrackBackingBean implements Serializable {
     }
 
     public void create() throws Exception {
-
-        ArrayList<Artist> a = new ArrayList();
-        a.add(artist.findArtistEntities().get(0));
-        createdTrack.setArtists(a);
-        //A CHANGER
-
         createdTrack.setCreatedAt(LocalDateTime.now());
         trackJpaController.create(createdTrack);
         selectedTrack = createdTrack;
         createdTrack = null;
     }
 
-    public Number getTotalCost(Track track) {
-        Number sales = trackJpaController.getTotalSales(track);
-        return (sales != null) ? sales : 0;
+    public Number getTotalSalesByTrack(Track t) {
+        return trackController.getTotalSales(t);
+    }
+
+    public Number getTotalSales() {
+        return getTotalSalesByTrack(selectedTrack);
     }
 
     public int getPageCount() {
