@@ -6,14 +6,15 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form id="totalClientSales" styleClass="col-md-12 col-xs-12 reports-form">
-
+        
+        <p:messages id="totalClientSalesMsgs" />
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="clientSaleDateStart" value="Start:" />
-            <p:calendar id="clientSaleDateStart" binding="#{dateStart}" />
+            <p:calendar id="clientSaleDateStart" binding="#{dateStart}" required="true"/>
 
             <p:outputLabel for="clientSaleDateEnd" value="End:" />
-            <p:calendar id="clientSaleDateEnd" binding="#{dateEnd}" />
+            <p:calendar id="clientSaleDateEnd" binding="#{dateEnd}" required="true"/>
             
             <p:outputLabel for="clientSaleInput" value="Name" />
             <p:inputText id="clientSaleInput" binding="#{username}" required="true">
@@ -21,7 +22,7 @@
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByClient(username.value,dateStart.value, dateEnd.value)}" update="orderClientSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByClient(username.value,dateStart.value, dateEnd.value)}" update="orderClientSales totalClientSales" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="orderClientSales">
 
@@ -35,7 +36,7 @@
                         <th>Email</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="totalClientSalesItems">
                     <ui:repeat var="order" value="#{reportsBacking.ordersFromUser}">
                         <tr data-toggle="collapse" data-target="##{utilBacking.generateRandomId()}" class="accordion-toggle darker">
                             <td>#{order.id}</td>

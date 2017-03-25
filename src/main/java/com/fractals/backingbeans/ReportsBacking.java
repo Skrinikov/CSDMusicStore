@@ -176,7 +176,6 @@ public class ReportsBacking implements Serializable {
     public void fetchSalesByArtist(int artistId, Date start, Date end){
         if(artistId > 0){
             ordersFromArtist = reports.getSalesByArtist(artistId, convertDateToLDT(start), convertDateToLDT(end));
-            log.info("Returned list size: "+ordersFromUser.size());
         }
     }
 

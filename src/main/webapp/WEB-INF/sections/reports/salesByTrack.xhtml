@@ -7,21 +7,22 @@
 
     <h:form id="totalTrackSales" styleClass="col-md-12 col-xs-12 reports-form">
 
+        <p:messages id="totalTrackSalesMsgs"/>
         <!-- Inputs -->
         <h:panelGrid columns="2" cellpadding="53">
             <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
-            <p:calendar id="trackSaleDateStart" binding="#{trackDateStart}" />
+            <p:calendar id="trackSaleDateStart" binding="#{trackDateStart}" required="true"/>
 
             <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
-            <p:calendar id="trackSaleDateEnd" binding="#{trackDateEnd}" />
+            <p:calendar id="trackSaleDateEnd" binding="#{trackDateEnd}"  required="true"/>
             
             <p:outputLabel for="trackSaleInput" value="#{bundle.reports_id}" />           
-            <p:inputText id="trackSaleInput" binding="#{trackId}">
+            <p:inputText id="trackSaleInput" binding="#{trackId}" required="true">
                 <f:convertNumber integerOnly="true"/>
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales totalTrackSales" id="totalTrackSubmit" styleClass="btn btn-success"/>
 
         <p:outputPanel styleClass="panel-group" id="orderTrackSales">
 
@@ -35,7 +36,7 @@
                         <th>#{bundle.reports_email}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="totalTrackSalesItems">
                     <ui:repeat var="orderitem" value="#{reportsBacking.ordersFromTrack}">
                         <tr>
                             <td>#{orderitem.order.id}</td>

@@ -1,0 +1,27 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div class="container top-buffer">
+        <div class="col-md-6 col-xs-12 top-buffer">
+            <div class="row user-row">
+                <h1><strong>#{bundle.index_welcome} </strong><h:outputLabel rendered="#{login.loggedIn}" value=" #{login.currentUser.username}!" style="font-weight:500;"/></h1>
+            </div>
+            <div class="row user-row">
+                <h3>#{bundle.index_tracking}</h3>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12 top-buffer">
+            <h3 style="text-transform: capitalize;">
+                <ui:repeat var="tTrack" value="#{indexBacking.trackedTracks}">
+                    #{tTrack.title},
+                </ui:repeat>
+                <ui:repeat var="tAlbum" value="#{indexBacking.trackedAlbums}">
+                    #{tAlbum.title},
+                </ui:repeat>
+            </h3>
+        </div>
+    </div>
+</ui:composition>

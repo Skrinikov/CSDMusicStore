@@ -1,4 +1,3 @@
-
 package com.fractals.controllers;
 
 import com.fractals.backingbeans.LoginBacking;
