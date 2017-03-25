@@ -2,10 +2,12 @@ package com.fractals.selenium.management;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -50,13 +52,38 @@ public class AlbumManagementTestSelenium {
     }
     
     @Test
+    public void clickNotChosenAlbumDetails(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);  
+        
+        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
+        detail.click();
+        
+        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
+        WebElement delete = driver.findElement(By.id("dialogForm:delete"));
+        
+        List<WebElement> list = buildListOfWebElements(edit, delete);
+        boolean valid = true;
+        if (edit.isDisplayed() || delete.isDisplayed()){
+            valid = false;
+        }
+        
+        wait.until(ExpectedConditions.invisibilityOfAllElements(list));
+    }
+    
+    @Test
     public void getAlbumDetailsPage(){
         
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         
         goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
         
-        wait.until(ExpectedConditions.titleIs("Album Details"));
+        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
+        WebElement delete = driver.findElement(By.id("dialogForm:delete"));
+        WebElement exit = driver.findElement(By.id("dialogForm:exit"));
+        
+        List<WebElement> list = buildListOfWebElements(edit, delete, exit);
+        
+        wait.until(ExpectedConditions.visibilityOfAllElements(list));
         driver.quit();
         
     }
@@ -87,6 +114,16 @@ public class AlbumManagementTestSelenium {
         WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
         detail.click();
         
+    }
+    
+    private List<WebElement> buildListOfWebElements (WebElement ... elements){
+        List<WebElement> list = new ArrayList<>();
+        
+        for (WebElement element : elements){
+            list.add(element);
+        }
+        
+        return list;
     }
     
     
