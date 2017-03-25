@@ -46,11 +46,13 @@ public class DownloadListController implements Serializable {
         List<OrderItem> oi = oijc.getUsersOrders(user);
         
         for(OrderItem item : oi){
-            if(item.getAlbum() != null){
-              tracks.addAll(item.getAlbum().getTracks());
-            } 
-            else if(item.getTrack() != null){
-                tracks.add(item.getTrack());
+            if(!item.isCancelled()){
+                if(item.getAlbum() != null){
+                  tracks.addAll(item.getAlbum().getTracks());
+                } 
+                else if(item.getTrack() != null){
+                    tracks.add(item.getTrack());
+                }
             }
         }
 
