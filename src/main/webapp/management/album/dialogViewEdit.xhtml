@@ -46,8 +46,8 @@
                 <f:convertNumber maxFractionDigits="2"/>
             </h:outputText>
 
-            <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm"/>                             
-            <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm">
+            <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm" class="mgmt_btn"/>                             
+            <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm" class="mgmt_btn">
                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
             </p:commandButton>
 
@@ -75,7 +75,7 @@
             <p:outputLabel value="RemovedAt:" for="removedAt" />
             <p:inputText id="removedAt" value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt" disabled="true"/>
             <p:outputLabel value="Available:" for="available" />
-            <p:selectBooleanButton id="available" value="#{theAlbums.selectedAlbum.available}" onLabel="Yes" offLabel="No" style="width:60px" />
+            <p:selectBooleanButton id="available" value="#{theAlbums.selectedAlbum.available}" onLabel="Yes" offLabel="No" style="width:60px"  class="mgmt_btn" />
             <p:outputLabel value="Artist:" for="artist" />     
             <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.selectedAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
 
@@ -83,7 +83,7 @@
                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
             </p:commandButton>
 
-            <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm"/>
+            <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm" class="mgmt_btn"/>
 
         </h:panelGrid>
 
@@ -92,7 +92,7 @@
             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
         </p:confirmDialog>   
 
-        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
     </h:form>
 </ui:composition>

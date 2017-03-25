@@ -1,4 +1,4 @@
-<ui:composition 
+ <ui:composition 
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -34,11 +34,7 @@
                 <p:column headerText="Username">
                     <h:outputText value="#{item.username}"/>
                 </p:column>
-                
-                <p:column headerText="Salt">
-                    <h:outputText value="#{item.salt}"/>
-                </p:column>
-                
+
                 <p:column headerText="Title">
                     <h:outputText value="#{item.title}"/>
                 </p:column>
@@ -94,11 +90,7 @@
                 <p:column headerText="Province">
                     <h:outputText value="#{item.province}"/>
                 </p:column>
-                
-                <p:column headerText="Password">
-                    <h:outputText value="#{item.password}"/>
-                </p:column>
-                
+                      
                 <p:column headerText="LastGenre">
                     <h:outputText value="#{item.lastGenre}"/>
                 </p:column>

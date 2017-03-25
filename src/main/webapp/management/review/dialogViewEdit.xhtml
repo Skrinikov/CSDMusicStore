@@ -1,0 +1,39 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:form id="dialogForm">
+
+        <h:outputText value="nothing selected" rendered="#{empty theReviews.selectedReview}"/>
+
+        <p:panelGrid columns="2" rendered="#{not empty theReviews.selectedReview}" >
+            <h:outputText value="Id:"/>
+            <h:outputText value="#{theReviews.selectedReview.id}" title="Id"/>
+            <h:outputText value="Rating:"/>
+            <h:outputText value="#{theReviews.selectedReview.rating}" title="Rating"/>
+            <h:outputText value="ReviewDate:"/>
+            <h:outputText value="#{theReviews.selectedReview.reviewDate}" title="ReviewDate"/>
+            <h:outputText value="Text:"/>
+            <h:outputText value="#{theReviews.selectedReview.text}" title="Text"/>
+            <h:outputText value="Status:"/>
+            <h:outputText value="#{theReviews.selectedReview.status()}" title="Approved"/>
+            <h:outputText value="User:"/>
+            <h:outputText value="#{theReviews.selectedReview.user.username}" title="User"/>
+            <h:outputText value="Track:"/>
+            <h:outputText value="#{theReviews.selectedReview.track.title}" title="Track"/>
+
+            <p:commandButton update="dialogForm,form" class="mgmt_btn" value="Approve" actionListener="#{theReviews.approveReview()}" rendered="#{theReviews.selectedReview.pending}" />
+            <p:commandButton update="dialogForm,form" class="mgmt_btn" value="Disapprove" actionListener="#{theReviews.disapproveReview()}" rendered="#{theReviews.selectedReview.pending || theReviews.selectedReview.approved}"/>
+
+        </p:panelGrid>
+
+        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+
+    </h:form>
+
+</ui:composition>
+
+

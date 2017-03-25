@@ -18,7 +18,7 @@
 
         <h:outputText escape="false" value="#{bundle.ListApprovedReviewsEmpty}" rendered="#{theReviews.getApprovedReviews().size() == 0}"/>
         <h:panelGroup rendered="#{theReviews.getApprovedReviews().size() != 0}">    
-            <h:form>
+            <h:form id="form">
 
                 <p:dataTable id="tbl" value="#{theReviews.getApprovedReviews()}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -53,19 +53,21 @@
                     
                     <p:column headerText="Track">
                         <h:outputText value="#{item.track.title}"/>
-                    </p:column>
-
-                                      
-                    <f:facet name="footer">
-                        <p:commandButton class="mgmt_btn" value="Detail" icon="fa fa-folder-open" action="/management/review/reviewsView.xhtml" ajax="false"/>
+                    </p:column>            
+                    
+                    <f:facet name="footer" class="mgmt_table_footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                     </f:facet>  
-               
 
                 </p:dataTable>
 
             </h:form>
 
         </h:panelGroup>
+        
+        <p:dialog header="Review Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/review/dialogViewEdit.xhtml" />
+        </p:dialog>
 
     </ui:define>
 

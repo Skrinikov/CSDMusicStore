@@ -26,9 +26,9 @@
             <p:outputLabel value="SalePrice:" for="salePrice" />
             <p:inputText id="salePrice" value="#{theTracks.createdTrack.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
             <p:outputLabel value="Available:" for="available" />
-            <p:selectBooleanButton id="available" value="#{theTracks.createdTrack.available}" onLabel="Yes" offLabel="No" style="width:60px" />          
+            <p:selectBooleanButton id="available" value="#{theTracks.createdTrack.available}" onLabel="Yes" offLabel="No" class="mgmt_btn"/>          
             <p:outputLabel value="IsIndividual:" for="isIndividual" />
-            <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="Yes" offLabel="No" style="width:60px"/>         
+            <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="Yes" offLabel="No"  class="mgmt_btn"/>         
             <p:outputLabel value="Artists:" for="artists" />                       
             <p:autoComplete id="artists" multiple="true" value="#{theTracks.createdTrack.artists}" completeMethod="#{theArtists.suggest}"
                             var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"/>
