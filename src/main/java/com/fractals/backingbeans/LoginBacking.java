@@ -1,7 +1,7 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.User;
-import com.fractals.controllers.UserJpaController;
+import com.fractals.controllers.UserController;
 import com.fractals.utilities.BundleLocaleResolution;
 import com.fractals.utilities.SecurityHelper;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class LoginBacking implements Serializable {
     @Inject
     private UserBacking userBacking;
     @Inject
-    private UserJpaController userController;
+    private UserController userController;
     
     private User currentUser;   
 

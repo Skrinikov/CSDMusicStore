@@ -86,8 +86,8 @@ public class OrderBackingBean implements Serializable {
 
     /**
      * Changes net and gross costs if an order or order items were cancelled.
-     *
      * @param order The order to modify.
+     * @author Aline Shulzhenko
      */
     private Order changeNetCost(Order order) {
         double newNet = 0;

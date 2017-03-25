@@ -38,7 +38,6 @@ public class ProvinceConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         List<Province> list = controller.getProvinces();
-        System.out.println(Arrays.toString(list.toArray(new Province[]{})));
         Province chosen = null;
         for(Province p : list)
             if(p.getName().equals(value))
@@ -70,6 +69,12 @@ public class ProvinceConverter implements Converter {
         }
     }
     
+    /**
+     * 
+     * @param s
+     * @return 
+     * @author MOUFFOK Sarah
+     */
     public List<Province> suggest(String s) {
          ArrayList<Province> similar = new ArrayList<>();
         for (Province a : controller.getProvinces()) 

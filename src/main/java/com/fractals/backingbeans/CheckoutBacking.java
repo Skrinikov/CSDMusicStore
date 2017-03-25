@@ -5,7 +5,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
-import com.fractals.controllers.OrderJpaController;
+import com.fractals.controllers.OrderController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,7 +40,7 @@ public class CheckoutBacking implements Serializable {
     @Inject
     private LoginBacking login;
     @Inject
-    private OrderJpaController orderJpa;
+    private OrderController orderJpa;
     
     private List<String> brands;
     private boolean isVisa = false;

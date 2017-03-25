@@ -1,7 +1,6 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Province;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -18,7 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Named("Province")
 @RequestScoped
-public class ProvinceController implements Serializable {
+public class ProvinceController {
     private List<Province> provinces;
         
     @PersistenceContext(unitName = "fractalsPU")
