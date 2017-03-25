@@ -33,72 +33,76 @@
                         <h:outputText value="#{bundle.ListTrackTitle}"/>
                         <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
+                        <p:outputPanel style="float:right">
+                            <h:outputText value="#{bundle.row_search}" />
+                            <p:inputText id="globalFilter" onkeyup="PF('trackTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                        </p:outputPanel>
                     </f:facet>
 
-                    <p:column width="5%" headerText="Cover">
+                    <p:column width="5%" headerText="Cover" filterStyle="display:none" filterBy="">
                         <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
                         <p:tooltip for="content" trackMouse="true">
                             <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
                         </p:tooltip>
                     </p:column> 
 
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="Title">
+                    <p:column headerText="Title" filterStyle="display:none" filterBy="#{item.title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
 
-                    <p:column headerText="Songwriter">
+                    <p:column headerText="Songwriter" filterStyle="display:none" filterBy="#{item.songwriter}">
                         <h:outputText value="#{item.songwriter}"/>
                     </p:column>
 
-                    <p:column headerText="Duration">
+                    <p:column headerText="Duration" filterStyle="display:none" filterBy="#{item.duration}">
                         <h:outputText value="#{item.duration}"/>
                     </p:column>
 
-                    <p:column headerText="AlbumNum">
+                    <p:column headerText="AlbumNum" filterStyle="display:none" filterBy="#{item.albumNum}">
                         <h:outputText value="#{item.albumNum}"/>
                     </p:column>
 
-                    <p:column headerText="CreatedAt">
+                    <p:column headerText="CreatedAt" filterStyle="display:none" filterBy="#{item.createdAt}">
                         <h:outputText value="#{item.createdAt}"/>
                     </p:column>
 
-                    <p:column headerText="CostPrice">
+                    <p:column headerText="CostPrice" filterStyle="display:none" filterBy="#{item.costPrice}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
 
-                    <p:column headerText="ListPrice">
+                    <p:column headerText="ListPrice" filterStyle="display:none" filterBy="#{item.listPrice}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
 
-                    <p:column headerText="SalePrice">
+                    <p:column headerText="SalePrice" filterStyle="display:none" filterBy="#{item.salePrice}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
 
-                    <p:column headerText="RemovedAt">
+                    <p:column headerText="RemovedAt" filterStyle="display:none" filterBy="#{item.removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column>
 
-                    <p:column headerText="Available">
+                    <p:column headerText="Available" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
 
-                    <p:column headerText="IsIndividual">
+                    <p:column headerText="IsIndividual" filterStyle="display:none" filterBy="#{item.isIndividual}">
                         <h:outputText value="#{item.isIndividual}"/>
                     </p:column>
 
-                    <p:column headerText="Album">
+                    <p:column headerText="Album" filterStyle="display:none" filterBy="#{item.album.title}">
                         <h:outputText value="#{item.album.title}"/>
                     </p:column>
 
-                    <p:column headerText="Genre">
+                    <p:column headerText="Genre" filterStyle="display:none" filterBy="#{item.genre.name}">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
 
-                    <p:column headerText="Total Sales">
+                    <p:column headerText="Total Sales" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
                         <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
@@ -113,7 +117,7 @@
             </h:panelGroup>
         </h:form>
 
-        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true" draggable="true" position="center" responsive="true">
+        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/track/dialogViewEdit.xhtml" /> 
         </p:dialog>
 

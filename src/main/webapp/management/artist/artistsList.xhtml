@@ -33,13 +33,17 @@
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListArtistTitle}"/>
+                        <p:outputPanel style="float:right">
+                            <h:outputText value="#{bundle.row_search}" />
+                            <p:inputText id="globalFilter" onkeyup="PF('artistTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                        </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Id">              
-                        <h:outputText value="#{item.id}"/>
+                    <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">              
+                        <h:outputText value="#{item.id}" />
                     </p:column>
 
-                    <p:column headerText="Name">                          
+                    <p:column headerText="Name" filterStyle="display:none" filterBy="#{item.name}">                          
                         <h:outputText value="#{item.name}"/>
                     </p:column>
 
@@ -49,7 +53,7 @@
                     </f:facet>  
 
                 </p:dataTable>
-                
+
             </h:panelGroup>
 
         </h:form>
