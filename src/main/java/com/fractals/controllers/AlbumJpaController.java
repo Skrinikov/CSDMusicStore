@@ -348,6 +348,9 @@ orderItemsCollectionOrderItemToAttach.getId());
      * @return total sales of an album
      */
     public Number getTotalSales(Album album){
+        //Module is mostly not perfect, since there's no way to accurately
+        //get how much much money Album has sold
+        
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         

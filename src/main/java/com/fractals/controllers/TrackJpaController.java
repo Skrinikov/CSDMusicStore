@@ -353,6 +353,9 @@ public class TrackJpaController implements Serializable {
       * @author Thai-Vu Nguyen
       */
      public Number getTotalSales(Track track){
+         //Module is mostly not perfect, since there's no way to accurately
+         //get how much much money Track has sold
+         
          if (track == null)
              return 0;
          
@@ -378,7 +381,7 @@ public class TrackJpaController implements Serializable {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         
-        //Select count (*) from OrderItem where album_id = ?
+        //Select count (*) from OrderItem where track_id = ?
         
         Root<OrderItem> root = query.from(OrderItem.class);
         
