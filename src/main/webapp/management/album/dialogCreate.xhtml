@@ -38,7 +38,7 @@
             <p:outputLabel value="Artist:" for="artist" />   
             <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.createdAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
 
-            <p:commandButton  value="Create" actionListener="#{theAlbums.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn"/>
+            <p:commandButton id="create"  value="Create" actionListener="#{theAlbums.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn"/>
             <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
 
             <h:panelGroup>

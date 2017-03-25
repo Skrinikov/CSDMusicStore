@@ -37,8 +37,8 @@
             <p:outputLabel value="Album:" for="album" />   
             <p:autoComplete id="album" dropdown="true" value="#{theTracks.createdTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"/>
                        
-            <p:commandButton  actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="Create"/>
-            <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
+            <p:commandButton id="create"  actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="Create"/>
+            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
 
         </p:panelGrid>
 
