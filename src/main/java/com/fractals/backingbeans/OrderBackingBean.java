@@ -53,15 +53,14 @@ public class OrderBackingBean implements Serializable {
         selectedOrderItem = oi;
     }
 
-    public String deleteOrderItem(OrderItem o) throws Exception {
+    public void deleteOrderItem(OrderItem o) throws Exception {
         o.setCancelled(true);
         orderItemJpaController.edit(o);
         Order order = changeNetCost(o.getOrder());
         orderJpaController.edit(order);
-        return "/management/order/ordersViewEdit";
     }
 
-    public String deleteOrder() throws Exception {
+    public void deleteOrder() throws Exception {
         List<OrderItem> allItems = getOrderItemsOfOrder();
         for (OrderItem o : allItems) {
             o.setCancelled(true);
@@ -71,8 +70,6 @@ public class OrderBackingBean implements Serializable {
             Order order = changeNetCost(allItems.get(0).getOrder());
             orderJpaController.edit(order);
         }
-
-        return "/management/order/ordersViewEdit";
     }
 
     public List<Order> getOrders() {
@@ -85,12 +82,6 @@ public class OrderBackingBean implements Serializable {
 
     public void removeOrder() throws Exception {
         orderJpaController.destroy(selectedOrder.getId());
-    }
-
-    public String returnToPage() {
-        selectedOrder = null;
-        selectedOrderItem = null;
-        return "/management/order/ordersList.xhtml";
     }
 
     /**

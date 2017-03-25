@@ -22,38 +22,37 @@
 
             <p:outputLabel value="CostPrice:" for="costPrice" />
             <p:inputText id="costPrice" value="#{theAlbums.createdAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
+            
             <p:outputLabel value="ListPrice:" for="listPrice" />
             <p:inputText id="listPrice" value="#{theAlbums.createdAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
 
             <p:outputLabel value="SalePrice:" for="salePrice" />
             <p:inputText id="salePrice" value="#{theAlbums.createdAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
 
-            <p:outputLabel value="Available:" for="available" />              
-            <p:selectBooleanCheckbox id="available" value="#{theAlbums.createdAlbum.available}" />
-
+            <p:outputLabel value="Available:" for="available" />                         
+            <p:selectBooleanButton id="available" value="#{theAlbums.createdAlbum.available}" onLabel="Yes" offLabel="No" style="width:60px" />
+ 
             <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
             <p:inputMask id="releaseDate" converter="#{localDateConverter}" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99"/>
 
-            <p:outputLabel value="Artist:" for="artist" />
-            <p:selectOneMenu id="artist" value="#{theAlbums.createdAlbum.artist}" converter="#{artistConverter}">
-                <f:selectItems value="#{theArtists.artists}"/>                       
-            </p:selectOneMenu>
+            <p:outputLabel value="Artist:" for="artist" />   
+            <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.createdAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
 
             <p:commandButton  value="Create" actionListener="#{theAlbums.create()}" update="form,dialogForm,dialogForm2"/>
             <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()"/>
-     
-           <h:panelGroup>
+
+            <h:panelGroup>
                 <script>
-                    if(#{!facesContext.validationFailed}){
+                    if (#{!facesContext.validationFailed}) {
                         PF('dialogCreate').hide();
                         PF('dialogViewEdit').show();
                         PF('albumTable').paginator.setPage(#{theAlbums.getPageCount()});
-                }
+                    }
                 </script>
             </h:panelGroup>          
-            
+
         </h:panelGrid>
-   
+
     </h:form>    
 </ui:composition>
 

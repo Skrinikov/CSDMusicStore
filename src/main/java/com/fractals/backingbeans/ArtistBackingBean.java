@@ -8,6 +8,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Artist;
 import com.fractals.controllers.ArtistJpaController;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -87,5 +88,13 @@ public class ArtistBackingBean implements Serializable {
     
     public int getPageCount(){
         return artistJpaController.getArtistCount() / 10;
+    }
+    
+      public List<Artist> suggest(String s) {
+          ArrayList<Artist> similar = new ArrayList<>();
+        for (Artist a : artistJpaController.findArtistEntities()) 
+            if (a.getName().toLowerCase().startsWith(s.toLowerCase())) 
+                similar.add(a);   
+        return similar;
     }
 }

@@ -10,6 +10,7 @@ import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.AlbumController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -106,5 +107,13 @@ public class AlbumBackingBean implements Serializable {
     
     public int getPageCount(){
         return albumJpaController.getAlbumCount() / 10;
+    }
+    
+     public List<Album> suggest(String s) {
+         ArrayList<Album> similar = new ArrayList<>();
+        for (Album a : albumJpaController.findAlbumEntities()) 
+            if (a.getTitle().toLowerCase().startsWith(s.toLowerCase())) 
+                similar.add(a);   
+        return similar;
     }
 }

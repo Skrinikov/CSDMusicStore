@@ -108,13 +108,11 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/user/usersViewEdit.xhtml" ajax="false" class="btn mgmt_btn"/>
                         <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
                     </f:facet> 
                     
                 </p:dataTable>
             </h:panelGroup>
-
         </h:form>
 
         <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">

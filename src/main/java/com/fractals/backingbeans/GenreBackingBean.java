@@ -8,6 +8,7 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Genre;
 import com.fractals.controllers.GenreJpaController;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -84,8 +85,16 @@ public class GenreBackingBean implements Serializable {
     public void delete() throws Exception {
         genreJpaController.destroy(selectedGenre.getId());
     }
-    
-    public int getPageCount(){
-        return genreJpaController.getGenreCount()/10;
+
+    public int getPageCount() {
+        return genreJpaController.getGenreCount() / 10;
+    }
+
+    public List<Genre> suggest(String s) {
+        ArrayList<Genre> similar = new ArrayList<>();
+        for (Genre g : genreJpaController.findGenreEntities()) 
+            if (g.getName().toLowerCase().startsWith(s.toLowerCase())) 
+                similar.add(g);   
+        return similar;
     }
 }

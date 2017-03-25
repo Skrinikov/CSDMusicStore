@@ -33,7 +33,7 @@ public class AlbumConverter implements Converter {
             try {       
                 return service.findAlbum(Integer.parseInt(value));
             } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid album."));
             }     
         } else {
             return null;

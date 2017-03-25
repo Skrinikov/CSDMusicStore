@@ -26,21 +26,18 @@
             <p:outputLabel value="SalePrice:" for="salePrice" />
             <p:inputText id="salePrice" value="#{theTracks.createdTrack.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
             <p:outputLabel value="Available:" for="available" />
-            <p:selectBooleanCheckbox id="available" value="#{theTracks.createdTrack.available}" />           
+            <p:selectBooleanButton id="available" value="#{theTracks.createdTrack.available}" onLabel="Yes" offLabel="No" style="width:60px" />          
             <p:outputLabel value="IsIndividual:" for="isIndividual" />
-            <p:selectBooleanCheckbox id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" />
-
-            <p:outputLabel value="Album:" for="album" />
-            <p:selectOneMenu id="album" value="#{theTracks.createdTrack.album}" converter="#{albumConverter}" required="true" requiredMessage="The Album field is required.">
-                <f:selectItems value="#{theAlbums.albums}"/>
-            </p:selectOneMenu>
-
-            <p:outputLabel value="Genre:" for="genre" />
-            <p:selectOneMenu id="genre" value="#{theTracks.createdTrack.genre}" converter="#{genreConverter}" required="true" requiredMessage="The Genre field is required.">
-                <f:selectItems value="#{theGenres.genres}"/>
-            </p:selectOneMenu>
-
-            <p:commandButton  actionListener="#{theTracks.create()}" icon="fa-edit" update="form,dialogForm,dialogForm2" class="mgmt_btn"/>
+            <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="Yes" offLabel="No" style="width:60px"/>         
+            <p:outputLabel value="Artists:" for="artists" />                       
+            <p:autoComplete id="artists" multiple="true" value="#{theTracks.createdTrack.artists}" completeMethod="#{theArtists.suggest}"
+                            var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"/>
+            <p:outputLabel value="Genre:" for="genre" />        
+            <p:autoComplete id="genre" dropdown="true" value="#{theTracks.createdTrack.genre}" var="genre" itemLabel="#{genre.name}" itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}"/>
+            <p:outputLabel value="Album:" for="album" />   
+            <p:autoComplete id="album" dropdown="true" value="#{theTracks.createdTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"/>
+                       
+            <p:commandButton  actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="Create"/>
             <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
 
         </p:panelGrid>
@@ -54,7 +51,7 @@
                 }
             </script>
         </h:panelGroup>      
-    
+
     </h:form>
 
 </ui:composition>

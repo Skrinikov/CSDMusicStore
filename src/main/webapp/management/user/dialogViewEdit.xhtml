@@ -6,11 +6,11 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
-           
+
         <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
         <p:outputPanel  rendered="#{not empty theUsers.selectedUser}">
-            
+
             <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
@@ -54,7 +54,6 @@
                 <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
             </h:panelGrid>
 
-
             <p:panelGrid columns="2" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
                 <p:outputLabel value="Id:" for="id" />
@@ -87,13 +86,12 @@
                 <p:inputText id="email" value="#{theUsers.selectedUser.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
                 <p:outputLabel value="IsAdmin:" for="isAdmin" />
                 <p:selectBooleanButton id="isAdmin" value="#{theUsers.selectedUser.isAdmin}" onLabel="True" offLabel="False"/>
-                <p:outputLabel value="Province:" for="province" />
-                <p:selectOneMenu id="province" value="#{theUsers.selectedUser.province}" converter="#{ProvinceConverter}">
-                    <f:selectItems value="#{Province.provinces}"/>
-                </p:selectOneMenu>
+                <p:outputLabel value="Province:" for="province" />   
+                <p:autoComplete id="province" dropdown="true" value="#{theUsers.selectedUser.province}" var="province" itemLabel="#{province.name}" itemValue="#{province}" completeMethod="#{ProvinceConverter.suggest}" converter="#{ProvinceConverter}"/>
+
                 <p:outputLabel value="LastGenre:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
-                
+
                 <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
                 </p:commandButton>
@@ -107,8 +105,9 @@
 
             </p:panelGrid>
 
-            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
-
         </p:outputPanel>
+
+        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+
     </h:form>  
 </ui:composition>

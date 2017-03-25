@@ -70,6 +70,15 @@
                     <h:outputText value="Genre:" class="control-label mgmt_detail_label col-sm-3"/>
                     <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre" class="col-sm-4"/>
                 </div>
+                
+                <div class="form-group row">
+                    <h:outputText value="Artists:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:dataTable var="item" value="#{theTracks.selectedTrack.artists}" class="col-sm-4">
+                        <p:column headerText="Name">
+                            <h:outputText value="#{item.name}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
 
                 <p:commandButton actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 
@@ -112,29 +121,26 @@
                 <p:selectBooleanCheckbox id="available" value="#{theTracks.selectedTrack.available}" disabled="true" />             
                 <p:outputLabel value="IsIndividual:" for="isIndividual" />
                 <p:selectBooleanCheckbox id="isIndividual" value="#{theTracks.selectedTrack.isIndividual}" />              
-                <p:outputLabel value="Album:" for="album" />
-                <p:selectOneMenu id="album" value="#{theTracks.selectedTrack.album}" disabled="true" required="true" requiredMessage="The Album field is required.">
-                    <f:selectItems value="#{theAlbums.albums}"/>
-                </p:selectOneMenu>
-                <p:outputLabel value="Genre:" for="genre" />
-                <p:selectOneMenu id="genre" value="#{theTracks.selectedTrack.genre}" disabled="true" required="true" requiredMessage="The Genre field is required.">
-                    <f:selectItems value="#{theGenres.genres}"/>
-                </p:selectOneMenu>
-
-
+                <p:outputLabel value="Genre:" for="genre" />        
+                <p:autoComplete id="genre" dropdown="true" value="#{theTracks.selectedTrack.genre}" var="genre" itemLabel="#{genre.name}" itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}"/>
+                <p:outputLabel value="Album:" for="album" />   
+                <p:autoComplete id="album" dropdown="true" value="#{theTracks.selectedTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"/>
+                <p:outputLabel value="Artists:" for="artists" />                       
+                 <p:autoComplete id="artists" multiple="true" value="#{theTracks.selectedTrack.artists}" completeMethod="#{theArtists.suggest}"
+                        var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"/>
+               
+                
                 <p:commandButton actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
-
+                 
+                    <p:commandButton actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
-
-                <p:commandButton actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
-
+           
             </h:panelGrid>
-
 
             <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 

@@ -21,7 +21,7 @@
                 <div class="container">
                     <h:outputText value="nothing selected" />
                     <div class="row">
-                        <h:commandButton class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
+                        <h:commandButton class="mgmt_btn" value="Retour à la liste" action="/management/order/ordersList.xhtml"/>
                     </div>
                 </div>
             </h:form>
@@ -63,7 +63,7 @@
                 
                 <div class="container newContainer">
                     
-                    <p:dataTable draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row"  value="#{theOrders.orderItemsOfOrder}" var="item">
+                    <p:dataTable draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" value="#{theOrders.orderItemsOfOrder}" var="item">
                             <p:column headerText="Id" >
                                 <h:outputText value="#{item.id}"/>
                             </p:column>
@@ -83,12 +83,12 @@
 
 
                             <p:column headerText="Delete order item">
-                                <h:commandButton class="mgmt_btn" value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
+                                <h:commandButton class="mgmt_btn" value="Delete Order item" actionListener="#{theOrders.deleteOrderItem(item)}"/>
                             </p:column>
                         </p:dataTable>
                     
-                    <h:commandButton class="mgmt_btn" value="Delete Order" action="#{theOrders.deleteOrder()}"/>
-                <h:commandButton class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
+                    <h:commandButton class="mgmt_btn" value="Delete Order" actionListener="#{theOrders.deleteOrder()}"/>
+                <h:commandButton class="mgmt_btn" value="Retour à la liste" action="/management/order/ordersList.xhtml"/>
                 </div>
 
 

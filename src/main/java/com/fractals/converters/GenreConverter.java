@@ -8,12 +8,13 @@ package com.fractals.converters;
 
 import com.fractals.beans.Genre;
 import com.fractals.controllers.GenreJpaController;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,15 +30,20 @@ public class GenreConverter implements Converter {
     GenreJpaController service;
     
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-        if (value != null && value.trim().length() > 0) {
+       if (value != null && value.trim().length() > 0) {
             try {       
                 return service.findGenre(Integer.parseInt(value));
-            } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+            } catch (NumberFormatException e) {            
+               Genre g = new Genre();
+               g.setName(value);
+                try {
+                    service.create(g);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The " + value + " genre didn't exist so it has been created ") );
+                    return service.findGenre(service.findGenreEntities().size());  
+                } catch (Exception e2) {}
             }     
-        } else {
-            return null;
-        }
+        }  
+            return null;        
     }
 
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
