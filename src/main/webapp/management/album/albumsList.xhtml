@@ -88,6 +88,11 @@
                             <f:convertNumber maxFractionDigits="2" /> 
                         </h:outputText>
                     </p:column>
+                    <p:column headerText="Albums Sold">
+                        <h:outputText value="#{theAlbums.getAlbumsSold(item)}">
+                            <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
+                    </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />

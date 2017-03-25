@@ -107,6 +107,11 @@
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
                     </p:column>
+                    <p:column headerText="Tracks Sold"  filterStyle="display:none" filterBy="#{theTracks.getTracksSold(item)}">
+                        <h:outputText value="#{theTracks.getTracksSold(item)}">
+                            <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
+                    </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()"/>                        

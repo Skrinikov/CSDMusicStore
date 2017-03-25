@@ -109,5 +109,16 @@ public class TrackBackingBean implements Serializable {
     public int getPageCount() {
         return trackJpaController.getTrackCount() / 10;
     }
+    
+    /**
+     * The number of copies sold by a track
+     * @param track
+     * @return number of copies sold
+     */
+    public Number getTracksSold (Track track){
+        Number number = trackJpaController.getTracksSold(track);
+        
+        return (number != null) ? number : 0;
+    }
 
 }

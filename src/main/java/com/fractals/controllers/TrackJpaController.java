@@ -23,6 +23,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Subquery;
 import javax.transaction.UserTransaction;
 
 /**
@@ -321,7 +322,7 @@ public class TrackJpaController implements Serializable {
                 )
             );
         
-      
+        
         
         List<Track> tracks = em.createQuery(query).getResultList();
                  
@@ -386,7 +387,7 @@ public class TrackJpaController implements Serializable {
         Root<OrderItem> root = query.from(OrderItem.class);
         
         query.select(cb.count(root));
-        query.where(cb.equal(root.get("track"), track));
+        query.where(cb.equal(root.get(OrderItem_.track), track));
         return em.createQuery(query).getSingleResult();
         
     }

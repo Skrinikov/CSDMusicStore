@@ -96,9 +96,25 @@ public class AlbumBackingBean implements Serializable {
      
     }
 
+    /**
+     * 
+     * @param album
+     * @return 
+     * @author Thai-Vu Nguyen
+     */
     public Number getTotalSalesByAlbum(Album album) {
         Number sales = albumJpaController.getTotalSales(album);
         return (sales != null) ? sales : 0;
+    }
+    
+    /**
+     * Amount of copies sold by an album
+     * @param album
+     * @return Thai-Vu Nguyen
+     */
+    public Number getAlbumsSold(Album album){
+        Number number = albumJpaController.getAlbumsSold(album);
+        return (number != null)? number : 0;
     }
 
     public Number getTotalSales() {
