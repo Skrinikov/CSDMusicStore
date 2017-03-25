@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -32,12 +33,14 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author Thai-Vu Nguyen
  */
 @Ignore
+@RunWith(Arquillian.class)
 public class ClientTrackingControllerTest {
     
     @Deployment
