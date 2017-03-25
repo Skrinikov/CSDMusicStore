@@ -1091,4 +1091,26 @@ insert into reviews (track_id, user_id, rating, review_date, text, approved, pen
 insert into reviews (track_id, user_id, rating, review_date, text, approved, pending) values (14, 75, 5, '2017-01-12', 'Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst.', 1, 0);
 insert into reviews (track_id, user_id, rating, review_date, text, approved, pending) values (31, 23, 3, '2017-01-12', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.', 0, 1);
 
+insert into news_feeds (link,source,visible) Values('http://rss.cbc.ca/lineup/topstories.xml', 'cbc', 1);
+insert into news_feeds (link,source,visible) Values('http://rss.cbc.ca/lineup/world.xml', 'cbc', 0);
+insert into news_feeds (link,source,visible) Values('http://rss.cbc.ca/lineup/canada.xml', 'cbc', 1);
 
+
+insert into surveys(question,visible) Values ('Fav Programming Lang', 1); 
+insert into surveys(question,visible) Values ('Fav Number', 0); 
+insert into surveys(question,visible) Values ('Fav Place', 1); 
+
+insert into survey_choices(survey_id,choice,num_votes) values(1, 'Java', 50);
+insert into survey_choices(survey_id,choice,num_votes) values(1, 'C#', 30);
+insert into survey_choices(survey_id,choice,num_votes) values(1, 'C++', 20);
+insert into survey_choices(survey_id,choice,num_votes) values(1, 'Javascript', 2);
+
+insert into survey_choices(survey_id,choice,num_votes) values(2, '5', 10);
+insert into survey_choices(survey_id,choice,num_votes) values(2, '8', 60);
+insert into survey_choices(survey_id,choice,num_votes) values(2, '10', 2);
+insert into survey_choices(survey_id,choice,num_votes) values(2, '753', 9);
+
+insert into survey_choices(survey_id,choice,num_votes) values(3, 'Home', 10);
+insert into survey_choices(survey_id,choice,num_votes) values(3, 'Not Here', 50);
+insert into survey_choices(survey_id,choice,num_votes) values(3, 'In a Cave', 100);
+insert into survey_choices(survey_id,choice,num_votes) values(3, 'School', 0);
