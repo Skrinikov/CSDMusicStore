@@ -5,8 +5,8 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.Assert;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.event.Level;
 
 /**
  *
@@ -24,6 +25,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AlbumManagementTestSelenium {
     private WebDriver driver;
     private SeleniumAjaxHelper helper;
+    
+     private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("AlbumManagementTestSelenium.class");
     
     @Before     
     public void setUp() {
@@ -54,37 +57,38 @@ public class AlbumManagementTestSelenium {
     @Test
     public void clickNotChosenAlbumDetails(){
         WebDriverWait wait = new WebDriverWait(driver, 10);  
+        //Get to the page
+        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         
-        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
-        detail.click();
+        //Click Preview without touching any Album
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:preview\"]"));
         
-        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
-        WebElement delete = driver.findElement(By.id("dialogForm:delete"));
-        
-        List<WebElement> list = buildListOfWebElements(edit, delete);
-        boolean valid = true;
-        if (edit.isDisplayed() || delete.isDisplayed()){
-            valid = false;
-        }
-        
-        wait.until(ExpectedConditions.invisibilityOfAllElements(list));
+        //We should only see dialogForm and it's exit button
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit")),
+                ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:delete")),
+                ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:edit"))
+        ));
     }
     
+    /**
+     * 
+     */
     @Test
-    public void getAlbumDetailsPage(){
+    public void getAlbumPreview(){
         
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         
         goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
         
-        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
-        WebElement delete = driver.findElement(By.id("dialogForm:delete"));
-        WebElement exit = driver.findElement(By.id("dialogForm:exit"));
-        
-        List<WebElement> list = buildListOfWebElements(edit, delete, exit);
-        
-        wait.until(ExpectedConditions.visibilityOfAllElements(list));
-        driver.quit();
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:delete")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:edit")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
+        ));
+       
         
     }
     
@@ -111,8 +115,10 @@ public class AlbumManagementTestSelenium {
         driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         WebElement row = driver.findElement(by);
         row.click();
-        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
-        detail.click();
+        //WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
+        //detail.click();
+        
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:preview\"]"));
         
     }
     
@@ -125,6 +131,8 @@ public class AlbumManagementTestSelenium {
         
         return list;
     }
+    
+    
     
     
     
