@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
@@ -10,6 +5,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Order_;
+import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -25,12 +21,11 @@ import javax.persistence.criteria.Root;
  */
 @Named
 @RequestScoped
-public class AlbumController {
+public class AlbumController implements Serializable {
    
     @PersistenceContext
     private EntityManager em;
-    
-            
+             
     public Number getTotalSales(Album a){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);

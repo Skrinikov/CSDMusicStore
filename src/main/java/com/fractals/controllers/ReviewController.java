@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.Review;
@@ -11,7 +6,7 @@ import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +19,7 @@ import javax.persistence.criteria.Root;
  * @author MOUFFOK Sarah
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class ReviewController implements Serializable {
     
     @PersistenceContext

@@ -16,7 +16,7 @@ import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import javax.annotation.Resource;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,11 +24,11 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author 1710030
+ * @author MOUFFOK Sarah
  */
 
 @Named
-@SessionScoped
+@RequestScoped
 public class UserJpaController implements Serializable {
    
     @Resource

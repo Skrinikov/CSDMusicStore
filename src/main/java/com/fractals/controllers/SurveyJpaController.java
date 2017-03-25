@@ -1,4 +1,3 @@
-
 package com.fractals.controllers;
 
 import com.fractals.beans.Survey;
@@ -14,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
@@ -29,7 +26,7 @@ import javax.transaction.UserTransaction;
  */
 
 @Named("surveyController")
-@SessionScoped
+@RequestScoped
 public class SurveyJpaController implements Serializable {
 
     public SurveyJpaController() 

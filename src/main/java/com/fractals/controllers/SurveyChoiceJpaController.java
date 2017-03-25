@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import java.io.Serializable;
@@ -16,10 +11,9 @@ import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
@@ -28,7 +22,7 @@ import javax.transaction.UserTransaction;
  * @author Renuchan
  */
 @Named("surveyChoiceCon")
-@SessionScoped
+@RequestScoped
 public class SurveyChoiceJpaController implements Serializable {
 
     public SurveyChoiceJpaController() 

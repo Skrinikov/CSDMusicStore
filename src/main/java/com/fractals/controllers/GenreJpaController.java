@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.Genre;
@@ -19,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,10 +22,10 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author 1710030
+ * @author MOUFFOK Sarah
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class GenreJpaController implements Serializable {
 
     @Resource

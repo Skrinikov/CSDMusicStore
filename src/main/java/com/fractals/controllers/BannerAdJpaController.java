@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.controllers;
 
 import com.fractals.beans.BannerAd;
+import com.fractals.beans.BannerAd_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.io.Serializable;
@@ -135,23 +131,17 @@ public class BannerAdJpaController implements Serializable {
         return getBannerAdCount() == 0;
     }
     
-    
     /**
      * This method will obtain all visible ads from the database. 
      * @author Renuchan
      * @return 
      */
-    public List<BannerAd> getVisible()
-    {
+    public List<BannerAd> getVisible(){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<BannerAd> cq = cb.createQuery(BannerAd.class); 
         Root<BannerAd> ad = cq.from(BannerAd.class); 
         cq.select(ad);
-        cq.where(cb.equal(ad.get("visible"), true));
-        
-        TypedQuery<BannerAd> query = em.createQuery(cq);
-        return query.getResultList();         
-    }
-    
-    
+        cq.where(cb.isTrue(ad.get(BannerAd_.visible)));      
+        return em.createQuery(cq).getResultList();     
+    }    
 }

@@ -4,7 +4,7 @@ import com.fractals.beans.Province;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @since 1.8
  */
 @Named("Province")
-@SessionScoped
+@RequestScoped
 public class ProvinceController implements Serializable {
     private List<Province> provinces;
         
