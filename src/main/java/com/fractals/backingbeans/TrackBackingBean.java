@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -75,20 +77,28 @@ public class TrackBackingBean implements Serializable {
         setEditable(true);
     }
 
-    ;
     public void makeUneditable() {
         setEditable(false);
     }
 
     public void edit() throws Exception {
+        if (selectedTrack.getAvailable() == false && selectedTrack.getRemovedAt() == null) 
+            selectedTrack.setRemovedAt(LocalDateTime.now());
+        
+        if (selectedTrack.getAvailable() == true && selectedTrack.getRemovedAt() != null) 
+            selectedTrack.setRemovedAt(null);      
         makeUneditable();
         trackJpaController.edit(selectedTrack);
     }
 
     public void delete() throws Exception {
-        selectedTrack.setRemovedAt(LocalDateTime.now());
-        selectedTrack.setAvailable(false);
-        edit();
+        if(selectedTrack.getRemovedAt() == null){
+          selectedTrack.setRemovedAt(LocalDateTime.now());
+          selectedTrack.setAvailable(false);
+          trackJpaController.edit(selectedTrack);  
+        }
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("This track has already been removed") );                    
     }
 
     public void create() throws Exception {
