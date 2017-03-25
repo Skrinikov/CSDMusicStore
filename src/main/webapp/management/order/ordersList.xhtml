@@ -9,55 +9,60 @@
     <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListOrderTitle}"></h:outputText>
     </ui:define>
-    
+
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
 
     <ui:define name="content">
 
         <h:form>
             <div class="container">
-            <p:dataTable id="tbl" value="#{theOrders.orders}" var="item" 
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
-                         selectionMode="single" selection="#{theOrders.selectedOrder}" 
-                         rowKey="#{item.id}"
-                         draggableColumns="true" reflow="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
+                <p:dataTable id="tbl" value="#{theOrders.orders}" var="item" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theOrders.selectedOrder}" 
+                             rowKey="#{item.id}"
+                             draggableColumns="true" reflow="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
-                <f:facet name="header" class="mgmt_table_header">
-                    <h:outputText value="#{bundle.ListOrderTitle}"/>
-                    <p:commandButton id="toggler" value="Change columns" style="float:right"  class="mgmt_btn"/>
-                    <p:columnToggler datasource="tbl" trigger="toggler" />
-                </f:facet>
+                    <f:facet name="header" class="mgmt_table_header">
+                        <h:outputText value="#{bundle.ListOrderTitle}"/>
+                        <p:commandButton id="toggler" value="Change columns" style="float:right"  class="mgmt_btn"/>
+                        <p:columnToggler datasource="tbl" trigger="toggler" />
+                    </f:facet>
 
-                <p:column headerText="Id">
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
-                
-                <p:column headerText="OrderDate">
-                    <h:outputText value="#{item.orderDate}"/>
-                </p:column>
-                
-                <p:column headerText="NetCost">
-                    <h:outputText value="#{item.netCost}"/>
-                </p:column>
-                
-                <p:column headerText="GrossCost">                             
-                    <h:outputText value="#{item.grossCost}"/>
-                </p:column>
-                
-                <p:column headerText="User">              
-                    <h:outputText value="#{item.user.username}"/>
-                </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
 
+                    <p:column headerText="OrderDate">
+                        <h:outputText value="#{item.orderDate}"/>
+                    </p:column>
 
-                <f:facet name="footer" class="mgmt_table_footer">
-                    <p:commandButton id="detail" value="Detail" icon="fa fa-folder-open" action="/management/order/ordersViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
-                </f:facet>  
+                    <p:column headerText="NetCost">
+                        <h:outputText value="#{item.netCost}"/>
+                    </p:column>
 
-            </p:dataTable>
+                    <p:column headerText="GrossCost">                             
+                        <h:outputText value="#{item.grossCost}"/>
+                    </p:column>
+
+                    <p:column headerText="User">              
+                        <h:outputText value="#{item.user.username}"/>
+                    </p:column>
+
+                    <f:facet name="footer" class="mgmt_table_footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                    </f:facet>  
+
+                </p:dataTable>
             </div>
+
         </h:form>
+
+        <p:dialog header="Order Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/order/dialogViewEdit.xhtml" />
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

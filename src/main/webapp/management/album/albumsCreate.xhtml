@@ -1,4 +1,4 @@
-<ui:composition 
+<!--<ui:composition 
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -12,8 +12,10 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
 
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+            <h:panelGrid columns="2">
 
                 <p:outputLabel value="Title:" for="title" />
                 <p:inputText id="title" placeholder="Title" value="#{theAlbums.createdAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
@@ -32,14 +34,15 @@
                 <p:inputText id="listPrice" value="#{theAlbums.createdAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
 
                 <p:outputLabel value="SalePrice:" for="salePrice" />
-                <p:inputText id="salePrice" value="#{theAlbums.createdAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
+                <p:inputText id="salePrice" value="#{theAlbums.createdAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required.">
+                    <f:validateLongRange maximum="#{theAlbums.createdAlbum.listPrice}" minimum="0"/>
+                </p:inputText>
 
                 <p:outputLabel value="Available:" for="available" />              
                 <p:selectBooleanCheckbox id="available" value="#{theAlbums.createdAlbum.available}" />
 
                 <p:outputLabel value="ReleaseDate:" for="releaseDate" />                 
                 <p:inputMask id="releaseDate" converter="#{localDateConverter}" value="#{theAlbums.createdAlbum.releaseDate}" title="ReleaseDate" required="true" requiredMessage="The ReleaseDate field is required." mask="9999-99-99"/>
-
 
                 <p:outputLabel value="Artist:" for="artist" />
 
@@ -48,9 +51,9 @@
 
                     <f:selectItems value="#{theArtists.artists}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" />
 
-                    <p:column>
+                  
                         <h:outputText value="#{a.name}" />
-                    </p:column>
+                 
                 </p:selectOneMenu>
 
             </h:panelGrid>
@@ -61,6 +64,6 @@
         </h:form>
 
     </ui:define>
-</ui:composition>
+</ui:composition>-->
 
 

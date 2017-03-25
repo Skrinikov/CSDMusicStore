@@ -9,49 +9,62 @@
     <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
     </ui:define>
-    
+
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
 
     <ui:define name="content">
 
-        <h:form>
-            <div class="container">
-            <p:dataTable id="tbl" value="#{theArtists.artists}" var="item" 
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
-                         selectionMode="single" selection="#{theArtists.selectedArtist}" 
-                         rowKey="#{item.id}"
-                         draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
+        <h:form id="form">
 
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListArtistTitle}"/>
-                    <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
-                    <p:columnToggler datasource="tbl" trigger="toggler" />
-                </f:facet>
-
-                <p:column headerText="Id">              
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
-                <p:column headerText="Name">                          
-                    <h:outputText value="#{item.name}"/>
-                </p:column>
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:outputText escape="false" value="#{bundle.ListArtistEmpty}" rendered="#{theArtists.isEmpty()}"/>
 
 
-                <f:facet name="footer">
-                    <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/artist/artistsCreate.xhtml" ajax="false" class="mgmt_btn"/>       
-                    <p:commandButton id="detail" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/artist/artistsViewEdit.xhtml" ajax="false" class="mgmt_btn" />
+            <h:panelGroup rendered="#{!theArtists.isEmpty()}">  
 
-                </f:facet>  
+                <p:dataTable id="tbl" value="#{theArtists.artists}" var="item" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" style="margin-bottom:20px"
+                             selectionMode="single" selection="#{theArtists.selectedArtist}" 
+                             rowKey="#{item.id}"  widgetVar="artistTable"
+                             draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row">
 
-            </p:dataTable>
-            </div>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArtistTitle}"/>
+                        <p:outputPanel style="float:right">
+                            <h:outputText value="#{bundle.row_search}" />
+                            <p:inputText id="globalFilter" onkeyup="PF('artistTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">              
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
+
+                    <p:column headerText="Name" filterStyle="display:none" filterBy="#{item.name}">                          
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" onclick="PF('dialogViewEdit').show()" update="dialogForm" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
+                    </f:facet>  
+
+                </p:dataTable>
+
+            </h:panelGroup>
 
         </h:form>
 
+        <p:dialog header="Create Artist" widgetVar="dialogCreate">
+            <ui:include src="/management/artist/dialogCreate.xhtml" />
+        </p:dialog>
 
-
+        <p:dialog header="View Artist" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/artist/dialogViewEdit.xhtml" />
+        </p:dialog>
 
     </ui:define>
 </ui:composition>

@@ -10,108 +10,121 @@
     </ui:define>
 
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
-    
+
     <ui:define name="content">
 
-        <h:form>           
-
-            <h:outputText escape="false" value="#{bundle.ListTracksEmpty}" rendered="#{theTracks.isEmpty()}"/>
+        <h:form id="form">           
            
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:outputText escape="false" value="#{bundle.ListTracksEmpty}" rendered="#{theTracks.isEmpty()}"/>
+
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theTracks.tracks}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theTracks.selectedTrack}" 
-                             rowKey="#{item.id}" reflow="true"
+                             rowKey="#{item.id}" reflow="true" widgetVar="trackTable"
                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListTrackTitle}"/>
                         <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
+                        <p:outputPanel style="float:right">
+                            <h:outputText value="#{bundle.row_search}" />
+                            <p:inputText id="globalFilter" onkeyup="PF('trackTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                        </p:outputPanel>
                     </f:facet>
-                    
-                    <p:column width="5%" headerText="Cover">
+
+                    <p:column width="5%" headerText="Cover" filterStyle="display:none" filterBy="">
                         <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
                         <p:tooltip for="content" trackMouse="true">
                             <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
                         </p:tooltip>
                     </p:column> 
 
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
-                    
-                    <p:column headerText="Title">
+
+                    <p:column headerText="Title" filterStyle="display:none" filterBy="#{item.title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
-                    
-                    <p:column headerText="Songwriter">
+
+                    <p:column headerText="Songwriter" filterStyle="display:none" filterBy="#{item.songwriter}">
                         <h:outputText value="#{item.songwriter}"/>
                     </p:column>
-                    
-                    <p:column headerText="Duration">
+
+                    <p:column headerText="Duration" filterStyle="display:none" filterBy="#{item.duration}">
                         <h:outputText value="#{item.duration}"/>
                     </p:column>
-                    
-                    <p:column headerText="AlbumNum">
+
+                    <p:column headerText="AlbumNum" filterStyle="display:none" filterBy="#{item.albumNum}">
                         <h:outputText value="#{item.albumNum}"/>
                     </p:column>
-                    
-                    <p:column headerText="CreatedAt">
+
+                    <p:column headerText="CreatedAt" filterStyle="display:none" filterBy="#{item.createdAt}">
                         <h:outputText value="#{item.createdAt}"/>
                     </p:column>
-                    
-                    <p:column headerText="CostPrice">
+
+                    <p:column headerText="CostPrice" filterStyle="display:none" filterBy="#{item.costPrice}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
-                    
-                    <p:column headerText="ListPrice">
+
+                    <p:column headerText="ListPrice" filterStyle="display:none" filterBy="#{item.listPrice}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
-                    
-                    <p:column headerText="SalePrice">
+
+                    <p:column headerText="SalePrice" filterStyle="display:none" filterBy="#{item.salePrice}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
-                    
-                    <p:column headerText="RemovedAt">
+
+                    <p:column headerText="RemovedAt" filterStyle="display:none" filterBy="#{item.removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column>
-                    
-                    <p:column headerText="Available">
+
+                    <p:column headerText="Available" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
-                    
-                    <p:column headerText="IsIndividual">
+
+                    <p:column headerText="IsIndividual" filterStyle="display:none" filterBy="#{item.isIndividual}">
                         <h:outputText value="#{item.isIndividual}"/>
                     </p:column>
-                    
-                    <p:column headerText="Album">
+
+                    <p:column headerText="Album" filterStyle="display:none" filterBy="#{item.album.title}">
                         <h:outputText value="#{item.album.title}"/>
                     </p:column>
-                    
-                    <p:column headerText="Genre">
+
+                    <p:column headerText="Genre" filterStyle="display:none" filterBy="#{item.genre.name}">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
-                    
-                    <p:column headerText="Total Sales">
-                        $<h:outputText value="#{theTracks.getTotalCost(item)}" >
+
+                    <p:column headerText="Total Sales" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
+                        <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
-                    
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton id="detail" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/track/tracksViewEdit.xhtml" ajax="false" class="mgmt_btn" />
-                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/track/tracksCreate.xhtml" ajax="false" class="mgmt_btn"/>                        
-                    </f:facet>   
+                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()"/>                        
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />     
+                    </f:facet>  
 
                 </p:dataTable>
             </h:panelGroup>
         </h:form>
+
+        <p:dialog header="Track Info" widgetVar="dialogViewEdit" dynamic="true">
+            <ui:include src="/management/track/dialogViewEdit.xhtml" /> 
+        </p:dialog>
+
+        <p:dialog header="Track Info" widgetVar="dialogCreate">
+            <ui:include src="/management/track/dialogCreate.xhtml" />
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 

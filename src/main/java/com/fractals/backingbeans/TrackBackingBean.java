@@ -10,6 +10,7 @@ import com.fractals.beans.Track;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ArtistJpaController;
 import com.fractals.controllers.GenreJpaController;
+import com.fractals.controllers.TrackController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,81 +22,92 @@ import javax.inject.Named;
 
 /**
  *
- * @author 1710030
+ * @author MOUFFOK Sarah
  */
 @Named("theTracks")
 @SessionScoped
 public class TrackBackingBean implements Serializable {
-    
+
     @Inject
     private TrackJpaController trackJpaController;
-    
-    public List<Track> getTracks(){
+    @Inject
+    private TrackController trackController;
+    private boolean editable = false;
+    private Track createdTrack, selectedTrack;
+
+    public List<Track> getTracks() {
         return trackJpaController.findTrackEntities();
     }
-    
-    public boolean isEmpty(){
-       return trackJpaController.isEmpty();
+
+    public boolean isEmpty() {
+        return trackJpaController.isEmpty();
     }
-       
-    private Track createdTrack;
-    public Track getCreatedTrack(){
-        if(createdTrack == null)
+
+    public Track getCreatedTrack() {
+        if (createdTrack == null) {
             createdTrack = new Track();
+        }
         return createdTrack;
     }
-    public void setCreatedTrack(Track t){createdTrack = t;}
-    
-    private Track selectedTrack;
-    public Track getSelectedTrack(){return selectedTrack;}
-    public void setSelectedTrack(Track t){selectedTrack = t; makeUneditable();}
- 
-    private boolean editable = false;
-    public boolean getEditable() {return editable;}
-    public void setEditable(boolean b) {editable = b;}
-    public void makeEditable(){setEditable(true);};
-    public void makeUneditable(){setEditable(false);}
 
-       
-    public void edit()throws Exception {
+    public void setCreatedTrack(Track t) {
+        createdTrack = t;
+    }
+
+    public Track getSelectedTrack() {
+        return selectedTrack;
+    }
+
+    public void setSelectedTrack(Track t) {
+        selectedTrack = t;
         makeUneditable();
-        trackJpaController.edit(selectedTrack); 
+    }
+
+    public boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean b) {
+        editable = b;
+    }
+
+    public void makeEditable() {
+        setEditable(true);
+    }
+
+    ;
+    public void makeUneditable() {
+        setEditable(false);
+    }
+
+    public void edit() throws Exception {
+        makeUneditable();
+        trackJpaController.edit(selectedTrack);
     }
 
     public void delete() throws Exception {
-        //trackJpaController.destroy(selectedTrack.getId());
         selectedTrack.setRemovedAt(LocalDateTime.now());
         selectedTrack.setAvailable(false);
         edit();
     }
-           
-    
-    @Inject private AlbumJpaController album;
-    @Inject private ArtistJpaController artist;
-    @Inject private GenreJpaController genre;
-    
-       public String create() throws Exception {
-           
-        ArrayList<Artist> a = new ArrayList();
-        a.add(artist.findArtistEntities().get(0));
-        createdTrack.setArtists(a); 
-        createdTrack.setAlbum(album.findAlbumEntities().get(0));
-        createdTrack.setGenre(genre.findGenreEntities().get(0));
-        //A CHANGER
-        
-        createdTrack.setCreatedAt(LocalDateTime.now());   
+
+    public void create() throws Exception {
+        createdTrack.setCreatedAt(LocalDateTime.now());
         trackJpaController.create(createdTrack);
         selectedTrack = createdTrack;
         createdTrack = null;
-        return "/management/track/tracksViewEdit.xhtml";
     }
-       
-   /**
-    * 
-    */
-       public Number getTotalCost(Track track){
-           Number sales = trackJpaController.getTotalSales(track);
-           return (sales != null)?sales: 0;
-       }
-       
+
+    public Number getTotalSalesByTrack(Track t) {
+        return trackController.getTotalSales(t);
+    }
+
+    public Number getTotalSales() {
+        return getTotalSalesByTrack(selectedTrack);
+    }
+
+    public int getPageCount() {
+        return trackJpaController.getTrackCount() / 10;
+    }
+
 }

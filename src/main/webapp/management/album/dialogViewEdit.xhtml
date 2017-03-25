@@ -6,107 +6,94 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
-        <p:outputPanel id="testViewEdit">
+        <h:outputText value="Nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
-            <h:outputText value="rien de selectionné" rendered="#{empty theAlbums.selectedAlbum}"/>
+        <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
+            <h:outputText value="Id:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
+            <h:outputText value="Title:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
+            <h:outputText value="ReleaseDate:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
+            <h:outputText value="RecordLabel:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
+            <h:outputText value="NumTracks:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
+            <h:outputText value="CreatedAt:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/>
+            <h:outputText value="CostPrice:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
+            <h:outputText value="ListPrice:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
+            <h:outputText value="SalePrice:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
+            <h:outputText value="RemovedAt:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
+            <h:outputText value="Available:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
+            <h:outputText value="Artist:"/>
+            <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
 
-            <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
-                <h:outputText value="Id:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.id}" title="Id"/>
-                <h:outputText value="Title:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.title}" title="Title"/>
-                <h:outputText value="ReleaseDate:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate"/>
-                <h:outputText value="RecordLabel:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel"/>
-                <h:outputText value="NumTracks:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks"/>
-                <h:outputText value="CreatedAt:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt"/>
-                <h:outputText value="CostPrice:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice"/>
-                <h:outputText value="ListPrice:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice"/>
-                <h:outputText value="SalePrice:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice"/>
-                <h:outputText value="RemovedAt:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt"/>
-                <h:outputText value="Available:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.available}" title="Available"/>
-                <h:outputText value="Artist:"/>
-                <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" title="Artist"/>
-                
-                <h:outputText value="Tracks:"/>
-                <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>              
-                </p:dataTable>
-                
-                <h:outputText value="Total Sales :"/>
-                <h:outputText value="#{theAlbums.getTotalSales()}" title="Artist">
-                    <f:convertNumber maxFractionDigits="2"/>
-                </h:outputText>
+            <h:outputText value="Tracks:"/>
+            <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
+                <p:column headerText="Id">
+                    <h:outputText value="#{item.title}"/>
+                </p:column>              
+            </p:dataTable>
 
-                <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update=":dialogForm:testViewEdit"/>                             
-                <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update=":form,:dialogForm:testViewEdit">
-                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
+            <h:outputText value="Total Sales :"/>
+            <h:outputText value="#{theAlbums.getTotalSales()}" title="Total Sales">
+                <f:convertNumber maxFractionDigits="2"/>
+            </h:outputText>
 
-            </h:panelGrid>
+            <p:commandButton actionListener="#{theAlbums.makeEditable()}" value="Edit" update="dialogForm" class="mgmt_btn"/>                             
+            <p:commandButton actionListener="#{theAlbums.delete()}" value="Delete" update="form,dialogForm" class="mgmt_btn">
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+            </p:commandButton>
 
-            <h:panelGrid columns="2" rendered="#{theAlbums.editable and not empty theAlbums.selectedAlbum}">
-                <p:outputLabel value="Id:" for="id" />
-                <p:inputText id="id" value="#{theAlbums.selectedAlbum.id}" title="Id" disabled="true"/>
-                <p:outputLabel value="Title:" for="title" />
-                <p:inputText id="title" value="#{theAlbums.selectedAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
-                <p:outputLabel value="ReleaseDate:" for="releaseDate" />
-                <p:inputText id="releaseDate" value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate" disabled="true"/>
-                <p:outputLabel value="RecordLabel:" for="recordLabel" />
-                <p:inputText id="recordLabel" value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>
-                <p:outputLabel value="NumTracks:" for="numTracks" />
-                <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required."/>
-                <p:outputLabel value="CreatedAt:" for="createdAt" />
-                <p:inputText id="createdAt" value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt" disabled="true"/>
-                <p:outputLabel value="CostPrice:" for="costPrice" />
-                <p:inputText id="costPrice" value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
-                <p:outputLabel value="ListPrice:" for="listPrice" />
-                <p:inputText id="listPrice" value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
-                <p:outputLabel value="SalePrice:" for="salePrice" />
-                <p:inputText id="salePrice" value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
-                <p:outputLabel value="RemovedAt:" for="removedAt" />
-                <p:inputText id="removedAt" value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt" disabled="true"/>
-                <p:outputLabel value="Available:" for="available" />
-                <p:selectBooleanCheckbox id="available" value="#{theAlbums.selectedAlbum.available}" />
-                
-                
-                  <p:outputLabel value="Artist:" for="artist" />
+        </h:panelGrid>
 
-                <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" disabled="true">
-                    <f:selectItems value="#{theArtists.artists}"/>
-                </p:selectOneMenu> 
-              
-                <p:commandButton id="save" actionListener="#{theAlbums.edit()}" value="Save" update=":form,:dialogForm:testViewEdit">
-                      <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                </p:commandButton>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton id="yes" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton id="no" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
-                      
-                <p:commandButton id="cancel" action="#{theAlbums.makeUneditable()}" value="Cancel" update=":dialogForm:testViewEdit"/>
-                
-            </h:panelGrid>
+        <h:panelGrid columns="2" rendered="#{theAlbums.editable and not empty theAlbums.selectedAlbum}">
+            <p:outputLabel value="Id:" for="id" />
+            <p:inputText id="id" value="#{theAlbums.selectedAlbum.id}" title="Id" disabled="true"/>
+            <p:outputLabel value="Title:" for="title" />
+            <p:inputText id="title" value="#{theAlbums.selectedAlbum.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
+            <p:outputLabel value="ReleaseDate:" for="releaseDate" />
+            <p:inputText id="releaseDate" value="#{theAlbums.selectedAlbum.releaseDate}" title="ReleaseDate" disabled="true"/>
+            <p:outputLabel value="RecordLabel:" for="recordLabel" />
+            <p:inputText id="recordLabel" value="#{theAlbums.selectedAlbum.recordLabel}" title="RecordLabel" required="true" requiredMessage="The RecordLabel field is required."/>
+            <p:outputLabel value="NumTracks:" for="numTracks" />
+            <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" title="NumTracks" required="true" requiredMessage="The NumTracks field is required."/>
+            <p:outputLabel value="CreatedAt:" for="createdAt" />
+            <p:inputText id="createdAt" value="#{theAlbums.selectedAlbum.createdAt}" title="CreatedAt" disabled="true"/>
+            <p:outputLabel value="CostPrice:" for="costPrice" />
+            <p:inputText id="costPrice" value="#{theAlbums.selectedAlbum.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
+            <p:outputLabel value="ListPrice:" for="listPrice" />
+            <p:inputText id="listPrice" value="#{theAlbums.selectedAlbum.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
+            <p:outputLabel value="SalePrice:" for="salePrice" />
+            <p:inputText id="salePrice" value="#{theAlbums.selectedAlbum.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
+            <p:outputLabel value="RemovedAt:" for="removedAt" />
+            <p:inputText id="removedAt" value="#{theAlbums.selectedAlbum.removedAt}" title="RemovedAt" disabled="true"/>
+            <p:outputLabel value="Available:" for="available" />
+            <p:selectBooleanButton id="available" value="#{theAlbums.selectedAlbum.available}" onLabel="Yes" offLabel="No" style="width:60px"  class="mgmt_btn" />
+            <p:outputLabel value="Artist:" for="artist" />     
+            <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.selectedAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
 
-            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+            <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update="form,dialogForm">
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+            </p:commandButton>
 
-        </p:outputPanel>
+            <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update="dialogForm" class="mgmt_btn"/>
+
+        </h:panelGrid>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>   
+
+        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+
     </h:form>
 </ui:composition>
 

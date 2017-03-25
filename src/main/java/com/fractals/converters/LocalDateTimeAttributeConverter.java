@@ -29,7 +29,6 @@ public class LocalDateTimeAttributeConverter implements Converter {
     @Override
     public Object convertObjectValueToDataValue(Object o, Session sn) {
         LocalDateTime locDateTime = (LocalDateTime)o;
-        System.out.println(locDateTime);
         return (locDateTime == null ? null : Timestamp.valueOf(locDateTime));
     }
 
@@ -42,7 +41,6 @@ public class LocalDateTimeAttributeConverter implements Converter {
     @Override
     public Object convertDataValueToObjectValue(Object o, Session sn) {
         Timestamp sqlTimestamp = (Timestamp)o;
-        System.out.println(sqlTimestamp);
         return (sqlTimestamp == null ? null : sqlTimestamp.toLocalDateTime());
     }
 

@@ -6,43 +6,66 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
-import com.fractals.beans.Artist;
-import com.fractals.beans.Order;
-import com.fractals.beans.OrderItem;
 import com.fractals.controllers.AlbumJpaController;
+import com.fractals.controllers.AlbumController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author 1710030
+ * @author MOUFFOK Sarah
  */
 @Named("theAlbums")
 @SessionScoped
 public class AlbumBackingBean implements Serializable {
 
-    private boolean editable = false;
-    public boolean getEditable() {return editable;}
-    public void setEditable(boolean b) {editable = b;}
-    public void makeEditable(){setEditable(true);};
-    public void makeUneditable(){setEditable(false);}
-
-    private Album selectedAlbum;
-    public Album getSelectedAlbum() {return selectedAlbum;}
-    public void setSelectedAlbum(Album a) {selectedAlbum = a; makeUneditable();}
-
+    private boolean editable = false;   
+    private Album selectedAlbum, createdAlbum;
+    
     @Inject
     private AlbumJpaController albumJpaController;
-    public List<Album> getAlbums() {return albumJpaController.findAlbumEntities();}
-    public boolean isEmpty() {return albumJpaController.isEmpty();}
+    
+    @Inject   
+    private AlbumController albumController;
+    
+    public boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean b) {
+        editable = b;
+    }
+
+    public void makeEditable() {
+        setEditable(true);
+    }
+
+    public void makeUneditable() {
+        setEditable(false);
+    }
+
+    public Album getSelectedAlbum() {
+        return selectedAlbum;
+    }
+
+    public void setSelectedAlbum(Album a) {
+        selectedAlbum = a;
+        makeUneditable();
+    }
+
+    public List<Album> getAlbums() {
+        return albumJpaController.findAlbumEntities();
+    }
+
+    public boolean isEmpty() {
+        return albumJpaController.isEmpty();
+    }
 
     public void edit() throws Exception {
         makeUneditable();
@@ -54,40 +77,43 @@ public class AlbumBackingBean implements Serializable {
         edit();
     }
     
-    private Album createdAlbum;
-
     public Album getCreatedAlbum() {
-        if (createdAlbum == null)
+        if (createdAlbum == null) {
             createdAlbum = new Album();
+        }
         return createdAlbum;
     }
 
-    public void setCreatedAlbum(Album a) {createdAlbum = a;}
+    public void setCreatedAlbum(Album a) {
+        createdAlbum = a;
+    }
 
     public void create() throws Exception {
         createdAlbum.setCreatedAt(LocalDateTime.now());
         albumJpaController.create(createdAlbum);
         selectedAlbum = createdAlbum;
         createdAlbum = null;
-    }
-    
-    
-        
-    public Number getTotalSales(){
-        CriteriaBuilder cb = albumJpaController.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Number> query = cb.createQuery(Number.class);
-        Root<OrderItem> root = query.from(OrderItem.class);
-        Join<OrderItem,Order> order = root.join("order");
-        query.select(cb.sum(order.get("netCost")));
-        query.where(cb.equal(root.get("album"), selectedAlbum));
-        Number result = albumJpaController.getEntityManager().createQuery(query).getSingleResult();      
-        return result == null ? 0 : result;
-    }
-    
-    public Number getTotalSalesByAlbum(Album album){
-        Number sales =  albumJpaController.getTotalSales(album);
-        
-        return (sales != null)? sales : 0;
+     
     }
 
+    public Number getTotalSalesByAlbum(Album album) {
+        Number sales = albumJpaController.getTotalSales(album);
+        return (sales != null) ? sales : 0;
+    }
+
+    public Number getTotalSales() {
+        return albumController.getTotalSales(selectedAlbum);
+    }
+    
+    public int getPageCount(){
+        return albumJpaController.getAlbumCount() / 10;
+    }
+    
+     public List<Album> suggest(String s) {
+         ArrayList<Album> similar = new ArrayList<>();
+        for (Album a : albumJpaController.findAlbumEntities()) 
+            if (a.getTitle().toLowerCase().startsWith(s.toLowerCase())) 
+                similar.add(a);   
+        return similar;
+    }
 }

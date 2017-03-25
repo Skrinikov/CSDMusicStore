@@ -32,8 +32,13 @@
             </li>
 
             <li>
+                <h:link value="Set sales" outcome="/management/setSales.xhtml"/>
+            </li> 
+            
+             <li>
                 <h:link value="Users" outcome="/management/user/usersList.xhtml"/>
-            </li>      
+            </li>  
+            
             <li>
                 <h:link value="Orders" outcome="/management/order/ordersList.xhtml"/>
             </li> 
@@ -46,12 +51,10 @@
                 <h:link value="Banner Ads" outcome="/management/ad/adsList.xhtml"/>
             </li>
 
-
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<span class="caret"></span></a>         
                 <ul class="dropdown-menu" role="menu">
                     <li class="dropdown-header">Reviews</li>
-                    <li><h:link value="All Reviews" outcome="/management/review/allReviewsList.xhtml"/></li>
                     <li><h:link value="Track Reviews" outcome="/management/review/chooseTrack.xhtml"/></li>
                     <li><h:link value="Approved Reviews" outcome="/management/review/approvedReviewsList.xhtml"/></li>
                     <li><h:link value="Disapproved Reviews" outcome="/management/review/disapprovedReviewsList.xhtml"/></li>

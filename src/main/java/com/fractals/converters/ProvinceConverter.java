@@ -3,6 +3,7 @@ package com.fractals.converters;
 import com.fractals.beans.Province;
 import com.fractals.controllers.ProvinceController;
 import com.fractals.utilities.BundleLocaleResolution;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -67,6 +68,14 @@ public class ProvinceConverter implements Converter {
             context.addMessage("registerForm:province", message);
             return null;
         }
+    }
+    
+    public List<Province> suggest(String s) {
+         ArrayList<Province> similar = new ArrayList<>();
+        for (Province a : controller.getProvinces()) 
+            if (a.getName().toLowerCase().startsWith(s.toLowerCase())) 
+                similar.add(a);   
+        return similar;
     }
     
 }

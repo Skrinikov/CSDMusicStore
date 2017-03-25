@@ -1,4 +1,4 @@
-<ui:composition 
+<!--<ui:composition 
     template="/WEB-INF/templates/mgmt_master.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,26 +7,26 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="windowTitle">
-        <h:outputText value="Album Details"></h:outputText>
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListAlbumTitle}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
-        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css"/>
     </ui:define>
 
     <ui:define name="content">
 
         <div class="mgmt-content">
-            <div class="panel-heading">
-                <h1 class="text-center">Album Details</h1>
-            </div>
+            <div class="panel-heading"><h1 class="text-center">Album Details</h1></div>
+
             <div class="panel-body">
-
-
                 <h:outputText value="nothing selected" rendered="#{empty theAlbums.selectedAlbum}"/>
 
                 <h:form id="form">
+
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
 
                     <h:panelGroup  rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
 
@@ -96,10 +96,8 @@
                             </h:outputText>
                         </div>
 
-
-
-                        <p:commandButton id="edit" class="mgmt_btn" action="#{theAlbums.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
-                        <p:commandButton id="delete" class="mgmt_btn" actionListener="#{theAlbums.delete()}" value="#{bundle.mgmt_btn_delete}" update="form">
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="form"/>                             
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.delete()}" value="#{bundle.mgmt_btn_delete}" update="form">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -136,13 +134,15 @@
                         <p:outputLabel value="Artist:" for="artist" />
 
                         <p:selectOneMenu id="artist" value="#{theAlbums.selectedAlbum.artist}" converter="#{artistConverter}">
-                            <f:selectItems value="#{theArtists.artists}"/>
-                            <p:column>
-                                <h:outputText value="#{a.name}" />
-                            </p:column>
+                            <f:selectItems value="#{theArtists.artists}"/>                       
                         </p:selectOneMenu> 
+<<<<<<< HEAD
                         
                         <p:commandButton id="save" class="mgmt_btn" actionListener="#{theAlbums.edit()}" value="Save" update="form">
+=======
+
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.edit()}" value="#{bundle.mgmt_btn_save}" update="form">
+>>>>>>> sarah
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -151,13 +151,14 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>   
 
+<<<<<<< HEAD
                         <p:commandButton id="cancel" class="mgmt_btn" action="#{theAlbums.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+=======
+                        <p:commandButton class="mgmt_btn" actionListener="#{theAlbums.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="form"/>
+>>>>>>> sarah
 
                     </h:panelGrid>
 
-                    <!--si l'artiste n'existe, dialog "voulez vous le creer"
-                   release date and artist greyed out because annoying (whole thing still not working yet)
-                    -->                
                 </h:form>  
 
                 <p:button id="return" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/album/albumsList.xhtml"/>
@@ -167,4 +168,4 @@
     </ui:define>
 </ui:composition>
 
-
+-->

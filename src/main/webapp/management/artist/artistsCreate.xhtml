@@ -1,5 +1,4 @@
-<ui:composition 
-    template="/WEB-INF/templates/mgmt_master.xhtml"
+<!--<ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
@@ -9,21 +8,22 @@
     <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
     </ui:define>
+    <h:form id="dialogForm2">
 
-    <ui:define name="content">
-        <h:form>
-            
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Name:" for="name" />
-                <h:inputText id="name" value="#{theArtists.createdArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-            </h:panelGrid>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
             <p:commandButton id="create"  action="#{theArtists.create()}" icon="fa-edit" ajax="false"/>
             <p:button id="return" value="Retour à la liste" outcome="/management/artist/artistsList.xhtml"/>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Name:" for="name"/>
+            <h:inputText id="name" value="#{theArtists.createdArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+        </h:panelGrid>
 
-        </h:form>
+        <p:commandButton  action="#{theArtists.create()}" icon="fa-edit"/>
+        <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()"/>
 
-    </ui:define>
+    </h:form>
+
 </ui:composition>
-
+-->
 
