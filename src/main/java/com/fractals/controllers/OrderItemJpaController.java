@@ -14,6 +14,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.Album;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
+import com.fractals.beans.User;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -217,5 +219,19 @@ public class OrderItemJpaController implements Serializable {
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-
+    
+    public List<OrderItem> getUsersOrders(User user)
+    {
+        String query = 
+        "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
+                              
+        TypedQuery<OrderItem> q = em.createQuery(query, OrderItem.class);
+        q.setParameter(1, user);
+       
+        List<OrderItem> oi = (List<OrderItem>)q.getResultList();
+        
+        return oi;
+    }
+    
+    
 }

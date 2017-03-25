@@ -11,9 +11,9 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-
 /**
  *
  * This controller will be used to retrieve all tracks and albums the users 
@@ -27,6 +27,9 @@ import org.primefaces.model.StreamedContent;
 @RequestScoped
 public class DownloadListController implements Serializable {  
   
+    @Inject 
+    private OrderItemJpaController oijc; 
+    
     /**
      * Fetches all the tracks that a given user bought. Orders them by descending
      * order date.
@@ -40,17 +43,17 @@ public class DownloadListController implements Serializable {
         }
         List<Track> tracks = new ArrayList<>();
         
-        for(Order o : user.getOrders()){
-            for(OrderItem item : o.getOrderItems()){
-                if(item.getAlbum() != null){
-                  tracks.addAll(item.getAlbum().getTracks());
-                } 
-                else if(item.getTrack() != null){
-                    tracks.add(item.getTrack());
-                }
+        List<OrderItem> oi = oijc.getUsersOrders(user);
+        
+        for(OrderItem item : oi){
+            if(item.getAlbum() != null){
+              tracks.addAll(item.getAlbum().getTracks());
+            } 
+            else if(item.getTrack() != null){
+                tracks.add(item.getTrack());
             }
         }
-        
+
         return tracks;
     }
     
