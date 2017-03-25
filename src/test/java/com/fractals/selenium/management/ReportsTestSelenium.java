@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author Danieil
  */
+@Ignore
 public class ReportsTestSelenium {
     
     private WebDriver driver;

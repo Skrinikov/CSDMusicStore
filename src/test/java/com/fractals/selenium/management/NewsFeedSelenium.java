@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Renuchan
  */
 @Ignore
-public class NewsFeedTest {
+public class NewsFeedSelenium {
 
     private WebDriver driver;
 
@@ -74,7 +74,7 @@ public class NewsFeedTest {
         try {
             enterData();
         } catch (InterruptedException ex) {
-            Logger.getLogger(NewsFeedTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewsFeedSelenium.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //re count the row and see if it increased by 1
@@ -230,7 +230,7 @@ public class NewsFeedTest {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException ex) {
-            Logger.getLogger(NewsFeedTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewsFeedSelenium.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

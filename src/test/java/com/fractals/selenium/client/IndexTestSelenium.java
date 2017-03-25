@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author Danieil
  */
+@Ignore
 public class IndexTestSelenium {
     
     private WebDriver driver;
