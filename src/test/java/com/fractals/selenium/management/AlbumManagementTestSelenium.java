@@ -54,7 +54,7 @@ public class AlbumManagementTestSelenium {
         
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         
-        goToDetails(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
         
         wait.until(ExpectedConditions.titleIs("Album Details"));
         driver.quit();
@@ -62,13 +62,13 @@ public class AlbumManagementTestSelenium {
     }
     
     public void createAlbum(){
-        goToDetails(By.xpath("//*[@id=\"form:tbl_data\"]/tr[3]"));
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[3]"));
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         //TODO
     }
     
     public void editAlbum(){
-        goToDetails(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         //TODO
         wait.until(ExpectedConditions.attributeContains(By.id(""), "", ""));
@@ -80,11 +80,11 @@ public class AlbumManagementTestSelenium {
      * Assume starting from list page
      * @param by By
      */
-    private void goToDetails(By by){
+    private void goToPreview(By by){
         driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
         WebElement row = driver.findElement(by);
         row.click();
-        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:detail\"]"));   
+        WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
         detail.click();
         
     }
