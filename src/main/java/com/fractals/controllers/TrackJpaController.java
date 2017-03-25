@@ -367,6 +367,26 @@ public class TrackJpaController implements Serializable {
          
          return em.createQuery(query).getSingleResult();
      }
+     
+     /**
+      * Returns the number of time a Track has been sold
+      * @param track
+      * @return Sale number
+      * @author Thai-Vu Nguyen
+      */
+     public Number getTracksSold(Track track){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        //Select count (*) from OrderItem where album_id = ?
+        
+        Root<OrderItem> root = query.from(OrderItem.class);
+        
+        query.select(cb.count(root));
+        query.where(cb.equal(root.get("track"), track));
+        return em.createQuery(query).getSingleResult();
+        
+    }
     
     /**
      * Takes the list of Tracks, shuffles it 

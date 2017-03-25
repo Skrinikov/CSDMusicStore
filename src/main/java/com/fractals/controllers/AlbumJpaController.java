@@ -361,6 +361,26 @@ orderItemsCollectionOrderItemToAttach.getId());
     }
     
     /**
+     * Returns the number of time an album has been sold
+     * @param album
+     * @return Sale number
+     * @author Thai-Vu Nguyen
+     */
+    public Number getAlbumsSold(Album album){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        //Select count (*) from OrderItem where album_id = ?
+        
+        Root<OrderItem> root = query.from(OrderItem.class);
+        
+        query.select(cb.count(root));
+        query.where(cb.equal(root.get("album"), album));
+        return em.createQuery(query).getSingleResult();
+        
+    }
+    
+    /**
      * Takes the list of Album, shuffles it 
      * and returns the first Tracks based on the limit
      * @param albums
@@ -381,4 +401,6 @@ orderItemsCollectionOrderItemToAttach.getId());
         
         return newAlbums;
     }
+    
+    
 }
