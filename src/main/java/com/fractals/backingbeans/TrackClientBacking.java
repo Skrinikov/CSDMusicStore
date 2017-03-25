@@ -63,6 +63,9 @@ public class TrackClientBacking implements Serializable {
 
     @Inject
     private LoginBacking loginControl;
+    
+    @Inject
+    private ReviewJpaController reviewsController;
 
     /**
      * Initialize the Track entity based on the trackId
@@ -98,7 +101,7 @@ public class TrackClientBacking implements Serializable {
         getReview().setTrack(track);
         getReview().setReviewDate(LocalDateTime.now());
 
-        boolean created = this.reviewsControl.addReview(review);
+        reviewsController.create(review);
 
         return "Track.xhtml?faces-redirect=true&id=" + trackId.intValue();
 
@@ -172,7 +175,7 @@ public class TrackClientBacking implements Serializable {
     }
 
     public List<Review> getReviews() {
-        return (track != null) ? track.getReviews() : (new ArrayList<Review>());
+        return (track != null) ? reviewsController.getApprovedReviews(track) : (new ArrayList<Review>());
     }
 
     public Integer getTrackId() {

@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListAlbumTitle}"/>
     </ui:define>
 
@@ -22,7 +22,7 @@
              <f:selectItems value="#{selectOneMenuView.cars}" />
         </p:selectOneButton>
  
-        <p:commandButton value="Submit" update="display" icon="ui-icon-check" />
+        <p:commandButton id="submit" value="Submit" update="display" icon="ui-icon-check" />
         <p:spacer />
  
         <h:outputText value="Selected:" />

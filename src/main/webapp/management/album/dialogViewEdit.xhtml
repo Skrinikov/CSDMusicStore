@@ -91,20 +91,20 @@
                     <f:selectItems value="#{theArtists.artists}"/>
                 </p:selectOneMenu> 
               
-                <p:commandButton actionListener="#{theAlbums.edit()}" value="Save" update=":form,:dialogForm:testViewEdit">
+                <p:commandButton id="save" actionListener="#{theAlbums.edit()}" value="Save" update=":form,:dialogForm:testViewEdit">
                       <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    <p:commandButton id="yes" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton id="no" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
                       
-                <p:commandButton action="#{theAlbums.makeUneditable()}" value="Cancel" update=":dialogForm:testViewEdit"/>
+                <p:commandButton id="cancel" action="#{theAlbums.makeUneditable()}" value="Cancel" update=":dialogForm:testViewEdit"/>
                 
             </h:panelGrid>
 
-            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogViewEdit').hide()"/>
 
         </p:outputPanel>
     </h:form>

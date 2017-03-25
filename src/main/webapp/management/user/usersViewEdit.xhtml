@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <a href="../management/artistsList.xhtml"></a>
         <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
     </ui:define>
@@ -23,7 +23,7 @@
                     <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
 
 
-                    <h:form>
+                    <h:form id="user_form">
                         <h:panelGroup rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
 
 
@@ -74,7 +74,7 @@
 
 
 
-                            <p:commandButton icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
+                            <p:commandButton id="edit" icon="fa fa-pencil-square-o" class="mgmt_btn" action="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" ajax="false"/>                             
 
 
                         </h:panelGroup>
@@ -123,14 +123,14 @@
                                 <f:selectItems value="#{theGenres.genres}"/>
                             </p:selectOneMenu>
 
-                            <p:commandButton action="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false" class="mgmt_btn"/>
-                            <p:commandButton action="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false" class="mgmt_btn"/>
+                            <p:commandButton id="save" action="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false" class="mgmt_btn"/>
+                            <p:commandButton id="cancel" action="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false" class="mgmt_btn"/>
 
                         </p:panelGrid>
 
                     </h:form>  
 
-                    <p:button icon="fa fa-backward" value="#{bundle.mgmt_btn_return_list}" outcome="/management/user/usersList.xhtml" class="mgmt_btn"/>
+                    <p:button id="return" icon="fa fa-backward" value="#{bundle.mgmt_btn_return_list}" outcome="/management/user/usersList.xhtml" class="mgmt_btn"/>
                 </div>
             </div>
         </div>

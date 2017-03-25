@@ -60,10 +60,10 @@
                             <h:outputText value="Operation"/>
                         </f:facet>
 
-                        <p:commandButton update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
+                        <p:commandButton id="delete_#{item.id.toString()}" update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
                         </p:commandButton>
 
-                        <p:commandButton value="#{bundle.editBtn}" action="#{nfsBackingBean.prepareChange(item.id)}">               
+                        <p:commandButton id="edit_#{item.id.toString()}" value="#{bundle.editBtn}" action="#{nfsBackingBean.prepareChange(item.id)}">               
                         </p:commandButton>
 
                     </p:column>

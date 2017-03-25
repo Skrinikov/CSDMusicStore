@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ViewOrderTitle}"></h:outputText>
     </ui:define>
 
@@ -30,7 +30,7 @@
 
         <!-- if something selected -->
         <h:panelGroup  rendered="#{not empty theOrders.selectedOrder}">
-            <h:form>
+            <h:form id="order_form">
 
 
                 <!-- Header -->
@@ -83,12 +83,12 @@
 
 
                             <p:column headerText="Delete order item">
-                                <h:commandButton class="mgmt_btn" value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
+                                <h:commandButton  class="mgmt_btn" value="Delete Order item " action="#{theOrders.deleteOrderItem(item)}"/>
                             </p:column>
                         </p:dataTable>
                     
-                    <h:commandButton class="mgmt_btn" value="Delete Order" action="#{theOrders.deleteOrder()}"/>
-                <h:commandButton class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
+                    <h:commandButton id="delete_order" class="mgmt_btn" value="Delete Order" action="#{theOrders.deleteOrder()}"/>
+                <h:commandButton id="return" class="mgmt_btn" value="Retour à la liste" action="#{theOrders.returnToPage()}"/>
                 </div>
 
 

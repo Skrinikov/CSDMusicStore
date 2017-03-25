@@ -1,14 +1,12 @@
 package com.fractals.controllers;
 
-import com.fractals.backingbeans.UserBacking;
-import com.fractals.beans.Album;
+import com.fractals.backingbeans.BrowseGenreBacking;
 import com.fractals.beans.Genre;
 import com.fractals.beans.Track;
 import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import com.fractals.converters.ProvinceConverter;
-import com.fractals.email.EmailSender;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
 import com.fractals.utilities.DatabaseSeedManager;
@@ -32,23 +30,18 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author Thai-Vu Nguyen
+ * @author Thai-Vu Nugyen
  */
 @Ignore
 @RunWith(Arquillian.class)
-public class ClientTrackingControllerTest {
+public class TrackJpaControllerTest {
+    
     
     @Deployment
     public static WebArchive deploy() {
 
         //Use an alternative to the JUnit assert library called AssertJ
         final File[] dependencies = Maven
-                .resolver()
-                .loadPomFromFile("pom.xml")
-                .importRuntimeDependencies().resolve().withTransitivity()
-                .asFile();
-        
-        final File[] assertj = Maven
                 .resolver()
                 .loadPomFromFile("pom.xml")
                 .resolve("org.assertj:assertj-core").withoutTransitivity()
@@ -58,9 +51,9 @@ public class ClientTrackingControllerTest {
         // Actual file name is resources-mysql-ds.xml in the test/resources folder
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                .addPackage(SearchJPAController.class.getPackage())
-                .addPackage(Album.class.getPackage())
-                .addPackage(UserBacking.class.getPackage())
+                .addPackage(GenreJpaController.class.getPackage())
+                .addPackage(Genre.class.getPackage())
+                .addPackage(BrowseGenreBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(IllegalOrphanException.class.getPackage())
@@ -69,15 +62,12 @@ public class ClientTrackingControllerTest {
                 .addPackage(ProvinceConverter.class.getPackage())
                 .addPackage(SecurityHelper.class.getPackage())
                 .addPackage(DatabaseSeedManager.class.getPackage())
-                .addPackage(EmailSender.class.getPackage())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"), "glassfish-resources.xml")
                 .addAsResource(new File("src/main/resources/META-INF/persistence.xml"), "META-INF/persistence.xml")
                 .addAsResource("schema.sql")
                 .addAsResource("setup.sql")
-                .addAsResource("Bundle.properties")
-                .addAsLibraries(dependencies)
-                .addAsLibraries(assertj);
+                .addAsLibraries(dependencies);
 
         return webArchive;
     }
@@ -86,78 +76,99 @@ public class ClientTrackingControllerTest {
     private DataSource ds;
     
     @Inject
-    private ClientTrackingController tracker;
+    private GenreJpaController genresControl;
     
     @Inject
-    private TrackJpaController trackControl;
+    private TrackJpaController tracksControl;
     
-    
-    /**
-     *  Creates the database testing environment
-     */
     @Before
     public void seedDatabase() {
         DatabaseSeedManager db = new DatabaseSeedManager(ds);
         db.seed();
     }
-     
+
     /**
-     * Test of saveGenre method, of class ClientTrackingController.
+     * Test of findTracksByGenre method, of class TrackJpaController.
      */
     @Test
-    public void testSaveGenre() {
-       
-        Track track = trackControl.findTrack(2);
+    public void testFindTracksByGenre() {
+        Genre genre = genresControl.findGenre(1);
         
-        tracker.saveGenre(track.getGenre());
+        List<Track> tracks = tracksControl.findTracksByGenre(genre, 5, true);
         
-        
-        assertTrue(tracker.isGenreSaved());
+        assertTrue (tracks.size() <= 5);
         
     }
 
     /**
-     * Test of getGenre method, of class ClientTrackingController.
+     * Test of getMostRecentTracks method, of class TrackJpaController.
      */
     @Test
-    public void testGetGenre() {
+    public void testGetMostRecentTracks() {
+        List<Track> tracks = tracksControl.getMostRecentTracks(5);
         
-        Track track = trackControl.findTrack(3);
-        tracker.saveGenre(track.getGenre());
+        boolean valid = true;
         
-        Genre savedGenre = tracker.getGenre();
+        if (tracks.size() > 5)
+            valid = false;
         
-        assertEquals(track.getGenre(), savedGenre);
+        if (tracks.size() >0){
+            Track temp = tracks.get(0);
+            for (Track track : tracks){
+                if (track.getCreatedAt().isAfter(temp.getCreatedAt()))
+                        valid = false;
+                temp = track;
+            }
+        }
         
+        assertTrue(valid);
     }
 
     /**
-     * Test of getAlbums method, of class ClientTrackingController.
+     * Test of getSimilarTracks method, of class TrackJpaController.
      */
     @Test
-    public void testGetAlbums() {
-        Track track = trackControl.findTrack(3);
-        tracker.saveGenre(track.getGenre());
+    public void testGetSimilarTracks() {
+        Track track = tracksControl.findTrack(12);
+        List<Track> tracks = tracksControl.getSimilarTracks(track, 3);
         
-        List<Album> albums = tracker.getAlbums(3, true);
+        boolean valid = true;
         
-        assertTrue(albums.size() == 3);
+        if (tracks.size() > 3){
+            valid = false;
+        }
         
+        for (Track t : tracks){
+            if (t.equals(track))
+                valid = false;
+        }
         
+        assertTrue(valid);
+    }
+
+
+    /**
+     * Test of getSpecials method, of class TrackJpaController.
+     */
+    @Test
+    public void testGetSpecials() {
+        List<Track> tracks = tracksControl.getSpecials(3);
+        
+        boolean valid = true;
+        
+        for (Track track : tracks){
+            if (track.getSalePrice() == 0)
+                valid = false;
+        }
+        assertTrue (valid);
     }
 
     /**
-     * Test of getTracks method, of class ClientTrackingController.
+     * Test of getTotalSales method, of class TrackJpaController.
      */
     @Test
-    public void testGetTracks() {
-        Track track = trackControl.findTrack(1);
-        tracker.saveGenre(track.getGenre());
-        
-        List<Track> tracks = tracker.getTracks(3, true);
-        
-        assertTrue (tracks.size() == 3);
-        
+    public void testGetTotalSales() {
+        //TODO
     }
     
 }

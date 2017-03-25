@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListOrderTitle}"></h:outputText>
     </ui:define>
     
@@ -53,7 +53,7 @@
 
 
                 <f:facet name="footer" class="mgmt_table_footer">
-                    <p:commandButton value="Detail" icon="fa fa-folder-open" action="/management/order/ordersViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
+                    <p:commandButton id="detail" value="Detail" icon="fa fa-folder-open" action="/management/order/ordersViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
                 </f:facet>  
 
             </p:dataTable>

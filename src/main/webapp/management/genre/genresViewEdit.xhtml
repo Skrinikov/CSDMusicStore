@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListGenreTitle}"></h:outputText>
     </ui:define>
 
@@ -22,20 +22,19 @@
             </div>
         </div>
 
+        <div class="container newContainer">
         <h:panelGroup rendered="#{empty theGenres.selectedGenre}">
             <h:outputText value="nothing selected" />
-            <div class="row">
-                <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
-            </div>
+            
 
         </h:panelGroup>
 
 
 
-        <h:form>
+        <h:form id="genre_form">
 
             <h:panelGroup  rendered="#{not theGenres.editable and not empty theGenres.selectedGenre}">
-                <div class="container newContainer">
+                
                     <div class="form-group row">
                         <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theGenres.selectedGenre.id}" title="Id"/>
@@ -44,16 +43,14 @@
                         <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
                         <h:outputText value="#{theGenres.selectedGenre.name}" title="Name"/>
                     </div>
-                    <p:commandButton class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
-                    <p:commandButton class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
-                    <p:button class="mgmt_btn" value="Retour à la liste" outcome="/management/genre/genresList.xhtml"/>
-                </div>
-
+                    <p:commandButton id="edit" class="mgmt_btn" action="#{theGenres.makeEditable()}" value="Edit" ajax="false"/>                             
+                    <p:commandButton id="delete" class="mgmt_btn" action="#{theArtists.delete()}" value="Delete" ajax="false"/>
+                    
             </h:panelGroup>
 
 
             <h:panelGroup rendered="#{theGenres.editable and not empty theGenres.selectedGenre}">
-                <div class="container newContainer">
+                
                     <h:panelGrid columns="2" >
 
                         <p:outputLabel value="Id:" for="id" />
@@ -61,16 +58,18 @@
                         <p:outputLabel value="Name:" for="name" />
                         <p:inputText id="name" value="#{theGenres.selectedGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
 
-                        <p:commandButton class="mgmt_btn" action="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
-                        <p:commandButton class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
+                        <p:commandButton id="save" class="mgmt_btn" action="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" ajax="false"/>
+                        <p:commandButton id="cancel" class="mgmt_btn" action="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" ajax="false"/>
 
                     </h:panelGrid>
-                    <p:button class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}e" outcome="/management/genre/genresList.xhtml"/>
-                </div>
+                    
+                
             </h:panelGroup>
 
         </h:form>  
-
+        
+        <p:button id="return1" class="mgmt_btn" value="#{bundle.mgmt_btn_return_list}" outcome="/management/genre/genresList.xhtml"/>
+        </div>
 
 
     </ui:define>

@@ -197,6 +197,7 @@ public class ReviewJpaController implements Serializable {
      * Module to get the approved comments of a Track
      * @param track
      * @return 
+     * @author Thai-Vu Nguyen
      */
     public List<Review> getApprovedReviews(Track track){
         CriteriaBuilder cb = em.getCriteriaBuilder();

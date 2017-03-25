@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.ListAlbumTitle}"/>
     </ui:define>
     
@@ -91,9 +91,9 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
-                        <p:commandButton value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton id="preview" value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update=":dialogForm:testViewEdit" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton id="detail" value="#{bundle.mgmt_btn_detail}" icon="fa fa-folder-open" action="/management/album/albumsViewEdit.xhtml" ajax="false" class="mgmt_btn"/>
+                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" action="/management/album/albumsCreate.xhtml" ajax="false" class="mgmt_btn"/>
                         <p:commandButton value="Test Create" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
                     </f:facet>
                 </p:dataTable>
