@@ -197,6 +197,29 @@ public class AlbumManagementTestSelenium {
         driver.close();
     }
     
+    @Test
+    public void checkInvalidCreateAttempt(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        
+        getToListPage();
+        
+        //Click Create button
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:create\"]"));
+        
+        waitForCreateLoad(wait);
+        
+        WebElement create = driver.findElement(By.id("dialogForm2:create"));
+        create.click();
+        
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container"))
+        ));
+        
+        driver.close();
+        
+    }
+    
     /**
      * Assume starting from list page
      * @param by By
