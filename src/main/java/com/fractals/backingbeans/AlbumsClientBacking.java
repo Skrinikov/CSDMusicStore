@@ -1,7 +1,6 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
-import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
@@ -13,19 +12,12 @@ import com.fractals.controllers.UserJpaController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * The Backing bean for the client side Album page
@@ -66,6 +58,9 @@ public class AlbumsClientBacking implements Serializable {
     
     @Inject
     private UserJpaController userController;
+    
+    @Inject
+    private TrackClientBacking trackBacking;
 
     /*
     *   Initializes the Album entity
@@ -228,8 +223,7 @@ public class AlbumsClientBacking implements Serializable {
         review.setRating(rating);
         review.setReviewDate(LocalDateTime.now());       
         reviewControl.addReview(review);
-        
-        Review temp = user.getReviews().get(user.getReviews().size()-1);
+        trackBacking.addReviewed(track);
         
         // Refresh the page
         return null;

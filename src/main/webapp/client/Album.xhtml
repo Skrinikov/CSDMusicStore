@@ -80,7 +80,7 @@
                                             <p:panelGrid style="border:none;">
                                                 <p:row style="border:none;border-bottom: solid 3px #0a0a0a;">
                                                     <p:column styleClass="col-md-1 text-center toggle-reviews" style="border:none;" colspan="2">
-                                                        <span class="fa fa-music sub-info"></span>
+                                                        <span class="fa fa-music sub-info review-hover"></span>
                                                     </p:column>
                                                     <p:column styleClass="col-md-7 col-xs-6" style="border:none;" colspan="7">
                                                         #{track.albumNum} - <h:link outcome="Track" styleClass="album-track-link">#{track.title}<f:param name="id" value="#{track.id}"/></h:link>
@@ -109,7 +109,7 @@
                                                                 </ui:repeat>
 
                                                             </ui:fragment>
-                                                            <ui:fragment rendered="#{login.loggedIn}">
+                                                            <ui:fragment rendered="#{login.loggedIn and !trackCLBack.isTrackReviewed(track)}">
 
                                                                 <div class="leave-review">
                                                                     <div>
@@ -130,10 +130,13 @@
                                                                         <f:validateLength minimum="1" maximum="2000"/>
                                                                     </p:inputTextarea>
 
-                                                                    <p:commandLink value="#{bundle.tracks_submit}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                                                                    <h:commandLink value="#{bundle.tracks_submit}" styleClass="hvr-rectangle-out custom-price-buttons" action="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
                                                                 </div>                                                              
 
-                                                            </ui:fragment>                                                   
+                                                            </ui:fragment>   
+                                                            <ui:fragment rendered="#{login.loggedIn and trackCLBack.isTrackReviewed(track)}">
+                                                                <h4 class="text-center review-feedback-album">#{bundle.review_submitted}</h4>
+                                                            </ui:fragment>
                                                         </p:column>
                                                     </p:row>
                                                 

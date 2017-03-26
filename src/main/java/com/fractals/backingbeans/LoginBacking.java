@@ -35,7 +35,8 @@ public class LoginBacking implements Serializable {
     @Inject
     private UserController userController;
     
-    private User currentUser;   
+    private User currentUser;  
+    
 
     /**
      * Performs the necessary actions to login the user.
