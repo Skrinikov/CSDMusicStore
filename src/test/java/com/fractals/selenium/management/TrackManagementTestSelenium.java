@@ -81,6 +81,89 @@ public class TrackManagementTestSelenium {
         driver.quit();
 
     }
+    
+    @Test
+    public void getToCreateTrack(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        //Click Create button
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:create\"]"));
+        waitForCreateLoad(wait);
+        
+        
+        
+        driver.quit();
+        
+    }
+    
+    @Test
+    public void getToEditTrack(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        
+        goToPreview(2);
+        waitForPreviewLoad(wait);
+
+        //Click Edit
+        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
+        edit.click();
+
+        waitForPreviewEditLoad(wait);
+
+        driver.quit();
+
+    }
+    
+    @Test
+    public void clickExitOnPreview(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        
+        goToPreview(2);
+        waitForPreviewLoad(wait);
+        
+        //Click Exit
+        WebElement exit = driver.findElement(By.id("dialogForm:exit"));
+        exit.click();
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm")));
+        
+        driver.close();
+    }
+    
+    @Test
+    public void clickExitOnEditPreview(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        
+        goToPreview(2);
+        waitForPreviewLoad(wait);
+        
+        //Click Edit
+        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
+        edit.click();
+
+        waitForPreviewEditLoad(wait);
+        
+        //Click Exit
+        WebElement exit = driver.findElement(By.id("dialogForm:exit"));
+        exit.click();
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm")));
+        
+        driver.close();
+    }
+    
+    @Test
+    public void clickExitOnCreate(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        //Click Create button
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:create\"]"));
+        waitForCreateLoad(wait);
+        
+        helper.retryFindClick(By.id("dialogForm2:exit"));
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm2")));
+        
+        driver.close();
+        
+    }
 
     /**
      * Assume starting from list page

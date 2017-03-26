@@ -190,6 +190,9 @@ public class AlbumManagementTestSelenium {
         waitForCreateLoad(wait);
         
         WebElement exit = driver.findElement(By.id("dialogForm2:exit"));
+        exit.click();
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm2")));
         
         driver.close();
     }
