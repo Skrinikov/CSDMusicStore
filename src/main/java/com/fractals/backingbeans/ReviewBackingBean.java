@@ -14,9 +14,6 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
@@ -50,6 +47,7 @@ public class ReviewBackingBean implements Serializable {
 
     public void setSelectedUser(User u) {
         selectedUser = u;
+        selectedReview = null;
     }
 
     public Track getSelectedTrack() {
@@ -57,33 +55,26 @@ public class ReviewBackingBean implements Serializable {
     }
 
     public void setSelectedTrack(Track t) {
-        selectedTrack = t;
+        selectedTrack = t;   
+        selectedReview = null;
     }
 
     public List<Review> getReviews() {
         return reviewJpaController.findReviewEntities();
     }
 
-    public String disapproveReview() throws Exception {
-        return editReview(false);
+    public void disapproveReview() throws Exception {
+        editReview(false);
     }
 
-    public String approveReview() throws Exception {
-        return editReview(true);
+    public void approveReview() throws Exception {
+        editReview(true);
     }
 
-    public String editReview(boolean b) throws Exception {
+    private void editReview(boolean b) throws Exception {
         selectedReview.setApproved(b);
         selectedReview.setPending(false);
         reviewJpaController.edit(selectedReview);
-        return "/management/review/reviewsView.xhtml";
-    }
-
-    public String returnToPage() {
-        selectedReview = null;
-        selectedUser = null;
-        selectedTrack = null;
-        return "/management/review/pendingReviewsList.xhtml";
     }
     
     public List<Review> getPendingReviews() {

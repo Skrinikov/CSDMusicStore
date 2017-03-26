@@ -17,35 +17,47 @@ import javax.inject.Named;
  *
  * @author Sarah
  */
-
 @Named("theBannerAds")
 @SessionScoped
 public class BannerAdBackingBean implements Serializable {
+
     @Inject
     private BannerAdJpaController bannerAdJpaController;
-    
-    public List<BannerAd> getBannerAds(){
+    private BannerAd selectedBannerAd, createdBannerAd;
+
+    public List<BannerAd> getBannerAds() {
         return bannerAdJpaController.findBannerAdEntities();
     }
-    
-    public boolean isEmpty(){ return bannerAdJpaController.isEmpty();}
-    
-    private BannerAd selectedBannerAd;
-    public BannerAd getSelectedBannerAd(){ return selectedBannerAd;}
-    public void setSelectedBannerAd(BannerAd b){ selectedBannerAd = b;}
-   
-    private BannerAd createdBannerAd;
-    public BannerAd getCreatedBannerAd(){
-        if(createdBannerAd == null)
+
+    public boolean isEmpty() {
+        return bannerAdJpaController.isEmpty();
+    }
+
+    public BannerAd getSelectedBannerAd() {
+        return selectedBannerAd;
+    }
+
+    public void setSelectedBannerAd(BannerAd b) {
+        selectedBannerAd = b;
+    }
+
+    public BannerAd getCreatedBannerAd() {
+        if (createdBannerAd == null) 
             createdBannerAd = new BannerAd();
         return createdBannerAd;
     }
-    public void setCreatedBannerAd(BannerAd b){ createdBannerAd = b;}
-     
-    public String create() throws Exception {
+
+    public void setCreatedBannerAd(BannerAd b) {
+        createdBannerAd = b;
+    }
+
+    public void create() throws Exception {
         bannerAdJpaController.create(createdBannerAd);
         selectedBannerAd = createdBannerAd;
         createdBannerAd = null;
-        return "/management/ad/adsViewEdit.xhtml";
+    }
+
+    public void edit() throws Exception{
+        bannerAdJpaController.edit(selectedBannerAd);
     }
 }
