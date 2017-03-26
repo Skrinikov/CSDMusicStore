@@ -63,14 +63,13 @@ public class AlbumsClientBacking implements Serializable {
     private TrackClientBacking trackBacking;
 
     /*
-    *   Initializes the Album entity
+     *   Initializes the Album entity
      */
     public void init() {
         reviews = new ArrayList<>();
-
         
-        if (albumId == null) {
-            log.info("Album is NULL");
+        if (albumId == null || albumControl.getAlbumCount()-1 < albumId) {
+            log.info("Album is NULL or id is invalid: " + albumId);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "/error.xhtml";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);

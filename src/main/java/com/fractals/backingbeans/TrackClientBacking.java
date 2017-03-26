@@ -64,9 +64,8 @@ public class TrackClientBacking implements Serializable {
      * Initialize the Track entity based on the trackId
      */
     public void init() {
-        if (trackId == null) {
-
-            log.info("Track is NULL");
+        if (trackId == null || trackControl.getTrackCount() < trackId+1) {
+            log.info("Track is NULL or id is invalid: " + trackId);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "/error.xhtml";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
