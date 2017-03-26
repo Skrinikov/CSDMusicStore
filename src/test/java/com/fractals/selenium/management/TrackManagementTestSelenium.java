@@ -2,6 +2,8 @@ package com.fractals.selenium.management;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -52,6 +54,16 @@ public class TrackManagementTestSelenium {
         WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
         detail.click();
         
+    }
+    
+    private List<WebElement> buildListOfWebElements (WebElement ... elements){
+        List<WebElement> list = new ArrayList<>();
+        
+        for (WebElement element : elements){
+            list.add(element);
+        }
+        
+        return list;
     }
     
 }

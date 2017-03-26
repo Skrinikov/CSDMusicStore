@@ -19,7 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.event.Level;
 
 /**
- *
+ * Selenium Testing class responsible for the management side of Album
  * @author Thai-Vu Nguyen
  */
 public class AlbumManagementTestSelenium {
@@ -47,18 +47,21 @@ public class AlbumManagementTestSelenium {
         //Title of Page is stored to bundle
         String title = bundle.getString("ListAlbumTitle");
         
-        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
+        getToListPage();
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();
-        
     }
     
+    /**
+     * Test if clicking Preview button without selecting any Album 
+     * displays the proper dialog
+     */
     @Test
     public void clickNotChosenAlbumDetails(){
         WebDriverWait wait = new WebDriverWait(driver, 10);  
         //Get to the page
-        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
+        getToListPage();
         
         //Click Preview without touching any Album
         helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:preview\"]"));
@@ -70,10 +73,13 @@ public class AlbumManagementTestSelenium {
                 ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:delete")),
                 ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:edit"))
         ));
+        
+        driver.quit();
     }
     
     /**
-     * 
+     * Test if clicking Preview button with a selecting Album 
+     * displays the proper dialog
      */
     @Test
     public void getAlbumPreview(){
@@ -88,23 +94,104 @@ public class AlbumManagementTestSelenium {
                 ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:edit")),
                 ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
         ));
+        
+        driver.quit();
        
         
     }
     
-    public void createAlbum(){
-        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[3]"));
+    @Test
+    public void goToCreateAlbum(){
         WebDriverWait wait = new WebDriverWait(driver, 10);  
-        //TODO
+        //Get to the page
+        getToListPage();
+        
+        //Click Create button
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:create\"]"));
+        
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2:create")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2:exit"))
+        ));
+        
+        driver.quit();
     }
     
-    public void editAlbum(){
-        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+    @Test
+    public void goToEditAlbum(){
         WebDriverWait wait = new WebDriverWait(driver, 10);  
-        //TODO
-        wait.until(ExpectedConditions.attributeContains(By.id(""), "", ""));
+        
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+        
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:edit"))
+                
+        ));
+        
+        WebElement edit = driver.findElement(By.id("dialogForm:edit"));
+        edit.click();
+        
+        //Buttons that needs to be seen: Save, Cancel, Exit
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:save")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:cancel")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
+        ));
+        
+        driver.close();
 
-
+    }
+    
+    @Test
+    public void clickExitOnPreview(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);  
+        
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+        
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
+                
+        ));
+        
+        WebElement exit = driver.findElement(By.id("dialogForm:exit"));
+        exit.click();
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm")));
+        
+        driver.close();
+    }
+    
+    @Test
+    public void clickExitOnEditPreview(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);  
+        
+        
+        WebElement edit = getEditButton(wait, 3);
+        
+        edit.click();
+        
+        waitForPreviewEditLoad(wait);
+        
+        driver.close();
+    }
+    
+    @Test
+    public void clickExitOnCreate(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);  
+        //Get to the page
+        getToListPage();
+        
+        //Click Create button
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:create\"]"));
+        
+        waitForCreateLoad(wait);
+        
+        WebElement exit = driver.findElement(By.id("dialogForm2:exit"));
+        
+        driver.close();
     }
     
     /**
@@ -112,7 +199,7 @@ public class AlbumManagementTestSelenium {
      * @param by By
      */
     private void goToPreview(By by){
-        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
+        getToListPage();
         WebElement row = driver.findElement(by);
         row.click();
         //WebElement detail = driver.findElement(By.xpath("//*[@id=\"form:tbl:preview\"]"));   
@@ -121,6 +208,8 @@ public class AlbumManagementTestSelenium {
         helper.retryFindClick(By.xpath("//*[@id=\"form:tbl:preview\"]"));
         
     }
+    
+ 
     
     private List<WebElement> buildListOfWebElements (WebElement ... elements){
         List<WebElement> list = new ArrayList<>();
@@ -132,7 +221,46 @@ public class AlbumManagementTestSelenium {
         return list;
     }
     
+    private void getToListPage(){
+        driver.get("http://localhost:8080/CSDMusicStore/management/album/albumsList.xhtml");
+    }
     
+    private WebElement getEditButton(WebDriverWait wait, int row){
+        goToPreview(By.xpath("//*[@id=\"form:tbl_data\"]/tr["+ row + "]"));
+        
+        waitForPreviewLoad(wait);
+        
+        return driver.findElement(By.id("dialogForm:edit"));
+    }
+    
+    private void waitForPreviewLoad(WebDriverWait wait){
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:delete")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:edit")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
+                
+        ));
+    }
+    
+    private void waitForPreviewEditLoad (WebDriverWait wait){
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:save")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:cancel")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:exit"))
+                
+        ));
+    }
+    
+    private void waitForCreateLoad(WebDriverWait wait){
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2:create")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm2:exit"))
+        ));
+        
+    }
     
     
     
