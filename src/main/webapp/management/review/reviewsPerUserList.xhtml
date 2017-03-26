@@ -7,62 +7,148 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ListUserReviewsTitle}"></h:outputText>
+        <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
 
     <ui:define name="content">
 
-        <h:outputText escape="false" value="#{bundle.ListUserReviewsEmpty}" rendered="#{theReviews.getReviewsByUser().size() == 0}"/>
-        <h:panelGroup rendered="#{theReviews.getReviewsByUser().size() != 0}">    
-            <h:form id="form">
+        <h:form id="form">
 
-                <p:dataTable id="tbl" value="#{theReviews.getReviewsByUser()}" var="item" 
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             paginator="true" rows="10" style="margin-bottom:20px"
-                             selectionMode="single" selection="#{theReviews.selectedReview}" 
-                             rowKey="#{item.id}"
-                             draggableColumns="true" resizableColumns="true" >
+            <p:dataTable id="tbl" value="#{theUsers.users}" var="item" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginator="true" rows="10" style="margin-bottom:20px"
+                         selectionMode="single" selection="#{theReviews.selectedUser}" 
+                         rowKey="#{item.id}"
+                         draggableColumns="true" resizableColumns="true" >
 
-                    <p:column headerText="Id">
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                   
-                    <p:column headerText="Rating">
-                        <h:outputText value="#{item.rating}"/>
-                    </p:column>
-                    
-                    <p:column headerText="ReviewDate">
-                        <h:outputText value="#{item.reviewDate}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Text">
-                        <h:outputText value="#{item.text}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Approved">
-                        <h:outputText value="#{item.approved}"/>
-                    </p:column>
-                    
-                    <p:column headerText="User">
-                        <h:outputText value="#{item.user.username}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Track">
-                        <h:outputText value="#{item.track}"/>
-                    </p:column>   
-                    
-                    <f:facet name="footer" class="mgmt_table_footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
-                        <p:commandButton value="Change User" class="mgmt_btn" action="/management/review/chooseUser.xhtml"/>
-                    </f:facet>  
-               
-                </p:dataTable>
-            </h:form>
-        </h:panelGroup>
-        
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListUserTitle}"/>
+                    <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                    <p:columnToggler datasource="tbl" trigger="toggler" />
+                </f:facet>
+
+                <p:ajax event="rowSelect" update="form" />
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+                <p:column headerText="Username">
+                    <h:outputText value="#{item.username}"/>
+                </p:column>
+
+                <p:column headerText="Title">
+                    <h:outputText value="#{item.title}"/>
+                </p:column>
+
+                <p:column headerText="FirstName">
+                    <h:outputText value="#{item.firstName}"/>
+                </p:column>
+
+                <p:column headerText="LastName">
+                    <h:outputText value="#{item.lastName}"/>
+                </p:column>
+
+                <p:column headerText="Company">
+                    <h:outputText value="#{item.company}"/>
+                </p:column>
+
+                <p:column headerText="Address1">
+                    <h:outputText value="#{item.address1}"/>
+                </p:column>
+
+                <p:column headerText="Address2">
+                    <h:outputText value="#{item.address2}"/>
+                </p:column>
+
+                <p:column headerText="City">
+                    <h:outputText value="#{item.city}"/>
+                </p:column>
+
+                <p:column headerText="Country">
+                    <h:outputText value="#{item.country}"/>
+                </p:column>
+
+                <p:column headerText="PostalCode">
+                    <h:outputText value="#{item.postalCode}"/>
+                </p:column>
+
+                <p:column headerText="HomeTel">
+                    <h:outputText value="#{item.homeTel}"/>
+                </p:column>
+
+                <p:column headerText="CellTel">
+                    <h:outputText value="#{item.cellTel}"/>
+                </p:column>
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{item.email}"/>
+                </p:column>
+
+                <p:column headerText="isAdmin">
+                    <h:outputText value="#{item.isAdmin}"/>
+                </p:column>
+
+                <p:column headerText="Province">
+                    <h:outputText value="#{item.province}"/>
+                </p:column>
+
+                <p:column headerText="LastGenre">
+                    <h:outputText value="#{item.lastGenre}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:dataTable id="tbl2" value="#{theReviews.getReviewsByUser()}" var="item2" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginator="true" rows="10" style="margin-bottom:20px"
+                         selectionMode="single" selection="#{theReviews.selectedReview}" 
+                         rowKey="#{item2.id}"
+                         draggableColumns="true" resizableColumns="true" >
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{item2.id}"/>
+                </p:column>
+
+                <p:column headerText="Rating">
+                    <h:outputText value="#{item2.rating}"/>
+                </p:column>
+
+                <p:column headerText="ReviewDate">
+                    <h:outputText value="#{item2.reviewDate}"/>
+                </p:column>
+
+                <p:column headerText="Text">
+                    <h:outputText value="#{item2.text}"/>
+                </p:column>
+
+                <p:column headerText="Approved">
+                    <h:outputText value="#{item2.approved}"/>
+                </p:column>
+
+                <p:column headerText="User">
+                    <h:outputText value="#{item2.user.username}"/>
+                </p:column>
+
+                <p:column headerText="Track">
+                    <h:outputText value="#{item2.track.title}"/>
+                </p:column>   
+
+                <f:facet name="footer" class="mgmt_table_footer">
+                    <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl2" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                </f:facet>  
+
+            </p:dataTable>
+
+        </h:form>
+
         <p:dialog header="Review Info" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/review/dialogViewEdit.xhtml" />
         </p:dialog>
-        
+
     </ui:define>
 </ui:composition>
