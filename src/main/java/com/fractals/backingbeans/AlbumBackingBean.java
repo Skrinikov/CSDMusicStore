@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
@@ -68,13 +70,22 @@ public class AlbumBackingBean implements Serializable {
     }
 
     public void edit() throws Exception {
+        if(selectedAlbum.getAvailable() == false && selectedAlbum.getRemovedAt() == null)
+            selectedAlbum.setRemovedAt(LocalDateTime.now());
+        if(selectedAlbum.getAvailable() == true && selectedAlbum.getRemovedAt() != null)
+            selectedAlbum.setRemovedAt(null);
         makeUneditable();
         albumJpaController.edit(selectedAlbum);
     }
 
     public void delete() throws Exception {
-        selectedAlbum.setRemovedAt(LocalDateTime.now());
-        edit();
+        if(selectedAlbum.getRemovedAt() == null){
+          selectedAlbum.setRemovedAt(LocalDateTime.now());
+          selectedAlbum.setAvailable(false);
+          albumJpaController.edit(selectedAlbum);  
+        }
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("This album has already been removed") );                              
     }
     
     public Album getCreatedAlbum() {

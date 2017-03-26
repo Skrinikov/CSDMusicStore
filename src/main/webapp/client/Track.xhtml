@@ -119,25 +119,25 @@
 
             <!-- Reviews -->
             <div class="container">
-                <ui:fragment rendered="#{trackCLBack.track.reviews.size() > 0}">
+                <ui:fragment rendered="#{trackCLBack.track.reviews.size() > 0 and !trackCLBack.allReviewsUnapproved()}">
                 <h1 class="text-center" style="text-transform: uppercase; color:#00c49e;padding-top:50px;">#{bundle.tracks_reviews}</h1>                
                 <div class="row top-buffer track-reviews">                  
 
-                        <ui:repeat var="review" value="#{trackCLBack.track.reviews}">
-                            <ui:fragment rendered="#{review.approved}">
-                                <div class="review">
-                                    <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
-                                    <p style="color:#ccc;">#{review.text}</p>
-                                    <p style="font-size: small;">#{theReviews.formatDate(review.reviewDate)}</p>
-                                </div>   
-                            </ui:fragment>
-                        </ui:repeat>
+                    <ui:repeat var="review" value="#{trackCLBack.track.reviews}">
+                        <ui:fragment rendered="#{review.approved}">
+                            <div class="review">
+                                <p>#{review.user.username} - <span class="stars">#{review.rating}</span></p>
+                                <p style="color:#ccc;">#{review.text}</p>
+                                <p style="font-size: small;">#{theReviews.formatDate(review.reviewDate)}</p>
+                            </div>   
+                        </ui:fragment>
+                    </ui:repeat>
                     
                 </div>
                 </ui:fragment>
 
                 <h:form class="row">
-                    <ui:fragment rendered="#{login.loggedIn}">                                                   
+                    <ui:fragment rendered="#{login.loggedIn and !trackCLBack.isTrackReviewed(trackCLBack.track)}">                                                   
                         <div class="leave-review col-xs-12">
                             <h1 class="text-center" style="text-transform: uppercase; color:#00c49e;">#{bundle.tracks_leave_review}</h1>
                             <div>
@@ -154,15 +154,21 @@
                                 </h:inputHidden>
                             </div>
 
-                            <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" required="true" style="background:#fff;">
+                            <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" required="true">
                                 <f:validateLength minimum="1" maximum="2000"/>
                             </p:inputTextarea>
 
-                            <p:commandLink value="#{bundle.tracks_submit}" style="margin-top:10px;" styleClass="hvr-rectangle-out custom-price-buttons text-center" actionListener="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                            <h:commandLink value="#{bundle.tracks_submit}" style="margin-top:10px;" styleClass="hvr-rectangle-out custom-price-buttons text-center" 
+                                           action="#{albumsCLBack.addReview(trackCLBack.trackId, reviewText.value, rating.value)}"/>
                         </div>                                                              
 
                     </ui:fragment>
                 </h:form>
+                
+                <ui:fragment rendered="#{login.loggedIn and trackCLBack.isTrackReviewed(trackCLBack.track)}">
+                    <h3 class="text-center review-feedback">#{bundle.review_submitted}</h3>
+                </ui:fragment>
+                
             </div>
 
             <!-- Similar albums -->

@@ -5,7 +5,7 @@ import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
-import com.fractals.controllers.OrderJpaController;
+import com.fractals.controllers.OrderController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.io.IOException;
 import java.io.Serializable;
@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,7 +41,7 @@ public class CheckoutBacking implements Serializable {
     @Inject
     private LoginBacking login;
     @Inject
-    private OrderJpaController orderJpa;
+    private OrderController orderJpa;
     
     private List<String> brands;
     private boolean isVisa = false;
@@ -123,7 +124,8 @@ public class CheckoutBacking implements Serializable {
         }
         if(!error) {
             try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("invoice.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/invoice.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -183,7 +185,8 @@ public class CheckoutBacking implements Serializable {
             String message = bundle.getString("bought_items_err")+ ": " + removed.substring(0, removed.length()-2);
             cart.setErrorMsg(message);
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/client/shopping_cart.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/shopping_cart.xhtml");
             } catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
             }

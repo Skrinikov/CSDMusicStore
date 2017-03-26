@@ -229,7 +229,6 @@ public class ShoppingCart implements Serializable{
      */
     public void redirect() {
         try {
-            System.out.println("URL "+url);
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException io) {
             log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());

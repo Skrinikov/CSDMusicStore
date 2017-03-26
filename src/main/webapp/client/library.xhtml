@@ -38,11 +38,11 @@
         <!-- Rendered if there are no results -->
         <ui:fragment rendered="#{downloadsBacking.downloadableTracks.size() == 0}">
             <div class="container text-center no-tracks-download" id="no-downloads-container">
-                <h1 style="display: none;">#{bundle.downloads_title}</h1>
-                <h3 style="display: none;">#{bundle.downloads_subtitle}</h3>
-                <h4 style="display: none;">#{bundle.downloads_instructions}</h4>
+                <h1 style="display: none;">#{bundle.downloads_empty_title}</h1>
+                <h3 style="display: none;">#{bundle.downloads_empty_subtitle}</h3>
+                <h4 style="display: none;">#{bundle.downloads_empty_instructions}</h4>
                 <h:link outcome="/index.xhtml" styleClass="hvr-bounce-to-top downloads-btn" style="display: none;">
-                    <span class="fa fa-home"></span> #{bundle.downloads_btn}
+                    <span class="fa fa-home"></span> #{bundle.downloads_empty_btn}
                 </h:link>
             </div>
         </ui:fragment>

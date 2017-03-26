@@ -305,20 +305,4 @@ public class UserJpaController implements Serializable {
         return getUserCount() == 0;
     }
     
-    /**
-     * Searches users table by the username.
-     * @param username The username to search by in the users table.
-     * @return the user with the corresponding username.
-     */
-    public User getByUsername(String username) {
-        return (User)em.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
-    }
-    
-    /**
-     * Refreshes the user to the database state.
-     * @param user The user to refresh.
-     */
-    public void refreshUser(User user) {
-        em.refresh(user);
-    }
 }
