@@ -23,6 +23,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Subquery;
 import javax.transaction.UserTransaction;
 
 /**
@@ -321,7 +322,7 @@ public class TrackJpaController implements Serializable {
                 )
             );
         
-      
+        
         
         List<Track> tracks = em.createQuery(query).getResultList();
                  
@@ -353,6 +354,9 @@ public class TrackJpaController implements Serializable {
       * @author Thai-Vu Nguyen
       */
      public Number getTotalSales(Track track){
+         //Module is mostly not perfect, since there's no way to accurately
+         //get how much much money Track has sold
+         
          if (track == null)
              return 0;
          
@@ -367,6 +371,26 @@ public class TrackJpaController implements Serializable {
          
          return em.createQuery(query).getSingleResult();
      }
+     
+     /**
+      * Returns the number of time a Track has been sold
+      * @param track
+      * @return Sale number
+      * @author Thai-Vu Nguyen
+      */
+     public Number getTracksSold(Track track){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        //Select count (*) from OrderItem where track_id = ?
+        
+        Root<OrderItem> root = query.from(OrderItem.class);
+        
+        query.select(cb.count(root));
+        query.where(cb.equal(root.get(OrderItem_.track), track));
+        return em.createQuery(query).getSingleResult();
+        
+    }
     
     /**
      * Takes the list of Tracks, shuffles it 

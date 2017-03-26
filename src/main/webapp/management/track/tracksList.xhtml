@@ -107,10 +107,15 @@
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
                     </p:column>
+                    <p:column headerText="Tracks Sold"  filterStyle="display:none" filterBy="#{theTracks.getTracksSold(item)}">
+                        <h:outputText value="#{theTracks.getTracksSold(item)}">
+                            <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
+                    </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()"/>                        
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />     
+                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()"/>                        
+                        <p:commandButton id="preview" value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />     
                     </f:facet>  
 
                 </p:dataTable>

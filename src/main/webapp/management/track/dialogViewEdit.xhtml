@@ -85,9 +85,9 @@
                     </h:outputText>
                 </div>
 
-                <p:commandButton actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
+                <p:commandButton id="edit" actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 
-                <p:commandButton actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="dialogForm,form">
+                <p:commandButton id="delete" actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="dialogForm,form">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                 </p:commandButton>
 
@@ -177,20 +177,20 @@
                                     var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true" class="col-sm-4"/>             
                 </div>
                 
-                    <p:commandButton actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
+                    <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" class="mgmt_btn" />
                     </p:commandButton>
 
-                    <p:commandButton actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm" class="mgmt_btn"/>
+                    <p:commandButton id="cancel" actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm" class="mgmt_btn"/>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    <p:commandButton id="yes" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton id="no" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
 
             </h:panelGroup>
 
-            <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
         </p:outputPanel>
     </h:form>

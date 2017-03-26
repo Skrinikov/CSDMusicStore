@@ -348,6 +348,9 @@ orderItemsCollectionOrderItemToAttach.getId());
      * @return total sales of an album
      */
     public Number getTotalSales(Album album){
+        //Module is mostly not perfect, since there's no way to accurately
+        //get how much much money Album has sold
+        
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         
@@ -358,6 +361,26 @@ orderItemsCollectionOrderItemToAttach.getId());
         query.where(cb.equal(root.get("album"), album));
         
         return em.createQuery(query).getSingleResult();
+    }
+    
+    /**
+     * Returns the number of time an album has been sold
+     * @param album
+     * @return Sale number
+     * @author Thai-Vu Nguyen
+     */
+    public Number getAlbumsSold(Album album){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        //Select count (*) from OrderItem where album_id = ?
+        
+        Root<OrderItem> root = query.from(OrderItem.class);
+        
+        query.select(cb.count(root));
+        query.where(cb.equal(root.get("album"), album));
+        return em.createQuery(query).getSingleResult();
+        
     }
     
     /**
@@ -381,4 +404,6 @@ orderItemsCollectionOrderItemToAttach.getId());
         
         return newAlbums;
     }
+    
+    
 }
