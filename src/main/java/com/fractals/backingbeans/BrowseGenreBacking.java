@@ -19,14 +19,16 @@ import java.time.LocalDateTime;
 
 
 /**
- *  This class will be used to interact with the browse xhtml page and
- *  and read tracks in each genre and display it to the user; 
+ * This class will be used to interact with the browse xhtml page and
+ * and read tracks in each genre and display it to the user; 
  * 
  * @author Renuchan
  */
 @Named("browseBacking")
 @RequestScoped
 public class BrowseGenreBacking {
+    private Integer genreId;
+    private static transient final java.util.logging.Logger log = java.util.logging.Logger.getLogger("BrowseGenreBacking.class");
     
     @Inject 
     private GenreJpaController gjc; 
@@ -172,6 +174,34 @@ public class BrowseGenreBacking {
         else
             genre = gjc.findGenre(Integer.parseInt(idStr)).getName();
         return Character.toUpperCase(genre.charAt(0))+genre.substring(1);
+    }
+    
+    /**
+     * Returns the id of the genre.
+     * @return the id of the genre.
+     */
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    /**
+     * Sets the id of the genre.
+     * @param genreId The id of the genre.
+     */
+    public void setGenreId(Integer genreId) {
+        this.genreId = genreId;
+    }
+    
+    /**
+     * Verifies that the genre id is the valid one.
+     */
+    public void init() {     
+        if (genreId == null || gjc.getGenreCount() < genreId) {
+            log.info("genre id is invalid: " + genreId);
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String outcome = "/error.xhtml";
+            facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+        }
     }
  
 }

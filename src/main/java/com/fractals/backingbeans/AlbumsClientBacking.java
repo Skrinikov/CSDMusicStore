@@ -62,8 +62,8 @@ public class AlbumsClientBacking implements Serializable {
     @Inject
     private TrackClientBacking trackBacking;
 
-    /*
-     *   Initializes the Album entity
+    /**
+     * Initializes the Album entity
      */
     public void init() {
         reviews = new ArrayList<>();

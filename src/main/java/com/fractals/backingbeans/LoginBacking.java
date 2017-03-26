@@ -16,14 +16,13 @@ import javax.inject.Named;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * The controller responsible for register, login, and logout users.
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 15/03/2017
+ * @version 25/03/2017
  * @since 1.8
  */
 @Named("login")
