@@ -32,5 +32,24 @@ public class UserController implements Serializable {
         Number result = em.createQuery(query).getSingleResult();
         return result == null ? 0 : result;
     }
+    
+    /**
+     * Searches users table by the username.
+     * @param username The username to search by in the users table.
+     * @return the user with the corresponding username.
+     * @author Aline Shulzhenko
+     */
+    public User getByUsername(String username) {
+        return (User)em.createNamedQuery("User.findByUsername").setParameter("username", username).getSingleResult();
+    }
+    
+    /**
+     * Refreshes the user to the database state.
+     * @param user The user to refresh.
+     * @author Aline Shulzhenko
+     */
+    public void refreshUser(User user) {
+        em.refresh(user);
+    }
 
 }

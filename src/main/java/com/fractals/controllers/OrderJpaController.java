@@ -208,24 +208,7 @@ public class OrderJpaController implements Serializable {
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
-    /**
-     * Returns all orders for the specific user.
-     * @param u A user, whose orders are queried.
-     * @return all orders for the specific user.
-     */
-    public List<Order> findOrdersByUser(User u) {
-        if(u == null)
-            throw new NullPointerException();
-        
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        
-        CriteriaQuery<Order> cqO = cb.createQuery(Order.class);      
-        Root<Order> order = cqO.from(Order.class);       
-        cqO.where(cb.equal(order.get(Order_.user), u));
-        TypedQuery<Order> tqO = em.createQuery(cqO);      
-        return (List<Order>)tqO.getResultList();  
-    }
+ 
 }
 
 

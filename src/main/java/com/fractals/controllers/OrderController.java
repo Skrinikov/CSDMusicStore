@@ -5,6 +5,7 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.OrderItem_;
+import com.fractals.beans.Order_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
 import com.fractals.email.EmailSender;
@@ -16,6 +17,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -180,7 +182,31 @@ public class OrderController {
         }
         return cost;
     }
+    
+    /**
+     * Returns all orders for the specific user.
+     * @param u A user, whose orders are queried.
+     * @return all orders for the specific user.
+     */
+    public List<Order> findOrdersByUser(User u) {
+        if(u == null)
+            throw new NullPointerException();
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        
+        CriteriaQuery<Order> cqO = cb.createQuery(Order.class);      
+        Root<Order> order = cqO.from(Order.class);       
+        cqO.where(cb.equal(order.get(Order_.user), u));
+        TypedQuery<Order> tqO = entityManager.createQuery(cqO);      
+        return (List<Order>)tqO.getResultList();  
+    }
 
+    /**
+     * 
+     * @param o
+     * @return 
+     * @author MOUFFOK Sarah
+     */
     public List<OrderItem> getOrderItemsOfOrder(Order o) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);

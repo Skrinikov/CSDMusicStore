@@ -1,6 +1,6 @@
 /* 
     Created on : 5-Feb-2017, 6:03:43 PM
-    Author     : Danieil Skrinikov
+    Author     : Danieil Skrinikov everyone?
 */
 
 /*-----------*/
@@ -87,7 +87,7 @@ body.navbar-more-show  {
     border-width: 0px;
 }
 .navbar-more .navbar-nav > li > a {
-    color: pink;  
+    color: #e0a800;  
 }
 .navbar-more > .navbar-nav > li > a > span.menu-icon {
     margin-left: 10px;
@@ -113,7 +113,7 @@ body.navbar-more-show  {
 
 /* End menu */
 .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover{
-    color:pink;
+    color:#e0a800;
 }
 
 .nav-menu-form {
@@ -410,7 +410,7 @@ body.navbar-more-show  {
 
 .btn-search {
     color: black;
-    background-color: #e0a800; /*#2F40B2*/
+    background-color: #e0a800;
     font-size: 1.2em;
     margin: 5px;
     margin-bottom:15px;
@@ -1021,9 +1021,9 @@ body.navbar-more-show  {
     max-width:100%;
     resize:vertical;
     color:#222;
+    background: white;
+    
 }
-
-
 
 @media screen and (max-width: 767px){
     .table-responsive{
@@ -1080,6 +1080,10 @@ body.navbar-more-show  {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(209, 249, 255, 0.6);
 }
 
+.review-hover.focus, .review-hover:focus, .review-hover:hover {
+    color: white;
+}
+
 .padding-10 {
     padding-top: 10px;
 }
@@ -1091,5 +1095,19 @@ body.navbar-more-show  {
 .album-track-link:hover{
     color:#FF7F50;
     text-decoration: none;
+}
+
+.review-feedback {
+    text-transform: uppercase; 
+    color:#00c49e;
+    padding:30px;
+    border-top: #333 solid 2px;
+    border-bottom: #333 solid 2px;
+}
+
+.review-feedback-album {
+    text-transform: uppercase; 
+    color: #FF7F50;
+    padding:20px;
 }
 

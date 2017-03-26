@@ -19,6 +19,7 @@
     <ui:define name="content">  
         <div class="browse-container">
             <h3 class="browse-header centerText">#{bundle.browseMenu} #{browseBacking.cookieGenre}</h3>
+            <div class="row">
             <ui:repeat value="#{browseBacking.getAllTracksForGenre()}" var="track">
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail" style="background-color: transparent; border-color: transparent">
@@ -34,7 +35,7 @@
                     </div>
                 </div>
             </ui:repeat>
-
+            </div>
 
         </div>
     </ui:define>

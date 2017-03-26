@@ -4,26 +4,18 @@ import com.fractals.beans.Album;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Review;
 import com.fractals.beans.Track;
-import com.fractals.beans.User;
 import com.fractals.controllers.AlbumJpaController;
 import com.fractals.controllers.ClientTrackingController;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.ReviewsWebController;
 import com.fractals.controllers.TrackJpaController;
-import com.fractals.jsf.util.PaginationHelper;
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +37,7 @@ public class TrackClientBacking implements Serializable {
     private Track track;
     private Review review;
     private Integer rating;
+    private List<Track> reviewed = new ArrayList<>();
 
     @Inject
     private TrackJpaController trackControl;
@@ -71,9 +64,8 @@ public class TrackClientBacking implements Serializable {
      * Initialize the Track entity based on the trackId
      */
     public void init() {
-        if (trackId == null) {
-
-            log.info("Track is NULL");
+        if (trackId == null || trackControl.getTrackCount() < trackId+1) {
+            log.info("Track is NULL or id is invalid: " + trackId);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "/error.xhtml";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
@@ -240,6 +232,37 @@ public class TrackClientBacking implements Serializable {
 
     public boolean isLoggedIn() {
         return loginControl.isLoggedIn();
+    }
+    
+    /**
+     * Returns true if all reviews for this track are not yet approved.
+     * @return true if all reviews for this track are not yet approved; false otherwise.
+     * @author Aline Shulzhenko
+     */
+    public boolean allReviewsUnapproved() {
+        List<Review> reviews = track.getReviews();
+        for(Review r : reviews) {
+            if(r.getApproved())
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Adds a newly reviewed track in this session to the list.
+     * @param track Reviewed track.
+     */
+    public void addReviewed(Track track) {
+        reviewed.add(track);
+    }
+    
+    /**
+     * Returns true if the track is reviewed.
+     * @param track The track to verify.
+     * @return true if the track is reviewed; false otherwise.
+     */
+    public boolean isTrackReviewed(Track track) {
+        return reviewed.contains(track);
     }
 
 }
