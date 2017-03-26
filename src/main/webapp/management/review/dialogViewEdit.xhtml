@@ -7,7 +7,7 @@
 
     <h:form id="dialogForm">
 
-        <h:outputText value="nothing selected" rendered="#{empty theReviews.selectedReview}"/>
+        <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theReviews.selectedReview}"/>
 
         <p:panelGrid columns="2" rendered="#{not empty theReviews.selectedReview}" >
             <h:outputText value="Id:"/>
