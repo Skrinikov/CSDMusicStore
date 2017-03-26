@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -123,7 +124,8 @@ public class CheckoutBacking implements Serializable {
         }
         if(!error) {
             try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("invoice.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/invoice.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -183,7 +185,8 @@ public class CheckoutBacking implements Serializable {
             String message = bundle.getString("bought_items_err")+ ": " + removed.substring(0, removed.length()-2);
             cart.setErrorMsg(message);
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/client/shopping_cart.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/shopping_cart.xhtml");
             } catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
             }

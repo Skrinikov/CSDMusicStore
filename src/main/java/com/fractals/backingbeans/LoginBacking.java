@@ -9,12 +9,14 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The controller responsible for register, login, and logout users.
@@ -54,8 +56,9 @@ public class LoginBacking implements Serializable {
             }
             else {
                 try{
-                    currentUser = userDb;
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
+                    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                    currentUser = userDb;                   
+                    context.redirect(context.getRequestContextPath() + "/index.xhtml");
                 }
                 catch(IOException io) {
                     log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -64,7 +67,7 @@ public class LoginBacking implements Serializable {
         }
         catch(EntityNotFoundException | NonUniqueResultException | NoResultException ex) {
             FacesMessage message = new FacesMessage(new BundleLocaleResolution().returnBundleWithCurrentLocale().getString("invalid_uname_or_pass"));
-                FacesContext.getCurrentInstance().addMessage("loginForm", message);
+            FacesContext.getCurrentInstance().addMessage("loginForm", message);
             log.log(Level.WARNING,"invalid user: {0}", ex.getMessage());
             currentUser = null;
         }   
@@ -89,7 +92,8 @@ public class LoginBacking implements Serializable {
             userBacking.saveUser();
             try{
                 currentUser = newUser;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/index.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -105,7 +109,8 @@ public class LoginBacking implements Serializable {
         if(currentUser != null && currentUser.getIsAdmin()) {           
             try {
                 currentUser = null;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/CSDMusicStore/index.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/index.xhtml");
             } 
             catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -140,7 +145,7 @@ public class LoginBacking implements Serializable {
     
     /**
      * Sets the current user. Will mainly be used for testing. 
-     * @param user      the current user you wish to set. 
+     * @param user the current user you wish to set. 
      */
     public void setCurrentUser(User user)
     {
