@@ -1111,3 +1111,27 @@ body.navbar-more-show  {
     padding:20px;
 }
 
+.search-calendar {
+    background-color: white;
+}
+
+.ui-datepicker {
+    font-family: Arial;
+    background-color: #0A0A0A;
+    margin-right: 10px;
+}
+
+.ui-datepicker-current-day a, ui-corner-all span {
+    font-weight: bold;
+    color: #0061FC;
+}
+
+.ui-state-default {
+    color: #6BA8DF;
+}
+
+.ui-datepicker-next.focus, .ui-datepicker-next:focus, .ui-datepicker-next:hover,
+.ui-datepicker-prev.focus, .ui-datepicker-prev:focus, .ui-datepicker-prev:hover{
+    background: black;
+}
+
