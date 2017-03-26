@@ -16,9 +16,7 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:growl id="growl" showDetail="false" sticky="true" />
-
-
+            <p:growl id="growl" widgetVar="growlTag" showDetail="false" sticky="true" />
 
             <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -98,7 +96,7 @@
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListTrackTitle}"/>
                 </f:facet>
-                
+
                 <p:column width="5%" headerText="Cover" filterStyle="display:none" filterBy="">
                     <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
                     <p:tooltip for="content" trackMouse="true">
@@ -190,7 +188,7 @@
                     <f:validateLongRange maximum="#{theAlbums.selectedAlbum.listPrice}"/>
                 </p:inputMask>
 
-                <p:commandButton actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="Set Sale" />
+                <p:commandButton oncomplete="hideDialogOnSuccess(args,'setSaleAlbum','The Album #{theAlbums.selectedAlbum.title} has been put on sale')"  actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="Set Sale" />
                 <p:commandButton value="Exit" class="mgmt_btn" onclick="PF('setSaleAlbum').hide()"/>
 
             </h:form>
@@ -202,11 +200,21 @@
                     <f:validateLongRange maximum="#{theTracks.selectedTrack.listPrice}"/>
                 </p:inputMask>
 
-                <p:commandButton actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="Set Sale"/>
+                <p:commandButton oncomplete="hideDialogOnSuccess(args,'setSaleTrack','The Track #{theTracks.selectedTrack.title} has been put on sale')" actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="Set Sale"/>
                 <p:commandButton value="Exit" class="mgmt_btn" onclick="PF('setSaleTrack').hide()"/>
-                           
+
             </h:form>
         </p:dialog>
-        
+
+        <script>
+            function hideDialogOnSuccess(args, dialogWidgetVar, text) {
+                if (args &amp;&amp; !args.validationFailed){
+                    PF(dialogWidgetVar).hide(); 
+                    PF('growlTag').renderMessage({"summary":"Sale price changed",
+                             "detail":text,"severity":"info"});
+                }
+            }
+        </script>
+
     </ui:define>
 </ui:composition>
