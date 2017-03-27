@@ -166,4 +166,12 @@ public class Order implements Serializable {
         this.orderItems = orderItemsCollection;
     }
     
+    public boolean isCancelled(){
+        int i = orderItems.size();
+        for(OrderItem oi : orderItems)
+            if(oi.isCancelled())
+                i--;
+        return i == 0;
+    }
+    
 }

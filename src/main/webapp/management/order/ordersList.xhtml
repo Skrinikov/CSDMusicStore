@@ -16,7 +16,11 @@
 
     <ui:define name="content">
 
-        <h:form>
+    
+        
+        <h:form id="form">
+                <p:growl id="growl" showDetail="false" sticky="true"/> 
+            
             <div class="container">
                 <p:dataTable id="tbl" value="#{theOrders.orders}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -52,7 +56,7 @@
                     </p:column>
 
                     <f:facet name="footer" class="mgmt_table_footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" id="previewButton" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                     </f:facet>  
 
                 </p:dataTable>
@@ -60,7 +64,7 @@
 
         </h:form>
 
-        <p:dialog header="Order Info" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="Order Info" widgetVar="dialogViewEdit" dynamic="true" position="left top">
             <ui:include src="/management/order/dialogViewEdit.xhtml" />
         </p:dialog>
 

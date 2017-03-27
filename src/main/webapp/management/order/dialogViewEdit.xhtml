@@ -6,40 +6,32 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
-        
-        <div class="container">
-            <h:outputText value="nothing selected" rendered="#{empty theOrders.selectedOrder}"/>               
-        </div>
 
-        <h:panelGroup  rendered="#{not empty theOrders.selectedOrder}">
-            
-            <div class="container newContainer">
-                <div class="panel-heading">
-                    <h1>Order Details</h1>
-                </div>
-            </div>
+        <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theOrders.selectedOrder}"/>               
 
-            <div class="container newContainer" >
-                <div style="margin-bottom: 5px;" >
-                    <h:panelGroup>
-                        <div class="form-group row"><h:outputText value="Order Id:" class="control-label mgmt_detail_label col-sm-2"/>
-                            <h:outputText value="#{theOrders.selectedOrder.id}" title="Id"/></div>
-                        <div class="form-group row"><h:outputText value="OrderDate:" class="control-label mgmt_detail_label col-sm-2"/>
-                            <h:outputText value="#{theOrders.selectedOrder.orderDate}" title="OrderDate"/></div>
-                        <div class="form-group row"><h:outputText value="NetCost:" class="control-label mgmt_detail_label col-sm-2"/>
-                            <h:outputText value="#{theOrders.selectedOrder.netCost}" title="NetCost"/></div>
-                        <div class="form-group row"><h:outputText value="GrossCost:" class="control-label mgmt_detail_label col-sm-2"/>
-                            <h:outputText value="#{theOrders.selectedOrder.grossCost}" title="GrossCost"/></div>
-                        <div class="form-group row"><h:outputText value="User:" class="control-label mgmt_detail_label col-sm-2"/>
-                            <h:outputText value="#{theOrders.selectedOrder.user.username}" title="User"/></div>
-                    </h:panelGroup>
-                </div>
+        <h:panelGroup rendered="#{not empty theOrders.selectedOrder}">
+
+            <div class="container">              
+
+                <div class="form-group row"><h:outputText value="Order Id:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.id}" title="Id"/></div>
+                <div class="form-group row"><h:outputText value="OrderDate:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.orderDate}" title="OrderDate"/></div>
+                <div class="form-group row"><h:outputText value="NetCost:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.netCost}" title="NetCost"/></div>
+                <div class="form-group row"><h:outputText value="GrossCost:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.grossCost}" title="GrossCost"/></div>
+                <div class="form-group row"><h:outputText value="User:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.user.username}" title="User"/></div>
+                <div class="form-group row"><h:outputText value="Cancelled:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{theOrders.selectedOrder.isCancelled()}" title="User"/></div>
+
 
             </div>
 
-            <div class="container newContainer">
+            <div class="container">
 
-                <p:dataTable draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row"  value="#{theOrders.orderItemsOfOrder}" var="item">
+                <p:dataTable id="orderItemTbl" draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row"  value="#{theOrders.orderItemsOfOrder}" var="item">
                     <p:column headerText="Id" >
                         <h:outputText value="#{item.id}"/>
                     </p:column>
@@ -58,20 +50,28 @@
                     </p:column>
 
 
-                    <p:column headerText="Delete order item">
-                        <p:commandButton class="mgmt_btn" value="Delete Order item" actionListener="#{theOrders.deleteOrderItem(item)}" update="dialogForm"/>
+                    <p:column headerText="#{bundle.mgmt_btn_delete_order_item}">
+                        <p:commandButton id="deleteOrderItem" class="mgmt_btn" icon="fa fa-trash" actionListener="#{theOrders.deleteOrderItem(item)}" update="form,dialogForm">
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </p:column>
-                </p:dataTable>
 
-                <p:commandButton class="mgmt_btn" value="Delete Order" actionListener="#{theOrders.deleteOrder()}" update="dialogForm"/>
+                </p:dataTable>
 
             </div>
             
+            <p:commandButton id="deleteOrderButton" icon="fa fa-trash-o" class="mgmt_btn" value="#{bundle.mgmt_btn_delete_order}" actionListener="#{theOrders.deleteOrder()}" update="form,dialogForm">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton id="yes" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton id="no" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
         </h:panelGroup>
 
-        <div class="container">
-            <h:commandButton class="mgmt_btn" value="Exit" onclick="PF('dialogViewEdit').hide()"/>
-        </div>
+        <p:commandButton id="exitButton" class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()"/>
 
     </h:form>
 </ui:composition>

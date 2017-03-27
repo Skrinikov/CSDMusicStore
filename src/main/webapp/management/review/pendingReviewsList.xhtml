@@ -56,7 +56,7 @@
                     </p:column>                
                
                     <f:facet name="footer" class="mgmt_table_footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton id="previewButton" value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                     </f:facet> 
                     
                 </p:dataTable>
