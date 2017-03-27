@@ -96,6 +96,31 @@ public class UserManagementTestSelenium {
         assertThat(newTitle.equals(titleChange));
 
     }
+    @Test
+    public void testInvalidValue()
+    {
+        driver.get("http://localhost:8080/CSDMusicStore/management/user/usersList.xhtml");
+        
+        //go to form
+        clickFirstElementInTable();
+        clickPreviewBtn();
+        clickEdit();
+        
+        //grab the text field in the form
+        WebElement we = driver.findElement(By.id("dialogForm:title"));  
+        we.clear();
+        
+        clickSaveAndConfirm(); 
+        
+        //check the growl
+        String error = 
+                driver.findElement(By.xpath
+        ("//*[@id=\"form:growl_container\"]/div/div/div[2]/span")).getText();
+        
+        assertThat(error.equals("The Title field is required."));
+    }
+    
+    
     
     private void clickFirstElementInTable()
     {
