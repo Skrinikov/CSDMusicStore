@@ -10,7 +10,7 @@
             <h:panelGroup  rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">     
                           
                 <p:graphicImage id="content" name="/images/covers/#{theTracks.selectedTrack.coverFile}" />          
-                        
+                    
                 <div class="form-group row">
                     <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-3"/>
                     <h:outputText value="#{theTracks.selectedTrack.id}" title="Id" class="col-sm-4" />
