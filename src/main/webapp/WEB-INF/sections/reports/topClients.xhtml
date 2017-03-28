@@ -7,7 +7,7 @@
     <h:form id="topClients" styleClass="col-md-12 col-xs-12 reports-form">
 
         <!-- Inputs -->
-        <h:panelGrid columns="2" cellpadding="53">
+        <h:panelGrid columns="2" cellpadding="53" class="date-group">
             <p:outputLabel for="topClientsDateStart" value="#{bundle.reports_start}" />
             <p:calendar id="topClientsDateStart" binding="#{topClientsDateStart}" />
 
@@ -15,7 +15,7 @@
             <p:calendar id="topClientsDateEnd" binding="#{topClientsDateEnd}" />
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTopClients(topClientsDateStart.value, topClientsDateEnd.value)}" update="topClientsList" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.getTopClients(topClientsDateStart.value, topClientsDateEnd.value)}" update="topClientsList" styleClass="btn btn-success btn-report"/>
 
         <p:outputPanel styleClass="panel-group" id="topClientsList">
 

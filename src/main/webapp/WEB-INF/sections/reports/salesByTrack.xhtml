@@ -9,11 +9,11 @@
 
         <p:messages id="totalTrackSalesMsgs"/>
         <!-- Inputs -->
-        <h:panelGrid columns="2" cellpadding="53">
+        <h:panelGrid columns="2" cellpadding="53" class="date-group">
             <p:outputLabel for="trackSaleDateStart" value="#{bundle.reports_start}" />
             <p:calendar id="trackSaleDateStart" binding="#{trackDateStart}" required="true"/>
 
-            <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end}" />
+            <p:outputLabel for="trackSaleDateEnd" value="#{bundle.reports_end} " />
             <p:calendar id="trackSaleDateEnd" binding="#{trackDateEnd}"  required="true"/>
             
             <p:outputLabel for="trackSaleInput" value="#{bundle.reports_id}" />           
@@ -22,7 +22,7 @@
             </p:inputText>
         </h:panelGrid>
 
-        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales totalTrackSales" id="totalTrackSubmit" styleClass="btn btn-success"/>
+        <p:commandButton value="Submit" actionListener="#{reportsBacking.fetchSalesByTrack(trackId.value,trackDateStart.value, trackDateEnd.value)}" update="orderTrackSales totalTrackSales" id="totalTrackSubmit" styleClass="btn btn-success btn-report"/>
 
         <p:outputPanel styleClass="panel-group" id="orderTrackSales">
 

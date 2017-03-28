@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     function hamburger_cross() {
 
-        if (isClosed == true) {
+        if (isClosed) {
             overlay.hide();
             trigger.removeClass('is-open');
             trigger.addClass('is-closed');

@@ -389,10 +389,12 @@ html { height: 100%;}
 /* Overriding datepicker style */
 .ui-widget-content{
     border: none;
+    background: white;
+    opacity: 0.95;
     box-shadow: 3px 3px 50px 5px grey;
 }
 .ui-widget-header, .ui-datepicker .ui-datepicker-header{
-    background: none;
+    background: white;
     border:none;
 }
 
@@ -492,4 +494,14 @@ html { height: 100%;}
 
 .darker{
     background-color:rgba(173,216,230,0.4);
+}
+
+.btn-report {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 0px;
+}
+
+.date-group {
+    margin: 10px;
 }

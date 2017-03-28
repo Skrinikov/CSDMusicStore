@@ -49,7 +49,7 @@ INSERT INTO orders(user_id, net_cost) VALUES ('100','10.98');
 INSERT INTO orders(user_id, net_cost) VALUES ('41','3.96');
 INSERT INTO orders(user_id, net_cost) VALUES ('38','11.97');
 
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('1','13','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('1','13','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('2','58','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('3','79','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('4','40','0.99', 0);
@@ -57,7 +57,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('5','90','0
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('6','134','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('7','72','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('8','76','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('9','41','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('9','41','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('10','82','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('11','39','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('12','47','0.99', 0);
@@ -69,7 +69,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('17','3','0
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('18','98','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('19','101','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('20','13','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('21','79','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('21','79','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('22','88','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('23','113','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('24','4','0.99', 0);
@@ -77,8 +77,8 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('25','35','
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('26','90','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('27','54','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('28','69','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('29','118','0.99', 1);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('30','112','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('29','118','0.99', 0);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('30','112','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('31','133','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('32','54','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('33','34','0.99', 0);
@@ -88,7 +88,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('36','103',
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('37','69','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('38','8','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('39','127','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('40','112','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('40','112','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('41','64','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('42','61','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('43','83','0.99', 0);
@@ -98,7 +98,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('46','64','
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('47','123','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('48','131','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('49','31','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('50','68','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('50','68','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('38','87','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('31','36','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('33','34','0.99', 0);
@@ -106,9 +106,9 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('36','110',
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('31','43','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('37','58','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('30','56','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('8','23','0.99', 1);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('34','44','0.99', 1);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('25','14','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('8','23','0.99', 0);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('34','44','0.99', 0);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('25','14','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('25','60','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('46','116','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('2','66','0.99', 0);
@@ -124,7 +124,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('6','120','
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('32','27','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('20','56','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('3','94','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('28','72','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('28','72','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('43','96','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('4','125','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('41','20','0.99', 0);
@@ -137,7 +137,7 @@ INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('14','96','
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('37','43','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('17','35','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('44','4','0.99', 0);
-INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('49','53','0.99', 1);
+INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('49','53','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('45','13','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('37','67','0.99', 0);
 INSERT INTO order_items(order_id, track_id, cost, cancelled) VALUES ('43','11','0.99', 0);
@@ -159,8 +159,8 @@ INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('50','46','
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('44','66','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('32','26','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('7','43','9.99', 0);
-INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('14','14','9.99', 1);
-INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('30','16','9.99', 1);
+INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('14','14','9.99', 0);
+INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('30','16','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('48','13','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('7','37','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('35','56','9.99', 0);
@@ -176,6 +176,6 @@ INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('31','27','
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('25','52','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('32','34','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('6','38','9.99', 0);
-INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('2','27','9.99', 1);
+INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('2','27','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('44','68','9.99', 0);
 INSERT INTO order_items(order_id, album_id, cost, cancelled) VALUES ('6','41','9.99', 0);
