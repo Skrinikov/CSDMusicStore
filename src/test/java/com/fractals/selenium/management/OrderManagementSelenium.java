@@ -64,16 +64,16 @@ public class OrderManagementSelenium {
         );
     }
 
-    @Ignore
+
     @Test
     public void DeletedOrderSelected() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
 
         //find deleted order = netCost equals 0
         int i = 1;
-        while (!helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) {
+        while (!helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) 
             i++;
-        }
+        
 
         helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]"));
         helper.retryFindClick(By.id("form:tbl:previewButton"));
@@ -99,6 +99,7 @@ public class OrderManagementSelenium {
         );
         //check error message if deleting already deleted order item
         /*helper.retryFindClick(By.id("dialogForm:orderItemTbl:0:deleteOrderItem")); //DOESNT WORK     
+        helper.retryFindClick(By.id("dialogForm:orderItemTbl:0:deleteOrderItem"));
         helper.retryFindClick(By.id("dialogForm:yes"));
         wait.until(
                 ExpectedConditions.and(
@@ -146,7 +147,7 @@ public class OrderManagementSelenium {
         Assert.assertEquals(afterOrderPrice, (beforeOrderPrice - deletedOrderItemPrice), 0.01);
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[5]"), "true"));
     }
-
+    @Ignore
     @Test
     public void deleteOrderItemTwice() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
@@ -191,8 +192,8 @@ public class OrderManagementSelenium {
     }
     
     
-    
-     @Test
+    @Ignore
+    @Test
     public void deleteOrderTwice() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
         int i = 1;
@@ -215,12 +216,12 @@ public class OrderManagementSelenium {
         helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
         new Actions(driver).moveToElement(driver.findElement(By.id("dialogForm:yes"))).click().perform(); //regular click doesnt work   
         
-        /* wait.until(
+        wait.until(
                 ExpectedConditions.and(            
                     ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),  
                     ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
-                    ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("OrderItemAlreadyDeleted"))
+                    ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("OrderAlreadyDeleted"))
                 )
-        );*/
+        );
     }
 }
