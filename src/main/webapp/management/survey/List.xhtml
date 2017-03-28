@@ -12,16 +12,24 @@
             <h:outputText value="Survey"></h:outputText>
      </ui:define>
      
+     <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
+     
      <ui:define name="content">
                      
          <f:view>
-             <p:commandButton id="create" value="#{bundle.createBtn}" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
+             <h1><h:outputText value="#{bundle.listHeader}"/></h1>
+             
+             <p:commandButton styleClass="mgmt_btn" id="create" value="#{bundle.createBtn}" title="Icon Only" action="#{surveyBacking.redirectCreate()}">               
              </p:commandButton>
             <h:form id="surveyInfo">
-                 <h1><h:outputText value="#{bundle.listHeader}"/></h1>
+                 
                  <p:dataTable id="data" value="#{surveyController.findSurveyEntities()}" var="item"
                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                               paginator="true" rows="10" style="margin-bottom:20px">
+                               paginator="true" rows="10" style="margin-bottom:20px"
+                               reflow="true"
+                               resizableColumns="true"  rowStyleClass="mgmt_table_row">
                      <p:column>
                          <f:facet name="header">
                              <h:outputText value="Id"/>
@@ -42,10 +50,10 @@
                      </p:column>
                      
                      <p:column>
-                         <p:commandButton id="delete" update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
+                         <p:commandButton styleClass="mgmt_btn" id="delete" update="data" value="#{bundle.deleteBtn}" title="Icon Only" action="#{surveyBacking.deleteItem(item.id)}">               
                         </p:commandButton>
                          
-                         <p:commandButton id="edit" value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
+                         <p:commandButton styleClass="mgmt_btn" id="edit" value="#{bundle.editBtn}" title="Icon Only" action="#{surveyBacking.redirectToSurveyEdit(item.id)}">               
                         </p:commandButton>
 
                      </p:column>
