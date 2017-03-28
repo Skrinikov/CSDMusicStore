@@ -56,6 +56,13 @@
 
             <p:panelGrid columns="2" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
+                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
+                </p:commandButton>
+
+                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
+                
+                
                 <p:outputLabel value="Id:" for="id" />
                 <p:inputText id="id" value="#{theUsers.selectedUser.id}" title="Id" disabled="true"/>
                 <p:outputLabel value="Username:" for="username" />
@@ -91,12 +98,7 @@
 
                 <p:outputLabel value="LastGenre:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
-
-                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
-                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
-                </p:commandButton>
-
-                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
+    
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />

@@ -30,7 +30,7 @@
             <p:inputText id="name" value="#{theGenres.selectedGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
 
             <p:commandButton class="mgmt_btn" actionListener="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
-                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                
             </p:commandButton>           
             <p:commandButton class="mgmt_btn" actionListener="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
 
