@@ -13,7 +13,10 @@ import com.fractals.controllers.OrderItemJpaController;
 import com.fractals.controllers.OrderJpaController;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -54,22 +57,33 @@ public class OrderBackingBean implements Serializable {
     }
 
     public void deleteOrderItem(OrderItem o) throws Exception {
-        o.setCancelled(true);
-        orderItemJpaController.edit(o);
-        Order order = changeNetCost(o.getOrder());
-        orderJpaController.edit(order);
+        if (o.isCancelled()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                    ResourceBundle.getBundle("Bundle").getString("OrderItemAlreadyDeleted")));
+        } else {
+            o.setCancelled(true);
+            orderItemJpaController.edit(o);
+            Order order = changeNetCost(o.getOrder());
+            orderJpaController.edit(order);
+        }
     }
 
     public void deleteOrder() throws Exception {
         List<OrderItem> allItems = getOrderItemsOfOrder();
-        for (OrderItem o : allItems) {
-            o.setCancelled(true);
-            orderItemJpaController.edit(o);
-        }
-        if (!allItems.isEmpty()) {
-            Order order = changeNetCost(allItems.get(0).getOrder());
-            orderJpaController.edit(order);
-        }
+        
+        if (selectedOrder.isCancelled()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                    ResourceBundle.getBundle("Bundle").getString("OrderAlreadyDeleted")));
+        } else {
+            for (OrderItem o : allItems) {
+                o.setCancelled(true);
+                orderItemJpaController.edit(o);
+            }
+            if (!allItems.isEmpty()) {
+                Order order = changeNetCost(allItems.get(0).getOrder());
+                orderJpaController.edit(order);
+            }
+        }          
     }
 
     public List<Order> getOrders() {

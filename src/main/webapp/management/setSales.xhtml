@@ -6,8 +6,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
-        <h:outputText value="#{bundle.ListAlbumTitle}"/>
+    <ui:define name="windowTitle">
+        <h:outputText value="#{bundle.ListSetSalesTitle}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -23,10 +23,6 @@
                          paginator="true" rows="10" style="margin-bottom:20px"
                          rowKey="#{item.id}" widgetVar="albumTable"
                          draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
-
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListAlbumTitle}"/>
-                </f:facet>
 
                 <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}" >
                     <h:outputText value="#{item.id}"/>
@@ -78,7 +74,7 @@
                 </p:column>
 
                 <p:column headerText="Set Sale Price">
-                    <p:commandButton class="mgmt_btn" onclick="PF('setSaleAlbum').show()" update="dialogForm" icon="fa fa-fw fa-edit">
+                    <p:commandButton id="columnButtonAlbum" class="mgmt_btn" onclick="PF('setSaleAlbum').show()" update="dialogForm" icon="fa fa-fw fa-edit">
                         <f:setPropertyActionListener value="#{item}" target="#{theAlbums.selectedAlbum}" />
                     </p:commandButton>
                 </p:column>
@@ -184,24 +180,24 @@
 
         <p:dialog header="Set Sale Album" widgetVar="setSaleAlbum">
             <h:form id="dialogForm">
-                <p:inputMask value="#{theAlbums.selectedAlbum.salePrice}" mask="99.99" required="true" requiredMessage="You must put a sale price">
+                <p:inputMask id="saleAlbumInput" value="#{theAlbums.selectedAlbum.salePrice}" mask="99.99" required="true" requiredMessage="#{bundle.SpecifySaleValue}" validatorMessage="#{bundle.SaleValueSuperior}">
                     <f:validateLongRange maximum="#{theAlbums.selectedAlbum.listPrice}"/>
                 </p:inputMask>
 
-                <p:commandButton oncomplete="hideDialogOnSuccess(args,'setSaleAlbum','The Album #{theAlbums.selectedAlbum.title} has been put on sale')"  actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="Set Sale" />
-                <p:commandButton value="Exit" class="mgmt_btn" onclick="PF('setSaleAlbum').hide()"/>
+                <p:commandButton id="dialogButtonSetAlbum" oncomplete="hideDialogOnSuccess(args,'setSaleAlbum','The Album #{theAlbums.selectedAlbum.title} has been put on sale')"  actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="Set Sale" />
+                <p:commandButton id="exitAlbum" value="Exit" class="mgmt_btn" onclick="PF('setSaleAlbum').hide()"/>
 
             </h:form>
         </p:dialog>
 
         <p:dialog header="Set Sale Track" widgetVar="setSaleTrack" >         
             <h:form id="dialogForm2">
-                <p:inputMask value="#{theTracks.selectedTrack.salePrice}" mask="99.99" required="true" requiredMessage="You must put a sale price">
-                    <f:validateLongRange maximum="#{theTracks.selectedTrack.listPrice}"/>
+                <p:inputMask id="saleTrackInput" value="#{theTracks.selectedTrack.salePrice}" mask="99.99" required="true" validatorMessage="#{bundle.SaleValueSuperior}" requiredMessage="#{bundle.SpecifySaleValue}">
+                    <f:validateLongRange maximum="#{theTracks.selectedTrack.listPrice}" />
                 </p:inputMask>
 
-                <p:commandButton oncomplete="hideDialogOnSuccess(args,'setSaleTrack','The Track #{theTracks.selectedTrack.title} has been put on sale')" actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="Set Sale"/>
-                <p:commandButton value="Exit" class="mgmt_btn" onclick="PF('setSaleTrack').hide()"/>
+                <p:commandButton id="setTrack" oncomplete="hideDialogOnSuccess(args,'setSaleTrack','The Track #{theTracks.selectedTrack.title} has been put on sale')" actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="Set Sale"/>
+                <p:commandButton id="exitTrack" value="Exit" class="mgmt_btn" onclick="PF('setSaleTrack').hide()"/>
 
             </h:form>
         </p:dialog>
@@ -210,7 +206,7 @@
             function hideDialogOnSuccess(args, dialogWidgetVar, text) {
                 if (args &amp;&amp; !args.validationFailed){
                     PF(dialogWidgetVar).hide(); 
-                    PF('growlTag').renderMessage({"summary":"Sale price changed",
+                    PF('growlTag').renderMessage({"summary":"#{bundle.SalePriceChanged}",
                              "detail":text,"severity":"info"});
                 }
             }

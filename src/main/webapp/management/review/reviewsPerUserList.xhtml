@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+        <h:outputText value="#{bundle.ReviewsPerUserTitle}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -107,7 +107,7 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theReviews.selectedReview}" 
-                         rowKey="#{item2.id}"
+                         rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedUser}"
                          draggableColumns="true" resizableColumns="true" >
 
                 <p:column headerText="Id">
@@ -126,8 +126,8 @@
                     <h:outputText value="#{item2.text}"/>
                 </p:column>
 
-                <p:column headerText="Approved">
-                    <h:outputText value="#{item2.approved}"/>
+                <p:column headerText="Status">
+                    <h:outputText value="#{item2.status()}"/>
                 </p:column>
 
                 <p:column headerText="User">
@@ -139,7 +139,7 @@
                 </p:column>   
 
                 <f:facet name="footer" class="mgmt_table_footer">
-                    <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl2" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                    <p:commandButton id="previewButton" value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl2" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                 </f:facet>  
 
             </p:dataTable>
