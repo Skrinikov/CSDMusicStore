@@ -2,8 +2,10 @@ package com.fractals.utilities;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -141,5 +143,14 @@ public class SeleniumAjaxHelper {
         inputElement.sendKeys("selenium");
         
         driver.findElement(By.id("checkoutForm:checkout")).click();
+    }
+    
+    public boolean toBoolean(ExpectedCondition e, WebDriverWait wait) {
+        try {
+            wait.until(e);
+            return true;
+        } catch (TimeoutException ex) {
+            return false;
+        }
     }
 }

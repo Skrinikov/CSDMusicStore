@@ -9,12 +9,15 @@ import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.Random;
 import java.util.ResourceBundle;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,70 +26,75 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author Sarah
  */
 public class OrderManagementSelenium {
+
     private WebDriver driver;
     private SeleniumAjaxHelper helper;
     private WebDriverWait wait;
     private ResourceBundle bundle;
     private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("OrderManagementSelenium.class");
-    
-    @Before     
+
+    @Before
     public void setUp() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);  
+        wait = new WebDriverWait(driver, 10);
         helper = new SeleniumAjaxHelper(driver);
         helper.login();
         bundle = ResourceBundle.getBundle("Bundle");
     }
+
     @Ignore
     @Test
-    public void getOrderPage(){
-        String title = bundle.getString("ListOrderTitle");    
-        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");  
-        wait.until(ExpectedConditions.titleIs(title));   
+    public void getOrderPage() {
+        String title = bundle.getString("ListOrderTitle");
+        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
+        wait.until(ExpectedConditions.titleIs(title));
     }
+
     @Ignore
     @Test
-    public void noOrderSelected(){
+    public void noOrderSelected() {
         String s = bundle.getString("NothingSelected");
-        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");  
+        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
         helper.retryFindClick(By.id("form:tbl:previewButton"));
         wait.until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
                 ExpectedConditions.textToBePresentInElementLocated(By.id("dialogForm"), s)
-            )
+        )
         );
     }
+
     @Ignore
     @Test
-    public void DeletedOrderSelected(){
+    public void DeletedOrderSelected() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
-        
+
         //find deleted order = netCost equals 0
         int i = 1;
-        while(!helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr["+i+"]/td[3]")).equals("0.0"))
+        while (!helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) {
             i++;
-        
-        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr["+i+"]"));
-        helper.retryFindClick(By.id("form:tbl:previewButton"));   
-        
+        }
+
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]"));
+        helper.retryFindClick(By.id("form:tbl:previewButton"));
+
         //check it sees something is selected
         wait.until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
                 ExpectedConditions.not(
-                       ExpectedConditions.textToBePresentInElementLocated(By.id("dialogForm"), 
-                               bundle.getString("NothingSelected"))
+                        ExpectedConditions.textToBePresentInElementLocated(By.id("dialogForm"),
+                                bundle.getString("NothingSelected"))
                 )
-            )
-        );    
+        )
+        );
         //check error message if deleting already deleted order
         helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
         helper.retryFindClick(By.id("dialogForm:yes"));
         wait.until(
                 ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
-                    ExpectedConditions.textToBe(By.className("ui-growl-title"), 
-                            bundle.getString("OrderAlreadyDeleted"))
+                        ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")),
+                        ExpectedConditions.textToBe(By.className("ui-growl-title"),
+                                bundle.getString("OrderAlreadyDeleted"))
                 )
         );
         //check error message if deleting already deleted order item
@@ -101,24 +109,118 @@ public class OrderManagementSelenium {
         );*/
         driver.quit();
     }
-    
+
+    @Ignore
     @Test
-    public void deleteItemCheckNetCost(){
+    public void deleteItemCheckNetCost() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
-        
-      
-        int i = 2; //GO BACK TO ONE AFTER
-        while(helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr["+i+"]/td[3]")).equals("0.0"))
+
+        int i = 1;
+        while (helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) {
             i++;
-        
-        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr["+i+"]"));
-        helper.retryFindClick(By.id("form:tbl:previewButton"));   
-        
-        i=1;
-        while(helper.retryFindGetText(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr["+i+"]/td[5]")).equals("true"))
+        }
+
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]"));
+        helper.retryFindClick(By.id("form:tbl:previewButton"));
+
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("dialogForm")));
+        if (helper.retryFindGetText(By.id("dialogForm:nbOrderItems")).equals("1")) {
+            helper.retryFindClick(By.id("dialogForm:orderItemTbl:0:deleteOrderItem"));
+        } else {
+            i = 1;
+            while (helper.retryFindGetText(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[5]")).equals("true")) {
+                i++;
+            }
+        }
+
+        Double deletedOrderItemPrice, beforeOrderPrice, afterOrderPrice;
+
+        beforeOrderPrice = Double.valueOf(helper.retryFindGetText(By.id("dialogForm:netCost")));
+
+        helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + (i - 1) + ":deleteOrderItem"));
+        helper.retryFindClick(By.id("dialogForm:yes"));
+
+        deletedOrderItemPrice = Double.valueOf(helper.retryFindGetText(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[4]")));
+        afterOrderPrice = Double.valueOf(helper.retryFindGetText(By.id("dialogForm:netCost")));
+
+        Assert.assertEquals(afterOrderPrice, (beforeOrderPrice - deletedOrderItemPrice), 0.01);
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[5]"), "true"));
+    }
+
+    @Test
+    public void deleteOrderItemTwice() {
+        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
+        int i = 1;
+        while (helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) 
             i++;
+       
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]"));
+        helper.retryFindClick(By.id("form:tbl:previewButton"));
+
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("dialogForm")));
+        String s = "0";
+        String s2 = "";
+        if (!helper.retryFindGetText(By.id("dialogForm:nbOrderItems")).equals("1")) {
+            i = 1;
+            
+            while (helper.retryFindGetText(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[5]")).equals("true")) 
+                i++;
+            
+            s2 = "[" + i + "]";
+            s = String.valueOf(i - 1);
+        }
+
+        helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem"));
+        helper.retryFindClick(By.id("dialogForm:yes"));
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr" + s2 + "/td[5]"), "true"),
+                ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog"))
+        ));
+        helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem"));
+        helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem")); //weird that click has to be done twice
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:confirmDialog")));        
+        new Actions(driver).moveToElement(driver.findElement(By.id("dialogForm:yes"))).click().perform(); //regular click doesnt work   
         
-        //helper.retryFindClick(By.id("dialogForm:orderItemTbl:"+(i-1)+":deleteOrderItem"));
+         wait.until(
+                ExpectedConditions.and(            
+                    ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),  
+                    ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
+                    ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("OrderItemAlreadyDeleted"))
+                )
+        );
+    }
+    
+    
+    
+     @Test
+    public void deleteOrderTwice() {
+        driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
+        int i = 1;
+        while (helper.retryFindGetText(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]/td[3]")).equals("0.0")) 
+            i++;
+       
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[" + i + "]"));
+        helper.retryFindClick(By.id("form:tbl:previewButton"));
+
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("dialogForm")));
+        helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
+        helper.retryFindClick(By.id("dialogForm:yes"));
         
+        wait.until(ExpectedConditions.and(              
+                ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),
+                ExpectedConditions.textToBe(By.xpath("//*[@id=\"dialogForm\"]/div[1]/div[6]/span[2]"), "true"),
+                ExpectedConditions.textToBe(By.id("dialogForm:netCost"), "0.0")
+        ));
+       
+        helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
+        new Actions(driver).moveToElement(driver.findElement(By.id("dialogForm:yes"))).click().perform(); //regular click doesnt work   
+        
+        /* wait.until(
+                ExpectedConditions.and(            
+                    ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),  
+                    ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
+                    ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("OrderItemAlreadyDeleted"))
+                )
+        );*/
     }
 }
