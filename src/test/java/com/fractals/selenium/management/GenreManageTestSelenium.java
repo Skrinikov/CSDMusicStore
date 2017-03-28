@@ -42,7 +42,7 @@ public class GenreManageTestSelenium {
         
         wait = new WebDriverWait(driver, 2000);
     }
-    //@Test
+    @Test
     public void testCreate()
     {
         driver.get("http://localhost:8080/CSDMusicStore/management/genre/genresList.xhtml");
@@ -69,7 +69,7 @@ public class GenreManageTestSelenium {
         assertThat((numRows + 1) == numRowsAfter); 
     }
     
-    //@Test
+    @Test
     public void testEdit()
     {
         
@@ -91,11 +91,7 @@ public class GenreManageTestSelenium {
         inputElement.sendKeys(beforeChange + "s");
         
         //save 
-        clickMainButton(By.id("dialogForm:j_idt77"));  
-        wait(2000);
-        //confirm 
-        clickMainButton(By.id("//*[@id=\"dialogForm:j_idt80\"]")); 
-        //*[@id="dialogForm:j_idt80"]
+        clickMainButton(By.id("dialogForm:j_idt77"));      
         wait(2000);
             
         String afterChange = driver.findElement(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]/td[2]")).getText();
@@ -119,10 +115,57 @@ public class GenreManageTestSelenium {
         assertThat(header.equals("View Genre"));
         
     }
+    @Test
+    public void testCreateInvalid()
+    {
+        driver.get("http://localhost:8080/CSDMusicStore/management/genre/genresList.xhtml");
+               
+        //click create
+        clickMainButton(By.id("form:tbl:j_idt57"));
+        
+        //now grab the text input 
+        WebElement inputElement = driver.findElement(By.id("dialogForm2:name"));
+        inputElement.clear();
+        
+        //click the save button 
+        clickMainButton(By.id("dialogForm2:j_idt62")); 
+        wait(2000);
+        
+        String expected = "The Name field is required.";
+        
+        assertThat(expected.equals(getTextFromGrowl()));
+    }
     
-    public void testInvalid()
+    @Test
+    public void testEditInvalid()
     {
         
+        driver.get("http://localhost:8080/CSDMusicStore/management/genre/genresList.xhtml");
+        wait(2000);
+        
+        selectFirstEntry();        
+        clickPreview();
+        wait(2000);
+        //click edit
+        clickMainButton(By.id("dialogForm:j_idt73")); 
+        wait(2000);
+        
+        //add an s to the genre name 
+        WebElement inputElement = driver.findElement(By.id("dialogForm:name"));
+        inputElement.clear();
+        
+        //save 
+        clickMainButton(By.id("dialogForm:j_idt77"));      
+            
+        String expected = "The Name field is required.";     
+        assertThat(expected.equals(getTextFromGrowl()));
+        
+    }
+    
+    private String getTextFromGrowl()
+    {
+        return driver.findElement(By.xpath
+        ("//*[@id=\"form:growl_container\"]/div/div/div[2]/span")).getText();
     }
     
     private void clickPreview()
