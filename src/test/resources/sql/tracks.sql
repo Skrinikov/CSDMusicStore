@@ -4,7 +4,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (3, 1, 'Shots','Neil Young','07:42', '8', 're-ac-tor.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (4, 1, 'Son of Alerik','Ritchie Blackmore','10:01', '10', 'perfect_strangers.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (4, 1, 'Son of Alerik','Ritchie Blackmore','10:01', '10', 'perfect_strangers.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Treacherous Gods','Markus Toivonen, Jari Mäenpää','05:12', '9', 'ensiferum.jpg', 0.5, 0.99);
 
@@ -12,7 +12,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (7, 1, 'Infinite Dreams','Steve Harris','06:08', '2', 'seventh_son_of_a_seventh_son.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (8, 1, 'Thick as a Brick, Part I','Ian Anderson','22:40', '1', 'thick_as_a_brick.jpg', 1.99, 2.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (8, 1, 'Thick as a Brick, Part I','Ian Anderson','22:40', '1', 'thick_as_a_brick.jpg', 1.99, 2.99, 1.49);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (9, 1, 'Hell Patrol','Glenn Tipton, Rob Halford, K. K. Downing','03:35', '2', 'painkiller.jpg', 0.5, 0.99);
 
@@ -30,7 +30,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Hero in a Dream','Markus Toivonen, Jari Mäenpää','03:40', '2', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (15, 1, 'I Was Wrong','Andrew Eldritch','06:03', '8', 'vision_thing.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (15, 1, 'I Was Wrong','Andrew Eldritch','06:03', '8', 'vision_thing.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (16, 1, 'Baba O\'Riley','Pete Townshend','05:08', '1', 'whos_next.jpg', 0.5, 0.99);
 
@@ -52,7 +52,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Goblins\' Dance','Valtias Mustatuuli','04:29', '12', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (17, 1, 'Blind Eye','Ken Hensley','03:33', '3', 'the_magicians_birthday.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (17, 1, 'Blind Eye','Ken Hensley','03:33', '3', 'the_magicians_birthday.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (18, 1, 'I Want It All','Brian May','04:41', '4', 'the_miracle.jpg', 0.5, 0.99);
 
@@ -66,7 +66,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (22, 2, 'Hotling Bling','Aubrey Graham, Paul Jefferies, Timmy Thomas ','02:33', '1', 'views.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (22, 2, 'Hotling Bling','Aubrey Graham, Paul Jefferies, Timmy Thomas ','02:33', '1', 'views.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (22, 2, 'For Free','Khaled Khaled, Aubrey Graham Paul, Jefferies','03:53', '2', 'views.jpg', 0.5, 0.99);
 
@@ -82,7 +82,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (22, 2, 'Headlines ','Aubrey Graham','04:36', '8', 'views.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (23, 2, 'Can\'t Hold Us','Ben Haggerty, Ryan Lewis, Ray Dalton','02:33', '1', 'the_heist.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (23, 2, 'Can\'t Hold Us','Ben Haggerty, Ryan Lewis, Ray Dalton','02:33', '1', 'the_heist.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (23, 2, 'Thrift Shop','Ben Haggerty, Ryan Lewis','03:51', '2', 'the_heist.jpg', 0.5, 0.99);
 
@@ -104,7 +104,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (23, 2, 'White Privilege','Jamila Woods, Hollis Wong-Wear','01:42', '11', 'the_heist.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (24, 2, 'Rap God','Marshall Mathers, Bigram Zayas','06:03', '1', 'recovery.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (24, 2, 'Rap God','Marshall Mathers, Bigram Zayas','06:03', '1', 'recovery.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (24, 2, 'Lose Yourself','Marshall Mathers','02:51', '2', 'recovery.jpg', 0.5, 0.99);
 
@@ -120,7 +120,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (25, 3, 'Northern Cross','Yoko Kanno','5:18', '2', 'lion.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (26, 3, 'ANTI-HERO','Nakajin, Fukase','3:35', '1', 'anti-hero.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (26, 3, 'ANTI-HERO','Nakajin, Fukase','3:35', '1', 'anti-hero.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (27, 3, 'Complicated','Avril Lavigne, Lauren Christy, Scott Spock, Graham Edwards','04:00', '2', 'let_go.jpg', 0.5, 0.99);
 
@@ -132,7 +132,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (28, 3, 'You','Erik Lidbom, Anne Judith Wik, Nermin Harambasic','03:20', '4', 'candy.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (28, 3, 'Candy','HIRO, Gifty Dankwah, Bruce Fielder','03:23', '5', 'candy.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (28, 3, 'Candy','HIRO, Gifty Dankwah, Bruce Fielder','03:23', '5', 'candy.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (29, 3, 'Make You Happy','Andy Marvel','04:31', '4', 'falling_into_you.jpg', 0.5, 0.99);
 
@@ -158,11 +158,11 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (35, 3, 'Go Get \'Em','Shuhei Naruse','04:42', '6', 'exploded.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (36, 3, 'GIRAFFE BLUES','h-wonder','05:14', '8', 'walküre_attack.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (36, 3, 'GIRAFFE BLUES','h-wonder','05:14', '8', 'walküre_attack.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (36, 3, 'Walküre Attack!','Kotaro Odaka, UiNA','05:11', '9', 'walküre_attack.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (37, 3, 'Absolute 5','Takuya Watanabe','04:28', '1', 'walküre_trap.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (37, 3, 'Absolute 5','Takuya Watanabe','04:28', '1', 'walküre_trap.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (37, 3, 'Hear The Universe','Rasmus Faber','04:23', '7', 'walküre_trap.jpg', 0.5, 0.99);
 
@@ -172,9 +172,9 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (39, 4, 'Memory','Sugarcult,  Marko DeSantis','03:46', '3', 'palm_trees_and_power_lines.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (40, 4, 'Blitzkrieg Bop - 2001 Remastered edition ','Ramones, Tommy Ramone, Dee Dee Ramone','02:13', '1', 'ramones.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (40, 4, 'Blitzkrieg Bop - 2001 Remastered edition ','Ramones, Tommy Ramone, Dee Dee Ramone','02:13', '1', 'ramones.jpg', 0.5, 0.99, 0.75);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (41, 4, 'Basket Case','Billie Joe Armostrong, Mike Dirnt, Tré Cool','03:01', '7', 'dookie.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (41, 4, 'Basket Case','Billie Joe Armostrong, Mike Dirnt, Tré Cool','03:01', '7', 'dookie.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (42, 4, 'The Kids Aren\'t Alright','Dexter Holland','02:59', '5', 'americana.jpg', 0.5, 0.99);
 
@@ -224,7 +224,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (62, 4, 'The Brightest Green','Anarbor','03:17', '2', 'free_your_mind.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (62, 4, 'Where the Wild Things Are','Anarbor','03:13', '3', 'free_your_mind.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (62, 4, 'Where the Wild Things Are','Anarbor','03:13', '3', 'free_your_mind.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (62, 4, 'Halfway Sober','Anarbor','03:55', '4', 'free_your_mind.jpg', 0.5, 0.99);
 
@@ -234,7 +234,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (64, 5, 'Straight Outta Compton','Ice Cube, MC Ren, The D.O.C','04:19', '1', 'straight_outta_compton.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (64, 5, 'Straight Outta Compton','Ice Cube, MC Ren, The D.O.C','04:19', '1', 'straight_outta_compton.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (65, 5, 'Only God Can Judge Me','Tupac Shakur','04:57', '10', 'all_eyez_on_me.jpg', 0.5, 0.99);
 
@@ -242,7 +242,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (65, 5, 'California Love (Remix)','2Pac, Dr. Dre, Roger Troutman','06:25', '12', 'all_eyez_on_me.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (65, 5, 'I Ain\'t Mad at Cha','Tupac Shakur','04:53', '13', 'all_eyez_on_me.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (65, 5, 'I Ain\'t Mad at Cha','Tupac Shakur','04:53', '13', 'all_eyez_on_me.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (65, 5, 'What\'z Ya Phone #','Tupac Shakur','05:10', '14', 'all_eyez_on_me.jpg', 0.5, 0.99);
 
@@ -262,7 +262,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (69, 5, 'Show \'Em Whatcha Got','Public Enemy','01:56', '9', 'it_takes_a_nation_of_millions.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (70, 5, 'Old School','Shakur, J. Buchanan, D. Tilery','04:40', '12', 'me_against_the_world.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (70, 5, 'Old School','Shakur, J. Buchanan, D. Tilery','04:40', '12', 'me_against_the_world.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (71, 5, 'Halftime','Jones, William Paul Mitchell, Gary Byrd','04:20', '5', 'illmatic.jpg', 0.5, 0.99);
 
