@@ -4,10 +4,12 @@ import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.ResourceBundle;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,31 +33,16 @@ public class ReviewsManagementSelenium {
         helper.login();
         bundle = ResourceBundle.getBundle("Bundle");
     }
-
+    @Ignore
     @Test   
-    public void getApprovedReviewsPage(){
-        String title = bundle.getString("ApprovedReviewsTitle");    
-        driver.get("http://localhost:8080/CSDMusicStore/management/review/approvedReviewsList.xhtml");  
+    public void getReviewsPerStatusPage(){
+        String title = bundle.getString("ReviewsPerStatusTitle");    
+        driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerStatusList.xhtml");  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();       
     }
-    
-    @Test   
-    public void getDisapprovedReviewsPage(){
-        String title = bundle.getString("DisapprovedReviewsTitle");    
-        driver.get("http://localhost:8080/CSDMusicStore/management/review/disapprovedReviewsList.xhtml");  
-        wait.until(ExpectedConditions.titleIs(title));
-        driver.quit();       
-    }
-
-    @Test   
-    public void getPendingReviewsPage(){
-        String title = bundle.getString("PendingReviewsTitle");    
-        driver.get("http://localhost:8080/CSDMusicStore/management/review/pendingReviewsList.xhtml");  
-        wait.until(ExpectedConditions.titleIs(title));
-        driver.quit();       
-    }
-    
+   
+    @Ignore
     @Test   
     public void getReviewsPerTrackPage(){
         String title = bundle.getString("ReviewsPerTrackTitle");    
@@ -63,7 +50,7 @@ public class ReviewsManagementSelenium {
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();       
     }
-
+    @Ignore
     @Test   
     public void getReviewsPerUserPage(){
         String title = bundle.getString("ReviewsPerUserTitle");    
@@ -77,7 +64,7 @@ public class ReviewsManagementSelenium {
         );     
         driver.quit();       
     }
-
+    @Ignore
     @Test
     public void selectUser(){
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerUserList.xhtml");  
@@ -92,7 +79,7 @@ public class ReviewsManagementSelenium {
         driver.quit();     
     }
     
-
+    @Ignore
     @Test
     public void previewEmpty(){
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerUserList.xhtml");  
@@ -107,7 +94,7 @@ public class ReviewsManagementSelenium {
         );
         driver.quit();
     }
- 
+    @Ignore
     @Test
     public void previewReview() {
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerUserList.xhtml");
@@ -130,15 +117,21 @@ public class ReviewsManagementSelenium {
         
         driver.findElement(By.id("dialogForm:exitDialogButton")).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm")));
-        
+        driver.quit();
     }
     
-  
+    
     @Test
     public void pendingToApprovedToDisapproved(){
-        driver.get("http://localhost:8080/CSDMusicStore/management/review/pendingReviewsList.xhtml");
-        driver.findElement(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]")).click();
-        driver.findElement(By.id("form:tbl:previewButton")).click();
+        driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerStatusList.xhtml");
+        
+        //new Actions(driver).moveToElement(driver.findElement(By.id("form:j_idt50:2"))).click().perform(); //regular click doesnt work   
+        
+        helper.retryFindClick(By.id("form:j_idt50:2"));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("form:tbl")));
+        helper.retryFindClick(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]"));
+        helper.retryFindClick(By.id("form:tbl:previewButton"));
+        
         wait.until(
                 ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm")),
@@ -148,7 +141,7 @@ public class ReviewsManagementSelenium {
                 )
         );
         
-        driver.findElement(By.id("dialogForm:approveButton")).click();
+        helper.retryFindClick(By.id("dialogForm:approveButton"));
         wait.until(
                 ExpectedConditions.and(
                         ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:approveButton")),
@@ -156,7 +149,7 @@ public class ReviewsManagementSelenium {
                         ExpectedConditions.textToBePresentInElementLocated(By.id("dialogForm"), "APPROVED")
                 )
         );
-        driver.findElement(By.id("dialogForm:disapproveButton")).click();
+        helper.retryFindClick(By.id("dialogForm:disapproveButton"));
         wait.until(
                 ExpectedConditions.and(
                         ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:approveButton")),
@@ -164,7 +157,7 @@ public class ReviewsManagementSelenium {
                         ExpectedConditions.textToBePresentInElementLocated(By.id("dialogForm"), "DISAPPROVED")                  
                 )
         );
-        driver.findElement(By.id("dialogForm:exitDialogButton")).click();
+        helper.retryFindClick(By.id("dialogForm:exitDialogButton"));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm")));
         driver.quit();
         

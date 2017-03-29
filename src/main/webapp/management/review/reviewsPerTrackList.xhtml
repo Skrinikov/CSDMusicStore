@@ -22,7 +22,7 @@
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
 
-                <p:dataTable id="tbl" value="#{theTracks.tracks}" var="item" 
+                <p:dataTable id="tbl" value="#{theTracks.getTracks()}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedTrack}" 
