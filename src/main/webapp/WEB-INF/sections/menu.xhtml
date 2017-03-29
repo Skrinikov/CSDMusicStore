@@ -10,21 +10,32 @@
         <div class="container navbar-more visible-xs">
             <!-- Mobile version list -->
             <ul class="nav navbar-nav" style="color: #fff">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..."/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="submit">Submit</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
                 <ui:fragment rendered="#{!login.loggedIn}">
-                <li>
-                    <h:link outcome="/client/register.xhtml" >
-                        <span class="menu-icon fa fa-user-plus"></span>
-                        #{bundle.register}
-                    </h:link>
-                </li>
+                    <li>
+                        <h:link outcome="/client/register.xhtml" >
+                            <span class="menu-icon fa fa-user-plus"></span>
+                            #{bundle.register}
+                        </h:link>
+                    </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
-                <li>
-                     <h:link outcome="/management/reports.xhtml">
-                         <span class="menu-icon fa fa-lock"></span>
-                         Management Site
-                     </h:link>
-                 </li>
+                    <li>
+                        <h:link outcome="/management/reports.xhtml">
+                            <span class="menu-icon fa fa-lock"></span>
+                            Management Site
+                        </h:link>
+                    </li>
                 </ui:fragment>
                 <li>
                     <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart">
@@ -46,12 +57,12 @@
                     </h:link>
                 </li>
                 <ui:fragment rendered="#{login.loggedIn}">
-                <li>
-                    <h:link outcome="/client/library.xhtml">
-                        <span class="menu-icon fa fa-download"></span>
-                        #{bundle.downloadMenu}
-                    </h:link>
-                </li>
+                    <li>
+                        <h:link outcome="/client/library.xhtml">
+                            <span class="menu-icon fa fa-download"></span>
+                            #{bundle.downloadMenu}
+                        </h:link>
+                    </li>
                 </ui:fragment>
                 <li>
                     <h:link outcome="/client/help.xhtml">
@@ -61,14 +72,14 @@
                 </li>
             </ul>
         </div>
-        
+
         <div class="container">
             <div class="navbar-header hidden-xs">
                 <h:link outcome="/index.xhtml" class="navbar-brand">Fractals</h:link>
             </div>       
 
-            <ul class="nav navbar-nav navbar-right mobile-bar">
-                
+            <ul class="nav navbar-nav navbar-right mobile-bar" style="overflow:hidden;">                
+
                 <li class="visible-xs">
                     <h:link outcome="/index.xhtml">
                         <span class="menu-icon fa fa-mobile"></span>
@@ -76,15 +87,15 @@
                     </h:link>                   
                 </li>
 
-               <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
-                <li class="hidden-xs">
-                     <h:link outcome="/management/reports.xhtml">
-                         <span class="menu-icon fa fa-lock"></span>
-                         Management Site
-                     </h:link>
-                 </li>
+                <ui:fragment rendered="#{login.loggedIn and login.currentUser.isAdmin}">
+                    <li class="hidden-xs">
+                        <h:link outcome="/management/reports.xhtml">
+                            <span class="menu-icon fa fa-lock"></span>
+                            Management Site
+                        </h:link>
+                    </li>
                 </ui:fragment>
-               
+
                 <li class="hidden-xs">
                     <h:link outcome="/client/search.xhtml">
                         <span class="menu-icon fa fa-music"></span>
@@ -97,23 +108,23 @@
                         #{bundle.browseMenu}
                     </h:link>
                 </li>
-               
+
                 <ui:fragment rendered="#{login.loggedIn}">
-                <li class="hidden-xs">
-                    <h:link outcome="/client/library.xhtml">
-                        <span class="menu-icon fa fa-download"></span>
-                        Downloads
-                    </h:link>
-                </li>
+                    <li class="hidden-xs">
+                        <h:link outcome="/client/library.xhtml">
+                            <span class="menu-icon fa fa-download"></span>
+                            Downloads
+                        </h:link>
+                    </li>
                 </ui:fragment>
-               
-               <li class="hidden-xs">
+
+                <li class="hidden-xs">
                     <h:link outcome="/client/help.xhtml">
                         <span class="menu-icon fa fa-question-circle"></span>
                         #{bundle.faq}
                     </h:link>
                 </li>
-                
+
                 <li class="hidden-xs">
                     <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart-2">
                         <span class="menu-icon fa fa-shopping-cart"></span>
@@ -121,45 +132,61 @@
                         <f:param name="url" value="#{request.requestURI}#{not empty request.queryString ? '?' : ''}#{request.queryString}"/>
                     </h:link>
                 </li>
-                
+
                 <ui:fragment rendered="#{login.loggedIn}">
-                <li>                   
-                    <h:form class="menu-form">
-                        <h:commandLink styleClass="nav-menu-form" value="#{bundle.sign_out}" >
-                            <f:ajax listener="#{login.logout()}" render="@all"/>
-                            <span class="menu-icon fa fa-sign-out"></span>
-                        </h:commandLink>
-                    </h:form>                      
-                </li>
+                    <li>                   
+                        <h:form class="menu-form">
+                            <h:commandLink styleClass="nav-menu-form" value="#{bundle.sign_out}" >
+                                <f:ajax listener="#{login.logout()}" render="@all"/>
+                                <span class="menu-icon fa fa-sign-out"></span>
+                            </h:commandLink>
+                        </h:form>                      
+                    </li>
                 </ui:fragment>
-                
+
                 <ui:fragment rendered="#{!login.loggedIn}">
-                <li>
-                    <h:link outcome="/client/login.xhtml" >
-                        <span class="menu-icon fa fa-sign-in"></span>
-                        #{bundle.login}
-                    </h:link>
-                </li>
+                    <li>
+                        <h:link outcome="/client/login.xhtml" >
+                            <span class="menu-icon fa fa-sign-in"></span>
+                            #{bundle.login}
+                        </h:link>
+                    </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{!login.loggedIn}">
-                <li  class="hidden-xs">
-                    <h:link outcome="/client/register.xhtml" >
-                        <span class="menu-icon fa fa-user-plus"></span>
-                        #{bundle.register}
-                    </h:link>
-                </li>
+                    <li  class="hidden-xs">
+                        <h:link outcome="/client/register.xhtml" >
+                            <span class="menu-icon fa fa-user-plus"></span>
+                            #{bundle.register}
+                        </h:link>
+                    </li>
                 </ui:fragment>
                 <li>
                     <h:form class="menu-form">
                         <h:commandLink  actionListener="#{localeChanger.changeLocale}" 
-                                       value="#{bundle.codeLang}" styleClass="nav-menu-form">    
-                            
+                                        value="#{bundle.codeLang}" styleClass="nav-menu-form">    
+
                             <f:param name="languageCode" value="#{bundle.code}" /> 
                             <span class="menu-icon fa fa-globe"></span>
                         </h:commandLink>
                     </h:form>
                 </li>
                 
+                <li class="hidden-xs">
+                    <h:form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                
+                                <h:inputText binding="${key}" pt:placeholder="Search here..." styleClass="form-control"/>
+                                <span class="input-group-btn">
+                                    <h:button outcome="/client/search.xhtml" value="Submit" styleClass="btn btn-danger">
+                                        <f:param name="key" value="#{key.value}"/>
+                                    </h:button>
+                                </span>
+                            </div>
+                        </div>
+                    </h:form>
+                </li>
+
                 <li class="visible-xs">
                     <a href="#navbar-more-show">
                         <span class="menu-icon fa fa-bars"></span>
