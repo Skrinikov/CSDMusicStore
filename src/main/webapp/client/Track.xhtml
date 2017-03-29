@@ -28,11 +28,11 @@
             <div class="row album-presentation-outer">
                 <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
                     <div class="album-presentation-inner">
-                        <h1>#{trackCLBack.track.title}</h1>
+                        <h1 id="track-title">#{trackCLBack.track.title}</h1>
                         <hr/>
                         <div class="row album-info">
                             <div class="col-md-2 col-xs-12">
-                                <h3>#{trackCLBack.track.album.title}</h3>
+                                <h3 id="album-title">#{trackCLBack.track.album.title}</h3>
                             </div>
                             <div class="col-md-2 col-xs-12">
                                 <h:form id="trackCartForm">
@@ -52,11 +52,11 @@
                     <!-- Track Picture -->
                     <div class="col-sm-4 col-xs-12" style="margin-bottom:20px;">
                         <div class="info">
-                            <p:graphicImage name="images/covers/#{trackCLBack.track.coverFile}" style="width:100%;"/>   
+                            <p:graphicImage id="track-cover" name="images/covers/#{trackCLBack.track.coverFile}" style="width:100%;"/>   
                             <p class="track-info-header">
                                 <span class="green">#{bundle.tracks_artists}: </span>
                                 <ui:repeat var="artist" value="#{trackCLBack.track.artists}" varStatus="status">
-                                    #{artist.name}<ui:fragment rendered="${!status.last}">,</ui:fragment>
+                                    <span class="track-artist">#{artist.name}</span><ui:fragment rendered="${!status.last}">,</ui:fragment>
                                 </ui:repeat>
                             </p>
 
@@ -91,22 +91,22 @@
                         </div>
                     </div>
                     <div class="col-sm-8 col-xs-12">
-                        <p:dataTable var="track" value="#{trackCLBack.track.album.tracks}" styleClass="tracks-table">
+                        <p:dataTable var="track" value="#{trackCLBack.track.album.tracks}" styleClass="tracks-table" id="track-tracks">
                             <p:column style="padding:0;border:none;">
                                 <p:panelGrid style="border:none;">
                                     <p:row styleClass="tracks-in-album" style="border-bottom: solid 3px #0a0a0a; ">
-                                        <p:column styleClass="col-md-1 text-center" style="border:none;" colspan="2">
+                                        <p:column class="col-md-1 text-center" style="border:none;" colspan="2">
                                             <span class="fa fa-music sub-info"></span>
                                         </p:column>
-                                        <p:column styleClass="col-md-7 col-xs-6" style="border:none;" colspan="7">
+                                        <p:column class="col-md-7 col-xs-6 1" style="border:none;" colspan="7">
                                             #{track.albumNum} - <h:link value="#{track.title}" outcome="Track" styleClass="track-name"><f:param name="id" value="#{track.id}"/></h:link>
                                         </p:column>
-                                        <p:column styleClass="col-md-2" style="border:none;" colspan="2">
+                                        <p:column class="col-md-2 2" style="border:none;" colspan="2">
                                             <h:outputText value="#{track.duration}"/>
                                         </p:column>
-                                        <p:column styleClass="col-md-2" style="border:none;" colspan="3">
+                                        <p:column class="col-md-2 3" style="border:none;" colspan="3">
 
-                                            <p:commandLink value="$#{trackCLBack.getPrice(track)}" styleClass="hvr-bounce-to-right custom-price-buttons album-list-track-btn" actionListener="#{cart.add(track)}" update="shop-cart shop-cart-2"/>
+                                            <p:commandLink value="$#{trackCLBack.getPrice(track)}" class="hvr-bounce-to-right custom-price-buttons album-list-track-btn 4" actionListener="#{cart.add(track)}" update="shop-cart shop-cart-2"/>
 
                                         </p:column>
                                     </p:row>
