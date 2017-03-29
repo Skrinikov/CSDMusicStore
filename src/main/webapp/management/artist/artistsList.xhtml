@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
+        <h:outputText value="#{bundle.list_artist_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -19,7 +19,7 @@
         <h:form id="form">
 
             <p:growl id="growl" showDetail="true" sticky="true" /> 
-            <h:outputText escape="false" value="#{bundle.ListArtistEmpty}" rendered="#{theArtists.isEmpty()}"/>
+            <h:outputText escape="false" value="#{bundle.list_artist_empty}" rendered="#{theArtists.isEmpty()}"/>
 
 
             <h:panelGroup rendered="#{!theArtists.isEmpty()}">  
@@ -32,18 +32,18 @@
                              draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row">
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListArtistTitle}"/>
+                        <h:outputText value="#{bundle.list_artist_title}"/>
                         <p:outputPanel style="float:right">
                             <h:outputText value="#{bundle.row_search}" />
                             <p:inputText id="globalFilter" onkeyup="PF('artistTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">              
+                    <p:column headerText="#{bundle.artist_id}" filterStyle="display:none" filterBy="#{item.id}">              
                         <h:outputText value="#{item.id}" />
                     </p:column>
 
-                    <p:column headerText="Name" filterStyle="display:none" filterBy="#{item.name}">                          
+                    <p:column headerText="#{bundle.artist_name}" filterStyle="display:none" filterBy="#{item.name}">                          
                         <h:outputText value="#{item.name}"/>
                     </p:column>
 
@@ -58,11 +58,11 @@
 
         </h:form>
 
-        <p:dialog header="Create Artist" widgetVar="dialogCreate">
+        <p:dialog header="#{bundle.create_artist}" widgetVar="dialogCreate">
             <ui:include src="/management/artist/dialogCreate.xhtml" />
         </p:dialog>
 
-        <p:dialog header="View Artist" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="#{bundle.view_edit_artist}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/artist/dialogViewEdit.xhtml" />
         </p:dialog>
 

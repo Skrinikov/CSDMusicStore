@@ -11,10 +11,10 @@
 
         <h:panelGrid columns="2" rendered="#{not theGenres.editable and not empty theGenres.selectedGenre}">
 
-            <h:outputText value="#{bundle.genreId}"/>
+            <h:outputText value="#{bundle.genre_id}:"/>
             <h:outputText value="#{theGenres.selectedGenre.id}"/>
 
-            <h:outputText value="#{bundle.genreName}"/>
+            <h:outputText value="#{bundle.genre_name}:"/>
             <h:outputText value="#{theGenres.selectedGenre.name}"/>
 
             <p:commandButton class="mgmt_btn" actionListener="#{theGenres.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
@@ -23,22 +23,23 @@
 
         <h:panelGrid columns="2" rendered="#{theGenres.editable and not empty theGenres.selectedGenre}">
 
-            <p:outputLabel value="#{bundle.genreId}" for="id" />
+            <p:outputLabel value="#{bundle.genre_id}:" for="id" />
             <p:inputText id="id" value="#{theGenres.selectedGenre.id}" disabled="true"/>
 
-            <p:outputLabel value="#{bundle.genreName}" for="name" />
+            <p:outputLabel value="#{bundle.genre_name}:" for="name" />
             <p:inputText id="name" value="#{theGenres.selectedGenre.name}" required="true" requiredMessage="#{bundle.genreNameRequired}"/>
 
             <p:commandButton class="mgmt_btn" actionListener="#{theGenres.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
-                
-            </p:commandButton>           
+                  <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
+            </p:commandButton>  
+            
             <p:commandButton class="mgmt_btn" actionListener="#{theGenres.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
 
         </h:panelGrid>
 
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="#{bundle.confirmYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-            <p:commandButton value="#{bundle.confirmNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
         </p:confirmDialog>   
 
         <p:commandButton  class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()"/>

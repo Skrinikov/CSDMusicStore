@@ -55,6 +55,10 @@ public class OrderBackingBean implements Serializable {
     public void setSelectedOrderItem(OrderItem oi) {
         selectedOrderItem = oi;
     }
+    
+    public boolean isEmpty(){
+        return orderJpaController.findOrderEntities().isEmpty();
+    }
 
     public void deleteOrderItem(OrderItem o) throws Exception {
         if (o.isCancelled()) {
