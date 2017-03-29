@@ -125,7 +125,7 @@ public class CheckoutBacking implements Serializable {
         if(!error) {
             try{
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/invoice.xhtml");
+                context.redirect(context.getRequestContextPath() + "/client/invoice.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -186,7 +186,7 @@ public class CheckoutBacking implements Serializable {
             cart.setErrorMsg(message);
             try {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/shopping_cart.xhtml");
+                context.redirect(context.getRequestContextPath() + "/client/shopping_cart.xhtml");
             } catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
             }
