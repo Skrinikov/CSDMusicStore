@@ -19,7 +19,7 @@
         <h:form id="form">
             
              <p:growl id="growl" showDetail="true" sticky="true" /> 
-             <h:outputText escape="false" value="#{bundle.ListAlbumEmpty}" rendered="#{theAlbums.isEmpty()}"/>
+             <h:outputText escape="false" value="#{bundle.list_album_empty}" rendered="#{theAlbums.isEmpty()}"/>
         
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
@@ -31,7 +31,7 @@
                              draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListAlbumTitle}"/>
+                        <h:outputText value="#{bundle.list_album_title}"/>
                         <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                         <p:outputPanel style="float:right">
@@ -40,55 +40,59 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}" filterStyle="display:none" filterBy="#{item.id}" >
+                    <p:column width="3%" headerText="#{bundle.album_id}" filterStyle="display:none" filterBy="#{item.id}" >
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_title}" filterStyle="display:none" filterBy="#{item.title}">
+                    <p:column headerText="#{bundle.album_title}" filterStyle="display:none" filterBy="#{item.title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_releaseDate}" filterStyle="display:none" filterBy="#{item.releaseDate}">
+                    <p:column headerText="#{bundle.album_release_date}" filterStyle="display:none" filterBy="#{item.releaseDate}">
                         <h:outputText value="#{item.releaseDate}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_recordLabel}" filterStyle="display:none" filterBy="#{item.recordLabel}">
+                    <p:column headerText="#{bundle.album_record_label}" filterStyle="display:none" filterBy="#{item.recordLabel}">
                         <h:outputText value="#{item.recordLabel}"/>
                     </p:column>
-                    <p:column headerText="#{bundle.ListAlbumTitle_numTracks}" filterStyle="display:none" filterBy="#{item.numTracks}">
+                    <p:column headerText="#{bundle.album_num_tracks}" filterStyle="display:none" filterBy="#{item.numTracks}">
                         <h:outputText value="#{item.numTracks}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_createdAt}" filterStyle="display:none" filterBy="#{item.createdAt}">
+                    <p:column headerText="#{bundle.album_created_at}" filterStyle="display:none" filterBy="#{item.createdAt}">
                         <h:outputText value="#{item.createdAt}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_costPrice}" filterStyle="display:none" filterBy="#{item.costPrice}">
+                    <p:column headerText="#{bundle.album_cost_price}" filterStyle="display:none" filterBy="#{item.costPrice}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_listPrice}" filterStyle="display:none" filterBy="#{item.listPrice}">
+                    <p:column headerText="#{bundle.album_list_price}" filterStyle="display:none" filterBy="#{item.listPrice}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_salePrice}" filterStyle="display:none" filterBy="#{item.salePrice}">
+                    <p:column headerText="#{bundle.album_sale_price}" filterStyle="display:none" filterBy="#{item.salePrice}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_removedAt}" filterStyle="display:none" filterBy="#{item.removedAt}">
+                    <p:column headerText="#{bundle.album_removed_at}" filterStyle="display:none" filterBy="#{item.removedAt}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">
+                    <p:column headerText="#{bundle.album_available}" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
                     
-                    <p:column headerText="Total Sales" >
+                    <p:column headerText="#{bundle.album_artist}" filterStyle="display:none" filterBy="#{item.artist.name}">
+                        <h:outputText value="#{item.artist.name}"/>
+                    </p:column>
+                    
+                    <p:column headerText="#{bundle.album_total_sales}" >
                         <h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
                             <f:convertNumber maxFractionDigits="2" /> 
                         </h:outputText>
                     </p:column>
-                    <p:column headerText="Albums Sold">
+                    <p:column headerText="#{bundle.album_albums_sold}">
                         <h:outputText value="#{theAlbums.getAlbumsSold(item)}">
                             <f:convertNumber maxFractionDigits="0" />
                         </h:outputText>
@@ -103,11 +107,11 @@
             </h:panelGroup>         
         </h:form>
 
-        <p:dialog header="Album Info" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="#{bundle.view_edit_album}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/album/dialogViewEdit.xhtml" />
         </p:dialog>
 
-        <p:dialog header="Create Album" widgetVar="dialogCreate" >         
+        <p:dialog header="#{bundle.create_album}" widgetVar="dialogCreate" >         
             <ui:include src="/management/album/dialogCreate.xhtml" />
         </p:dialog>
 
