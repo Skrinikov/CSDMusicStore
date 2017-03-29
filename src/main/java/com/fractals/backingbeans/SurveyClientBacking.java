@@ -55,7 +55,7 @@ public class SurveyClientBacking implements Serializable{
     }
     
     /**
-     * Will be used to inc the upvotes for that specific choice of the survey
+     * Will be used to increment the upvotes for that specific choice of the survey
      * and save it in the database. 
      */
     public void selectedOption(SurveyChoice sc)
@@ -70,7 +70,7 @@ public class SurveyClientBacking implements Serializable{
             Logger.getLogger(SurveyClientBacking.class.getName()).log(Level.SEVERE, null, ex);
         }
         //reset the survey
-        sur = null;        
+        //sur = null;        
         isVoted = true;
        
     }
