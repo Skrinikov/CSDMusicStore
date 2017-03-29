@@ -8,7 +8,7 @@ import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Order_;
 import com.fractals.beans.Track;
 import com.fractals.beans.User;
-import com.fractals.email.EmailSender;
+import com.fractals.utilities.EmailSender;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.annotation.Resource;

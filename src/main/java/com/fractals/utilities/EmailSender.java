@@ -1,4 +1,4 @@
-package com.fractals.email;
+package com.fractals.utilities;
 
 import com.fractals.beans.User;
 import com.fractals.beans.Order;

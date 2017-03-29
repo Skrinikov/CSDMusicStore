@@ -8,7 +8,7 @@ import com.fractals.beanvalidators.EmailCheck;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import com.fractals.converters.ProvinceConverter;
-import com.fractals.email.EmailSender;
+import com.fractals.utilities.EmailSender;
 import com.fractals.jsf.util.PaginationHelper;
 import com.fractals.rss.FeedMessage;
 import com.fractals.utilities.DatabaseSeedManager;

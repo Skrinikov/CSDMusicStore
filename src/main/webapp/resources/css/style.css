@@ -316,8 +316,10 @@ body.navbar-more-show  {
 }
 
 .faqHeader {
-    font-size: 27px;
+    font-size: 2em;
     margin: 20px;
+    color: white;
+    font-family: Raleway;
 }
 
 .panel-heading [data-toggle="collapse"]:after {
@@ -335,7 +337,7 @@ body.navbar-more-show  {
 }
 
 .help-jumbotron{
-    background-color:#314190;
+    background:#2F40B2;
     color:#fff;
 }
 
@@ -1135,3 +1137,19 @@ body.navbar-more-show  {
     background: black;
 }
 
+.faq-container .panel-default, .faq-container .panel-default > .panel-heading {
+    color: white;
+    background: black;
+    border-color: black;
+    border-radius: 0px;
+    opacity: 0.7;
+    font-size: 1.15em;
+}
+
+.faq-container .panel-title {
+    font-size: 1.15em;
+}
+
+.faq-container .panel-body {
+    padding-left: 25px;
+}
