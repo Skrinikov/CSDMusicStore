@@ -22,7 +22,7 @@
             <h:form id="form">
                 
                 <h:outputLabel value="Select the type of review you want to see"/>
-                <p:selectOneButton value="#{theReviews.selection}" class="mgmt_btn">
+                <p:selectOneButton value="#{theReviews.selection}" class="mgmt_btn" id="selectButton">
                     <f:selectItem itemLabel="Approved" itemValue="APPROVED" />
                     <f:selectItem itemLabel="Disapproved" itemValue="DISAPPROVED" />
                     <f:selectItem itemLabel="Pending" itemValue="PENDING" />
@@ -66,7 +66,7 @@
                     </p:column>            
                     
                     <f:facet name="footer" class="mgmt_table_footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" id="previewButton" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                     </f:facet>  
 
                 </p:dataTable>

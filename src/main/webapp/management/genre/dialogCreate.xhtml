@@ -8,11 +8,11 @@
     <h:form id="dialogForm2">
 
         <h:panelGrid columns="2">
-            <h:outputLabel value="Name:" for="name"/>
-            <h:inputText id="name" value="#{theGenres.createdGenre.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+            <h:outputLabel value="#{bundle.genreName}" for="name"/>
+            <h:inputText id="name" value="#{theGenres.createdGenre.name}" required="true" requiredMessage=#{bundle.genreNameRequired}/>
 
             <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  actionListener="#{theGenres.create()}" update="form,dialogForm,dialogForm2"/>
-            <p:commandButton class="mgmt_btn" value="Exit" onclick="PF('dialogCreate').hide()"/>
+            <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogCreate').hide()"/>
 
             <h:panelGroup>
                 <script>

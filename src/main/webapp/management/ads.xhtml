@@ -15,11 +15,11 @@
     </ui:define>
 
     <ui:define name="content">    
-         
+
         <h:form id="form">
 
             <p:growl id="growl" showDetail="true" sticky="true" /> 
-           
+
             <p:dataGrid var="item" value="#{theBannerAds.bannerAds}" columns="3" layout="grid"
                         rows="12" paginator="true" id="tbl"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -31,8 +31,9 @@
 
                 <p:panel header="#{item.id}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage value="#{item.link}" width="100%"/> 
-                        <h:outputText value="Source : #{item.source}" />
+                        <p:graphicImage value="#{item.source}" width="100%"/> 
+                        <h:outputText value="Link : #{item.link}" />
+                        <h:outputText value="Visible : #{item.visible}" />
                         <p:commandButton value="#{bundle.mgmt_btn_edit}" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn">
                             <f:setPropertyActionListener value="#{item}" target="#{theBannerAds.selectedBannerAd}" />
                         </p:commandButton>
@@ -55,14 +56,22 @@
                 <p:panelGrid columns="2"  rendered="#{not empty theBannerAds.selectedBannerAd}">
                     <p:outputLabel value="Id:" for="id" />
                     <p:inputText id="id" value="#{theBannerAds.selectedBannerAd.id}" disabled="true" title="Id" required="true" requiredMessage="The Id field is required."/>
+
                     <p:outputLabel value="Link:" for="link" />
-                    <p:inputText id="link" value="#{theBannerAds.selectedBannerAd.link}" title="Link" required="true" requiredMessage="The Link field is required."/>
+                    <p:inputText id="link" value="#{theBannerAds.selectedBannerAd.link}" title="Link" required="true"
+                                 requiredMessage="#{bundle.empty_link_message}" validatorMessage="#{bundle.invalid_link_message}">
+                        <f:validateRegex pattern="^https?:\/\/.*$" />   
+                    </p:inputText>
                     <p:outputLabel value="Source:" for="source" />
-                    <p:inputText id="source" value="#{theBannerAds.selectedBannerAd.source}" title="Source" required="true" requiredMessage="The Source field is required."/>
+                    <p:inputText id="source" value="#{theBannerAds.selectedBannerAd.source}" title="Source" required="true" 
+                                 requiredMessage="#{bundle.empty_source_message}" validatorMessage="#{bundle.invalid_source_message}" >
+                        <f:validateRegex pattern="^https?:\/\/.*$" />      
+                    </p:inputText>
+
                     <p:outputLabel value="Visible:" for="visible" />
                     <p:selectBooleanButton id="visible" value="#{theBannerAds.selectedBannerAd.visible}" onLabel="Yes" offLabel="No" style="width:60px"  class="mgmt_btn"/>
 
-                    <p:commandButton actionListener="#{theBannerAds.edit()}" value="Save" update="form,dialogForm" class="mgmt_btn">
+                    <p:commandButton actionListener="#{theBannerAds.edit()}" value="Save" update="form,dialogForm" class="mgmt_btn" oncomplete="PF('dialogViewEdit').hide()">
                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                     </p:commandButton>
 
@@ -72,6 +81,12 @@
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog> 
+                    <h:panelGroup>
+
+
+                    </h:panelGroup>   
+
+
 
                 </p:panelGrid>
 
@@ -84,9 +99,16 @@
 
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Link:" for="link" />
-                    <p:inputText id="link" value="#{theBannerAds.createdBannerAd.link}" title="Link" required="true" requiredMessage="The Link field is required."/>
+                    <p:inputText id="link" value="#{theBannerAds.createdBannerAd.link}" title="Link" required="true" 
+                                 requiredMessage="#{bundle.empty_link_message}" validatorMessage="#{bundle.invalid_link_message}">
+                        <f:validateRegex pattern="^https?:\/\/.*$" />
+                    </p:inputText>
+
                     <p:outputLabel value="Source:" for="source" />
-                    <p:inputText id="source" value="#{theBannerAds.createdBannerAd.source}" title="Source" required="true" requiredMessage="The Source field is required."/>
+                    <p:inputText id="source" value="#{theBannerAds.createdBannerAd.source}" title="Source" required="true" 
+                                 requiredMessage="#{bundle.empty_source_message}" validatorMessage="#{bundle.invalid_source_message}">
+                        <f:validateRegex pattern="^https?:\/\/.*$" />
+                    </p:inputText>
                     <p:outputLabel value="Visible:" for="visible" />
                     <p:selectBooleanButton id="visible" value="#{theBannerAds.createdBannerAd.visible}" onLabel="Yes" offLabel="No" style="width:60px"  class="mgmt_btn"/>
 
@@ -95,10 +117,8 @@
 
                     <h:panelGroup>
                         <script>
-                            if (#{!facesContext.validationFailed}) {
+                            if (#{!facesContext.validationFailed})
                                 PF('dialogCreate').hide();
-                                PF('dialogViewEdit').show();
-                            }
                         </script>
                     </h:panelGroup>    
 

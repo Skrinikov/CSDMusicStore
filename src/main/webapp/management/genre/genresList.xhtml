@@ -33,11 +33,11 @@
                         <h:outputText value="#{bundle.ListGenreTitle}"/>
                     </f:facet>
 
-                    <p:column headerText="Id">              
+                    <p:column headerText="#{bundle.genreId}">              
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="Name">                          
+                    <p:column headerText="#{bundle.genreName}">                          
                         <h:outputText value="#{item.name}"/>
                     </p:column>
 
@@ -52,11 +52,11 @@
 
         </h:form>
 
-        <p:dialog header="Create Genre" widgetVar="dialogCreate">
+        <p:dialog header="#{bundle.createGenreHeader}" widgetVar="dialogCreate">
             <ui:include src="/management/genre/dialogCreate.xhtml" />
         </p:dialog>
 
-        <p:dialog header="View Genre" widgetVar="dialogViewEdit" dynamic="true" position="top">
+        <p:dialog header="#{bundle.viewEditGenreHeader}" widgetVar="dialogViewEdit" dynamic="true" position="top">
             <ui:include src="/management/genre/dialogViewEdit.xhtml" />
         </p:dialog>
 
