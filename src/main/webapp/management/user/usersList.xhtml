@@ -26,8 +26,8 @@
                               paginator="true" rows="10" style="margin-bottom:20px"
                               selectionMode="single" selection="#{theUsers.selectedUser}" 
                               rowKey="#{item.id}" reflow="true"
-                              draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
-
+                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
+                    
                     <f:facet name="header">
                         <h:outputText value="#{bundle.list_user_title}"/>
                         <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
@@ -62,7 +62,7 @@
                         <h:outputText value="#{item.address1}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.user_address_}">
+                    <p:column headerText="#{bundle.user_address_2}">
                         <h:outputText value="#{item.address2}"/>
                     </p:column>
 
@@ -101,6 +101,7 @@
                     <p:column headerText="#{bundle.user_last_genre}">
                         <h:outputText value="#{item.lastGenre}"/>
                     </p:column>
+                    
                     <p:column headerText="#{bundle.user_total_sales}">
                         <h:outputText value="#{theUsers.getTotalSales(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
@@ -108,14 +109,14 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" id="previewButton" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
                     </f:facet> 
                     
                 </p:dataTable>
             </h:panelGroup>
         </h:form>
 
-        <p:dialog id="popupBox" header="#{bundle.view_edit_user}" widgetVar="dialogViewEdit" dynamic="true" position="top">
+        <p:dialog header="#{bundle.view_edit_user}" widgetVar="dialogViewEdit" dynamic="true" position="top">
             <ui:include src="/management/user/dialogViewEdit.xhtml" />
         </p:dialog>
         

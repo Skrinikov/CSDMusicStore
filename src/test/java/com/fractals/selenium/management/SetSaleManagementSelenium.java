@@ -41,7 +41,7 @@ public class SetSaleManagementSelenium {
  
     @Test   
     public void getSetSalesPage(){
-        String title = bundle.getString("ListSetSalesTitle");    
+        String title = bundle.getString("list_set_sale_title");    
         driver.get("http://localhost:8080/CSDMusicStore/management/setSales.xhtml");  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();       
@@ -49,7 +49,7 @@ public class SetSaleManagementSelenium {
 
     @Test
     public void setSaleEmpty(){
-        String title = bundle.getString("SpecifySaleValue");   
+        String title = bundle.getString("specify_sale_value");   
         driver.get("http://localhost:8080/CSDMusicStore/management/setSales.xhtml");    
         helper.retryFindClick(By.id("form:tbl:0:columnButtonAlbum"));
         helper.retryFindClick(By.id("dialogForm:dialogButtonSetAlbum"));
@@ -63,7 +63,7 @@ public class SetSaleManagementSelenium {
 
     @Test 
     public void setSaleSuperior(){
-        String title = bundle.getString("SaleValueSuperior"); 
+        String title = bundle.getString("sale_value_superior"); 
         driver.get("http://localhost:8080/CSDMusicStore/management/setSales.xhtml");    
         int n = new Random().nextInt(10);
        
@@ -90,7 +90,7 @@ public class SetSaleManagementSelenium {
 
     @Test
     public void setSale(){
-        String title = bundle.getString("SalePriceChanged");
+        String title = bundle.getString("sale_price_changed");
         driver.get("http://localhost:8080/CSDMusicStore/management/setSales.xhtml");    
         
         int n = new Random().nextInt(10);

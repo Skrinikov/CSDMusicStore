@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GenreManageTestSelenium {
     
     private WebDriver driver; 
-    private SeleniumAjaxHelper sah; 
     
     @Before
     public void login()
@@ -34,8 +33,7 @@ public class GenreManageTestSelenium {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         
-        sah = new SeleniumAjaxHelper(driver); 
-        sah.login();
+        new SeleniumAjaxHelper(driver).login();
         
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));

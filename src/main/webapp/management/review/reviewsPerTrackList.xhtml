@@ -26,7 +26,7 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedTrack}" 
-                             rowKey="#{item.id}" rendered="#{not empty theReviews.selectedTrack}"
+                             rowKey="#{item.id}"
                              draggableColumns="true" resizableColumns="true" >                   
 
                     <p:ajax event="rowSelect" update="form" />
@@ -36,64 +36,67 @@
                         <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
+                    
+                        <p:column width="5%" headerText="#{bundle.track_cover_file}">
+                        <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
+                        <p:tooltip for="content" trackMouse="true">
+                            <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
+                        </p:tooltip>
+                    </p:column> 
 
-                    <p:column headerText="Id">
+                    <p:column headerText="#{bundle.track_id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="Title">
+                    <p:column headerText="#{bundle.track_title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
 
-                    <p:column headerText="Songwriter">
+                    <p:column headerText="#{bundle.track_songwriter}">
                         <h:outputText value="#{item.songwriter}"/>
                     </p:column>
 
-                    <p:column headerText="Duration">
+                    <p:column headerText="#{bundle.track_duration}">
                         <h:outputText value="#{item.duration}"/>
                     </p:column>
 
-                    <p:column headerText="AlbumNum">
+                    <p:column headerText="#{bundle.track_album_num}">
                         <h:outputText value="#{item.albumNum}"/>
                     </p:column>
 
-                    <p:column headerText="CoverFile">
-                        <h:outputText value="#{item.coverFile}"/>
-                    </p:column>
-
-                    <p:column headerText="CreatedAt">
+                    <p:column headerText="#{bundle.track_created_at}">
                         <h:outputText value="#{item.createdAt}"/>
                     </p:column>
 
-                    <p:column headerText="CostPrice">
+                    <p:column headerText="#{bundle.track_cost_price}">
                         <h:outputText value="#{item.costPrice}"/>
                     </p:column>
 
-                    <p:column headerText="ListPrice">
+                    <p:column headerText="#{bundle.track_list_price}">
                         <h:outputText value="#{item.listPrice}"/>
                     </p:column>
 
-                    <p:column headerText="SalePrice">
+                    <p:column headerText="#{bundle.track_sale_price}">
                         <h:outputText value="#{item.salePrice}"/>
                     </p:column>
 
-                    <p:column headerText="RemovedAt">
+                    <p:column headerText="#{bundle.track_removed_at}">
                         <h:outputText value="#{item.removedAt}"/>
                     </p:column>
 
-                    <p:column headerText="Available">
+                    <p:column headerText="#{bundle.track_available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
 
-                    <p:column headerText="IsIndividual">
+                    <p:column headerText="#{bundle.track_is_individual}">
                         <h:outputText value="#{item.isIndividual}"/>
                     </p:column>
 
-                    <p:column headerText="Album">
+                    <p:column headerText="#{bundle.track_album}">
                         <h:outputText value="#{item.album.title}"/>
                     </p:column>
 
-                    <p:column headerText="Genre">
+                    <p:column headerText="#{bundle.track_genre}">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
 
@@ -104,34 +107,34 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theReviews.selectedReview}" 
-                         rowKey="#{item2.id}"
+                         rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedTrack}"
                          draggableColumns="true" resizableColumns="true"  >
 
-                <p:column headerText="Id">
+                <p:column headerText="##{review_id}">
                     <h:outputText value="#{item2.id}"/>
                 </p:column>
 
-                <p:column headerText="Rating">
+                <p:column headerText="#{bundle.review_rating}">
                     <h:outputText value="#{item2.rating}"/>
                 </p:column>
 
-                <p:column headerText="ReviewDate">
+                <p:column headerText="#{bundle.review_date}">
                     <h:outputText value="#{item2.reviewDate}"/>
                 </p:column>
 
-                <p:column headerText="Text">
+                <p:column headerText="#{bundle.review_text}">
                     <h:outputText value="#{item2.text}"/>
                 </p:column>
 
-                <p:column headerText="Approved">
-                    <h:outputText value="#{item2.approved}"/>
+                <p:column headerText="#{bundle.review_status}">
+                    <h:outputText value="#{item2.status()}"/>
                 </p:column>
 
-                <p:column headerText="User">
+                <p:column headerText="#{bundle.review_user}">
                     <h:outputText value="#{item2.user.username}"/>
                 </p:column>
 
-                <p:column headerText="Track">
+                <p:column headerText="#{bundle.review_track}">
                     <h:outputText value="#{item2.track.title}"/>
                 </p:column>                    
 
@@ -143,7 +146,7 @@
 
         </h:form>
 
-        <p:dialog header="Review Info" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="#{bundle.review_info}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/review/dialogViewEdit.xhtml" />
         </p:dialog>
 

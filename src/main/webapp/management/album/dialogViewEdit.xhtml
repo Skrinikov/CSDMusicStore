@@ -78,7 +78,7 @@
             <p:outputLabel value="#{bundle.album_artist}:" for="artist" />     
             <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.selectedAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
 
-            <p:commandButton id="save" actionListener="#{theAlbums.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
+            <p:commandButton id="save" actionListener="#{theAlbums.edit()}" class="mgmt_btn" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
                 <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
             </p:commandButton>
 

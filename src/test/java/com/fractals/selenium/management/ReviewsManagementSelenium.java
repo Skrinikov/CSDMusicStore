@@ -35,7 +35,7 @@ public class ReviewsManagementSelenium {
  
     @Test   
     public void getReviewsPerStatusPage(){
-        String title = bundle.getString("ReviewsPerStatusTitle");    
+        String title = bundle.getString("reviews_per_status_title");    
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerStatusList.xhtml");  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();       
@@ -43,7 +43,7 @@ public class ReviewsManagementSelenium {
     
     @Test   
     public void getReviewsPerTrackPage(){
-        String title = bundle.getString("ReviewsPerTrackTitle");    
+        String title = bundle.getString("reviews_per_track_title");    
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerTrackList.xhtml");  
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();       
@@ -51,7 +51,7 @@ public class ReviewsManagementSelenium {
  
     @Test   
     public void getReviewsPerUserPage(){
-        String title = bundle.getString("ReviewsPerUserTitle");    
+        String title = bundle.getString("reviews_per_user_title");    
         driver.get("http://localhost:8080/CSDMusicStore/management/review/reviewsPerUserList.xhtml");  
         wait.until(
                 ExpectedConditions.and(

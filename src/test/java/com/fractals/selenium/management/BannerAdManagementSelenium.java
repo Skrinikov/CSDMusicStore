@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class BannerAdManagementSelenium {
     
-        private WebDriver driver;
+    private WebDriver driver;
     private SeleniumAjaxHelper helper;
     private WebDriverWait wait;
     private ResourceBundle bundle;
@@ -38,7 +38,7 @@ public class BannerAdManagementSelenium {
     }
     @Test
     public void getBannerAdPage(){
-        String title = bundle.getString("ListBannerAdTitle");
+        String title = bundle.getString("list_banner_ad_title");
         driver.get("http://localhost:8080/CSDMusicStore/management/ads.xhtml");
         wait.until(ExpectedConditions.titleIs(title));
         //driver.quit();

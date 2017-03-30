@@ -9,8 +9,6 @@
 
         <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theUsers.selectedUser}"/>
 
-        <p:outputPanel  rendered="#{not empty theUsers.selectedUser}">
-
             <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
                 <h:outputText value="#{bundle.user_id}:"/>
                 <h:outputText value="#{theUsers.selectedUser.id}"/>
@@ -51,17 +49,11 @@
                     <f:convertNumber maxFractionDigits="2" />
                 </h:outputText>
 
-                <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
+                <p:commandButton class="mgmt_btn" id="editButton" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
             </h:panelGrid>
 
-            <p:panelGrid columns="2" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
+            <p:panelGrid columns="2" rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
-                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
-                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />             
-                </p:commandButton>
-
-                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
-                
                 <p:outputLabel value="#{bundle.user_id}:" for="id" />
                 <p:inputText id="id" value="#{theUsers.selectedUser.id}" disabled="true"/>
                 <p:outputLabel value="#{bundle.user_username}:" for="username" />
@@ -90,24 +82,28 @@
                 <p:inputText id="cellTel" value="#{theUsers.selectedUser.cellTel}" />
                 <p:outputLabel value="#{bundle.user_email}:" for="email" />
                 <p:inputText id="email" value="#{theUsers.selectedUser.email}" required="true" requiredMessage="#{bundle.user_email_required}"/>
-                <p:outputLabel value="#{bundle.is_admin}:" for="isAdmin" />
-                <p:selectBooleanButton id="isAdmin" value="#{theUsers.selectedUser.isAdmin}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"/>
+                <p:outputLabel value="#{bundle.user_is_admin}:" for="isAdmin" />
+                <p:selectBooleanButton id="isAdmin" class="mgmt_btn" value="#{theUsers.selectedUser.isAdmin}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"/>
                 <p:outputLabel value="#{bundle.user_province}:" for="province" />   
-                <p:autoComplete id="province" dropdown="true" value="#{theUsers.selectedUser.province}" var="province" itemLabel="#{province.name}" itemValue="#{province}" completeMethod="#{ProvinceConverter.suggest}" converter="#{ProvinceConverter}"/>
-                <p:outputLabel value="#{bundle.last_genre}:" for="lastGenre" />
+                <p:autoComplete id="province" dropdown="true" value="#{theUsers.selectedUser.province}" var="province" itemLabel="#{province.name}" 
+                                itemValue="#{province}" completeMethod="#{ProvinceConverter.suggest}" converter="#{ProvinceConverter}"/>
+                <p:outputLabel value="#{bundle.user_last_genre}:" for="lastGenre" />
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
-    
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
+                <p:commandButton actionListener="#{theUsers.edit()}" id="saveButton" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
+                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />             
+                </p:commandButton>
+
+                <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
 
             </p:panelGrid>
 
-        </p:outputPanel>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>   
 
-        <p:commandButton  value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+        <p:commandButton  value="#{bundle.mgmt_btn_exit}" id="exitButton" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
     </h:form>  
 </ui:composition>
