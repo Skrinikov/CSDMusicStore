@@ -10,6 +10,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class changes the locale of the current server session. Thus it switches
@@ -23,25 +25,28 @@ import javax.servlet.http.Cookie;
  * @since 2017-03-04
  */
 @Named
-@RequestScoped
-public class LocaleChanger {
+@SessionScoped
+public class LocaleChanger implements Serializable{
 
     private static final Logger log = Logger.getLogger("ReportsBacking.class");
 
     private static final long serialVersionUID = 1l;
 
     private boolean isCookieJustWritten = false;
+    
+    private String currentLocale;
 
     /**
      * Changes the locale of the current session. Thus provoking a language
      * change.
      *
-     * @return
+     * @return null all the time to refresh the page.
      */
     public String changeLocale() {
         FacesContext context = FacesContext.getCurrentInstance();
         String languageCode = getLanguageCode(context);
-
+        
+        currentLocale = languageCode;
         log.info(languageCode);
         writeLocaleCookie(languageCode);
         return setLocale(languageCode, context);
@@ -64,18 +69,21 @@ public class LocaleChanger {
      * locale.
      */
     public void checkCookieLocale() {
-        if (!isCookieJustWritten) {
+        //if (!isCookieJustWritten) {
             isCookieJustWritten = false;
             FacesContext context = FacesContext.getCurrentInstance();
+            
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            
             Map<String, Object> cookieMap = context.getExternalContext().getRequestCookieMap();
 
             Object localeCookie = cookieMap.get("localeCookie");
 
-            if (localeCookie != null) {
+            if (currentLocale != null) {
                 log.info("Cookie Locale");
-                setLocale(((Cookie) localeCookie).getValue(), context);
+                setLocale(currentLocale, context);
             }
-        }
+        //}
 
     }
 
@@ -94,9 +102,11 @@ public class LocaleChanger {
         switch (languageCode) {
             case "en_CA":
                 aLocale = Locale.CANADA;
+                currentLocale = languageCode;
                 break;
             case "fr_CA":
                 aLocale = Locale.CANADA_FRENCH;
+                currentLocale = languageCode;
                 break;
             default:
                 aLocale = Locale.getDefault();
@@ -115,8 +125,21 @@ public class LocaleChanger {
     public void writeLocaleCookie(String code) {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        context.getExternalContext().addResponseCookie("localeCookie", code, null);
+        Cookie c = new Cookie("localeCookie", code);
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        c.setPath(request.getContextPath());
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+        response.addCookie(c);
         isCookieJustWritten = true;
         log.info("cookie written");
     }
+
+    public String getCurrentLocale() {
+        return currentLocale;
+    }
+
+    public void setCurrentLocale(String currentLocale) {
+        this.currentLocale = currentLocale;
+    }
+ 
 }

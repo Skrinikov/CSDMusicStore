@@ -829,6 +829,7 @@ body.navbar-more-show  {
     background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position:center;
     margin-bottom: 0;
 }
 
@@ -1173,3 +1174,4 @@ body.navbar-more-show  {
     color:#CCC;
     text-decoration: none;
 }
+
