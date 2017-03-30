@@ -162,7 +162,7 @@
             <!-- Similar albums -->
             <div class="similar-albums top-buffer" style="background:#1a1a1a;">               
                 <div class="container">
-                    <h1 class="text-center">#{bundle.tracks_similar_albums}</h1>
+                    <h1 class="text-center" style="text-transform: uppercase; color:#FF7F50">#{bundle.tracks_similar_albums}</h1>
                     <div class="row">
                         <ui:repeat var="sAlbum" value="#{albumsCLBack.similarAlbums}">
                             <div class="col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-0" style="padding:40px;">
@@ -170,8 +170,8 @@
                                     <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(sAlbum)}" style="width:100%;"/>
                                     <f:param name="id" value="#{sAlbum.id}"/>
                                 </h:link>
-                                <h4 style="color:#FF7F50;margin-bottom:0;">#{sAlbum.title}</h4>
-                                <h5 style="color:#aaa;">#{sAlbum.artist.name}</h5>
+                                <h4 class="text-center" style="color:#FF7F50;margin-bottom:0;">#{sAlbum.title}</h4>
+                                <h5 class="text-center" style="color:#aaa;">#{sAlbum.artist.name}</h5>
                             </div>
                         </ui:repeat>
                     </div>

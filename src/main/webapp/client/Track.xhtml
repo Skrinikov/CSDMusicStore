@@ -62,13 +62,13 @@
 
                             <p>
                                 <span class="green">#{bundle.tracks_songwriters}: </span>
-                                #{trackCLBack.track.songwriter}
+                                <span class="track-writer">#{trackCLBack.track.songwriter}</span>
                             </p>
 
                             <ui:fragment rendered="#{!trackCLBack.track.isIndividual}">
                                 <p><span class="green">#{bundle.tracks_album}: </span>
                                     <h:link outcome="Album" styleClass="track-album">
-                                        #{trackCLBack.track.album.title}
+                                        <span class="track-album">#{trackCLBack.track.album.title}</span>
                                         <f:param name="id" value="#{trackCLBack.track.album.id}"/>
                                     </h:link>
                                 </p>
@@ -77,15 +77,15 @@
                             <ul class="track-info">                            
                                 <li>
                                     <span>#{bundle.tracks_genre}</span>
-                                    <span>#{trackCLBack.track.genre.name}</span>
+                                    <span class="track-genre">#{trackCLBack.track.genre.name}</span>
                                 </li>
                                 <li>
                                     <span>#{bundle.tracks_release}</span>
-                                    <span>#{trackCLBack.track.album.releaseDate}</span>
+                                    <span class="track-album-date">#{trackCLBack.track.album.releaseDate}</span>
                                 </li>
                                 <li>
                                     <span>#{bundle.tracks_duration}</span>
-                                    <span>#{trackCLBack.track.duration}</span>
+                                    <span class="track-duration">#{trackCLBack.track.duration}</span>
                                 </li>
                             </ul>
                         </div>
@@ -136,30 +136,30 @@
                 </div>
                 </ui:fragment>
 
-                <h:form class="row">
+                <h:form class="row" id="review-track-form">
                     <ui:fragment rendered="#{login.loggedIn and !trackCLBack.isTrackReviewed(trackCLBack.track)}">                                                   
                         <div class="leave-review col-xs-12">
                             <h1 class="text-center" style="text-transform: uppercase; color:#00c49e;">#{bundle.tracks_leave_review}</h1>
                             <div>
                                 <span>#{bundle.tracks_rating} </span>
                                 <div class="rating-stars-container" >
-                                    <span class="fa fa-star-o rating-star"></span>
-                                    <span class="fa fa-star-o rating-star"></span>
-                                    <span class="fa fa-star-o rating-star"></span>
-                                    <span class="fa fa-star-o rating-star"></span>
-                                    <span class="fa fa-star-o rating-star"></span>
+                                    <span class="fa fa-star-o rating-star 1"></span>
+                                    <span class="fa fa-star-o rating-star 2"></span>
+                                    <span class="fa fa-star-o rating-star 3"></span>
+                                    <span class="fa fa-star-o rating-star 4"></span>
+                                    <span class="fa fa-star-o rating-star 5"></span>
                                 </div>
-                                <h:inputHidden binding="#{rating}" required="true">
+                                <h:inputHidden binding="#{rating}" required="true" id="review-rating">
                                     <f:validateLongRange minimum="1" maximum="5" />
                                 </h:inputHidden>
                             </div>
 
-                            <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" required="true">
+                            <p:inputTextarea binding="#{reviewText}" styleClass="review-text-area" id="review-text" required="true">
                                 <f:validateLength minimum="1" maximum="2000"/>
                             </p:inputTextarea>
 
                             <h:commandLink value="#{bundle.tracks_submit}" style="margin-top:10px;" styleClass="hvr-rectangle-out custom-price-buttons text-center" 
-                                           action="#{albumsCLBack.addReview(trackCLBack.trackId, reviewText.value, rating.value)}"/>
+                                           action="#{albumsCLBack.addReview(trackCLBack.trackId, reviewText.value, rating.value)}" id="review-submit"/>
                         </div>                                                              
 
                     </ui:fragment>
@@ -179,10 +179,11 @@
                         <ui:repeat var="relatedTrack" value="#{trackCLBack.similarTracks}" >
                             <div class="col-md-4 col-xs-12 text-center">
                                 <h:link outcome="Track">
-                                    <p:graphicImage name="images/covers/#{relatedTrack.coverFile}"  style="width:100%"/>
-                                    <h4 style="color:#aaa;">#{relatedTrack.title}</h4>
+                                    <p:graphicImage name="images/covers/#{relatedTrack.coverFile}"  style="width:80%"/>
+                                    <h4 style="color:#01997b;">#{relatedTrack.title}</h4>
                                     <f:param name="id" value="#{relatedTrack.id}" />
                                 </h:link>
+                                <h5 class="text-center" style="color:#aaa;">#{relatedTrack.album.artist.name}</h5>
                             </div>
                         </ui:repeat>
                     </div>
@@ -192,10 +193,11 @@
                         <ui:repeat var="relatedAlbum" value="#{trackCLBack.relatedAlbums}" >
                             <div class="col-md-4 col-xs-12 text-center">
                                 <h:link outcome="Album">
-                                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(relatedAlbum)}"  style="width:100%"/>
-                                    <h4 style="color:#aaa;">#{relatedAlbum.title}</h4>
+                                    <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover(relatedAlbum)}"  style="width:80%"/>
+                                    <h4 style="color:#01997b;">#{relatedAlbum.title}</h4>
                                     <f:param name="id" value="#{relatedAlbum.id}" />
                                 </h:link>
+                                <h5 class="text-center" style="color:#aaa;">#{relatedAlbum.artist.name}</h5>
                             </div>
                         </ui:repeat>
                     </div>

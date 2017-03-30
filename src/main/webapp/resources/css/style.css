@@ -1022,9 +1022,12 @@ body.navbar-more-show  {
     width:100%;
     max-width:100%;
     resize:vertical;
-    color:#222;
+    color:black;
     background: white;
-    
+}
+
+#review-track-form .ui-state-default {
+    color:black;
 }
 
 @media screen and (max-width: 767px){
