@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ReviewsPerTrackTitle}"/>
+        <h:outputText value="#{bundle.reviews_per_track_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -18,7 +18,7 @@
 
         <h:form id="form">           
 
-            <h:outputText escape="false" value="#{bundle.ListTracksEmpty}" rendered="#{theTracks.isEmpty()}"/>
+            <h:outputText escape="false" value="#{bundle.list_track_empty}" rendered="#{theTracks.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
 
@@ -32,8 +32,8 @@
                     <p:ajax event="rowSelect" update="form" />
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListTrackTitle}"/>
-                        <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                        <h:outputText value="#{bundle.list_track_title}"/>
+                        <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
 

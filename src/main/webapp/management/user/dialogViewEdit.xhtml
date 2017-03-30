@@ -40,14 +40,14 @@
                 <h:outputText value="#{theUsers.selectedUser.cellTel}" />
                 <h:outputText value="#{bundle.user_email}:"/>
                 <h:outputText value="#{theUsers.selectedUser.email}" />
-                <h:outputText value="#{bundle.is_admin}:"/>
+                <h:outputText value="#{bundle.user_is_admin}:"/>
                 <h:outputText value="#{theUsers.selectedUser.isAdmin}"/>
                 <h:outputText value="#{bundle.user_province}:"/>
                 <h:outputText value="#{theUsers.selectedUser.province}" />               
-                <h:outputText value="#{bundle.last_genre}:"/>
+                <h:outputText value="#{bundle.user_last_genre}:"/>
                 <h:outputText value="#{theUsers.selectedUser.lastGenre}" />
                 <h:outputText value="#{bundle.user_total_sales}:"/>
-                <h:outputText value="#{theUsers.getTotalSales()}"">
+                <h:outputText value="#{theUsers.getTotalSales()}">
                     <f:convertNumber maxFractionDigits="2" />
                 </h:outputText>
 

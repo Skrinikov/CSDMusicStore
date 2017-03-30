@@ -9,7 +9,7 @@
 
         <h:panelGrid columns="2">
             <h:outputLabel value="#{bundle.genre_name}:" for="name"/>
-            <h:inputText id="name" value="#{theGenres.createdGenre.name}" required="true" requiredMessage=#{bundle.genre_name_required}/>
+            <h:inputText id="name" value="#{theGenres.createdGenre.name}" required="true" requiredMessage="#{bundle.genre_name_required}"/>
 
             <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_create}"  actionListener="#{theGenres.create()}" update="form,dialogForm,dialogForm2"/>
             <p:commandButton class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogCreate').hide()"/>

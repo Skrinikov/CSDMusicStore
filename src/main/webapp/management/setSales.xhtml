@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ListSetSalesTitle}"/>
+        <h:outputText value="#{bundle.list_set_sale_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -24,56 +24,60 @@
                          rowKey="#{item.id}" widgetVar="albumTable"
                          draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
 
-                <p:column width="3%" headerText="#{bundle.ListAlbumTitle_id}" >
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.list_album_title}"/>
+                </f:facet>s
+                
+                <p:column width="3%" headerText="#{bundle.album_id}" >
                     <h:outputText value="#{item.id}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_title}" filterBy="#{item.title}">
+                <p:column headerText="#{bundle.album_title}" filterBy="#{item.title}">
                     <h:outputText value="#{item.title}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_releaseDate}" >
+                <p:column headerText="#{bundle.album_release_date}" >
                     <h:outputText value="#{item.releaseDate}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_recordLabel}">
+                <p:column headerText="#{bundle.album_record_label}">
                     <h:outputText value="#{item.recordLabel}"/>
                 </p:column>
-                <p:column headerText="#{bundle.ListAlbumTitle_numTracks}" >
+                <p:column headerText="#{bundle.album_num_tracks}" >
                     <h:outputText value="#{item.numTracks}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_createdAt}">
+                <p:column headerText="#{bundle.album_created_at}">
                     <h:outputText value="#{item.createdAt}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_costPrice}">
+                <p:column headerText="#{bundle.album_cost_price}">
                     <h:outputText value="#{item.costPrice}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_listPrice}">
+                <p:column headerText="#{bundle.album_list_price}">
                     <h:outputText value="#{item.listPrice}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_salePrice}">
+                <p:column headerText="#{bundle.album_sale_price}">
                     <h:outputText value="#{item.salePrice}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_removedAt}" filterStyle="display:none" filterBy="#{item.removedAt}">
+                <p:column headerText="#{bundle.album_removed_at}" filterStyle="display:none" filterBy="#{item.removedAt}">
                     <h:outputText value="#{item.removedAt}"/>
                 </p:column>
 
-                <p:column headerText="#{bundle.ListAlbumTitle_available}" filterStyle="display:none" filterBy="#{item.available}">
+                <p:column headerText="#{bundle.album_available}" filterStyle="display:none" filterBy="#{item.available}">
                     <h:outputText value="#{item.available}"/>
                 </p:column>
 
-                <p:column headerText="Total Sales" >
+                <p:column headerText="#{bundle.album_total_sales}" >
                     <h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
                         <f:convertNumber maxFractionDigits="2" /> 
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Set Sale Price">
+                <p:column headerText="#{bundle.set_sale_column}">
                     <p:commandButton id="columnButtonAlbum" class="mgmt_btn" onclick="PF('setSaleAlbum').show()" update="dialogForm" icon="fa fa-fw fa-edit">
                         <f:setPropertyActionListener value="#{item}" target="#{theAlbums.selectedAlbum}" />
                     </p:commandButton>
@@ -90,85 +94,85 @@
                          draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                 <f:facet name="header">
-                    <h:outputText value="#{bundle.ListTrackTitle}"/>
+                    <h:outputText value="#{bundle.list_track_title}"/>
                 </f:facet>
 
-                <p:column width="5%" headerText="Cover" filterStyle="display:none" filterBy="">
+                <p:column width="5%" headerText="#{bundle.track_cover_file}" filterStyle="display:none" filterBy="">
                     <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
                     <p:tooltip for="content" trackMouse="true">
                         <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
                     </p:tooltip>
                 </p:column> 
 
-                <p:column headerText="Id" filterStyle="display:none" filterBy="#{item.id}">
+                <p:column headerText="#{bundle.track_id}" filterStyle="display:none" filterBy="#{item.id}">
                     <h:outputText value="#{item.id}"/>
                 </p:column>
 
-                <p:column headerText="Title" filterBy="#{item.title}">
+                <p:column headerText="#{bundle.track_title}" filterBy="#{item.title}">
                     <h:outputText value="#{item.title}"/>
                 </p:column>
 
-                <p:column headerText="Songwriter" filterBy="#{item.songwriter}">
+                <p:column headerText="#{bundle.track_songwriter}" filterBy="#{item.songwriter}">
                     <h:outputText value="#{item.songwriter}"/>
                 </p:column>
 
-                <p:column headerText="Duration" filterStyle="display:none" filterBy="#{item.duration}">
+                <p:column headerText="#{bundle.track_duration}" filterStyle="display:none" filterBy="#{item.duration}">
                     <h:outputText value="#{item.duration}"/>
                 </p:column>
 
-                <p:column headerText="AlbumNum" filterStyle="display:none" filterBy="#{item.albumNum}">
+                <p:column headerText="#{bundle.track_album_num}" filterStyle="display:none" filterBy="#{item.albumNum}">
                     <h:outputText value="#{item.albumNum}"/>
                 </p:column>
 
-                <p:column headerText="CreatedAt" filterStyle="display:none" filterBy="#{item.createdAt}">
+                <p:column headerText="#{bundle.track_created_at}" filterStyle="display:none" filterBy="#{item.createdAt}">
                     <h:outputText value="#{item.createdAt}"/>
                 </p:column>
 
-                <p:column headerText="CostPrice" filterStyle="display:none" filterBy="#{item.costPrice}">
+                <p:column headerText="#{bundle.track_cost_price}" filterStyle="display:none" filterBy="#{item.costPrice}">
                     <h:outputText value="#{item.costPrice}"/>
                 </p:column>
 
-                <p:column headerText="ListPrice" filterStyle="display:none" filterBy="#{item.listPrice}">
+                <p:column headerText="#{bundle.track_list_price}" filterStyle="display:none" filterBy="#{item.listPrice}">
                     <h:outputText value="#{item.listPrice}"/>
                 </p:column>
 
-                <p:column headerText="SalePrice" filterStyle="display:none" filterBy="#{item.salePrice}">
+                <p:column headerText="#{bundle.track_sale_price}" filterStyle="display:none" filterBy="#{item.salePrice}">
                     <h:outputText value="#{item.salePrice}"/>
                 </p:column>
 
-                <p:column headerText="RemovedAt" filterStyle="display:none" filterBy="#{item.removedAt}">
+                <p:column headerText="#{bundle.track_removed_at}" filterStyle="display:none" filterBy="#{item.removedAt}">
                     <h:outputText value="#{item.removedAt}"/>
                 </p:column>
 
-                <p:column headerText="Available" filterStyle="display:none" filterBy="#{item.available}">
+                <p:column headerText="#{bundle.track_available}" filterStyle="display:none" filterBy="#{item.available}">
                     <h:outputText value="#{item.available}"/>
                 </p:column>
 
-                <p:column headerText="IsIndividual" filterStyle="display:none" filterBy="#{item.isIndividual}">
+                <p:column headerText="#{bundle.track_is_individual}" filterStyle="display:none" filterBy="#{item.isIndividual}">
                     <h:outputText value="#{item.isIndividual}"/>
                 </p:column>
 
-                <p:column headerText="Album" filterBy="#{item.album.title}">
+                <p:column headerText="#{bundle.track_album}" filterBy="#{item.album.title}">
                     <h:outputText value="#{item.album.title}"/>
                 </p:column>
 
-                <p:column filterBy="#{item.genre.name}" headerText="Genre" filterMatchMode="exact">
+                <p:column filterBy="#{item.genre.name}" headerText="#{bundle.track_genre}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('trackTable').filter()" >
-                            <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="#{bundle.filter_genre_label}" itemValue="#{null}" noSelectionOption="true" />
                             <f:selectItems value="#{theGenres.genres}" />
                         </p:selectOneMenu>
                     </f:facet>
                     <h:outputText value="#{item.genre.name}" />
                 </p:column>
 
-                <p:column headerText="Total Sales" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
+                <p:column headerText="#{bundle.track_total_sales}" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
                     <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
                         <f:convertNumber maxFractionDigits="2" />
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Set Sale Price">
+                <p:column headerText="#{bundle.set_sale_price}">
                     <p:commandButton class="mgmt_btn" onclick="PF('setSaleTrack').show()" update="dialogForm2" icon="fa fa-fw fa-edit"> 
                         <f:setPropertyActionListener value="#{item}" target="#{theTracks.selectedTrack}" />   
                     </p:commandButton>
@@ -177,27 +181,26 @@
             </p:dataTable>
         </h:form>
 
-
-        <p:dialog header="Set Sale Album" widgetVar="setSaleAlbum">
+        <p:dialog header="#{bundle.set_sale_album}" widgetVar="setSaleAlbum">
             <h:form id="dialogForm">
-                <p:inputMask id="saleAlbumInput" value="#{theAlbums.selectedAlbum.salePrice}" mask="99.99" required="true" requiredMessage="#{bundle.SpecifySaleValue}" validatorMessage="#{bundle.SaleValueSuperior}">
+                <p:inputMask id="saleAlbumInput" value="#{theAlbums.selectedAlbum.salePrice}" mask="99.99" required="true" requiredMessage="#{bundle.specify_sale_value}" validatorMessage="#{bundle.sale_value_superior}">
                     <f:validateLongRange maximum="#{theAlbums.selectedAlbum.listPrice}"/>
                 </p:inputMask>
 
-                <p:commandButton id="dialogButtonSetAlbum" oncomplete="hideDialogOnSuccess(args,'setSaleAlbum','The Album #{theAlbums.selectedAlbum.title} has been put on sale')"  actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="Set Sale" />
-                <p:commandButton id="exitAlbum" value="Exit" class="mgmt_btn" onclick="PF('setSaleAlbum').hide()"/>
+                <p:commandButton id="dialogButtonSetAlbum" oncomplete="hideDialogOnSuccess(args,'setSaleAlbum','#{theAlbums.selectedAlbum.title}')"  actionListener="#{theAlbums.edit()}" update="form" class="mgmt_btn" value="#{bundle.set_sale_button}" />
+                <p:commandButton id="exitAlbum" value="#{bundle.mgmt_btn_exit}" class="mgmt_btn" onclick="PF('setSaleAlbum').hide()"/>
 
             </h:form>
         </p:dialog>
 
-        <p:dialog header="Set Sale Track" widgetVar="setSaleTrack" >         
+        <p:dialog header="#{bundle.set_sale_track}" widgetVar="setSaleTrack" >         
             <h:form id="dialogForm2">
-                <p:inputMask id="saleTrackInput" value="#{theTracks.selectedTrack.salePrice}" mask="99.99" required="true" validatorMessage="#{bundle.SaleValueSuperior}" requiredMessage="#{bundle.SpecifySaleValue}">
+                <p:inputMask id="saleTrackInput" value="#{theTracks.selectedTrack.salePrice}" mask="99.99" required="true" validatorMessage="#{bundle.sale_value_superior}" requiredMessage="#{bundle.specify_sale_value}">
                     <f:validateLongRange maximum="#{theTracks.selectedTrack.listPrice}" />
                 </p:inputMask>
 
-                <p:commandButton id="setTrack" oncomplete="hideDialogOnSuccess(args,'setSaleTrack','The Track #{theTracks.selectedTrack.title} has been put on sale')" actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="Set Sale"/>
-                <p:commandButton id="exitTrack" value="Exit" class="mgmt_btn" onclick="PF('setSaleTrack').hide()"/>
+                <p:commandButton id="setTrack" oncomplete="hideDialogOnSuccess(args,'setSaleTrack','#{theTracks.selectedTrack.title}')" actionListener="#{theTracks.edit()}" update="form" class="mgmt_btn" value="#{bundle.set_sale_button}"/>
+                <p:commandButton id="exitTrack" value="#{bundle.mgmt_btn_exit}" class="mgmt_btn" onclick="PF('setSaleTrack').hide()"/>
 
             </h:form>
         </p:dialog>
@@ -206,8 +209,8 @@
             function hideDialogOnSuccess(args, dialogWidgetVar, text) {
                 if (args &amp;&amp; !args.validationFailed){
                     PF(dialogWidgetVar).hide(); 
-                    PF('growlTag').renderMessage({"summary":"#{bundle.SalePriceChanged}",
-                             "detail":text,"severity":"info"});
+                    PF('growlTag').renderMessage({"summary":"#{bundle.sale_price_changed}",
+                             "detail":text + " #{bundle.set_sale_info}","severity":"info"});
                 }
             }
         </script>

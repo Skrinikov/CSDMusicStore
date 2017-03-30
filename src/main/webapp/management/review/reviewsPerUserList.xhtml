@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ReviewsPerUserTitle}"/>
+        <h:outputText value="#{bundle.reviews_per_user_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -26,7 +26,7 @@
                          draggableColumns="true" resizableColumns="true" >
 
                 <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUserTitle}"/>
+                    <h:outputText value="#{bundle.list_user_title}"/>
                     <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
