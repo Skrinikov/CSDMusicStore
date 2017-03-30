@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -117,7 +118,7 @@ public class UserManagementTestSelenium {
                 driver.findElement(By.xpath
         ("//*[@id=\"form:growl_container\"]/div/div/div[2]/span")).getText();
         
-        assertThat(error.equals("The Title field is required."));
+        assertThat(error.equals(ResourceBundle.getBundle("bundle").getString("user_title_required")));
     }
     
     
@@ -133,22 +134,22 @@ public class UserManagementTestSelenium {
     
     private void clickPreviewBtn()
     {
-       driver.findElement(By.id("form:tbl:j_idt91")).click();    
+       driver.findElement(By.id("form:tbl:previewButton")).click();    
        wait(2000);  
     }
     
     private void clickEdit()
     {
-        driver.findElement(By.id("dialogForm:j_idt132")).click();
+        driver.findElement(By.id("dialogForm:editButton")).click();
         wait(2000);   
     }
  
     private void clickSaveAndConfirm()
     {
         //click save
-        driver.findElement(By.id("dialogForm:j_idt134")).click();
+        driver.findElement(By.id("dialogForm:saveButton")).click();
         //click confirm
-        driver.findElement(By.id("dialogForm:j_idt154")).click();
+        driver.findElement(By.id("dialogForm:j_idt148")).click();
         //sah.retryFindClick(By.id("dialogForm:j_idt154"));
         wait(2000);
     }

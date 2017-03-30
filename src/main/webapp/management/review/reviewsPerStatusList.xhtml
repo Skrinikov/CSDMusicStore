@@ -7,7 +7,8 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ApprovedReviewsTitle}"/>
+        <h:outputText value="#{bundle.reviews_per_status_title}"/>
+        
     </ui:define>
     
     <ui:define name="placeholder-css">
@@ -15,49 +16,58 @@
     </ui:define>
 
     <ui:define name="content">
+                    
 
-        <h:outputText escape="false" value="#{bundle.ListApprovedReviewsEmpty}" rendered="#{theReviews.getApprovedReviews().size() == 0}"/>
-        <h:panelGroup rendered="#{theReviews.getApprovedReviews().size() != 0}">    
+        <h:outputText escape="false" value="#{bundle.ListReviewsEmpty}" rendered="#{theReviews.getReviews().size() == 0}"/>
+        <h:panelGroup rendered="#{theReviews.getReviews().size() != 0}">    
             <h:form id="form">
+                
+                <h:outputLabel value="#{bundle.review_select_status}"/>
+                <p:selectOneButton value="#{theReviews.selection}" class="mgmt_btn" id="selectButton">
+                    <f:selectItem itemLabel="#{bundle.review_approved}" itemValue="APPROVED" />
+                    <f:selectItem itemLabel="#{bundle.review_disapproved}" itemValue="DISAPPROVED" />
+                    <f:selectItem itemLabel="#{bundle.review_pending}" itemValue="PENDING" />
+                    <p:ajax event="change" update="form" />
+                </p:selectOneButton>
 
-                <p:dataTable id="tbl" value="#{theReviews.getApprovedReviews()}" var="item" 
+
+                <p:dataTable id="tbl" value="#{theReviews.selectedReviews()}" var="item" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedReview}" 
-                             rowKey="#{item.id}" rowStyleClass="mgmt_table_row"
-                             draggableColumns="true" resizableColumns="true" reflow="true" >
+                             rowKey="#{item.id}" rowStyleClass="mgmt_table_row" widgetVar="reviewsTable"
+                             draggableColumns="true" resizableColumns="true" reflow="true" rendered="#{theReviews.selection != null}">
 
-                    <p:column headerText="Id">
+                    <p:column headerText="#{bundle.review_id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
                    
-                    <p:column headerText="Rating">
+                    <p:column headerText="#{bundle.review_rating}">
                         <h:outputText value="#{item.rating}"/>
                     </p:column>
                     
-                    <p:column headerText="ReviewDate">
+                    <p:column headerText="#{bundle.review_date}">
                         <h:outputText value="#{item.reviewDate}"/>
                     </p:column>
                     
-                    <p:column headerText="Text">
+                    <p:column headerText="#{bundle.review_text}">
                         <h:outputText value="#{item.text}"/>
                     </p:column>
                     
-                    <p:column headerText="Status">
+                    <p:column headerText="#{bundle.review_status}">
                         <h:outputText value="#{item.status()}"/>
                     </p:column>
-                    
-                    <p:column headerText="User">
+
+                    <p:column headerText="#{bundle.review_user}">
                         <h:outputText value="#{item.user.username}"/>
                     </p:column>
                     
-                    <p:column headerText="Track">
+                    <p:column headerText="#{bundle.review_track}">
                         <h:outputText value="#{item.track.title}"/>
-
                     </p:column>            
                     
                     <f:facet name="footer" class="mgmt_table_footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" id="previewButton" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
                     </f:facet>  
 
                 </p:dataTable>
@@ -66,7 +76,7 @@
 
         </h:panelGroup>
         
-        <p:dialog header="Review Info" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="#{bundle.review_info}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/review/dialogViewEdit.xhtml" />
         </p:dialog>
 

@@ -10,7 +10,7 @@
         <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+        <h:outputText value="#{bundle.list_user_title}"/>
     </ui:define>
 
     <ui:define name="content">
@@ -18,7 +18,7 @@
         <h:form id="form">
 
             <p:growl id="growl" showDetail="true" sticky="true" /> 
-            <h:outputText escape="false" value="#{bundle.ListUserEmpty}" rendered="#{theUsers.isEmpty()}"/>
+            <h:outputText escape="false" value="#{bundle.list_user_empty}" rendered="#{theUsers.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
                 <p:dataTable  id="tbl" value="#{theUsers.users}" var="item" 
@@ -26,96 +26,97 @@
                               paginator="true" rows="10" style="margin-bottom:20px"
                               selectionMode="single" selection="#{theUsers.selectedUser}" 
                               rowKey="#{item.id}" reflow="true"
-                              draggableColumns="true" resizableColumns="true"  rowStyleClass="mgmt_table_row" >
-
+                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
+                    
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListUserTitle}"/>
+                        <h:outputText value="#{bundle.list_user_title}"/>
                         <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right" class="mgmt_btn" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
 
-                    <p:column headerText="Id">
+                    <p:column headerText="#{bundle.user_id}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="Username">
+                    <p:column headerText="#{bundle.user_username}">
                         <h:outputText value="#{item.username}"/>
                     </p:column>
 
-                    <p:column headerText="Title">
+                    <p:column headerText="#{bundle.user_title}">
                         <h:outputText value="#{item.title}"/>
                     </p:column>
 
-                    <p:column headerText="FirstName">
+                    <p:column headerText="#{bundle.user_first_name}">
                         <h:outputText value="#{item.firstName}"/>
                     </p:column>
 
-                    <p:column headerText="LastName">
+                    <p:column headerText="#{bundle.user_last_name}">
                         <h:outputText value="#{item.lastName}"/>
                     </p:column>
 
-                    <p:column headerText="Company">
+                    <p:column headerText="#{bundle.user_company}">
                         <h:outputText value="#{item.company}"/>
                     </p:column>
 
-                    <p:column headerText="Address1">
+                    <p:column headerText="#{bundle.user_address_1}">
                         <h:outputText value="#{item.address1}"/>
                     </p:column>
 
-                    <p:column headerText="Address2">
+                    <p:column headerText="#{bundle.user_address_2}">
                         <h:outputText value="#{item.address2}"/>
                     </p:column>
 
-                    <p:column headerText="City">
+                    <p:column headerText="#{bundle.user_city}">
                         <h:outputText value="#{item.city}"/>
                     </p:column>
 
-                    <p:column headerText="Country">
+                    <p:column headerText="#{bundle.user_country}">
                         <h:outputText value="#{item.country}"/>
                     </p:column>
 
-                    <p:column headerText="PostalCode">
+                    <p:column headerText="#{bundle.user_postal_code}">
                         <h:outputText value="#{item.postalCode}"/>
                     </p:column>
 
-                    <p:column headerText="HomeTel">
+                    <p:column headerText="#{bundle.user_home_tel}">
                         <h:outputText value="#{item.homeTel}"/>
                     </p:column>
 
-                    <p:column headerText="CellTel">
+                    <p:column headerText="#{bundle.user_cell_tel}">
                         <h:outputText value="#{item.cellTel}"/>
                     </p:column>
 
-                    <p:column headerText="Email">
+                    <p:column headerText="#{bundle.user_email}">
                         <h:outputText value="#{item.email}"/>
                     </p:column>
 
-                    <p:column headerText="isAdmin">
+                    <p:column headerText="#{bundle.user_is_admin}">
                         <h:outputText value="#{item.isAdmin}"/>
                     </p:column>
 
-                    <p:column headerText="Province">
+                    <p:column headerText="#{bundle.user_province}">
                         <h:outputText value="#{item.province}"/>
                     </p:column>
 
-                    <p:column headerText="LastGenre">
+                    <p:column headerText="#{bundle.user_last_genre}">
                         <h:outputText value="#{item.lastGenre}"/>
                     </p:column>
-                    <p:column headerText="Total Sales">
+                    
+                    <p:column headerText="#{bundle.user_total_sales}">
                         <h:outputText value="#{theUsers.getTotalSales(item)}" >
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
+                        <p:commandButton value="#{bundle.mgmt_btn_preview}" id="previewButton" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />                      
                     </f:facet> 
                     
                 </p:dataTable>
             </h:panelGroup>
         </h:form>
 
-        <p:dialog id="popupBox" header="Album Info" widgetVar="dialogViewEdit" dynamic="true" position="top">
+        <p:dialog header="#{bundle.view_edit_user}" widgetVar="dialogViewEdit" dynamic="true" position="top">
             <ui:include src="/management/user/dialogViewEdit.xhtml" />
         </p:dialog>
         

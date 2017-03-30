@@ -7,80 +7,80 @@
 
     <h:form id="dialogForm">
         <p:outputPanel id="testViewEdit">
-            <h:panelGroup  rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">     
+            <h:panelGroup rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">     
                           
                 <p:graphicImage id="content" name="/images/covers/#{theTracks.selectedTrack.coverFile}" />          
                     
                 <div class="form-group row">
                     <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.id}" title="Id" class="col-sm-4" />
+                    <h:outputText value="#{theTracks.selectedTrack.id}" class="col-sm-4" />
                 </div>
                 <div class="form-group row">
-                    <h:outputText value="Title:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.title}" title="Title" class="col-sm-4"/>
+                    <h:outputText value="#{bundle.track_title}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.title}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <h:outputText value="Songwriter:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.songwriter}" title="Songwriter" class="col-sm-4"/>
+                    <h:outputText value="#{bundle.track_songwriter}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.songwriter}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <h:outputText value="Duration:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.duration}" title="Duration" class="col-sm-4" />
+                    <h:outputText value="#{bundle.track_duration}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.duration}" class="col-sm-4" />
                 </div>
                 <div class="form-group row">
-                    <h:outputText value="AlbumNum:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.albumNum}" title="AlbumNum" class="col-sm-4"/>
+                    <h:outputText value="#{bundle.track_album_num}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.albumNum}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <h:outputText value="CreatedAt:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.createdAt}" title="CreatedAt" class="col-sm-4" />
-                </div>
-
-                <div class="form-group row">
-                    <h:outputText value="CostPrice:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.costPrice}" title="CostPrice" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="ListPrice:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.listPrice}" title="ListPrice" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="SalePrice:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.salePrice}" title="SalePrice" class="col-sm-4"  />
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="RemovedAt:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.removedAt}" title="RemovedAt" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="Available:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.available}" title="Available" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="IsIndividual:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.isIndividual}" title="IsIndividual" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="Album:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.album}" title="Album" class="col-sm-4"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="Genre:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.selectedTrack.genre}" title="Genre" class="col-sm-4"/>
+                    <h:outputText value="#{bundle.track_created_at}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.createdAt}" class="col-sm-4" />
                 </div>
 
                 <div class="form-group row">
-                    <h:outputText value="Artists:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{bundle.track_cost_price}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.costPrice}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_list_price}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.listPrice}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_sale_price}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.salePrice}" class="col-sm-4"  />
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_removed_at}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.removedAt}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_available}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.available}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_is_individual}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.isIndividual}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_album}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.album}" class="col-sm-4"/>
+                </div>
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_genre}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.selectedTrack.genre}" class="col-sm-4"/>
+                </div>
+
+                <div class="form-group row">
+                    <h:outputText value="#{bundle.track_artists}:" class="control-label mgmt_detail_label col-sm-3"/>
                     <p:dataTable var="item" value="#{theTracks.selectedTrack.artists}" class="col-sm-4">
-                        <p:column headerText="Name">
+                        <p:column headerText="#{bundle.artist_name}">
                             <h:outputText value="#{item.name}" />
                         </p:column>
                     </p:dataTable>       
                 </div>
 
                 <div class="form-group row">
-                    <h:outputText value="Total Sales :" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.getTotalSales()}" title="Total Sales" class="col-sm-4">
+                    <h:outputText value="#{bundle.track_total_sales}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.getTotalSales()}" class="col-sm-4">
                         <f:convertNumber maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
@@ -88,109 +88,98 @@
                 <p:commandButton id="edit" actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 
                 <p:commandButton id="delete" actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="dialogForm,form">
-                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confimation_text}" icon="ui-icon-alert" />
                 </p:commandButton>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
 
             </h:panelGroup>
 
             <h:panelGroup rendered="#{theTracks.editable and not empty theTracks.selectedTrack}">
                 <div class="form-group row">
-                    <p:outputLabel value="Id:" for="id" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="id" value="#{theTracks.selectedTrack.id}" title="Id" disabled="true" required="true" requiredMessage="The Id field is required." class="col-sm-4"/>
-
-                </div>
-
-                <div class="form-group row">
-                    <p:outputLabel value="Songwriter:" for="songwriter" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="songwriter" value="#{theTracks.selectedTrack.songwriter}" title="Songwriter" required="true" requiredMessage="The Songwriter field is required." class="col-sm-4"/>
+                    <p:outputLabel value="#{bundle.track_id}:" for="id" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="id" value="#{theTracks.selectedTrack.id}" disabled="true" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="Duration:" for="duration" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="duration" value="#{theTracks.selectedTrack.duration}" title="Duration" required="true" requiredMessage="The Duration field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_title}:" for="title" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="title" value="#{theTracks.selectedTrack.title}" required="true" requiredMessage="#{bundle.track_title_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-
-                    <p:outputLabel value="AlbumNum:" for="albumNum" class="control-label mgmt_detail_label col-sm-3" />
-                    <p:inputText id="albumNum" value="#{theTracks.selectedTrack.albumNum}" title="AlbumNum" required="true" requiredMessage="The AlbumNum field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_songwriter}:" for="songwriter" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="songwriter" value="#{theTracks.selectedTrack.songwriter}" required="true" requiredMessage="#{bundle.track_songwriter_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="CoverFile:" for="coverFile" class="control-label mgmt_detail_label col-sm-3" />
-                    <p:inputText id="coverFile" value="#{theTracks.selectedTrack.coverFile}" title="CoverFile" required="true" requiredMessage="The CoverFile field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_duration}:" for="duration" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="duration" value="#{theTracks.selectedTrack.duration}" required="true" requiredMessage="#{bundle.track_duraction_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="CreatedAt:" for="createdAt" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="createdAt" value="#{theTracks.selectedTrack.createdAt}" disabled="true" title="CreatedAt" required="true" requiredMessage="The CreatedAt field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_album_num}:" for="albumNum" class="control-label mgmt_detail_label col-sm-3" />
+                    <p:inputText id="albumNum" value="#{theTracks.selectedTrack.albumNum}" required="true" requiredMessage="#{bundle.track_album_num_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="CostPrice:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="costPrice" value="#{theTracks.selectedTrack.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_cover_file}:" for="coverFile" class="control-label mgmt_detail_label col-sm-3" />
+                    <p:inputText id="coverFile" value="#{theTracks.selectedTrack.coverFile}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="ListPrice:" for="listPrice" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="listPrice" value="#{theTracks.selectedTrack.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required." class="col-sm-4"/>
-
-                </div>
-
-                <div class="form-group row">
-                    <p:outputLabel value="SalePrice:" for="salePrice" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="salePrice" value="#{theTracks.selectedTrack.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required." class="col-sm-4"/>
-
+                    <p:outputLabel value="#{bundle.track_created_at}:" for="createdAt" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="createdAt" value="#{theTracks.selectedTrack.createdAt}" disabled="true" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="RemovedAt:" for="removedAt" class="control-label mgmt_detail_label col-sm-3" />
-                    <p:inputText id="removedAt" value="#{theTracks.selectedTrack.removedAt}" disabled="true" title="RemovedAt" class="col-sm-4"/> 
-
+                    <p:outputLabel value="#{bundle.track.cost_price}:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="costPrice" value="#{theTracks.selectedTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="Available:" for="available" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:selectBooleanButton id="available" value="#{theTracks.selectedTrack.available}" class="mgmt_btn col-sm-4" onLabel="Yes" offLabel="No" />             
-
+                    <p:outputLabel value="#{bundle.tack_list_price}:" for="listPrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="listPrice" value="#{theTracks.selectedTrack.listPrice}" required="true" requiredMessage="#{bundle.track_list_price_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="IsIndividual:" for="isIndividual" class="control-label mgmt_detail_label col-sm-3" />
-                    <p:selectBooleanButton id="isIndividual" value="#{theTracks.selectedTrack.isIndividual}"  class="mgmt_btn col-sm-4" onLabel="Yes" offLabel="No"  />              
-
+                    <p:outputLabel value="#{bundle.track_sale_price}:" for="salePrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:inputText id="salePrice" value="#{theTracks.selectedTrack.salePrice}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="Genre:" for="genre" class="control-label mgmt_detail_label col-sm-3"/>        
+                    <p:outputLabel value="#{bundle.track_removed_at}:" for="removedAt" class="control-label mgmt_detail_label col-sm-3" />
+                    <p:inputText id="removedAt" value="#{theTracks.selectedTrack.removedAt}" disabled="true" class="col-sm-4"/> 
+                </div>
+                <div class="form-group row">
+                    <p:outputLabel value="#{bundle.track_available}:" for="available" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:selectBooleanButton id="available" value="#{theTracks.selectedTrack.available}" class="mgmt_btn col-sm-4" onLabel="#{bundle.yes}" offLabel="#{bundle.no}" />             
+                </div>
+                <div class="form-group row">
+                    <p:outputLabel value="#{bundle.track_is_individual}:" for="isIndividual" class="control-label mgmt_detail_label col-sm-3" />
+                    <p:selectBooleanButton id="isIndividual" value="#{theTracks.selectedTrack.isIndividual}"  class="mgmt_btn col-sm-4" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"  />              
+                </div>
+                <div class="form-group row">
+                    <p:outputLabel value="#{bundle.track_genre}:" for="genre" class="control-label mgmt_detail_label col-sm-3"/>        
                     <p:autoComplete id="genre" dropdown="true" value="#{theTracks.selectedTrack.genre}" var="genre" itemLabel="#{genre.name}" itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}" class="col-sm-4"/>
-
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="Album:" for="album" class="control-label mgmt_detail_label col-sm-3"/>   
+                    <p:outputLabel value="#{bundle.track_album}:" for="album" class="control-label mgmt_detail_label col-sm-3"/>   
                     <p:autoComplete id="album" dropdown="true" value="#{theTracks.selectedTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}" class="col-sm-4"/>
-
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="Artists:" for="artists" />                       
+                    <p:outputLabel value="#{bundle.track_artists}:" for="artists" />                       
                     <p:autoComplete id="artists" multiple="true" value="#{theTracks.selectedTrack.artists}" completeMethod="#{theArtists.suggest}"
                                     var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true" class="col-sm-4"/>             
                 </div>
                 
                     <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
-                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" class="mgmt_btn" />
+                        <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" class="mgmt_btn" />
+                        
                     </p:commandButton>
 
                     <p:commandButton id="cancel" actionListener="#{theTracks.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm" class="mgmt_btn"/>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton id="yes" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton id="no" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    <p:commandButton id="yes" value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton id="no" value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>   
 
             </h:panelGroup>
 
-            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+            <p:commandButton id="exit"  value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
         </p:outputPanel>
     </h:form>

@@ -2,41 +2,40 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:form id="dialogForm">
 
-        <h:outputText value="nothing selected" rendered="#{empty theArtists.selectedArtist}"/>
+        <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theArtists.selectedArtist}"/>
 
         <h:panelGrid  columns="2" rendered="#{not theArtists.editable and not empty theArtists.selectedArtist}">
-            <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-2"/>
-            <h:outputText value="#{theArtists.selectedArtist.id}" title="Id"/>
-            <h:outputText value="Name:" class="control-label mgmt_detail_label col-sm-2"/>
-            <h:outputText value="#{theArtists.selectedArtist.name}" title="Name"/>
+            <h:outputText value="#{bundle.artist_id}:" class="control-label mgmt_detail_label col-sm-2"/>
+            <h:outputText value="#{theArtists.selectedArtist.id}"/>
+            <h:outputText value="#{bundle.artist_name}:" class="control-label mgmt_detail_label col-sm-2"/>
+            <h:outputText value="#{theArtists.selectedArtist.name}"/>
 
             <p:commandButton class="mgmt_btn" actionListener="#{theArtists.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                             
         </h:panelGrid>
 
         <h:panelGrid columns="2" rendered="#{theArtists.editable and not empty theArtists.selectedArtist}">
-            <p:outputLabel value="Id:" for="id" />
-            <p:inputText id="id" value="#{theArtists.selectedArtist.id}" title="Id" disabled="true"/>
-            <p:outputLabel value="Name:" for="name" />
-            <p:inputText id="name" value="#{theArtists.selectedArtist.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+            <p:outputLabel value="#{bundle.artist_id}:" for="id" />
+            <p:inputText id="id" value="#{theArtists.selectedArtist.id}" disabled="true"/>
+            <p:outputLabel value="#{bundle.artist_name}:" for="name" />
+            <p:inputText id="name" value="#{theArtists.selectedArtist.name}" required="true" requiredMessage="#{bundle.artist_name_required}"/>
 
             <p:commandButton class="mgmt_btn" actionListener="#{theArtists.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
-                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
             </p:commandButton>
             
             <p:commandButton class="mgmt_btn" actionListener="#{theArtists.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" update="dialogForm"/>
         </h:panelGrid>
 
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
         </p:confirmDialog>   
 
-        <p:commandButton  class="mgmt_btn" value="Exit" onclick="PF('dialogViewEdit').hide()"/>
+        <p:commandButton  class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()"/>
 
     </h:form>             
 

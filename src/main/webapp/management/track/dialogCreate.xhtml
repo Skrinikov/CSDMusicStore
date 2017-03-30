@@ -9,36 +9,36 @@
 
         <p:panelGrid columns="2">
 
-            <p:outputLabel value="Title:" for="title" />
-            <p:inputText id="title" value="#{theTracks.createdTrack.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
-            <p:outputLabel value="Songwriter:" for="songwriter" />
-            <p:inputText id="songwriter" value="#{theTracks.createdTrack.songwriter}" title="Songwriter" required="true" requiredMessage="The Songwriter field is required."/>
-            <p:outputLabel value="Duration:" for="duration" />
-            <p:inputText id="duration" value="#{theTracks.createdTrack.duration}" title="Duration" required="true" requiredMessage="The Duration field is required."/>
-            <p:outputLabel value="AlbumNum:" for="albumNum" />
-            <p:inputText id="albumNum" value="#{theTracks.createdTrack.albumNum}" title="AlbumNum" required="true" requiredMessage="The AlbumNum field is required."/>
-            <p:outputLabel value="CoverFile:" for="coverFile" />
-            <p:inputText id="coverFile" value="#{theTracks.createdTrack.coverFile}" title="CoverFile" required="true" requiredMessage="The CoverFile field is required."/>
-            <p:outputLabel value="CostPrice:" for="costPrice" />
-            <p:inputText id="costPrice" value="#{theTracks.createdTrack.costPrice}" title="CostPrice" required="true" requiredMessage="The CostPrice field is required."/>
-            <p:outputLabel value="ListPrice:" for="listPrice" />
-            <p:inputText id="listPrice" value="#{theTracks.createdTrack.listPrice}" title="ListPrice" required="true" requiredMessage="The ListPrice field is required."/>
-            <p:outputLabel value="SalePrice:" for="salePrice" />
-            <p:inputText id="salePrice" value="#{theTracks.createdTrack.salePrice}" title="SalePrice" required="true" requiredMessage="The SalePrice field is required."/>
-            <p:outputLabel value="Available:" for="available" />
-            <p:selectBooleanButton id="available" value="#{theTracks.createdTrack.available}" onLabel="Yes" offLabel="No" class="mgmt_btn"/>          
-            <p:outputLabel value="IsIndividual:" for="isIndividual" />
-            <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="Yes" offLabel="No"  class="mgmt_btn"/>         
-            <p:outputLabel value="Artists:" for="artists" />                       
+            <p:outputLabel value="#{bundle.track_title}:" for="title" />
+            <p:inputText id="title" value="#{theTracks.createdTrack.title}" required="true" requiredMessage="#{bundle.track_title_required}"/>
+            <p:outputLabel value="#{bundle.track_songwriter}:" for="songwriter" />
+            <p:inputText id="songwriter" value="#{theTracks.createdTrack.songwriter}"  required="true" requiredMessage="#{bundle.track_songwriter_required}"/>
+            <p:outputLabel value="#{bundle.track_duration}:" for="duration" />
+            <p:inputText id="duration" value="#{theTracks.createdTrack.duration}" required="true" requiredMessage="#{bundle.track_duration_required}"/>
+            <p:outputLabel value="#{bundle.track_album_num}:" for="albumNum" />
+            <p:inputText id="albumNum" value="#{theTracks.createdTrack.albumNum}"  required="true" requiredMessage="#{bundle.track_album_num_required}"/>
+            <p:outputLabel value="#{bundle.track_cover_file}:" for="coverFile" />
+            <p:inputText id="coverFile" value="#{theTracks.createdTrack.coverFile}"/>
+            <p:outputLabel value="#{bundle.track_cost_price}:" for="costPrice" />
+            <p:inputText id="costPrice" value="#{theTracks.createdTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}"/>
+            <p:outputLabel value="#{bundle.track_list_price}:" for="listPrice" />
+            <p:inputText id="listPrice" value="#{theTracks.createdTrack.listPrice}"  required="true" requiredMessage="#{bundle.track_list_price_required}"/>
+            <p:outputLabel value="#{bundle.track_sale_price}:" for="salePrice" />
+            <p:inputText id="salePrice" value="#{theTracks.createdTrack.salePrice}"/>
+            <p:outputLabel value="#{bundle.track_available}:" for="available" />
+            <p:selectBooleanButton id="available" value="#{theTracks.createdTrack.available}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}" class="mgmt_btn"/>          
+            <p:outputLabel value="#{bundle.track_is_individual}:" for="isIndividual" />
+            <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"  class="mgmt_btn"/>         
+            <p:outputLabel value="#{bundle.track_artists}:" for="artists" />                       
             <p:autoComplete id="artists" multiple="true" value="#{theTracks.createdTrack.artists}" completeMethod="#{theArtists.suggest}"
                             var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"/>
-            <p:outputLabel value="Genre:" for="genre" />        
+            <p:outputLabel value="#{bundle.track_genre}:" for="genre" />        
             <p:autoComplete id="genre" dropdown="true" value="#{theTracks.createdTrack.genre}" var="genre" itemLabel="#{genre.name}" itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}"/>
-            <p:outputLabel value="Album:" for="album" />   
+            <p:outputLabel value="#{bundle.track_album}:" for="album" />   
             <p:autoComplete id="album" dropdown="true" value="#{theTracks.createdTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"/>
                        
-            <p:commandButton id="create"  actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="Create"/>
-            <p:commandButton id="exit"  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
+            <p:commandButton id="create" actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="#{bundle.mgmt_btn_create}"/>
+            <p:commandButton id="exit"  value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
 
         </p:panelGrid>
 

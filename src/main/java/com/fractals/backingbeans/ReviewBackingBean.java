@@ -31,8 +31,13 @@ public class ReviewBackingBean implements Serializable {
     private static final Logger log = Logger.getLogger("ReviewBackingBean.class");
     private Review selectedReview;
     private Track selectedTrack;
-    private User selectedUser;
+    private User selectedUser;  
+    private String selection;
 
+    
+    public void setSelection(String s){selection = s;}
+    public String getSelection(){return selection;}
+    
     public Review getSelectedReview() {
         return selectedReview;
     }
@@ -77,18 +82,16 @@ public class ReviewBackingBean implements Serializable {
         reviewJpaController.edit(selectedReview);
     }
     
-    public List<Review> getPendingReviews() {
-        return reviewController.getPendingReviews();
+    public List<Review> selectedReviews() {
+        if (selection.equals("APPROVED")) 
+            return reviewController.getApprovedReviews();
+        if (selection.equals("PENDING")) 
+            return reviewController.getPendingReviews();
+        if (selection.equals("DISAPPROVED"))
+            return reviewController.getDisapprovedReviews();
+        return null;
     }
-
-    public List<Review> getApprovedReviews() {
-        return reviewController.getApprovedReviews();
-    }
-
-    public List<Review> getDisapprovedReviews() {
-        return reviewController.getDisapprovedReviews();
-    }
-
+    
     public List<Review> getReviewsByUser() {
         return reviewController.getReviewsByUser(selectedUser);
     }

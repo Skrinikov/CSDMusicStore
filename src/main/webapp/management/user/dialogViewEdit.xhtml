@@ -7,109 +7,103 @@
 
     <h:form id="dialogForm">
 
-        <h:outputText value="nothing selected" rendered="#{empty theUsers.selectedUser}"/>
-
-        <p:outputPanel  rendered="#{not empty theUsers.selectedUser}">
+        <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theUsers.selectedUser}"/>
 
             <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
-                <h:outputText value="Id:"/>
-                <h:outputText value="#{theUsers.selectedUser.id}" title="Id"/>
-                <h:outputText value="Username:"/>
-                <h:outputText value="#{theUsers.selectedUser.username}" title="Username"/>            
-                <h:outputText value="Title:"/>
-                <h:outputText value="#{theUsers.selectedUser.title}" title="Title"/>
-                <h:outputText value="FirstName:"/>
-                <h:outputText value="#{theUsers.selectedUser.firstName}" title="FirstName"/>
-                <h:outputText value="LastName:"/>
-                <h:outputText value="#{theUsers.selectedUser.lastName}" title="LastName"/>
-                <h:outputText value="Company:"/>
-                <h:outputText value="#{theUsers.selectedUser.company}" title="Company"/>
-                <h:outputText value="Address1:"/>
-                <h:outputText value="#{theUsers.selectedUser.address1}" title="Address1"/>
-                <h:outputText value="Address2:"/>
-                <h:outputText value="#{theUsers.selectedUser.address2}" title="Address2"/>
-                <h:outputText value="City:"/>
-                <h:outputText value="#{theUsers.selectedUser.city}" title="City"/>
-                <h:outputText value="Country:"/>
-                <h:outputText value="#{theUsers.selectedUser.country}" title="Country"/>
-                <h:outputText value="PostalCode:"/>
-                <h:outputText value="#{theUsers.selectedUser.postalCode}" title="PostalCode"/>
-                <h:outputText value="HomeTel:"/>
-                <h:outputText value="#{theUsers.selectedUser.homeTel}" title="HomeTel"/>
-                <h:outputText value="CellTel:"/>
-                <h:outputText value="#{theUsers.selectedUser.cellTel}" title="CellTel"/>
-                <h:outputText value="Email:"/>
-                <h:outputText value="#{theUsers.selectedUser.email}" title="Email"/>
-                <h:outputText value="IsAdmin:"/>
-                <h:outputText value="#{theUsers.selectedUser.isAdmin}" title="IsAdmin"/>
-                <h:outputText value="Province:"/>
-                <h:outputText value="#{theUsers.selectedUser.province}" title="Province"/>               
-                <h:outputText value="LastGenre:"/>
-                <h:outputText value="#{theUsers.selectedUser.lastGenre}" title="LastGenre"/>
-                <h:outputText value="TotalSales:"/>
-                <h:outputText value="#{theUsers.getTotalSales()}" title="LastGenre">
+                <h:outputText value="#{bundle.user_id}:"/>
+                <h:outputText value="#{theUsers.selectedUser.id}"/>
+                <h:outputText value="#{bundle.user_username}:"/>
+                <h:outputText value="#{theUsers.selectedUser.username}"/>            
+                <h:outputText value="#{bundle.user_title}:"/>
+                <h:outputText value="#{theUsers.selectedUser.title}"/>
+                <h:outputText value="#{bundle.user_first_name}:"/>
+                <h:outputText value="#{theUsers.selectedUser.firstName}"/>
+                <h:outputText value="#{bundle.user_last_name}:"/>
+                <h:outputText value="#{theUsers.selectedUser.lastName}" />
+                <h:outputText value="#{bundle.user_company}:"/>
+                <h:outputText value="#{theUsers.selectedUser.company}"/>
+                <h:outputText value="#{bundle.user_address_1}:"/>
+                <h:outputText value="#{theUsers.selectedUser.address1}" />
+                <h:outputText value="#{bundle.user_address_2}:"/>
+                <h:outputText value="#{theUsers.selectedUser.address2}"/>
+                <h:outputText value="#{bundle.user_city}:"/>
+                <h:outputText value="#{theUsers.selectedUser.city}"/>
+                <h:outputText value="#{bundle.user_country}:"/>
+                <h:outputText value="#{theUsers.selectedUser.country}"/>
+                <h:outputText value="#{bundle.user_postal_code}:"/>
+                <h:outputText value="#{theUsers.selectedUser.postalCode}"/>
+                <h:outputText value="#{bundle.user_home_tel}:"/>
+                <h:outputText value="#{theUsers.selectedUser.homeTel}"/>
+                <h:outputText value="#{bundle.user_cell_tel}:"/>
+                <h:outputText value="#{theUsers.selectedUser.cellTel}" />
+                <h:outputText value="#{bundle.user_email}:"/>
+                <h:outputText value="#{theUsers.selectedUser.email}" />
+                <h:outputText value="#{bundle.user_is_admin}:"/>
+                <h:outputText value="#{theUsers.selectedUser.isAdmin}"/>
+                <h:outputText value="#{bundle.user_province}:"/>
+                <h:outputText value="#{theUsers.selectedUser.province}" />               
+                <h:outputText value="#{bundle.user_last_genre}:"/>
+                <h:outputText value="#{theUsers.selectedUser.lastGenre}" />
+                <h:outputText value="#{bundle.user_total_sales}:"/>
+                <h:outputText value="#{theUsers.getTotalSales()}">
                     <f:convertNumber maxFractionDigits="2" />
                 </h:outputText>
 
-                <p:commandButton class="mgmt_btn" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
+                <p:commandButton class="mgmt_btn" id="editButton" actionListener="#{theUsers.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                             
             </h:panelGrid>
 
-            <p:panelGrid columns="2" class="mgmt_edit"  rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
+            <p:panelGrid columns="2" rendered="#{theUsers.editable and not empty theUsers.selectedUser}">
 
-                <p:commandButton actionListener="#{theUsers.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
-                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />             
+                <p:outputLabel value="#{bundle.user_id}:" for="id" />
+                <p:inputText id="id" value="#{theUsers.selectedUser.id}" disabled="true"/>
+                <p:outputLabel value="#{bundle.user_username}:" for="username" />
+                <p:inputText id="username" value="#{theUsers.selectedUser.username}" required="true" requiredMessage="#{bundle.user_username_required}"/>
+                <p:outputLabel value="#{bundle.user_title}:" for="title" />
+                <p:inputText id="title" value="#{theUsers.selectedUser.title}" required="true" requiredMessage="#{bundle.user_title_required}"/>
+                <p:outputLabel value="#{bundle.user_first_name}:" for="firstName" />
+                <p:inputText id="firstName" value="#{theUsers.selectedUser.firstName}" required="true" requiredMessage="#{bundle.user_first_name_required}"/>
+                <p:outputLabel value="#{bundle.user_last_name}:" for="lastName" />
+                <p:inputText id="lastName" value="#{theUsers.selectedUser.lastName}" required="true" requiredMessage="#{bundle.user_last_name_required}"/>
+                <p:outputLabel value="#{bundle.user_company}:" for="company" />
+                <p:inputText id="company" value="#{theUsers.selectedUser.company}" />
+                <p:outputLabel value="#{bundle.user_address_1}:" for="address1" />
+                <p:inputText id="address1" value="#{theUsers.selectedUser.address1}" required="true" requiredMessage="#{bundle.user_address_1_required}"/>
+                <p:outputLabel value="#{bundle.user_address_2}:" for="address2" />
+                <p:inputText id="address2" value="#{theUsers.selectedUser.address2}"/>
+                <p:outputLabel value="#{bundle.user_city}:" for="city" />
+                <p:inputText id="city" value="#{theUsers.selectedUser.city}" required="true" requiredMessage="#{bundle.user_city_required}"/>
+                <p:outputLabel value="#{bundle.user_country}:" for="country" />
+                <p:inputText id="country" value="#{theUsers.selectedUser.country}" required="true" requiredMessage="#{bundle.user_country_required}"/>
+                <p:outputLabel value="#{bundle.user_postal_code}:" for="postalCode" />
+                <p:inputText id="postalCode" value="#{theUsers.selectedUser.postalCode}" required="true" requiredMessage="#{bundle.user_postal_code_required}"/>
+                <p:outputLabel value="#{bundle.user_home_tel}:" for="homeTel" />
+                <p:inputText id="homeTel" value="#{theUsers.selectedUser.homeTel}" />
+                <p:outputLabel value="#{bundle.user_cell_tel}:" for="cellTel" />
+                <p:inputText id="cellTel" value="#{theUsers.selectedUser.cellTel}" />
+                <p:outputLabel value="#{bundle.user_email}:" for="email" />
+                <p:inputText id="email" value="#{theUsers.selectedUser.email}" required="true" requiredMessage="#{bundle.user_email_required}"/>
+                <p:outputLabel value="#{bundle.user_is_admin}:" for="isAdmin" />
+                <p:selectBooleanButton id="isAdmin" class="mgmt_btn" value="#{theUsers.selectedUser.isAdmin}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"/>
+                <p:outputLabel value="#{bundle.user_province}:" for="province" />   
+                <p:autoComplete id="province" dropdown="true" value="#{theUsers.selectedUser.province}" var="province" itemLabel="#{province.name}" 
+                                itemValue="#{province}" completeMethod="#{ProvinceConverter.suggest}" converter="#{ProvinceConverter}"/>
+                <p:outputLabel value="#{bundle.user_last_genre}:" for="lastGenre" />
+                <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
+
+                <p:commandButton actionListener="#{theUsers.edit()}" id="saveButton" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
+                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />             
                 </p:commandButton>
 
                 <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
-                
-                
-                <p:outputLabel value="Id:" for="id" />
-                <p:inputText id="id" value="#{theUsers.selectedUser.id}" title="Id" disabled="true"/>
-                <p:outputLabel value="Username:" for="username" />
-                <p:inputText id="username" value="#{theUsers.selectedUser.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
-                <p:outputLabel value="Title:" for="title" />
-                <p:inputText id="title" value="#{theUsers.selectedUser.title}" title="Title" required="true" requiredMessage="The Title field is required."/>
-                <p:outputLabel value="FirstName:" for="firstName" />
-                <p:inputText id="firstName" value="#{theUsers.selectedUser.firstName}" title="FirstName" required="true" requiredMessage="The FirstName field is required."/>
-                <p:outputLabel value="LastName:" for="lastName" />
-                <p:inputText id="lastName" value="#{theUsers.selectedUser.lastName}" title="LastName" required="true" requiredMessage="The LastName field is required."/>
-                <p:outputLabel value="Company:" for="company" />
-                <p:inputText id="company" value="#{theUsers.selectedUser.company}" title="Company" />
-                <p:outputLabel value="Address1:" for="address1" />
-                <p:inputText id="address1" value="#{theUsers.selectedUser.address1}" title="Address1" required="true" requiredMessage="The Address1 field is required."/>
-                <p:outputLabel value="Address2:" for="address2" />
-                <p:inputText id="address2" value="#{theUsers.selectedUser.address2}" title="Address2" />
-                <p:outputLabel value="City:" for="city" />
-                <p:inputText id="city" value="#{theUsers.selectedUser.city}" title="City" required="true" requiredMessage="The City field is required."/>
-                <p:outputLabel value="Country:" for="country" />
-                <p:inputText id="country" value="#{theUsers.selectedUser.country}" title="Country" required="true" requiredMessage="The Country field is required."/>
-                <p:outputLabel value="PostalCode:" for="postalCode" />
-                <p:inputText id="postalCode" value="#{theUsers.selectedUser.postalCode}" title="PostalCode" required="true" requiredMessage="The PostalCode field is required."/>
-                <p:outputLabel value="HomeTel:" for="homeTel" />
-                <p:inputText id="homeTel" value="#{theUsers.selectedUser.homeTel}" title="HomeTel" />
-                <p:outputLabel value="CellTel:" for="cellTel" />
-                <p:inputText id="cellTel" value="#{theUsers.selectedUser.cellTel}" title="CellTel" />
-                <p:outputLabel value="Email:" for="email" />
-                <p:inputText id="email" value="#{theUsers.selectedUser.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
-                <p:outputLabel value="IsAdmin:" for="isAdmin" />
-                <p:selectBooleanButton id="isAdmin" value="#{theUsers.selectedUser.isAdmin}" onLabel="True" offLabel="False"/>
-                <p:outputLabel value="Province:" for="province" />   
-                <p:autoComplete id="province" dropdown="true" value="#{theUsers.selectedUser.province}" var="province" itemLabel="#{province.name}" itemValue="#{province}" completeMethod="#{ProvinceConverter.suggest}" converter="#{ProvinceConverter}"/>
-
-                <p:outputLabel value="LastGenre:" for="lastGenre" />
-                <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
-    
-
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>   
 
             </p:panelGrid>
 
-        </p:outputPanel>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>   
 
-        <p:commandButton  value="Exit" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
+        <p:commandButton  value="#{bundle.mgmt_btn_exit}" id="exitButton" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 
     </h:form>  
 </ui:composition>

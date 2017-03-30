@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="windowTitle">
-        <h:outputText value="#{bundle.ReviewsPerUserTitle}"/>
+        <h:outputText value="#{bundle.reviews_per_user_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -26,81 +26,87 @@
                          draggableColumns="true" resizableColumns="true" >
 
                 <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUserTitle}"/>
+                    <h:outputText value="#{bundle.list_user_title}"/>
                     <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
                 <p:ajax event="rowSelect" update="form" />
 
-                <p:column headerText="Id">
+                <p:column headerText="#{bundle.user_id}">
                     <h:outputText value="#{item.id}"/>
                 </p:column>
 
-                <p:column headerText="Username">
+                <p:column headerText="#{bundle.user_username}">
                     <h:outputText value="#{item.username}"/>
                 </p:column>
 
-                <p:column headerText="Title">
+                <p:column headerText="#{bundle.user_title}">
                     <h:outputText value="#{item.title}"/>
                 </p:column>
 
-                <p:column headerText="FirstName">
+                <p:column headerText="#{bundle.user_first_name}">
                     <h:outputText value="#{item.firstName}"/>
                 </p:column>
 
-                <p:column headerText="LastName">
+                <p:column headerText="#{bundle.user_last_name}">
                     <h:outputText value="#{item.lastName}"/>
                 </p:column>
 
-                <p:column headerText="Company">
+                <p:column headerText="#{bundle.user_company}">
                     <h:outputText value="#{item.company}"/>
                 </p:column>
 
-                <p:column headerText="Address1">
+                <p:column headerText="#{bundle.user_address_1}">
                     <h:outputText value="#{item.address1}"/>
                 </p:column>
 
-                <p:column headerText="Address2">
+                <p:column headerText="#{bundle.user_address_2}">
                     <h:outputText value="#{item.address2}"/>
                 </p:column>
 
-                <p:column headerText="City">
+                <p:column headerText="#{bundle.user_city}">
                     <h:outputText value="#{item.city}"/>
                 </p:column>
 
-                <p:column headerText="Country">
+                <p:column headerText="#{bundle.user_country}">
                     <h:outputText value="#{item.country}"/>
                 </p:column>
 
-                <p:column headerText="PostalCode">
+                <p:column headerText="#{bundle.user_postal_code}">
                     <h:outputText value="#{item.postalCode}"/>
                 </p:column>
 
-                <p:column headerText="HomeTel">
+                <p:column headerText="#{bundle.user_home_tel}">
                     <h:outputText value="#{item.homeTel}"/>
                 </p:column>
 
-                <p:column headerText="CellTel">
+                <p:column headerText="#{bundle.user_cell_tel}">
                     <h:outputText value="#{item.cellTel}"/>
                 </p:column>
 
-                <p:column headerText="Email">
+                <p:column headerText="#{bundle.user_email}">
                     <h:outputText value="#{item.email}"/>
                 </p:column>
 
-                <p:column headerText="isAdmin">
+                <p:column headerText="#{bundle.user_is_admin}">
                     <h:outputText value="#{item.isAdmin}"/>
                 </p:column>
 
-                <p:column headerText="Province">
+                <p:column headerText="#{bundle.user_province}">
                     <h:outputText value="#{item.province}"/>
                 </p:column>
 
-                <p:column headerText="LastGenre">
+                <p:column headerText="#{bundle.user_last_genre}">
                     <h:outputText value="#{item.lastGenre}"/>
                 </p:column>
 
+                <p:column headerText="#{bundle.user_total_sales}">
+                        <h:outputText value="#{theUsers.getTotalSales(item)}" >
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    </p:column>
+                
             </p:dataTable>
 
             <p:dataTable id="tbl2" value="#{theReviews.getReviewsByUser()}" var="item2" 
@@ -110,31 +116,31 @@
                          rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedUser}"
                          draggableColumns="true" resizableColumns="true" >
 
-                <p:column headerText="Id">
+                <p:column headerText="#{bundle.review_id}">
                     <h:outputText value="#{item2.id}"/>
                 </p:column>
 
-                <p:column headerText="Rating">
+                <p:column headerText="#{bundle.review_rating}">
                     <h:outputText value="#{item2.rating}"/>
                 </p:column>
 
-                <p:column headerText="ReviewDate">
+                <p:column headerText="#{bundle.review_date}">
                     <h:outputText value="#{item2.reviewDate}"/>
                 </p:column>
 
-                <p:column headerText="Text">
+                <p:column headerText="#{bundle.review_text}">
                     <h:outputText value="#{item2.text}"/>
                 </p:column>
 
-                <p:column headerText="Status">
+                <p:column headerText="#{bundle.review_status}">
                     <h:outputText value="#{item2.status()}"/>
                 </p:column>
 
-                <p:column headerText="User">
+                <p:column headerText="#{bundle.review_user}">
                     <h:outputText value="#{item2.user.username}"/>
                 </p:column>
 
-                <p:column headerText="Track">
+                <p:column headerText="#{bundle.review_track}">
                     <h:outputText value="#{item2.track.title}"/>
                 </p:column>   
 
@@ -146,7 +152,7 @@
 
         </h:form>
 
-        <p:dialog header="Review Info" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog header="#{bundle.review_info}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/review/dialogViewEdit.xhtml" />
         </p:dialog>
 

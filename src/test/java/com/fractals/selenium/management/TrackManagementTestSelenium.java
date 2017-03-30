@@ -41,7 +41,7 @@ public class TrackManagementTestSelenium {
     public void getTrackListPage() {
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
         //Title of Page is stored to bundle
-        String title = bundle.getString("ListTrackTitle");
+        String title = bundle.getString("list_track_title");
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.titleIs(title));

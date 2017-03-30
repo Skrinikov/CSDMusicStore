@@ -7,7 +7,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
-        <h:outputText value="#{bundle.ListArtistTitle}"></h:outputText>
+        <h:outputText value="#{bundle.list_genre_title}"/>
     </ui:define>
 
     <ui:define name="placeholder-css">
@@ -17,7 +17,7 @@
     <ui:define name="content">
         <h:form id="form">
             <p:growl id="growl" showDetail="true" sticky="true" /> 
-            <h:outputText escape="false" value="#{bundle.ListGenreEmpty}" rendered="#{theGenres.isEmpty()}"/>
+            <h:outputText escape="false" value="#{bundle.list_genre_empty}" rendered="#{theGenres.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theGenres.isEmpty()}">    
 
@@ -30,14 +30,14 @@
                              rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListGenreTitle}"/>
+                        <h:outputText value="#{bundle.list_genre_title}"/>
                     </f:facet>
 
-                    <p:column headerText="Id">              
+                    <p:column headerText="#{bundle.genre_id}">              
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
-                    <p:column headerText="Name">                          
+                    <p:column headerText="#{bundle.genre_name}">                          
                         <h:outputText value="#{item.name}"/>
                     </p:column>
 
@@ -52,11 +52,11 @@
 
         </h:form>
 
-        <p:dialog header="Create Genre" widgetVar="dialogCreate">
+        <p:dialog header="#{bundle.create_genre}" widgetVar="dialogCreate">
             <ui:include src="/management/genre/dialogCreate.xhtml" />
         </p:dialog>
 
-        <p:dialog header="View Genre" widgetVar="dialogViewEdit" dynamic="true" position="top">
+        <p:dialog header="#{bundle.view_edit_genre}" widgetVar="dialogViewEdit" dynamic="true" position="top">
             <ui:include src="/management/genre/dialogViewEdit.xhtml" />
         </p:dialog>
 

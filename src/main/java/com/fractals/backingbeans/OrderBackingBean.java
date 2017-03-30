@@ -55,11 +55,15 @@ public class OrderBackingBean implements Serializable {
     public void setSelectedOrderItem(OrderItem oi) {
         selectedOrderItem = oi;
     }
+    
+    public boolean isEmpty(){
+        return orderJpaController.findOrderEntities().isEmpty();
+    }
 
     public void deleteOrderItem(OrderItem o) throws Exception {
         if (o.isCancelled()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-                    ResourceBundle.getBundle("Bundle").getString("OrderItemAlreadyDeleted")));
+                    ResourceBundle.getBundle("Bundle").getString("order_item_already_deleted")));
         } else {
             o.setCancelled(true);
             orderItemJpaController.edit(o);
@@ -73,7 +77,7 @@ public class OrderBackingBean implements Serializable {
         
         if (selectedOrder.isCancelled()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-                    ResourceBundle.getBundle("Bundle").getString("OrderAlreadyDeleted")));
+                    ResourceBundle.getBundle("Bundle").getString("order_already_deleted")));
         } else {
             for (OrderItem o : allItems) {
                 o.setCancelled(true);

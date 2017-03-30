@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author Danieil
  */
+
 @Ignore
 public class ReportsTestSelenium {
     
@@ -29,7 +30,7 @@ public class ReportsTestSelenium {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         
-        driver.get("http://localhost:10860/CSDMusicStore/client/login.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Login"));
         
@@ -50,7 +51,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReportsFormTitle() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -63,7 +64,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_totalSales() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -92,7 +93,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testIReports_totalSalesEmptyFields() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -112,7 +113,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByAlbum() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -147,7 +148,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByAlbumEmpty() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -181,7 +182,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByArtist() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -217,7 +218,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByArtistEmpty() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -251,7 +252,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByTrack() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -286,7 +287,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByTrackEmpty() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -321,7 +322,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByTrackEmptyInput() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -342,7 +343,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByClient() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -377,7 +378,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByClientEmpty() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         
@@ -412,7 +413,7 @@ public class ReportsTestSelenium {
      */
     @Test     
     public void testReports_salesByClientEmptyInput() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/management/reports.xhtml");
+        driver.get("http://localhost:8080/CSDMusicStore/management/reports.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Reports - Fractals"));
         

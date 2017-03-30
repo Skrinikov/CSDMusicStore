@@ -27,31 +27,12 @@ public class ArtistManagementSelenium {
     private WebDriver driver;
     
     @Before
-    public void loginAsAdmin() {
+    public void setup() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-
-        String user = "ren";
-        String pwd = "123";
-
-        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.titleIs("Login"));
-
-        WebElement inputElement = driver.findElement(By.id("loginForm:username"));
-        inputElement.clear();
-        inputElement.sendKeys(user);
-
-        inputElement = driver.findElement(By.id("loginForm:password"));
-        inputElement.clear();
-        inputElement.sendKeys(pwd);
-
-        driver.findElement(By.id("loginForm:login")).click();
-
-        wait.until(ExpectedConditions.titleIs("Fractals"));
+        new SeleniumAjaxHelper(driver).login();
     }
 
-    
     @Test
     public void createArtist()
     {      

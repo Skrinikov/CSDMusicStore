@@ -45,7 +45,7 @@ public class AlbumManagementTestSelenium {
     public void getAlbumListPage(){
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
         //Title of Page is stored to bundle
-        String title = bundle.getString("ListAlbumTitle");
+        String title = bundle.getString("list_album_title");
         
         getToListPage();
         WebDriverWait wait = new WebDriverWait(driver, 10);  

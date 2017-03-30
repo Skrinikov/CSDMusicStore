@@ -1,6 +1,7 @@
 
 package com.fractals.selenium.management;
 
+import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,24 +31,8 @@ public class SurveySelenium {
     public void loginAsAdmin() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-
-        String user = "ren";
-        String pwd = "123";
-
-        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.titleIs("Login"));
-
-        WebElement inputElement = driver.findElement(By.id("loginForm:username"));
-        inputElement.clear();
-        inputElement.sendKeys(user);
-
-        inputElement = driver.findElement(By.id("loginForm:password"));
-        inputElement.clear();
-        inputElement.sendKeys(pwd);
-
-        driver.findElement(By.id("loginForm:login")).click();
-
+        new SeleniumAjaxHelper(driver).login();
         wait.until(ExpectedConditions.titleIs("Fractals"));
     }
     

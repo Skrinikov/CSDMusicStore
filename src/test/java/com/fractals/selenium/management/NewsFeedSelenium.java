@@ -1,5 +1,6 @@
 package com.fractals.selenium.management;
 
+import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Renuchan
  */
-@Ignore
+
 public class NewsFeedSelenium {
 
     private WebDriver driver;
@@ -30,24 +31,8 @@ public class NewsFeedSelenium {
     public void loginAsAdmin() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-
-        String user = "ren";
-        String pwd = "123";
-
-        driver.get("http://localhost:8080/CSDMusicStore/client/login.xhtml");
+        new SeleniumAjaxHelper(driver).login();
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.titleIs("Login"));
-
-        WebElement inputElement = driver.findElement(By.id("loginForm:username"));
-        inputElement.clear();
-        inputElement.sendKeys(user);
-
-        inputElement = driver.findElement(By.id("loginForm:password"));
-        inputElement.clear();
-        inputElement.sendKeys(pwd);
-
-        driver.findElement(By.id("loginForm:login")).click();
-
         wait.until(ExpectedConditions.titleIs("Fractals"));
     }
 
