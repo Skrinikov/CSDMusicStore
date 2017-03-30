@@ -27,15 +27,15 @@
             <div class="row album-presentation-outer">
                 <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
                     <div class="album-presentation-inner">
-                        <h1><span class="orange">~</span>#{albumsCLBack.album.title}<span class="orange">~</span></h1>
+                        <h1 id="album-title"><span class="orange">~</span>#{albumsCLBack.album.title}<span class="orange">~</span></h1>
                         <hr/>
                         <div class="row album-info">
                             <div class="col-md-2 col-xs-12">
-                                <h3>#{albumsCLBack.album.artist.name}</h3>
+                                <h3 id="artist-name">#{albumsCLBack.album.artist.name}</h3>
                             </div>
                             <div class="col-md-2 col-xs-12">
-                                <h:form>
-                                    <p:commandLink value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(albumsCLBack.album)}" update="shop-cart shop-cart-2"/>
+                                <h:form id="albumCartForm">
+                                    <p:commandLink id="album-to-cart" value="$#{albumsCLBack.getPrice(albumsCLBack.album)}" styleClass="hvr-rectangle-out custom-price-buttons" actionListener="#{cart.add(albumsCLBack.album)}" update="shop-cart shop-cart-2"/>
                                 </h:form>
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                 <div clas="row">
                     <div class="col-sm-4 col-xs-12">
                         <div class="info">
-                            <p:graphicImage name="images/covers/#{albumsCLBack.getAlbumCover()}" style="width:100%;"/>
-                            <h4>#{albumsCLBack.album.artist.name} - <span class="darker-color">#{albumsCLBack.album.title}</span></h4>
+                            <p:graphicImage id="album-cover" name="images/covers/#{albumsCLBack.getAlbumCover()}" style="width:100%;"/>
+                            <h4 id="artist-album">#{albumsCLBack.album.artist.name} - <span class="darker-color">#{albumsCLBack.album.title}</span></h4>
                             <p>#{albumsCLBack.album.recordLabel} - #{albumsCLBack.album.tracks.size()} Song(s)</p>
                             <ul>
                                 <li>
                                     <span class="sub-info">Genre:</span>
                                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
-                                        <span>#{albumsCLBack.album.tracks.get(0).genre.name}</span>
+                                        <span id="album-genre">#{albumsCLBack.album.tracks.get(0).genre.name}</span>
                                     </ui:fragment>
                                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() == 0}">
                                         <span>N/E</span>
@@ -64,7 +64,7 @@
                                 </li>
                                 <li>
                                     <span class="sub-info">Release Date:</span>
-                                    <span>#{albumsCLBack.album.releaseDate}</span>
+                                    <span class="track-album-date">#{albumsCLBack.album.releaseDate}</span>
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +73,7 @@
                     <!-- Album Info -->
                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
                         <div class="col-sm-8 col-xs-12">
-                            <h:form>
+                            
                                 <div class="album-track-list">
                                     <p:dataTable var="track" value="#{albumsCLBack.album.tracks}" styleClass="tracks-table">
                                         <p:column style="padding:0;border:none;">
@@ -110,7 +110,7 @@
 
                                                             </ui:fragment>
                                                             <ui:fragment rendered="#{login.loggedIn and !trackCLBack.isTrackReviewed(track)}">
-
+                                                                <h:form class="leave-review-form">
                                                                 <div class="leave-review">
                                                                     <div>
                                                                         <span>#{bundle.tracks_rating}: </span>
@@ -130,8 +130,9 @@
                                                                         <f:validateLength minimum="1" maximum="2000"/>
                                                                     </p:inputTextarea>
 
-                                                                    <h:commandLink value="#{bundle.tracks_submit}" styleClass="hvr-rectangle-out custom-price-buttons" action="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
-                                                                </div>                                                              
+                                                                    <h:commandLink value="#{bundle.tracks_submit}" styleClass="hvr-rectangle-out custom-price-buttons review-submit" action="#{albumsCLBack.addReview(track.id, reviewText.value, rating.value)}"/>
+                                                                </div>  
+                                                                </h:form>
 
                                                             </ui:fragment>   
                                                             <ui:fragment rendered="#{login.loggedIn and trackCLBack.isTrackReviewed(track)}">
@@ -144,7 +145,7 @@
                                         </p:column>
                                     </p:dataTable>
                                 </div>
-                            </h:form>
+                            
                         </div>
                     </ui:fragment>
 

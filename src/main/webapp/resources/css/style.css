@@ -78,6 +78,18 @@ body.navbar-more-show  {
     display: block;
     font-size: 1.8em;
 }
+
+@media (max-width:768px){
+    .navbar-nav.mobile-bar > li > form > a > span.menu-icon{
+        display: block;
+        font-size: 1.8em;
+    }
+
+    .navbar-nav.mobile-bar > li > form{
+        margin-top:10px;
+    }
+}
+
 .navbar-more {
     background-color: #272727;
     height: calc(100% - 69px);
@@ -110,10 +122,16 @@ body.navbar-more-show  {
         display: inline;
     }
 }
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > li > form > a {
+    transition: color 0.3s;
+    text-transform: capitalize;
+}
 
 /* End menu */
-.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover{
+.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > form >a:focus, .navbar-inverse .navbar-nav > li > form > a:hover{
     color:#e0a800;
+    text-decoration: none;
+    text-transform: capitalize;
 }
 
 .nav-menu-form {
@@ -813,6 +831,7 @@ body.navbar-more-show  {
     background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position:center;
     margin-bottom: 0;
 }
 
@@ -878,12 +897,12 @@ body.navbar-more-show  {
     .album-presentation-inner .col-xs-12, .album-presentation-inner .col-xs-12 {
         text-align: center;
     } 
-    
+
     .album-presentation-inner h3{
         padding-left:0;
         margin-bottom: 5px;
     }
-    
+
     .album-presentation-inner h1{
         text-align: center;
         font-size: 2em;
@@ -999,7 +1018,7 @@ body.navbar-more-show  {
 }
 
 .rating{
-    
+
 }
 
 .leave-review{
@@ -1028,6 +1047,7 @@ body.navbar-more-show  {
 
 #review-track-form .ui-state-default {
     color:black;
+
 }
 
 @media screen and (max-width: 767px){
@@ -1073,11 +1093,11 @@ body.navbar-more-show  {
 }
 
 @media (max-width:768px){
-  .browse-mobile{
-       margin-left: auto;
-       margin-right: auto;
-       text-align: center;
-   }
+    .browse-mobile{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
 }
 
 .link-glow.focus, .link-glow:focus, .link-glow:hover {
@@ -1156,3 +1176,24 @@ body.navbar-more-show  {
 .faq-container .panel-body {
     padding-left: 25px;
 }
+.btn-custom{
+    background: #e0a800;
+    transition: background 0.3s;
+}
+
+.btn-custom:hover{
+    background: #d6a102;
+    color:#fff;
+}
+
+.tracked-link{
+    color:#CCC;
+    font-family: 'Lato', sans-serif;
+    padding-bottom:5px;
+}
+
+.tracked-link:hover{
+    color:#CCC;
+    text-decoration: none;
+}
+

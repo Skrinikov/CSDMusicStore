@@ -115,8 +115,6 @@ $(document).ready(function () {
     $('#no-downloads-container').children().each(function() {
         $(this).fadeIn(3000);
     });
-    
-    $('#downloads-container').fadeIn(3000);
 
 });
 

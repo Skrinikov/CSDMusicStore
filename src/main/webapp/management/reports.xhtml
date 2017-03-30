@@ -78,7 +78,7 @@
                     </div>
                     <div class="box-info" style="padding:10px;">
                         <p style="color:#111;">
-                            <span class="fa fa-arrow-down" style="color:#007be5;"></span> Total cost
+                            <span class="fa fa-arrow-down" style="color:#007be5;"></span> #{bundle.reports_box_initials_loss_b}
                         </p>
                         <p style="color:#555;;margin-left:5px;">
                             $#{reportsBacking.totalCost}
@@ -93,7 +93,7 @@
                     </div>
                     <div class="box-info" style="padding:10px;">
                         <p style="color:#111;">
-                            <span class="fa fa-plus-circle" style="color:#ef6262;"></span> Total profit
+                            <span class="fa fa-plus-circle" style="color:#ef6262;"></span> #{bundle.reports_box_initials_profit_b}
                         </p>
                         <p style="color:#555;;margin-left:5px;">
                             $#{reportsBacking.totalProfits}
@@ -108,7 +108,7 @@
                     </div>
                     <div class="box-info" style="padding:10px;">
                         <p style="color:#111;">
-                            <span class="fa fa-music" style="color:#20d077;"></span> Total track sales
+                            <span class="fa fa-music" style="color:#20d077;"></span> #{bundle.reports_box_initials_tracks_b}
                         </p>
                         <p style="color:#555;;margin-left:5px;">
                             #{reportsBacking.totalTracks}
@@ -123,7 +123,7 @@
                     </div>
                     <div class="box-info" style="padding:10px;">
                         <p style="color:#111;">
-                            <span class="fa fa-play" style="color:#f9c851;"></span> Total album sales
+                            <span class="fa fa-play" style="color:#f9c851;"></span> #{bundle.reports_box_initials_albums_b}
                         </p>
                         <p style="color:#555;;margin-left:5px;">
                             #{reportsBacking.totalAlbums}
@@ -134,95 +134,93 @@
         </div>
 
         <div class="row top-buffer">
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="tabbable-panel">
-                        <div class="tabbable-line">
-                            <ul class="nav nav-tabs ">
-                                <li class="active">
-                                    <a href="#tab_default_1" data-toggle="tab" id="tab_link_1">Total Sales</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_2" data-toggle="tab" id="tab_link_2">Sales by Client</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_3" data-toggle="tab" id="tab_link_3">Sales by Track</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_4" data-toggle="tab" id="tab_link_4">Sales by Album</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_5" data-toggle="tab" id="tab_link_5">Sales by Artist</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_6" data-toggle="tab" id="tab_link_6">Top Sellers</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_7" data-toggle="tab" id="tab_link_7">Top Clients</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_8" data-toggle="tab" id="tab_link_8">Zero Tracks</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_9" data-toggle="tab" id="tab_link_9">Zero Clients</a>
-                                </li>
-                            </ul>
+            <div class="col-md-12">
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs ">
+                            <li class="active">
+                                <a href="#tab_default_1" data-toggle="tab" id="tab_link_1">#{bundle.reports_1}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_2" data-toggle="tab" id="tab_link_2">#{bundle.reports_2}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_3" data-toggle="tab" id="tab_link_3">#{bundle.reports_3}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_4" data-toggle="tab" id="tab_link_4">#{bundle.reports_4}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_5" data-toggle="tab" id="tab_link_5">#{bundle.reports_5}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_6" data-toggle="tab" id="tab_link_6">#{bundle.reports_6}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_7" data-toggle="tab" id="tab_link_7">#{bundle.reports_7}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_8" data-toggle="tab" id="tab_link_8">#{bundle.reports_8}</a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_9" data-toggle="tab" id="tab_link_9">#{bundle.reports_9}</a>
+                            </li>
+                        </ul>
 
-                            <div class="tab-content">
-                                <!-- Reports Tab  -->
-                                <div class="tab-pane active" id="tab_default_1">
-                                    <ui:insert name="totalSales">
-                                        <ui:include src="/WEB-INF/sections/reports/totalSales.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Sales by client lab -->
-                                <div class="tab-pane" id="tab_default_2">
-                                    <ui:insert name="salesByClient">
-                                        <ui:include src="/WEB-INF/sections/reports/salesByClient.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Sales by track -->
-                                <div class="tab-pane" id="tab_default_3">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/salesByTrack.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Sales by album -->
-                                <div class="tab-pane" id="tab_default_4">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/salesByAlbum.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Sales by artist -->
-                                <div class="tab-pane" id="tab_default_5">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/salesByArtist.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Top orders -->
-                                <div class="tab-pane" id="tab_default_6">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/topSellers.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Top clients -->
-                                <div class="tab-pane" id="tab_default_7">
-                                   <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/topClients.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Zero Tracks -->
-                                <div class="tab-pane" id="tab_default_8">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/zeroTracks.xhtml"/>
-                                    </ui:insert>
-                                </div>
-                                <!-- Zero users -->
-                                <div class="tab-pane" id="tab_default_9">
-                                    <ui:insert name="salesByTrack">
-                                        <ui:include src="/WEB-INF/sections/reports/zeroClients.xhtml"/>
-                                    </ui:insert>
-                                </div>
+                        <div class="tab-content">
+                            <!-- Reports Tab  -->
+                            <div class="tab-pane active" id="tab_default_1">
+                                <ui:insert name="totalSales">
+                                    <ui:include src="/WEB-INF/sections/reports/totalSales.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Sales by client lab -->
+                            <div class="tab-pane" id="tab_default_2">
+                                <ui:insert name="salesByClient">
+                                    <ui:include src="/WEB-INF/sections/reports/salesByClient.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Sales by track -->
+                            <div class="tab-pane" id="tab_default_3">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/salesByTrack.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Sales by album -->
+                            <div class="tab-pane" id="tab_default_4">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/salesByAlbum.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Sales by artist -->
+                            <div class="tab-pane" id="tab_default_5">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/salesByArtist.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Top orders -->
+                            <div class="tab-pane" id="tab_default_6">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/topSellers.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Top clients -->
+                            <div class="tab-pane" id="tab_default_7">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/topClients.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Zero Tracks -->
+                            <div class="tab-pane" id="tab_default_8">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/zeroTracks.xhtml"/>
+                                </ui:insert>
+                            </div>
+                            <!-- Zero users -->
+                            <div class="tab-pane" id="tab_default_9">
+                                <ui:insert name="salesByTrack">
+                                    <ui:include src="/WEB-INF/sections/reports/zeroClients.xhtml"/>
+                                </ui:insert>
                             </div>
                         </div>
                     </div>

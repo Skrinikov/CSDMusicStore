@@ -105,7 +105,7 @@ html, body {
 }
 
 .specials-row{
-    background: url("#{resource['images/ambiance/index_bg.jpeg']}");
+    background: url("#{resource['images/ambiance/index_bg_2.jpg']}");
     background-size:cover;    
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -312,12 +312,16 @@ html, body {
     color:#AAA;
 }
 
+.hvr-underline-from-left::before,.hvr-underline-from-center::before{
+    background:#fff;
+}
+
 @media (max-width: 630px){
     .survey-desktop{
         display:none;
     }
     
-    .survey-choice-btn{
+    .survey-choice-btn{ 
         display:block;
         text-align: center;
     }

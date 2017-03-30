@@ -110,7 +110,7 @@
             </div>
             <div class="col-md-10 col-xs-12" style="padding-left: 2em; padding-right: 2em;background:#1a1a1a;">
                 <h3>#{bundle.index_genres_instructions}</h3>
-                <h4 style="text-transform: capitalize;">
+                <h4 style="text-transform: uppercase;">
                     <ui:repeat var="genre" value="#{indexBacking.genres}" varStatus="status">
 
                         <h:link outcome="/client/browse_genreTracks.xhtml" styleClass="genre-item">
@@ -118,7 +118,7 @@
                             <f:param name="id" value="#{genre.id}"/>
                         </h:link>
 
-                        <ui:fragment rendered="#{!status.last}">, </ui:fragment>
+                        <ui:fragment rendered="#{!status.last}"> - </ui:fragment>
                     </ui:repeat>
                 </h4>
             </div>

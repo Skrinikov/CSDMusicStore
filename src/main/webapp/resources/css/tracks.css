@@ -132,3 +132,7 @@
 .track-album:hover{
     color:#00c49e;
 }
+
+.album-jumbotron{
+    background-image: url("#{resource['images/ambiance/track_bg.jpg']}");
+}
