@@ -2,9 +2,10 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <div class="container top-buffer">
+    <div class="container top-buffer" style="font-family: 'Raleway', sans-serif;">
         <div class="col-md-6 col-xs-12 top-buffer">
             <div class="row user-row">
                 <h1><strong>#{bundle.index_welcome} </strong><h:outputLabel rendered="#{login.loggedIn}" value=" #{login.currentUser.username}!" style="font-weight:500;"/></h1>
@@ -14,14 +15,23 @@
             </div>
         </div>
         <div class="col-md-6 col-xs-12 top-buffer">
-            <h3 style="text-transform: capitalize;">
-                <ui:repeat var="tTrack" value="#{indexBacking.trackedTracks}">
-                    #{tTrack.title},
-                </ui:repeat>
-                <ui:repeat var="tAlbum" value="#{indexBacking.trackedAlbums}">
-                    #{tAlbum.title},
-                </ui:repeat>
+            <h3>
+                #{bundle.index_tracking_genre} 
+                <h:link outcome="/client/browse_genre.xhtml" styleClass="tracked-link hvr-underline-from-left" style="color:#CCC;text-transform: capitalize;">
+                    #{indexBacking.trackedGenre.name}
+                    <f:param name="id" value="#{indexBacking.trackedGenre.id}" />
+                </h:link>             
             </h3>
+            <h4><strong>#{bundle.index_tracking_track} </strong>
+            <ui:repeat var="tTrack" value="#{indexBacking.trackedTracks}" varStatus="status">
+                <h:link styleClass="tracked-link hvr-underline-from-center" outcome="/client/Track.xhtml"> #{tTrack.title}<f:param name="id" value="#{tTrack.id}"/></h:link><ui:fragment rendered="#{!status.last}">, </ui:fragment>
+            </ui:repeat>
+            </h4>
+            <h4><strong>#{bundle.index_tracking_album} </strong>
+            <ui:repeat var="tAlbum" value="#{indexBacking.trackedAlbums}" varStatus="status">
+                <h:link styleClass="tracked-link hvr-underline-from-center" outcome="/client/Album.xhtml"> #{tAlbum.title}<f:param name="id" value="#{tAlbum.id}"/></h:link><ui:fragment rendered="#{!status.last}">, </ui:fragment>
+            </ui:repeat>
+            </h4>
         </div>
     </div>
 </ui:composition>

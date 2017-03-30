@@ -10,12 +10,12 @@
         <div class="container navbar-more visible-xs">
             <!-- Mobile version list -->
             <ul class="nav navbar-nav" style="color: #fff">
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" action="#{request.contextPath}/client/search.xhtml" method="GET">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for..."/>
+                            <input type="text" name="key" placeholder="Search for..." class="form-control" />
                             <span class="input-group-btn">
-                                <button class="btn btn-danger" type="submit">Submit</button>
+                                <button class="btn btn-custom" type="submit"><span class="fa fa-search"></span></button>
                             </span>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                     <li class="hidden-xs">
                         <h:link outcome="/management/reports.xhtml">
                             <span class="menu-icon fa fa-lock"></span>
-                            Management Site
+                            #{bundle.management}
                         </h:link>
                     </li>
                 </ui:fragment>
@@ -136,9 +136,10 @@
                 <ui:fragment rendered="#{login.loggedIn}">
                     <li>                   
                         <h:form class="menu-form">
-                            <h:commandLink styleClass="nav-menu-form" value="#{bundle.sign_out}" >
+                            <h:commandLink styleClass="nav-menu-form" >
                                 <f:ajax listener="#{login.logout()}" render="@all"/>
                                 <span class="menu-icon fa fa-sign-out"></span>
+                                #{bundle.sign_out}
                             </h:commandLink>
                         </h:form>                      
                     </li>
@@ -163,28 +164,28 @@
                 <li>
                     <h:form class="menu-form">
                         <h:commandLink  actionListener="#{localeChanger.changeLocale}" 
-                                        value="#{bundle.codeLang}" styleClass="nav-menu-form">    
+                                         styleClass="nav-menu-form">    
 
                             <f:param name="languageCode" value="#{bundle.code}" /> 
                             <span class="menu-icon fa fa-globe"></span>
+                            #{bundle.codeLang}
                         </h:commandLink>
                     </h:form>
                 </li>
-                
+
                 <li class="hidden-xs">
-                    <h:form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" action="#{request.contextPath}/client/search.xhtml" method="GET">
                         <div class="form-group">
                             <div class="input-group">
-                                
-                                <h:inputText binding="${key}" pt:placeholder="Search here..." styleClass="form-control"/>
+
+
+                                <input type="text" name="key" placeholder="#{bundle.search_for}" class="form-control" />
                                 <span class="input-group-btn">
-                                    <h:button outcome="/client/search.xhtml" value="Submit" styleClass="btn btn-danger">
-                                        <f:param name="key" value="#{key.value}"/>
-                                    </h:button>
+                                    <button class="btn btn-custom" type="submit"><span class="fa fa-search"></span></button>
                                 </span>
                             </div>
                         </div>
-                    </h:form>
+                    </form>
                 </li>
 
                 <li class="visible-xs">
