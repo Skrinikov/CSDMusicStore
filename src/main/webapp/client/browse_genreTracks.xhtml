@@ -31,9 +31,9 @@
             <div class="row">
             <ui:repeat value="#{browseBacking.getAllTracksForGenre()}" var="track">
                 <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="thumbnail" style="background-color: transparent; border-color: transparent">
+                    <div class="thumbnail genres-div" style="background-color: transparent; border-color: transparent">
 
-                        <a href="Track.xhtml?id=#{track.id}">
+                        <a href="Track.xhtml?id=#{track.id}" >
                             <p:graphicImage name="images/covers/#{track.coverFile}" style="max-height: 150px" class="link-glow"/>
                         </a>
 
