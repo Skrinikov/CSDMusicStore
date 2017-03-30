@@ -107,11 +107,11 @@
             </h:panelGroup>         
         </h:form>
 
-        <p:dialog header="#{bundle.view_edit_album}" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog  styleClass="custDialogBox" header="#{bundle.view_edit_album}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/album/dialogViewEdit.xhtml" />
         </p:dialog>
 
-        <p:dialog header="#{bundle.create_album}" widgetVar="dialogCreate" >         
+        <p:dialog styleClass="custDialogBox" header="#{bundle.create_album}" widgetVar="dialogCreate" >         
             <ui:include src="/management/album/dialogCreate.xhtml" />
         </p:dialog>
 
