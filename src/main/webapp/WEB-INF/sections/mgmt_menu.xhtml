@@ -3,7 +3,8 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div class="overlay"></div>
 
@@ -34,15 +35,15 @@
             <li>
                 <h:link value="Set sales" outcome="/management/setSales.xhtml"/>
             </li> 
-            
-             <li>
+
+            <li>
                 <h:link value="Users" outcome="/management/user/usersList.xhtml"/>
             </li>  
-            
+
             <li>
                 <h:link value="Orders" outcome="/management/order/ordersList.xhtml"/>
             </li> 
-            
+
             <li>
                 <h:link value="Survey" outcome="/management/survey/List.xhtml"/>
             </li>
@@ -65,6 +66,16 @@
 
             <li>
                 <h:link outcome="/index.xhtml" value="Client Site" />
+            </li>
+            <li>
+                <h:form class="menu-form">
+                    <h:commandLink  actionListener="#{localeChanger.changeLocale}" 
+                                    styleClass="nav-menu-form" style="text-transform: uppercase;">    
+
+                        <f:param name="languageCode" value="#{bundle.code}" /> 
+                        #{bundle.codeLang}
+                    </h:commandLink>
+                </h:form>
             </li>
 
         </ul>
