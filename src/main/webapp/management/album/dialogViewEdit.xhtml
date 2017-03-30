@@ -47,7 +47,7 @@
 
             <p:commandButton id="edit" actionListener="#{theAlbums.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm" class="mgmt_btn"/>                             
             <p:commandButton id="delete" actionListener="#{theAlbums.delete()}" value="#{bundle.mgmt_btn_delete}" update="form,dialogForm" class="mgmt_btn">
-                <p:confirm header="#{bundle.confimation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
+                <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
             </p:commandButton>
 
         </h:panelGrid>
