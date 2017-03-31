@@ -22,7 +22,7 @@ import javax.persistence.NonUniqueResultException;
  * Contains currently logged in user.
  *
  * @author Aline Shulzhenko
- * @version 25/03/2017
+ * @version 30/03/2017
  * @since 1.8
  */
 @Named("login")
@@ -56,8 +56,11 @@ public class LoginBacking implements Serializable {
             else {
                 try{
                     ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                    currentUser = userDb;                   
-                    context.redirect(context.getRequestContextPath() + "/index.xhtml");
+                    currentUser = userDb;   
+                    if(currentUser.getIsAdmin())
+                        context.redirect(context.getRequestContextPath() + "/management/reports.xhtml");
+                    else
+                        context.redirect(context.getRequestContextPath() + "/index.xhtml");
                 }
                 catch(IOException io) {
                     log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());

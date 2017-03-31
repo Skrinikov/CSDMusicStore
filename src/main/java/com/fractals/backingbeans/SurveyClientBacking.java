@@ -24,7 +24,7 @@ import javax.inject.Named;
 @SessionScoped
 public class SurveyClientBacking implements Serializable{
     
-    
+    private int[] optionsPercent;
     private Survey sur; 
     private boolean isVoted = false;
     private static final String ANSWERS = "/WEB-INF/sections/survey/answers.xhtml";
@@ -57,6 +57,7 @@ public class SurveyClientBacking implements Serializable{
     /**
      * Will be used to increment the upvotes for that specific choice of the survey
      * and save it in the database. 
+     * @param sc
      */
     public void selectedOption(SurveyChoice sc)
     {
@@ -64,6 +65,7 @@ public class SurveyClientBacking implements Serializable{
         
         try {
             scc.edit(sc);
+            calcOptionsPercentages();
         } catch (RollbackFailureException ex) {
             Logger.getLogger(SurveyClientBacking.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -108,20 +110,35 @@ public class SurveyClientBacking implements Serializable{
      * @return a percentage.
      */
     public int getOptionPercentage(SurveyChoice choice){
-        List<SurveyChoice> choices = sur.getSurveyChoices();
+        return optionsPercent[choice.getId()];
+    }
+    
+    /**
+     * Populates the array with percentage values for each choices
+     * based on current number of votes.
+     * @author Aline Shulzhenko
+     */
+    private void calcOptionsPercentages() {
         double max = 0;
+        int total = 0;
+        
+        List<SurveyChoice> choices = sur.getSurveyChoices();
+        int length = choices.size();
+        int lastId = choices.get(length-1).getId();
         
         for(SurveyChoice c : choices){
             max += c.getNumVotes();
-        }
-        
-        int percentage = (int)((choice.getNumVotes() / max ) * 100);
-        
-        //Just to leave normal padding
-        if(percentage == 0)
-            return 3;
-        
-        return percentage;
+            if(c.getId() > lastId)
+                lastId = c.getId();
+        }       
+        optionsPercent = new int[lastId+1];      
+        for(int i = 0; i < length-1; i++){
+            SurveyChoice choice = choices.get(i);
+            int value = (int)(Math.round(choice.getNumVotes()/max*100));
+            optionsPercent[choice.getId()] = value;
+            total += value;
+        }       
+        optionsPercent[lastId] = 100 - total;
     }
     
 }
