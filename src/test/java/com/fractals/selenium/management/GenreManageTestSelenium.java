@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GenreManageTestSelenium {
     
     private WebDriver driver; 
-    
     @Before
     public void login()
     {
@@ -34,7 +33,7 @@ public class GenreManageTestSelenium {
         driver = new ChromeDriver();
         
         new SeleniumAjaxHelper(driver).login();
-        
+
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         
@@ -48,7 +47,7 @@ public class GenreManageTestSelenium {
         int numRows = countRows();
         
         //click create
-        clickMainButton(By.id("form:tbl:j_idt57"));
+        clickMainButton(By.id("form:tbl:createBtn"));
         
         //now grab the text input 
         WebElement inputElement = driver.findElement(By.id("dialogForm2:name"));
@@ -56,15 +55,16 @@ public class GenreManageTestSelenium {
         inputElement.sendKeys("Popular");
         
         //click the save button 
-        clickMainButton(By.id("dialogForm2:j_idt62")); 
+        clickMainButton(By.id("dialogForm2:create")); 
         
         
         int numRowsAfter = countRows();
         
         //possible artist got created on a new paginated page, which would make count less
         //so check its not the same number
-        
-        assertThat((numRows + 1) == numRowsAfter); 
+
+        assertThat((numRows + 1) == numRowsAfter);
+        driver.quit();
     }
     
     @Test
@@ -80,7 +80,7 @@ public class GenreManageTestSelenium {
         clickPreview();
         wait(2000);
         //click edit
-        clickMainButton(By.id("dialogForm:j_idt73")); 
+        clickMainButton(By.id("dialogForm:edit")); 
         wait(2000);
         
         //add an s to the genre name 
@@ -89,12 +89,13 @@ public class GenreManageTestSelenium {
         inputElement.sendKeys(beforeChange + "s");
         
         //save 
-        clickMainButton(By.id("dialogForm:j_idt77"));      
+        clickMainButton(By.id("dialogForm:save"));      
         wait(2000);
             
         String afterChange = driver.findElement(By.xpath("//*[@id=\"form:tbl_data\"]/tr[1]/td[2]")).getText();
         
         assertThat(!afterChange.equals(beforeChange)); 
+        driver.quit(); 
         
     }
     
@@ -108,26 +109,28 @@ public class GenreManageTestSelenium {
         wait(2000); 
         
         
-        String header = driver.findElement(By.id("j_idt66_title")).getText();
+        String header = driver.findElement(By.id("header2_title")).getText();
         
-        assertThat(header.equals("View Genre"));
+        assertThat(header.equals("View/Edit Genre"));
         
     }
     @Test
     public void testCreateInvalid()
     {
         driver.get("http://localhost:8080/CSDMusicStore/management/genre/genresList.xhtml");
-               
+            
+
+        
         //click create
-        clickMainButton(By.id("form:tbl:j_idt57"));
+        clickMainButton(By.id("form:tbl:createBtn"));
         
         //now grab the text input 
         WebElement inputElement = driver.findElement(By.id("dialogForm2:name"));
         inputElement.clear();
         
         //click the save button 
-        clickMainButton(By.id("dialogForm2:j_idt62")); 
-        wait(2000);
+        clickMainButton(By.id("dialogForm2:create"));
+        wait(2000);     
         
         String expected = "The Name field is required.";
         
@@ -145,7 +148,8 @@ public class GenreManageTestSelenium {
         clickPreview();
         wait(2000);
         //click edit
-        clickMainButton(By.id("dialogForm:j_idt73")); 
+        clickMainButton(By.id("dialogForm:edit")); 
+
         wait(2000);
         
         //add an s to the genre name 
@@ -153,7 +157,10 @@ public class GenreManageTestSelenium {
         inputElement.clear();
         
         //save 
-        clickMainButton(By.id("dialogForm:j_idt77"));      
+        clickMainButton(By.id("dialogForm:save"));   
+        wait(1000);
+        clickMainButton(By.id("dialogForm:yesBtnCon"));
+        wait(2000);    
             
         String expected = "The Name field is required.";     
         assertThat(expected.equals(getTextFromGrowl()));
@@ -168,7 +175,7 @@ public class GenreManageTestSelenium {
     
     private void clickPreview()
     {
-         driver.findElement(By.id("form:tbl:j_idt58")).click();
+         driver.findElement(By.id("form:tbl:previewBtn")).click();
     }
     
     private void selectFirstEntry()

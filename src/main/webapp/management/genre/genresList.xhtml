@@ -42,8 +42,8 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()" />       
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" class="mgmt_btn" onclick="PF('dialogViewEdit').show()" update="dialogForm" />
+                        <p:commandButton id="createBtn" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" class="mgmt_btn" onclick="PF('dialogCreate').show()" />       
+                        <p:commandButton id="previewBtn" value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" class="mgmt_btn" onclick="PF('dialogViewEdit').show()" update="dialogForm" />
                     </f:facet>  
 
                 </p:dataTable>
@@ -52,11 +52,11 @@
 
         </h:form>
 
-        <p:dialog header="#{bundle.create_genre}" widgetVar="dialogCreate">
+        <p:dialog id="header1" header="#{bundle.create_genre}" widgetVar="dialogCreate">
             <ui:include src="/management/genre/dialogCreate.xhtml" />
         </p:dialog>
 
-        <p:dialog header="#{bundle.view_edit_genre}" widgetVar="dialogViewEdit" dynamic="true" position="top">
+        <p:dialog id="header2" header="#{bundle.view_edit_genre}" widgetVar="dialogViewEdit" dynamic="true" position="top">
             <ui:include src="/management/genre/dialogViewEdit.xhtml" />
         </p:dialog>
 
