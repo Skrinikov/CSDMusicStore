@@ -43,11 +43,16 @@
 
 .mgmt_table_row {
     background-color: #0a0a0a;
+    /**
     color: #fbcdcf;
+    */
+    
+    color: #F8F3EE;
 }
 
 .mgmt_table_row:hover{
-    background-color: #0fad0f;
+    
+    background-color: #333333;
 }
 
 
@@ -60,6 +65,15 @@
 .ui-columntoggler{
     background-color: #F8F3EE;
 }
+
+.ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-footer {
+    padding: 4px 10px 35px 10px;
+}
+
+.ui-datatable .ui-datatable-header{
+    padding: 4px 10px 35px 10px;
+}
+
 
 .ui-datatable-resizable th.ui-resizable-column{
     background-color: #edf0f5
