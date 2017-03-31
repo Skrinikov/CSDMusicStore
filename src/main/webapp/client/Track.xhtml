@@ -105,9 +105,9 @@
                                             <h:outputText value="#{track.duration}"/>
                                         </p:column>
                                         <p:column class="col-md-2 3" style="border:none;" colspan="3">
-
-                                            <p:commandLink value="$#{trackCLBack.getPrice(track)}" class="hvr-bounce-to-right custom-price-buttons album-list-track-btn 4" actionListener="#{cart.add(track)}" update="shop-cart shop-cart-2"/>
-
+                                            <h:form>
+                                                <p:commandLink value="$#{trackCLBack.getPrice(track)}" class="hvr-bounce-to-right custom-price-buttons album-list-track-btn 4" actionListener="#{cart.add(track)}" update="shop-cart shop-cart-2"/>
+                                            </h:form>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

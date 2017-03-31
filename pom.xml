@@ -4,7 +4,7 @@
 
     <groupId>com.fractals</groupId>
     <artifactId>Fractals</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-FINAL</version>
     <packaging>war</packaging>
 
     <name>${project.artifactId}</name>
@@ -15,14 +15,14 @@
     <!-- Identifies the programmer or programmers who worked on the project -->
     <developers>
         <developer>
-            <id>Enter your school id</id>
-            <name>Enter your name</name>
-            <email>Enter your email address</email>
+            <id>1430468</id>
+            <name>Danieil Skrinikov</name>
+            <email>skrinikovd@gmail.com</email>
         </developer>
         <developer>
-            <id>Enter your school id</id>
-            <name>Enter your name</name>
-            <email>Enter your email address</email>
+            <id>1412998</id>
+            <name>Thai-Vu Nguyen</name>
+            <email>thaivu22@gmail.com</email>
         </developer>
         <developer>
             <id>1242395</id>
@@ -30,14 +30,14 @@
             <email>chlgnko.aline@gmail.com</email>
         </developer>
         <developer>
-            <id>Enter your school id</id>
-            <name>Enter your name</name>
-            <email>Enter your email address</email>
+            <id>1437641</id>
+            <name>Renuchan Thambirajah</name>
+            <email>R@gmail.com</email>
         </developer>
         <developer>
-            <id>Enter your school id</id>
-            <name>Enter your name</name>
-            <email>Enter your email address</email>
+            <id>1710030</id>
+            <name>Sarah Mouffok</name>
+            <email>mouffoksarah1@gmail.com</email>
         </developer>
     </developers>
 
@@ -271,6 +271,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <warName>g6w17</warName>
+                </configuration>
+
             </plugin>
             <plugin>
                 <!-- Executes JUnit tests and writes the results as an xml and
