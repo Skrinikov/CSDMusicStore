@@ -37,7 +37,7 @@ public class IndexTestSelenium {
      */
     @Test     
     public void testIndexFormTitle() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/index.xhtml");
+        driver.get("http://localhost:10860/CSDMusicStore/client/index.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         driver.quit();

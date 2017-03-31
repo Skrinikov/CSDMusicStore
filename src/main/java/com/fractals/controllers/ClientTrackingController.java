@@ -105,8 +105,12 @@ public class ClientTrackingController implements Serializable {
         
         Cookie cookie = (Cookie) cookies.get(GENRE_KEY);
         LOG.info("Genre ID from the cookie" + cookie.getValue());
-        Integer genre_id = Integer.getInteger(cookie.getValue());
-        return genreControl.findGenre(genre_id);
+        
+        int genre_id = Integer.parseInt(cookie.getValue());
+        
+        if(genre_id > 0)
+            return genreControl.findGenre(genre_id);
+        return null;
     }
     
     /**

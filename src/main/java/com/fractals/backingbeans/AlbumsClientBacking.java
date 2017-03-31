@@ -183,7 +183,7 @@ public class AlbumsClientBacking implements Serializable {
         if (loginControl.isLoggedIn()) {
             review.setUser(loginControl.getCurrentUser());
         } else {
-            return "/index.xhtml";
+            return "/client/index.xhtml";
         }
         review.setApproved(false);
         review.setReviewDate(LocalDateTime.now());
@@ -208,7 +208,7 @@ public class AlbumsClientBacking implements Serializable {
         User user = loginControl.getCurrentUser();
 
         if (track == null) {
-            return "/index.xhtml";
+            return "/client/index.xhtml";
         }
         if (user == null) {
             return "/client/login.xhtml";

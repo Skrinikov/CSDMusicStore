@@ -87,7 +87,7 @@ public class TrackClientBacking implements Serializable {
 
             getReview().setUser(loginControl.getCurrentUser());
         } else {
-            return "/index.xhtml";
+            return "/client/index.xhtml";
         }
         getReview().setApproved(false);
         getReview().setTrack(track);

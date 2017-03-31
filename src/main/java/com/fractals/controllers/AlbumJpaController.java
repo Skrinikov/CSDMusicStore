@@ -275,7 +275,7 @@ orderItemsCollectionOrderItemToAttach.getId());
     
     public List<Album> findAlbumsByGenre(Genre genre, int count, boolean random){
         if (genre == null || count <= 0)
-            throw new IllegalArgumentException("Cannot retrive albums");
+            return null;
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Album> query = cb.createQuery(Album.class);

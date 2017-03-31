@@ -60,7 +60,7 @@ public class LoginBacking implements Serializable {
                     if(currentUser.getIsAdmin())
                         context.redirect(context.getRequestContextPath() + "/management/reports.xhtml");
                     else
-                        context.redirect(context.getRequestContextPath() + "/index.xhtml");
+                        context.redirect(context.getRequestContextPath() + "/client/index.xhtml");
                 }
                 catch(IOException io) {
                     log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -95,7 +95,7 @@ public class LoginBacking implements Serializable {
             try{
                 currentUser = newUser;
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/index.xhtml");
+                context.redirect(context.getRequestContextPath() + "/client/index.xhtml");
             }
             catch(IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());
@@ -112,7 +112,7 @@ public class LoginBacking implements Serializable {
             try {
                 currentUser = null;
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/index.xhtml");
+                context.redirect(context.getRequestContextPath() + "/client/index.xhtml");
             } 
             catch (IOException io) {
                 log.log(Level.WARNING, "error when redirecting: {0}", io.getMessage());

@@ -243,7 +243,7 @@ public class TrackJpaController implements Serializable {
      */
     public List<Track> findTracksByGenre(Genre genre, int count, boolean random){
         if (genre == null || count <= 0)
-            throw new IllegalArgumentException ("Cannot retrieve tracks");
+            return null;
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Track> query = cb.createQuery(Track.class);

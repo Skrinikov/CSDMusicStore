@@ -58,7 +58,7 @@ public class ManagementFilter implements Filter {
             // Not logged in
             
             String contextPath = ((HttpServletRequest) request).getContextPath();
-            ((HttpServletResponse) response).sendRedirect( contextPath + "/index.xhtml");
+            ((HttpServletResponse) response).sendRedirect( contextPath + "/client/index.xhtml");
         }
         else{
             chain.doFilter(request, response);
