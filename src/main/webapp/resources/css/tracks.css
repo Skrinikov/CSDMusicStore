@@ -136,3 +136,16 @@
 .album-jumbotron{
     background-image: url("#{resource['images/ambiance/track_bg.jpg']}");
 }
+
+.navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav > li > form > a:hover, .navbar-more .navbar-nav > li > a{
+    color:#00c49e;
+}
+
+.btn-custom{
+    background:#00c49e;
+    color:#fff;
+}
+
+.btn-custom:hover{
+    background:#00b38d;
+}

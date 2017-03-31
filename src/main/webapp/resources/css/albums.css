@@ -1,15 +1,11 @@
 /* 
-    Created on : 9-Mar-2017, 8:40:36 PM
-    Author     : lynn
+    This css is here to let the album page override some of the previously defined
+    style. Most of the page's css is in style.css
+
+    Created on : 30-Mar-2017, 8:20:23 PM
+    Author     : Danieil Skrinikov
 */
 
-.background{
-    background-image: url("#{resource['images/reg.jpg']}");
-}
-
-.space {
-    margin-bottom: 5px;
-}
 
 .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav > li > form > a:hover, .navbar-more .navbar-nav > li > a{
     color:#FF7F50;
@@ -32,8 +28,3 @@
   background: #FF7F50; /* Gecko Browsers */
   color:#fff;
 }
-
-.btn-login{
-    transition: background 0.3s;
-}
-
