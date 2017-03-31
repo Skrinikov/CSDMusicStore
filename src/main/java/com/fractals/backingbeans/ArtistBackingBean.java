@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Artist;
@@ -16,7 +11,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author 1710030
+ * @author MOUFFOK Sarah
  */
 @Named("theArtists")
 @SessionScoped
@@ -36,9 +31,8 @@ public class ArtistBackingBean implements Serializable {
     }
 
     public Artist getCreatedArtist() {
-        if (createdArtist == null) {
+        if (createdArtist == null) 
             createdArtist = new Artist();
-        }
         return createdArtist;
     }
 
@@ -82,10 +76,6 @@ public class ArtistBackingBean implements Serializable {
         artistJpaController.edit(selectedArtist);
     }
 
-    /*public void delete() throws Exception {
-        artistJpaController.destroy(selectedArtist.getId());
-    }*/
-    
     public int getPageCount(){
         return artistJpaController.getArtistCount() / 10;
     }

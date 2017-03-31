@@ -1,23 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Album;
 import com.fractals.controllers.AlbumJpaController;
-import com.fractals.controllers.AlbumController;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -26,15 +20,11 @@ import org.primefaces.context.RequestContext;
 @Named("theAlbums")
 @SessionScoped
 public class AlbumBackingBean implements Serializable {
-
-    private boolean editable = false;   
-    private Album selectedAlbum, createdAlbum;
     
     @Inject
     private AlbumJpaController albumJpaController;
-    
-    @Inject   
-    private AlbumController albumController;
+    private boolean editable = false;   
+    private Album selectedAlbum, createdAlbum;
     
     public boolean getEditable() {
         return editable;
@@ -74,6 +64,7 @@ public class AlbumBackingBean implements Serializable {
             selectedAlbum.setRemovedAt(LocalDateTime.now());
         if(selectedAlbum.getAvailable() == true && selectedAlbum.getRemovedAt() != null)
             selectedAlbum.setRemovedAt(null);
+        
         makeUneditable();
         albumJpaController.edit(selectedAlbum);
     }
@@ -85,13 +76,12 @@ public class AlbumBackingBean implements Serializable {
           albumJpaController.edit(selectedAlbum);  
         }
         else
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("This album has already been removed") );                              
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ResourceBundle.getBundle("bundle").getString("album_already_removed")) );                              
     }
     
     public Album getCreatedAlbum() {
-        if (createdAlbum == null) {
+        if (createdAlbum == null) 
             createdAlbum = new Album();
-        }
         return createdAlbum;
     }
 
@@ -106,31 +96,6 @@ public class AlbumBackingBean implements Serializable {
         createdAlbum = null;
      
     }
-
-    /**
-     * 
-     * @param album
-     * @return 
-     * @author Thai-Vu Nguyen
-     */
-    public Number getTotalSalesByAlbum(Album album) {
-        Number sales = albumJpaController.getTotalSales(album);
-        return (sales != null) ? sales : 0;
-    }
-    
-    /**
-     * Amount of copies sold by an album
-     * @param album
-     * @return Thai-Vu Nguyen
-     */
-    public Number getAlbumsSold(Album album){
-        Number number = albumJpaController.getAlbumsSold(album);
-        return (number != null)? number : 0;
-    }
-
-    public Number getTotalSales() {
-        return albumController.getTotalSales(selectedAlbum);
-    }
     
     public int getPageCount(){
         return albumJpaController.getAlbumCount() / 10;
@@ -142,5 +107,15 @@ public class AlbumBackingBean implements Serializable {
             if (a.getTitle().toLowerCase().startsWith(s.toLowerCase())) 
                 similar.add(a);   
         return similar;
+    }
+     
+     /**
+     * Amount of copies sold by an album
+     * @param album
+     * @return Thai-Vu Nguyen
+     */
+    public Number getAlbumsSold(Album album){
+        Number number = albumJpaController.getAlbumsSold(album);
+        return (number != null)? number : 0;
     }
 }

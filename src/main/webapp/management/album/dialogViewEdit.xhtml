@@ -39,11 +39,6 @@
                     <h:outputText value="#{item.title}"/>
                 </p:column>              
             </p:dataTable>
-
-            <h:outputText value="#{bundle.album_total_sales}:"/>
-            <h:outputText value="#{theAlbums.getTotalSales()}">
-                <f:convertNumber maxFractionDigits="2"/>
-            </h:outputText>
             
             <h:outputText value="${bundle.album_albums_sold}" />
             <h:outputText value="#{theAlbums.getAlbumsSold(theAlbums.selectedAlbum)}">

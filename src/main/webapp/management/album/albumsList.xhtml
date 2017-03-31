@@ -89,11 +89,6 @@
                         <h:outputText value="#{item.artist.name}"/>
                     </p:column>
                     
-                    <p:column headerText="#{bundle.album_total_sales}" >
-                        <h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
-                            <f:convertNumber maxFractionDigits="2" /> 
-                        </h:outputText>
-                    </p:column>
                     <p:column headerText="#{bundle.album_albums_sold}">
                         <h:outputText value="#{theAlbums.getAlbumsSold(item)}">
                             <f:convertNumber maxFractionDigits="0" />

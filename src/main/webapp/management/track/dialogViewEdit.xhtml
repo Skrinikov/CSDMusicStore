@@ -79,11 +79,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <h:outputText value="#{bundle.track_total_sales}:" class="control-label mgmt_detail_label col-sm-3"/>
-                    <h:outputText value="#{theTracks.getTotalSales()}" class="col-sm-4">
-                        <f:convertNumber maxFractionDigits="2"/>
+                    <h:outputText value="#{bundle.track_number_sold}:" class="control-label mgmt_detail_label col-sm-3"/>
+                    <h:outputText value="#{theTracks.getTracksSold(theTracks.selectedTrack)}" class="col-sm-4">
+                        <f:convertNumber maxFractionDigits="0"/>
                     </h:outputText>
                 </div>
+               
 
                 <p:commandButton id="edit" actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 

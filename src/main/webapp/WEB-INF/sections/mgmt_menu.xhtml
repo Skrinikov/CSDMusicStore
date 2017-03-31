@@ -15,55 +15,55 @@
                 <h:link value="Fractals" outcome="/client/index"/>
             </li>
             <li>
-                <h:link value="Reports" outcome="/management/reports.xhtml"/>
+                <h:link value="#{bundle.menu_reports}" outcome="/management/reports.xhtml"/>
             </li>
             <li>
-                <h:link value="News Feed" outcome="/management/newsFeed/List.xhtml"/>
+                <h:link value="#{bundle.menu_news_feed}" outcome="/management/newsFeed/List.xhtml"/>
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventory<span class="caret"></span></a>         
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{bundle.menu_inventory}<span class="caret"></span></a>         
                 <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Inventory</li>
-                    <li><h:link value="Albums" outcome="/management/album/albumsList.xhtml"/></li>
-                    <li><h:link value="Artists" outcome="/management/artist/artistsList.xhtml"/></li>
-                    <li><h:link value="Genres" outcome="/management/genre/genresList.xhtml"/></li>
-                    <li><h:link value="Tracks" outcome="/management/track/tracksList.xhtml"/></li>
+                    <li class="dropdown-header">#{bundle.menu_inventory}</li>
+                    <li><h:link value="#{bundle.menu_albums}" outcome="/management/album/albumsList.xhtml"/></li>
+                    <li><h:link value="#{bundle.menu_artists}" outcome="/management/artist/artistsList.xhtml"/></li>
+                    <li><h:link value="#{bundle.menu_genres}" outcome="/management/genre/genresList.xhtml"/></li>
+                    <li><h:link value="#{bundle.menu_tracks}" outcome="/management/track/tracksList.xhtml"/></li>
                 </ul>
             </li>
 
             <li>
-                <h:link value="Set sales" outcome="/management/setSales.xhtml"/>
+                <h:link value="#{bundle.menu_set_sales}" outcome="/management/setSales.xhtml"/>
             </li> 
 
             <li>
-                <h:link value="Users" outcome="/management/user/usersList.xhtml"/>
+                <h:link value="#{bundle.menu_users}" outcome="/management/user/usersList.xhtml"/>
             </li>  
 
             <li>
-                <h:link value="Orders" outcome="/management/order/ordersList.xhtml"/>
+                <h:link value="#{bundle.menu_orders}" outcome="/management/order/ordersList.xhtml"/>
             </li> 
 
             <li>
-                <h:link value="Survey" outcome="/management/survey/List.xhtml"/>
+                <h:link value="#{bundle.menu_survey}" outcome="/management/survey/List.xhtml"/>
             </li>
 
             <li>
-                <h:link value="Banner Ads" outcome="/management/ads.xhtml"/>
+                <h:link value="#{bundle.menu_banner_ads}" outcome="/management/ads.xhtml"/>
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<span class="caret"></span></a>         
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{bundle.menu_reviews}<span class="caret"></span></a>         
                 <ul class="dropdown-menu" role="menu">
                     <li class="dropdown-header">Reviews</li>
-                    <li><h:link value="Reviews per Track" outcome="/management/review/reviewsPerTrackList.xhtml"/></li>
-                    <li><h:link value="Reviews per Status" outcome="/management/review/reviewsPerStatusList.xhtml"/></li>        
-                    <li><h:link value="Reviews per User" outcome="/management/review/reviewsPerUserList.xhtml"/></li>
+                    <li><h:link value="#{bundle.menu_reviews_per_track}" outcome="/management/review/reviewsPerTrackList.xhtml"/></li>
+                    <li><h:link value="#{bundle.menu_reviews_per_status}" outcome="/management/review/reviewsPerStatusList.xhtml"/></li>        
+                    <li><h:link value="#{bundle.menu_reviews_per_user}" outcome="/management/review/reviewsPerUserList.xhtml"/></li>
                 </ul>
             </li>
 
             <li>
-                <h:link outcome="/client/index.xhtml" value="Client Site" />
+                <h:link outcome="/client/index.xhtml" value="#{bundle.menu_client_site}" />
             </li>
             <li>
                 <h:form class="menu-form">
