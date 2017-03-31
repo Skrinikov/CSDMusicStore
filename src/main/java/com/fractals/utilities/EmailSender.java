@@ -4,7 +4,6 @@ import com.fractals.beans.User;
 import com.fractals.beans.Order;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.Province;
-import com.fractals.utilities.BundleLocaleResolution;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;

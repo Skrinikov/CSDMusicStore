@@ -13,7 +13,7 @@
                 <form class="navbar-form navbar-left" role="search" action="#{request.contextPath}/client/search.xhtml" method="GET">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" name="key" placeholder="Search for..." class="form-control" />
+                            <input type="text" name="key" placeholder="#{bundle.search_for}" class="form-control" />
                             <span class="input-group-btn">
                                 <button class="btn btn-custom" type="submit"><span class="fa fa-search"></span></button>
                             </span>
@@ -113,7 +113,7 @@
                     <li class="hidden-xs">
                         <h:link outcome="/client/library.xhtml">
                             <span class="menu-icon fa fa-download"></span>
-                            Downloads
+                            #{bundle.downloadMenu}
                         </h:link>
                     </li>
                 </ui:fragment>
@@ -191,7 +191,7 @@
                 <li class="visible-xs">
                     <a href="#navbar-more-show">
                         <span class="menu-icon fa fa-bars"></span>
-                        More
+                        #{bundle.more}
                     </a>                     
                 </li>
             </ul>

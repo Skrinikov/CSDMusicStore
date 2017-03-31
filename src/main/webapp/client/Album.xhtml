@@ -51,10 +51,10 @@
                         <div class="info">
                             <p:graphicImage id="album-cover" name="images/covers/#{albumsCLBack.getAlbumCover()}" style="width:100%;"/>
                             <h4 id="artist-album">#{albumsCLBack.album.artist.name} - <span class="darker-color">#{albumsCLBack.album.title}</span></h4>
-                            <p>#{albumsCLBack.album.recordLabel} - #{albumsCLBack.album.tracks.size()} Song(s)</p>
+                            <p>#{albumsCLBack.album.recordLabel} - #{albumsCLBack.album.tracks.size()} #{bundle.album_p_tracks}</p>
                             <ul>
                                 <li>
-                                    <span class="sub-info">Genre:</span>
+                                    <span class="sub-info">#{bundle.tracks_genre}:</span>
                                     <ui:fragment rendered="#{albumsCLBack.album.tracks.size() > 0}">
                                         <span id="album-genre">#{albumsCLBack.album.tracks.get(0).genre.name}</span>
                                     </ui:fragment>
@@ -63,7 +63,7 @@
                                     </ui:fragment>
                                 </li>
                                 <li>
-                                    <span class="sub-info">Release Date:</span>
+                                    <span class="sub-info">#{bundle.tracks_release}:</span>
                                     <span class="track-album-date">#{albumsCLBack.album.releaseDate}</span>
                                 </li>
                             </ul>

@@ -1,5 +1,6 @@
 package com.fractals.utilities;
 
+import com.fractals.backingbeans.LocaleChanger;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.servlet.http.Cookie;
  * @since 1.8
  */
 public class BundleLocaleResolution {
+    
     /**
      * Returns the bundle corresponding to the current locale saved in a cookie.
      * @return the bundle corresponding to the current locale saved in a cookie.
