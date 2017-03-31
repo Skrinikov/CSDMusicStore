@@ -44,9 +44,9 @@
                     </f:facet>
                     
                     <p:column width="5%" headerText="#{bundle.track_cover_file}" filterStyle="display:none" filterBy="">
-                        <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
+                        <p:graphicImage id="content" width="40px" name="#{theTracks.getCoverFile(item)}" />          
                         <p:tooltip for="content" trackMouse="true">
-                            <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
+                            <p:graphicImage height="300px" name="#{theTracks.getCoverFile(item)}" />
                         </p:tooltip>
                     </p:column> 
 

@@ -2,12 +2,14 @@ package com.fractals.backingbeans;
 
 import com.fractals.beans.Track;
 import com.fractals.controllers.TrackJpaController;
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -111,4 +113,18 @@ public class TrackBackingBean implements Serializable {
         return (number != null) ? number : 0;
     }
 
+    
+    public String getCoverFile(Track track){
+ 
+        String s = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+        File f = new File(s + "/images/covers/" + track.getCoverFile());
+        System.out.println(f.getAbsolutePath());
+        /*    return "/images/covers/" + track.getCoverFile();
+        } catch (NullPointerException e) {
+            
+        }*/
+        return "/images/covers/default_cover.jpg";
+        //DOESNT WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORK
+        
+    }
 }
