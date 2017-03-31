@@ -44,6 +44,11 @@
             <h:outputText value="#{theAlbums.getTotalSales()}">
                 <f:convertNumber maxFractionDigits="2"/>
             </h:outputText>
+            
+            <h:outputText value="${bundle.album_albums_sold}" />
+            <h:outputText value="#{theAlbums.getAlbumsSold(theAlbums.selectedAlbum)}">
+                <f:convertNumber maxFractionDigits="0" />
+            </h:outputText>
 
             <p:commandButton id="edit" actionListener="#{theAlbums.makeEditable()}" value="#{bundle.mgmt_btn_edit}" update="dialogForm" class="mgmt_btn"/>                             
             <p:commandButton id="delete" actionListener="#{theAlbums.delete()}" value="#{bundle.mgmt_btn_delete}" update="form,dialogForm" class="mgmt_btn">

@@ -387,7 +387,11 @@ public class TrackJpaController implements Serializable {
         Root<OrderItem> root = query.from(OrderItem.class);
         
         query.select(cb.count(root));
-        query.where(cb.equal(root.get(OrderItem_.track), track));
+        query.where(cb.or(
+                cb.equal(root.get(OrderItem_.track), track),
+                cb.equal(root.get(OrderItem_.album), track.getAlbum())
+            )
+        );
         return em.createQuery(query).getSingleResult();
         
     }
