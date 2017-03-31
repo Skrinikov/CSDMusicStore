@@ -316,6 +316,18 @@ html, body {
     background:#fff;
 }
 
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav > li > form > a:hover, .navbar-more .navbar-nav > li > a{
+    color:#e10052;
+}
+
+.btn-custom{
+    background:#e10052;
+}
+
+.btn-custom:hover{
+    background:#d00041;
+}
+
 @media (max-width: 630px){
     .survey-desktop{
         display:none;

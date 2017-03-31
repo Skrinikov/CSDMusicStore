@@ -9,9 +9,11 @@
 
 ::selection {
     background: #63b2d8; /* WebKit/Blink Browsers */
+    color:#fff;
 }
 ::-moz-selection {
     background: #63b2d8; /* Gecko Browsers */
+    color:#fff;
 }
 
 /*#3ca7db;*/
@@ -85,4 +87,17 @@
 
 .downloads-btn:hover{
     text-decoration: none;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav > li > form > a:hover, .navbar-more .navbar-nav > li > a{
+    color:#2F40B2;
+}
+
+.btn-custom{
+    background:#2F40B2;
+    color:#fff;
+}
+
+.btn-custom:hover{
+    background:#1E30A1;
 }

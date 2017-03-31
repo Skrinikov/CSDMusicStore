@@ -9,12 +9,12 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     
-    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /><h:outputStylesheet library="css" name="purchasing.css" /></ui:define>
     
     <ui:define name="windowTitle">#{bundle.invoice}</ui:define>
 
     <ui:define name="content">
-        <div class="a-content">
+        <p:outputPanel class="a-content">
             <div class="panel-heading">
                 <h2 class="text-center a-header">#{bundle.invoice}</h2>
             </div>
@@ -63,7 +63,7 @@
                     <h4 class="text-center">#{bundle.order_nodata}</h4>
                 </ui:fragment>
             </div>
-        </div>
+        </p:outputPanel>
     </ui:define> 
     
 </ui:composition>

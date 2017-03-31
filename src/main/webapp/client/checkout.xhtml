@@ -15,10 +15,10 @@
     
     <ui:define name="windowTitle">#{bundle.checkout}</ui:define>
     
-    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /><h:outputStylesheet library="css" name="purchasing.css" /></ui:define>
 
     <ui:define name="content">
-        <div class="a-content">
+        <p:outputPanel class="a-content">
             <div class="panel-heading">
                 <h2 class="text-center a-header">#{bundle.checkout}</h2>
             </div>
@@ -81,7 +81,7 @@
                     <h:link rendered="#{!login.loggedIn}" value="#{bundle.checkout_login}" outcome="login" class="text-center orange-link"/>
                 </ui:fragment>
             </div>
-        </div>
+        </p:outputPanel>
     </ui:define> 
     
 </ui:composition>

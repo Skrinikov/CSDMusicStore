@@ -1,0 +1,28 @@
+/* 
+    This css file is used to not modify any other code.
+
+    Created on : 30-Mar-2017, 8:55:43 PM
+    Author     : Danieil
+*/
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav > li > form > a:hover, .navbar-more .navbar-nav > li > a{
+    color:#2F40B2;
+}
+
+.btn-custom{
+    background:#2F40B2;
+    color:#fff;
+}
+
+.btn-custom:hover{
+    background:#1E30A1;
+}
+
+::selection {
+    background: #63b2d8; /* WebKit/Blink Browsers */
+    color:#fff;
+}
+::-moz-selection {
+    background: #63b2d8; /* Gecko Browsers */
+    color:#fff;
+}

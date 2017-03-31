@@ -15,12 +15,12 @@
         </f:metadata>
     </ui:define>
     
-    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /><h:outputStylesheet library="css" name="purchasing.css" /></ui:define>
     
     <ui:define name="windowTitle">#{bundle.shopcart}</ui:define>
 
     <ui:define name="content">
-        <div class="a-content">
+        <p:outputPanel styleClass="a-content">
             <div class="panel-heading">
                 <h2 class="centerText a-header">#{bundle.shopcart}</h2>
             </div>
@@ -85,7 +85,7 @@
                     <p id="nodata" class="centerText"><h:outputText value="#{bundle.cart_nodata}"></h:outputText></p>
                 </ui:fragment>
             </div>
-        </div>
+        </p:outputPanel>
     </ui:define> 
     
 </ui:composition>

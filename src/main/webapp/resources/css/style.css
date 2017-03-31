@@ -17,7 +17,7 @@ body {
     padding-top: 50px;
 }
 body.navbar-more-show  {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .animate {
@@ -482,7 +482,7 @@ body.navbar-more-show  {
 }
 
 .btn-shop {
-    color: black;
+    color: #fff;
     background-color: #2F40B2;
     font-size: 1.2em;
     margin: 5px;
