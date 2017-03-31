@@ -31,6 +31,7 @@
                              draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
+                        <div class="newHeader">
                         <h:outputText value="#{bundle.list_album_title}"/>
                         <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
@@ -38,6 +39,7 @@
                             <h:outputText value="#{bundle.row_search}" />
                             <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
                         </p:outputPanel>
+                        </div>
                     </f:facet>
 
                     <p:column width="3%" headerText="#{bundle.album_id}" filterStyle="display:none" filterBy="#{item.id}" >
@@ -111,7 +113,7 @@
             <ui:include src="/management/album/dialogViewEdit.xhtml" />
         </p:dialog>
 
-        <p:dialog styleClass="custDialogBox" header="#{bundle.create_album}" widgetVar="dialogCreate" >         
+        <p:dialog styleClass="custDialogBox" header="#{bundle.create_album}" widgetVar="dialogCreate" responsive="true" >         
             <ui:include src="/management/album/dialogCreate.xhtml" />
         </p:dialog>
 
