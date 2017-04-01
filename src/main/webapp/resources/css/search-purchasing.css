@@ -1,7 +1,6 @@
 
 
 .background{
-    /*background:#0a0a0a;    */
     background: url("#{resource['images/2.jpg']}");
 }
 

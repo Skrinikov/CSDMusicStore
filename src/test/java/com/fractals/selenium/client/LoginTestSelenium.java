@@ -42,11 +42,11 @@ public class LoginTestSelenium {
         
         WebElement inputElement = driver.findElement(By.id("loginForm:username"));
         inputElement.clear();        
-        inputElement.sendKeys("lynn");
+        inputElement.sendKeys("user");
         
         inputElement = driver.findElement(By.id("loginForm:password"));         
         inputElement.clear();         
-        inputElement.sendKeys("abcd");
+        inputElement.sendKeys("user");
         
         driver.findElement(By.id("loginForm:login")).click();
         

@@ -37,8 +37,8 @@ INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, co
 INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (32, 'Decennia','2015-03-25','Victor Entertainment', '13', 4.99, 9.99);
 INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (33, 'Brand New Day','1999-09-24','A&M', '10', 4.99, 9.99);
 INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (34, 'Exploded','2014-03-19','Avex', '16', 4.99, 9.99);
-INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (35, 'Walküre Attack!','2016-07-06','Victor Entertainment', '12', 4.99, 9.99);
-INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (35, 'Walküre Trap!','2016-09-28','Victor Entertainment', '12', 4.99, 9.99);
+INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (35, 'Walkure Attack!','2016-07-06','Victor Entertainment', '12', 4.99, 9.99);
+INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (35, 'Walkure Trap!','2016-09-28','Victor Entertainment', '12', 4.99, 9.99);
 INSERT INTO albums (artist_id, title, release_date, record_label, num_tracks, cost_price, list_price) VALUES (36, 'Le Chemin','2003-01-13','EMI', '11', 4.99, 9.99);
 
 

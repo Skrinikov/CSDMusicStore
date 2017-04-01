@@ -16,6 +16,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;;
 
 /**
  * Tests the checkout page of the application.
+ * 
+ * N.B. The data in orders table for selenium user should be cleaned up each time
+ * before this test class executes to ensure that all tracks were never bought before, which
+ * can create anomalies in test results.
+ * Since it is challenging to reset all data between each test, sometimes there is
+ * leftover data from other tests that might cause a test to fail by causing a TimeoutException.
+ * 
  * @author Aline Shulzhenko
  */
 public class CheckoutTestSelenium {

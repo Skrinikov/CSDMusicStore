@@ -1,6 +1,5 @@
 package com.fractals.utilities;
 
-import com.fractals.backingbeans.LocaleChanger;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -32,8 +31,9 @@ public class BundleLocaleResolution {
             if(locale.equals("en_CA"))
                 return ResourceBundle.getBundle("Bundle", Locale.CANADA);
             else if(locale.equals("fr_CA"))
-                return ResourceBundle.getBundle("Bundle", Locale.CANADA_FRENCH);     
+                return ResourceBundle.getBundle("Bundle", Locale.CANADA_FRENCH); 
         }
+        
         return ResourceBundle.getBundle("Bundle");
     }
 }

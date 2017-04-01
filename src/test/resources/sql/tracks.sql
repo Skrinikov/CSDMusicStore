@@ -1,12 +1,12 @@
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (1, 1, 'Children of the Sea','Ronnie James Dio, Tony Iommi, Geezer Butler, Bill Ward','05:34', '2', 'heaven_and_hell.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (2, 1, 'Turn the Page','André Olbrich, Hansi Kürsch','04:19', '3', 'a_twist_in_the_myth.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (2, 1, 'Turn the Page','Andre Olbrich, Hansi Kursch','04:19', '3', 'a_twist_in_the_myth.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (3, 1, 'Shots','Neil Young','07:42', '8', 're-ac-tor.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (4, 1, 'Son of Alerik','Ritchie Blackmore','10:01', '10', 'perfect_strangers.jpg', 0.5, 0.99, 0.75);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Treacherous Gods','Markus Toivonen, Jari Mäenpää','05:12', '9', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Treacherous Gods','Markus Toivonen, Jari Maenpaa','05:12', '9', 'ensiferum.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (6, 1, 'People Are Strange','Jim Morrison, Ray Manzarek, Robby Krieger, John Densmore','02:13', '7', 'strange_days.jpg', 0.5, 0.99);
 
@@ -18,9 +18,9 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (10, 1, 'Miracles Out of Nowhere','Kerry Livgren','06:28', '4', 'leftoverture.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Intro','Markus Toivonen, Jari Mäenpää','01:50', '1', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Intro','Markus Toivonen, Jari Maenpaa','01:50', '1', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (11, 1, 'Immigrant Song','Jimmy Page, Robert Plant','02:26', '1', 'led_zeppelin_iii.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, created_at) VALUES (11, 1, 'Immigrant Song','Jimmy Page, Robert Plant','02:26', '1', 'led_zeppelin_iii.jpg', 0.5, 0.99, DATE_ADD(now(), INTERVAL 2 MINUTE));
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (12, 1, 'Stairway to Heaven','Jimmy Page, Robert Plant','08:02', '4', 'led_zeppelin_iv.jpg', 0.5, 0.99);
 
@@ -28,27 +28,27 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (14, 1, 'A Farewell to Kings','Geddy Lee, Alex Lifeson, Neil Peart','05:51', '1', 'a_farewell_to_kings.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Hero in a Dream','Markus Toivonen, Jari Mäenpää','03:40', '2', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Hero in a Dream','Markus Toivonen, Jari Maenpaa','03:40', '2', 'ensiferum.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (15, 1, 'I Was Wrong','Andrew Eldritch','06:03', '8', 'vision_thing.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (16, 1, 'Baba O\'Riley','Pete Townshend','05:08', '1', 'whos_next.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Token of Time','Jari Mäenpää','04:16', '3', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Token of Time','Jari Maenpaa','04:16', '3', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Guardians of Fate','Markus Toivonen, Jari Mäenpää','03:34', '4', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Guardians of Fate','Markus Toivonen, Jari Maenpaa','03:34', '4', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Old Man','Markus Toivonen, Jari Mäenpää','05:33', '5', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Old Man','Markus Toivonen, Jari Maenpaa','05:33', '5', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Little Dreamer','Markus Toivonen, Jari Mäenpää, Oliver Fokin','05:21', '6', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Little Dreamer','Markus Toivonen, Jari Maenpaa, Oliver Fokin','05:21', '6', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Abandoned','Markus Toivonen, Jari Mäenpää','06:50', '7', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Abandoned','Markus Toivonen, Jari Maenpaa','06:50', '7', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Windrider','Markus Toivonen, Jari Mäenpää','05:41', '8', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Windrider','Markus Toivonen, Jari Maenpaa','05:41', '8', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Eternal Wait','Markus Toivonen, Jari Mäenpää','05:14', '10', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Eternal Wait','Markus Toivonen, Jari Maenpaa','05:14', '10', 'ensiferum.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Battle Song','Markus Toivonen, Jari Mäenpää','03:20', '11', 'ensiferum.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Battle Song','Markus Toivonen, Jari Maenpaa','03:20', '11', 'ensiferum.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (5, 1, 'Goblins\' Dance','Valtias Mustatuuli','04:29', '12', 'ensiferum.jpg', 0.5, 0.99);
 
@@ -158,13 +158,13 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (35, 3, 'Go Get \'Em','Shuhei Naruse','04:42', '6', 'exploded.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (36, 3, 'GIRAFFE BLUES','h-wonder','05:14', '8', 'walküre_attack.jpg', 0.5, 0.99, 0.75);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (36, 3, 'GIRAFFE BLUES','h-wonder','05:14', '8', 'walkure_attack.jpg', 0.5, 0.99, 0.75);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (36, 3, 'Walküre Attack!','Kotaro Odaka, UiNA','05:11', '9', 'walküre_attack.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (36, 3, 'Walkure Attack!','Kotaro Odaka, UiNA','05:11', '9', 'walkure_attack.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (37, 3, 'Absolute 5','Takuya Watanabe','04:28', '1', 'walküre_trap.jpg', 0.5, 0.99, 0.75);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (37, 3, 'Absolute 5','Takuya Watanabe','04:28', '1', 'walkure_trap.jpg', 0.5, 0.99, 0.75);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (37, 3, 'Hear The Universe','Rasmus Faber','04:23', '7', 'walküre_trap.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (37, 3, 'Hear The Universe','Rasmus Faber','04:23', '7', 'walkure_trap.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (38, 3, 'Le Chemin (Duet with Sita)','Kyo','03:29', '1', 'le_chemin.jpg', 0.5, 0.99);
 
@@ -174,13 +174,13 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (40, 4, 'Blitzkrieg Bop - 2001 Remastered edition ','Ramones, Tommy Ramone, Dee Dee Ramone','02:13', '1', 'ramones.jpg', 0.5, 0.99, 0.75);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (41, 4, 'Basket Case','Billie Joe Armostrong, Mike Dirnt, Tré Cool','03:01', '7', 'dookie.jpg', 0.5, 0.99, 0.75);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, sale_price) VALUES (41, 4, 'Basket Case','Billie Joe Armostrong, Mike Dirnt, Tre Cool','03:01', '7', 'dookie.jpg', 0.5, 0.99, 0.75);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (42, 4, 'The Kids Aren\'t Alright','Dexter Holland','02:59', '5', 'americana.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (43, 4, 'All The Small Things','Tom DeLonge, Mark Hoppus, Travis Barker','02:48', '8', 'enma_of_the_state.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (44, 4, 'Anarchy In The U.K.','Sex Pistols, John Lydon','03:31', '8', 'never_mind_the_bollocks_heres_the_sex_pistols.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price, created_at) VALUES (44, 4, 'Anarchy In The U.K.','Sex Pistols, John Lydon','03:31', '8', 'never_mind_the_bollocks_heres_the_sex_pistols.jpg', 0.5, 0.99, DATE_ADD(now(), INTERVAL 2 MINUTE));
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (45, 4, 'Story Of My Life','Mike Ness','05:46', '3', 'social_distortion.jpg', 0.5, 0.99);
 
@@ -214,7 +214,7 @@ INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, 
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (60, 4, 'Miss Murder','Havok, Puget, Carson, Burgan','03:26', '3', 'decemberunderground.jpg', 0.5, 0.99);
 
-INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (61, 4, 'American Idiot','Mike Dirnt, Billie Joe Armstrong, Tré Cool','02:54', '1', 'american_idiot.jpg', 0.5, 0.99);
+INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (61, 4, 'American Idiot','Mike Dirnt, Billie Joe Armstrong, Tre Cool','02:54', '1', 'american_idiot.jpg', 0.5, 0.99);
 
 INSERT INTO tracks (album_id, genre_id, title, songwriter, duration, album_num, cover_file, cost_price, list_price) VALUES (62, 4, 'You And I','Anarbor','02:57', '5', 'free_your_mind.jpg', 0.5, 0.99);
 

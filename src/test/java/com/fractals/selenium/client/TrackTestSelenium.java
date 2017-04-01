@@ -95,7 +95,7 @@ public class TrackTestSelenium {
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
                 helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
-                      .equalsIgnoreCase("Shopping Cart (1)"));
+                      .equalsIgnoreCase("Cart (1)"));
     }
 
     @Test     
@@ -108,7 +108,7 @@ public class TrackTestSelenium {
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
                 helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
-                      .equalsIgnoreCase("Shopping Cart (1)"));
+                      .equalsIgnoreCase("Cart (1)"));
     }
 
     @Test     

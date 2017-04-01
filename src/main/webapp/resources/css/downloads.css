@@ -16,8 +16,6 @@
     color:#fff;
 }
 
-/*#3ca7db;*/
-
 .download-container{
     font-family: 'Raleway', sans-serif;
     color:#fff;
@@ -80,9 +78,13 @@
 .downloads-btn{
     font-family: 'Raleway', sans-serif;
     color:#fff;
-    background: #3ca7db;
+    background: #2F40B2;
     padding:1em 2em;
     font-size:1em;
+}
+
+.no-tracks-download .hvr-bounce-to-top:before {
+    background: #202c79;
 }
 
 .downloads-btn:hover{

@@ -40,7 +40,7 @@ INSERT INTO artists (name) VALUES ('Anna Tsuchiya');
 INSERT INTO artists (name) VALUES ('AKINO with bless4');
 INSERT INTO artists (name) VALUES ('Sting');
 INSERT INTO artists (name) VALUES ('Kamen Rider Girls');
-INSERT INTO artists (name) VALUES ('Walküre');
+INSERT INTO artists (name) VALUES ('Walkure');
 INSERT INTO artists (name) VALUES ('Kyo');
 
 INSERT INTO artists (name) VALUES ('Sugarcult');

@@ -42,8 +42,9 @@ insert into users (username, password, salt, title, first_name, last_name, compa
 
 insert into users (username, password, salt, title, first_name, last_name, company, address_1, city, province_id, country, postal_code, home_tel, email, is_admin) values('admin', 0x15014a65121d18e8b69666fa2202ac2f4a1a6d9f4dc14a5fd8e0ee6aa50a17d7c2734fdd564ebf6c41170cc0448a579bb9f3da43e5c234e029e0713449c7afb6, 'jgiqon62idp8o9lc4eneud3ndcpd', 'TLord', 'John', 'Smith', 'Noble Corporation', '1151 Richmond St', 'London', 9, 'Canada', 'N6A 3K7', '(519) 661-2111', 'fractals.inc@gmail.com', 1);
 
-insert into users (username, password, salt, title, first_name, last_name, company, address_1, city, province_id, country, postal_code, home_tel, email, is_admin) values('selenium', 0x36f22f7a0eafd9a19628ad1a4fd554a3afb1b0aff8ea76e5ffe2478b9d52849a0fdd86f7b18d762d50e790012a411ee7ce0f9c1d593a9bbc699535de5f0cdb5, 'a8a9kiq2mnsm04hsq8i3vsaqchrg', 'count', 'Selenium', 'HQ', 'Sauce Labs', '2325 Rue de l\'Universite', 'Ville de Quebec', 11, 'Canada', 'G1V 0A6', '(418) 656-2131', 'fractals.inc@gmail.com', 1);
+insert into users (username, password, salt, title, first_name, last_name, company, address_1, city, province_id, country, postal_code, home_tel, email, is_admin) values('selenium', 0x36f22f7a0eafd9a19628ad1a4fd554a3afb1b0aff8ea76e5ffe2478b9d52849a0fdd86f7b18d762d50e790012a411ee7ce0f9c1d593a9bbc699535de5f0cdb5, 'a8a9kiq2mnsm04hsq8i3vsaqchrg', 'count', 'Selenium', 'HQ', 'Sauce Labs', '2325 Rue de l\'Université', 'Ville de Québec', 11, 'Canada', 'G1V 0A6', '(418) 656-2131', 'fractals.inc@gmail.com', 1);
 
+insert into users (username, password, salt, title, first_name, last_name, company, address_1, city, province_id, country, postal_code, home_tel, email, is_admin) values('user', 0xe3bcd4c267103b880694521c343cd620f37861d6632bdf8e250c2673a9e206f6cb8e0798123a77599352834f58b75f725d090bcbb3409e69e5a8536d13427b7a, '11n9m26p1m47o261bhu3rat1g9ui', 'mr', 'User', 'Client', 'Dawson College', '3040 Sherbrooke St. W', 'Westmount', 11, 'Canada', 'H3Z 1A4', '514-931-8731', 'cst.receive@gmail.com', 0);
 
 
 

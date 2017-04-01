@@ -75,6 +75,17 @@
                     </h:commandLink>
                 </h:form>
             </li>
+            <ui:fragment rendered="#{login.loggedIn}">
+                <li>                   
+                    <h:form class="menu-form">
+                        <h:commandLink styleClass="nav-menu-form" >
+                            <f:ajax listener="#{login.logout()}" render="@all"/>
+                            <span class="menu-icon fa fa-sign-out"></span>
+                            #{bundle.sign_out}
+                        </h:commandLink>
+                    </h:form>                      
+                </li>
+            </ui:fragment>
 
         </ul>
     </nav>

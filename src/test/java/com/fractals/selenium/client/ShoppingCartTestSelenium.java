@@ -15,6 +15,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Tests the shopping cart page of the application.
+ * 
+ * N.B. The data in orders table for selenium user should be cleaned up each time
+ * before this test class executes to ensure that all tracks were never bought before, which
+ * can create anomalies in test results.
+ * 
  * @author Aline Shulzhenko
  */
 public class ShoppingCartTestSelenium {
@@ -79,7 +84,7 @@ public class ShoppingCartTestSelenium {
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
                 helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
-                      .equalsIgnoreCase("Shopping Cart (1)"));
+                      .equalsIgnoreCase("Cart (1)"));
         
         driver.quit();
     }
@@ -123,7 +128,7 @@ public class ShoppingCartTestSelenium {
         
         wait.until((ExpectedCondition<Boolean>) driver -> 
                 helper.retryFindGetText(By.xpath("//*[@id=\"shop-cart-2\"]"))
-                      .equalsIgnoreCase("Shopping Cart (0)"));
+                      .equalsIgnoreCase("Cart (0)"));
         assertThat(driver.findElement(By.id("nodata")).getText()).isEqualToIgnoringCase("There are no items in your shopping cart.");
         
         driver.quit();

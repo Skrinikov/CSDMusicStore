@@ -4,14 +4,11 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class changes the locale of the current server session. Thus it switches
@@ -69,21 +66,18 @@ public class LocaleChanger implements Serializable{
      * locale.
      */
     public void checkCookieLocale() {
-        //if (!isCookieJustWritten) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (!isCookieJustWritten) {
             isCookieJustWritten = false;
-            FacesContext context = FacesContext.getCurrentInstance();
-            
-            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             
             Map<String, Object> cookieMap = context.getExternalContext().getRequestCookieMap();
 
             Object localeCookie = cookieMap.get("localeCookie");
-
-            if (currentLocale != null) {
-                log.info("Cookie Locale");
-                setLocale(currentLocale, context);
-            }
-        //}
+        }
+        if (currentLocale != null) {
+            log.info("Cookie Locale");
+            setLocale(currentLocale, context);
+        }
 
     }
 
@@ -125,21 +119,9 @@ public class LocaleChanger implements Serializable{
     public void writeLocaleCookie(String code) {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        Cookie c = new Cookie("localeCookie", code);
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        c.setPath(request.getContextPath());
-        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-        response.addCookie(c);
+        context.getExternalContext().addResponseCookie("localeCookie", code, null);
         isCookieJustWritten = true;
         log.info("cookie written");
-    }
-
-    public String getCurrentLocale() {
-        return currentLocale;
-    }
-
-    public void setCurrentLocale(String currentLocale) {
-        this.currentLocale = currentLocale;
     }
  
 }
