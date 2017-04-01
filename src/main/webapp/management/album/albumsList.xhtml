@@ -32,13 +32,13 @@
 
                     <f:facet name="header">
                         <div class="newHeader">
-                        <h:outputText value="#{bundle.list_album_title}"/>
-                        <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
-                        <p:columnToggler datasource="tbl" trigger="toggler" />
-                        <p:outputPanel style="float:right">
-                            <h:outputText value="#{bundle.row_search}" />
-                            <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
-                        </p:outputPanel>
+                            <h1><h:outputText value="#{bundle.list_album_title}"/></h1>
+                            <p:commandButton class="mgmt_btn new_toggler" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
+                            <p:columnToggler datasource="tbl" trigger="toggler" />
+                            <p:outputPanel style="float:right">
+                                <h:outputText value="#{bundle.row_search}" />
+                                <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                            </p:outputPanel>
                         </div>
                     </f:facet>
 

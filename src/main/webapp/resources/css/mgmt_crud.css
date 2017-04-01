@@ -41,18 +41,18 @@
     opacity: 1;
 }
 
-.mgmt_table_row {
-    background-color: #0a0a0a;
-    /**
-    color: #fbcdcf;
-    */
+.ui-datatable{
     
-    color: #F8F3EE;
+}
+
+.mgmt_table_row {
+    
 }
 
 .mgmt_table_row:hover{
-    
+    color: #F8F3EE;
     background-color: #333333;
+    border-color: #F8F3EE;
 }
 
 
@@ -71,7 +71,7 @@
 }
 
 .newHeader{
-    padding: 4px 10px 35px 10px;
+    padding: 4px 10px 50px 10px;
 }
 
 
@@ -90,6 +90,18 @@
 @media (max-width: 640px){
     .ui-datatable-reflow .ui-datatable-data tr.ui-widget-content {
         border-style: groove;
+    }
+    
+    #toggler{
+        visibility: collapse;
+    }
+    
+    .new_toggler {
+        visibility: hidden;
+    }
+    
+    .ui-widget-header{
+        background-color: #ecf9f9;
     }
 }
 
