@@ -41,6 +41,7 @@ public class LoginBacking implements Serializable {
 
     /**
      * Performs the necessary actions to login the user.
+     * If the user is an admin, he is redirected to the management site.
      */
     public void login() {
         currentUser = userBacking.getUser();
