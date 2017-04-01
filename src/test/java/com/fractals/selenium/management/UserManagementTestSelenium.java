@@ -72,8 +72,8 @@ public class UserManagementTestSelenium {
         
         String title = 
                 driver.findElement(By.xpath
-        ("//*[@id=\"form:tbl_data\"]/tr[1]/td[3]/span")).getText();
-        
+        ("//*[@id=\"form:tbl_data\"]/tr[1]/td[3]")).getText();
+
         if(title.equals("Mr"))
             newTitle = "Sir"; 
         
@@ -86,6 +86,14 @@ public class UserManagementTestSelenium {
         WebElement we = driver.findElement(By.id("dialogForm:title"));  
         we.clear();
         we.sendKeys(newTitle);
+        
+        WebElement we2 = driver.findElement(By.id("dialogForm:postalCode"));  
+        we2.clear();
+        we2.sendKeys("H2P2L2");
+        
+        WebElement we3 = driver.findElement(By.id("dialogForm:homeTel"));  
+        we3.clear();
+        we3.sendKeys("514-986-6598"); 
         
         clickSaveAndConfirm(); 
         
@@ -148,8 +156,7 @@ public class UserManagementTestSelenium {
     {
         //click save
         driver.findElement(By.id("dialogForm:saveButton")).click();
-        //click confirm
-        driver.findElement(By.id("dialogForm:j_idt148")).click();
+              
         //sah.retryFindClick(By.id("dialogForm:j_idt154"));
         wait(2000);
     }

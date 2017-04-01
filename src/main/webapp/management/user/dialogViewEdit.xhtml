@@ -91,17 +91,12 @@
                 <p:inputText id="lastGenre" value="#{theUsers.selectedUser.lastGenre}" disabled="true"/>                           
 
                 <p:commandButton actionListener="#{theUsers.edit()}" id="saveButton" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn">
-                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />             
+                      
                 </p:commandButton>
 
                 <p:commandButton actionListener="#{theUsers.makeUneditable()}" value="#{bundle.mgmt_btn_cancel}" class="mgmt_btn" update="dialogForm"/> 
 
-            </p:panelGrid>
-
-        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-            <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-        </p:confirmDialog>   
+            </p:panelGrid> 
 
         <p:commandButton  value="#{bundle.mgmt_btn_exit}" id="exitButton" onclick="PF('dialogViewEdit').hide()" class="mgmt_btn"/>
 

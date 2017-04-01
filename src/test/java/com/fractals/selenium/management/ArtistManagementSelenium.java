@@ -47,27 +47,26 @@ public class ArtistManagementSelenium {
         goToLastPaginatedPage();
         
         int numRows = driver.findElements(
-                By.xpath("//*[@id=\"j_idt50:tbl_data\"]/tr")).size();
+                By.xpath("//*[@id=\"form:tbl_data\"]/tr")).size();
         
         //click create
-        driver.findElement(By.id("j_idt50:tbl:j_idt58")).click();
+        driver.findElement(By.id("form:tbl:create")).click();
         
         //now grab the text input 
-        WebElement inputElement = driver.findElement(By.id("j_idt49:name"));
+        WebElement inputElement = driver.findElement(By.id("dialogForm2:name"));
         inputElement.clear();
         inputElement.sendKeys(value);
         
         //click the save button 
-        driver.findElement(By.id("j_idt49:j_idt52")).click(); 
+        driver.findElement(By.id("dialogForm2:create")).click(); 
         
-        //go to list page 
-        driver.findElement(By.id("j_idt80")).click();
-        
+        driver.get("http://localhost:8080/CSDMusicStore/management/artist/artistsList.xhtml");
+        wait(2000);
         //recount the list
         goToLastPaginatedPage();
         
         int numRowsAfter = driver.findElements(
-                By.xpath("//*[@id=\"j_idt50:tbl_data\"]/tr")).size();
+                By.xpath("//*[@id=\"form:tbl_data\"]/tr")).size();
         
         //possible artist got created on a new paginated page, which would make count less
         //so check its not the same number
@@ -81,16 +80,16 @@ public class ArtistManagementSelenium {
         driver.get("http://localhost:8080/CSDMusicStore/management/artist/artistsList.xhtml");
         
         List<WebElement> items = driver.findElements(
-                By.xpath("//*[@id=\"j_idt50:tbl_data\"]/tr")); 
+                By.xpath("//*[@id=\"form:tbl_data\"]/tr")); 
         
         items.get(0).click();
         
         //click details 
-        driver.findElement(By.id("j_idt50:tbl:j_idt59")).click();
+        driver.findElement(By.id("form:tbl:create")).click();
         
-        WebElement header = driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div/h1"));
+        WebElement header = driver.findElement(By.id("dial2_title"));
         
-        assertThat(header.getText().equals("Artist Details"));
+        assertThat(header.getText().equals("View/Edit Artist"));
         driver.quit(); 
         
     }
@@ -113,47 +112,11 @@ public class ArtistManagementSelenium {
         
         driver.quit(); 
     }
-    
-    @Test
-    public void testColumnChange()
-    {
-        driver.get("http://localhost:8080/CSDMusicStore/management/artist/artistsList.xhtml");
-        
-        int numRows = countHeaders();
-        
-        clickIdColumn();
-        
-        int numRowAfter = countHeaders();
-        
-        assertThat(numRowAfter == (numRows - 1));
-        
-        driver.quit(); 
-        
-        
-    }
-    
-    private void clickIdColumn()
-    {  
-        SeleniumAjaxHelper sh = new SeleniumAjaxHelper(driver); 
-        
-        driver.findElement(
-                By.id("j_idt50:tbl:toggler")).click();
-     
-        driver.findElement(
-                By.xpath("//*[@id=\"j_idt50:tbl:j_idt53\"]/ul/li[1]")).click();      
-               
-    }
-    
-    private int countHeaders()
-    {
-        return driver.findElements(
-                By.xpath("//*[@id=\"j_idt50:tbl_data\"]/th")).size();
-    }
-    
+   
     private void goToLastPaginatedPage()
     {
         List<WebElement> links = driver.findElements(
-                By.xpath("//*[@id=\"j_idt50:tbl_paginator_top\"]/span[2]/a"));
+                By.xpath("//*[@id=\"form:tbl_paginator_top\"]/span[2]/a"));
         
         int last = links.size() - 1;
         
