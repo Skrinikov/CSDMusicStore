@@ -1,0 +1,5 @@
+.background{
+    background: url("#{resource['images/2.jpeg']}");
+}
+
+

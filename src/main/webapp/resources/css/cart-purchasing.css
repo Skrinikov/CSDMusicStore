@@ -1,0 +1,11 @@
+
+
+.background{
+    background: url("#{resource['images/cart.jpeg']}");
+    background-position:center;
+}
+
+.a-content {
+    opacity: 0.8;
+}
+

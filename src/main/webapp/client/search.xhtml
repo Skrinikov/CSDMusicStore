@@ -13,7 +13,7 @@
         <f:viewParam name="key" value="#{search.keyQuery}" /> 
     </f:metadata>
     
-    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search-purchasing.css" /></ui:define>
+    <ui:define name="placeholder-css"><h:outputStylesheet library="css" name="search.css" /></ui:define>
     
     <ui:define name="windowTitle">#{bundle.advanced_search}</ui:define>
 
@@ -33,10 +33,10 @@
                             <h:selectOneMenu id="choice" value="#{search.choice}" required="true" class="form-control">
                                 <f:ajax listener="#{search.onItemSelect()}" render="@all" />
                                 <f:selectItem noSelectionOption="true" itemValue="" itemLabel="-- #{bundle.choose_option} --" />
-                                <f:selectItem itemLabel="#{bundle.search_album}" itemValue="#{bundle.search_album}" />
-                                <f:selectItem itemLabel="#{bundle.search_track}" itemValue="#{bundle.search_track}" />
-                                <f:selectItem itemLabel="#{bundle.search_date}" itemValue="#{bundle.search_date}"/>
-                                <f:selectItem itemLabel="#{bundle.search_artist}" itemValue="#{bundle.search_artist}"/>
+                                <f:selectItem itemLabel="#{bundle.search_album}" itemValue="0" />
+                                <f:selectItem itemLabel="#{bundle.search_track}" itemValue="1" />
+                                <f:selectItem itemLabel="#{bundle.search_date}" itemValue="2"/>
+                                <f:selectItem itemLabel="#{bundle.search_artist}" itemValue="3"/>
                             </h:selectOneMenu>
                         </div>       
                         <h:message class="error" for="searchForm" id="searchFormMessage" />  

@@ -105,7 +105,7 @@ html, body {
 }
 
 .specials-row{
-    background: url("#{resource['images/ambiance/index_bg_2.jpg']}");
+    background: url("#{resource['images/ambiance/index_2.jpg']}");
     background-size:cover;    
     background-repeat: no-repeat;
     background-attachment: fixed;

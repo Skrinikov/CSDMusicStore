@@ -216,15 +216,15 @@ public class SearchBacking implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("searchForm", message);
             }
             else {
-                if(choice.equals(bundle.getString("search_album")))
+                if(choice.equals("0"))
                     albums = jpa.searchByAlbumTitle(key);
-                else if(choice.equals(bundle.getString("search_track")))
+                else if(choice.equals("1"))
                     tracks = jpa.searchByTrackName(key);
-                else if(choice.equals(bundle.getString("search_date"))) {
+                else if(choice.equals("2")) {
                     albums = jpa.searchByDateAlbums(from, to);
                     tracks = jpa.searchByDateTracks(from, to);
                 }
-                else if(choice.equals(bundle.getString("search_artist"))) {
+                else if(choice.equals("3")) {
                     albums = jpa.searchByArtistNameAlbums(key);
                     tracks = jpa.searchByArtistNameTracks(key);
                 }
@@ -247,7 +247,7 @@ public class SearchBacking implements Serializable {
         dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         key = "";
         keyQuery = "";
-        dateSelected = choice.equals(bundle.getString("search_date"));
+        dateSelected = choice.equals("2");
     }
 
     
@@ -261,7 +261,7 @@ public class SearchBacking implements Serializable {
        choice = "";     
        dateStart = Date.from(LocalDate.now().minusWeeks(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
        dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-       dateSelected = choice != null ? bundle.getString("search_date").equals(choice) : false; 
+       dateSelected = choice != null ? choice.equals("2") : false; 
     }
     
     /**
