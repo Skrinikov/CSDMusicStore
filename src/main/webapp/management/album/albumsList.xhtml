@@ -9,18 +9,18 @@
     <ui:define name="windowTitle">
         <h:outputText value="#{bundle.list_album_title}"/>
     </ui:define>
-    
+
     <ui:define name="placeholder-css">
-         <h:outputStylesheet library="css" name="mgmt_crud.css" />
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
     </ui:define>
 
     <ui:define name="content">
 
         <h:form id="form">
-            
-             <p:growl id="growl" showDetail="true" sticky="true" /> 
-             <h:outputText escape="false" value="#{bundle.list_album_empty}" rendered="#{theAlbums.isEmpty()}"/>
-        
+
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:outputText escape="false" value="#{bundle.list_album_empty}" rendered="#{theAlbums.isEmpty()}"/>
+
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">
 
                 <p:dataTable id="tbl" value="#{theAlbums.albums}" var="item"
@@ -32,13 +32,13 @@
 
                     <f:facet name="header">
                         <div class="newHeader">
-                        <h:outputText value="#{bundle.list_album_title}"/>
-                        <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
-                        <p:columnToggler datasource="tbl" trigger="toggler" />
-                        <p:outputPanel style="float:right">
-                            <h:outputText value="#{bundle.row_search}" />
-                            <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
-                        </p:outputPanel>
+                            <h:outputText value="#{bundle.list_album_title}"/>
+                            <p:commandButton class="mgmt_btn" id="toggler" value="#{bundle.col_toggler}" style="float:left" />
+                            <p:columnToggler datasource="tbl" trigger="toggler" />
+                            <p:outputPanel style="float:right">
+                                <h:outputText value="#{bundle.row_search}" />
+                                <p:inputText id="globalFilter" onkeyup="PF('albumTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
+                            </p:outputPanel>
                         </div>
                     </f:facet>
 
@@ -84,11 +84,11 @@
                     <p:column headerText="#{bundle.album_available}" filterStyle="display:none" filterBy="#{item.available}">
                         <h:outputText value="#{item.available}"/>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.album_artist}" filterStyle="display:none" filterBy="#{item.artist.name}">
                         <h:outputText value="#{item.artist.name}"/>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.album_albums_sold}">
                         <h:outputText value="#{theAlbums.getAlbumsSold(item)}">
                             <f:convertNumber maxFractionDigits="0" />
@@ -96,14 +96,14 @@
                     </p:column>
 
                     <f:facet name="footer">
+                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" onclick="PF('dialogCreate').show()" class="mgmt_btn" />                  
                         <p:commandButton id="preview" value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" process="tbl" update="dialogForm" onclick="PF('dialogViewEdit').show()" class="mgmt_btn" />
-                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />                  
-                     </f:facet>
-                    
+                    </f:facet>
+
                 </p:dataTable>
             </h:panelGroup>         
         </h:form>
-        
+
         <p:dialog  styleClass="custDialogBox" header="#{bundle.view_edit_album}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/album/dialogViewEdit.xhtml" />
         </p:dialog>

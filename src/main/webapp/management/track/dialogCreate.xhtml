@@ -18,7 +18,7 @@
             <p:outputLabel value="#{bundle.track_album_num}:" for="albumNum" />
             <p:inputText id="albumNum" value="#{theTracks.createdTrack.albumNum}"  required="true" requiredMessage="#{bundle.track_album_num_required}"/>
             <p:outputLabel value="#{bundle.track_cover_file}:" for="coverFile" />
-            <p:inputText id="coverFile" value="#{theTracks.createdTrack.coverFile}"/>
+            <p:autoComplete id="coverFile" dropdown="true" forceSelection="true" value="#{theTracks.createdTrack.coverFile}" var="cover" itemLabel="#{cover}" itemValue="#{cover}" completeMethod="#{theTracks.suggestCover}"/>
             <p:outputLabel value="#{bundle.track_cost_price}:" for="costPrice" />
             <p:inputText id="costPrice" value="#{theTracks.createdTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}"/>
             <p:outputLabel value="#{bundle.track_list_price}:" for="listPrice" />

@@ -9,7 +9,7 @@
         <p:outputPanel id="testViewEdit">
             <h:panelGroup rendered="#{not theTracks.editable and not empty theTracks.selectedTrack}">     
                           
-                <p:graphicImage id="content" name="#{theTracks.getCoverFile(selectedTrack)}" />          
+                <p:graphicImage id="content" name="/images/covers/#{theTracks.selectedTrack.coverFile}" />          
                     
                 <div class="form-group row">
                     <h:outputText value="Id:" class="control-label mgmt_detail_label col-sm-3"/>
@@ -122,18 +122,18 @@
                 </div>
                 <div class="form-group row">
                     <p:outputLabel value="#{bundle.track_cover_file}:" for="coverFile" class="control-label mgmt_detail_label col-sm-3" />
-                    <p:inputText id="coverFile" value="#{theTracks.selectedTrack.coverFile}" class="col-sm-4"/>
+                    <p:autoComplete id="coverFile" dropdown="true" forceSelection="true" value="#{theTracks.selectedTrack.coverFile}" class="col-sm-4" var="cover" itemLabel="#{cover}" itemValue="#{cover}" completeMethod="#{theTracks.suggestCover}"/>
                 </div>
                 <div class="form-group row">
                     <p:outputLabel value="#{bundle.track_created_at}:" for="createdAt" class="control-label mgmt_detail_label col-sm-3"/>
                     <p:inputText id="createdAt" value="#{theTracks.selectedTrack.createdAt}" disabled="true" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="#{bundle.track.cost_price}:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:outputLabel value="#{bundle.track_cost_price}:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
                     <p:inputText id="costPrice" value="#{theTracks.selectedTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="#{bundle.tack_list_price}:" for="listPrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:outputLabel value="#{bundle.track_list_price}:" for="listPrice" class="control-label mgmt_detail_label col-sm-3"/>
                     <p:inputText id="listPrice" value="#{theTracks.selectedTrack.listPrice}" required="true" requiredMessage="#{bundle.track_list_price_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">

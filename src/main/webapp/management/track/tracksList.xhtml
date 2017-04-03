@@ -32,7 +32,6 @@
                              draggableColumns="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header">
-                        <div class="newHeader">
                         <h:outputText value="#{bundle.list_track_title}"/>
                         <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:left;" class="mgmt_btn" />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
@@ -40,13 +39,12 @@
                             <h:outputText value="#{bundle.row_search}" />
                             <p:inputText id="globalFilter" onkeyup="PF('trackTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
                         </p:outputPanel>
-                        </div>
                     </f:facet>
                     
                     <p:column width="5%" headerText="#{bundle.track_cover_file}" filterStyle="display:none" filterBy="">
-                        <p:graphicImage id="content" width="40px" name="#{theTracks.getCoverFile(item)}" />          
+                        <p:graphicImage id="content" width="40px" name="/images/covers/#{item.coverFile}" />          
                         <p:tooltip for="content" trackMouse="true">
-                            <p:graphicImage height="300px" name="#{theTracks.getCoverFile(item)}" />
+                            <p:graphicImage height="300px" name="/images/covers/#{item.coverFile}" />
                         </p:tooltip>
                     </p:column> 
 
