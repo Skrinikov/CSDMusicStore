@@ -103,10 +103,16 @@
                 </p:column>
 
                 <p:column headerText="#{bundle.user_total_sales}">
-                        <h:outputText value="#{theUsers.getTotalSales(item)}" >
-                            <f:convertNumber maxFractionDigits="2" />
-                        </h:outputText>
-                    </p:column>
+                    <h:outputText value="#{theUsers.getTotalSales(item)}" >
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{bundle.user_number_reviews}">
+                    <h:outputText value="#{theUsers.getNumberOfReviews(item)}" >
+                    <f:convertNumber maxFractionDigits="0" />
+                    </h:outputText>
+                </p:column>
                 
             </p:dataTable>
 

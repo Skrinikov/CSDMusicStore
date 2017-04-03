@@ -72,8 +72,10 @@ public class UserBackingBean implements Serializable {
 
     public void edit() throws Exception {
         makeUneditable();
-        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
         userJpaController.edit(selectedUser);
     }
-
+    
+    public Number getNumberOfReviews(User u){
+        return userController.getNumberOfReviews(u);
+    }
 }
