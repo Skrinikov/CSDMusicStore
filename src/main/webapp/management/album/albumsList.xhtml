@@ -18,7 +18,7 @@
 
         <h:form id="form">
 
-            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <p:growl id="growl" showDetail="false" sticky="true" /> 
             <h:outputText escape="false" value="#{bundle.list_album_empty}" rendered="#{theAlbums.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theAlbums.isEmpty()}">

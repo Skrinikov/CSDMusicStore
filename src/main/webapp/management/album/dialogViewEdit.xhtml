@@ -58,11 +58,16 @@
             <p:outputLabel value="#{bundle.album_title}:" for="title" />
             <p:inputText id="title" value="#{theAlbums.selectedAlbum.title}"  required="true" requiredMessage="#{bundle.album_title_required}"/>
             <p:outputLabel value="#{bundle.album_release_date}:" for="releaseDate" />
-            <p:inputMask id="releaseDate" mask="9999-99-99" converter="#{localDateConverter}" value="#{theAlbums.selectedAlbum.releaseDate}" required="true" requiredMessage="#{bundle.album_release_date_required}" />
+            <p:inputMask id="releaseDate" mask="9999-99-99" converter="#{localDateConverter}" value="#{theAlbums.selectedAlbum.releaseDate}" 
+                         required="true" requiredMessage="#{bundle.album_release_date_required}" converterMessage="#{bundle.invalid_release_date}"/>
             <p:outputLabel value="#{bundle.album_record_label}:" for="recordLabel" />
             <p:inputText id="recordLabel" value="#{theAlbums.selectedAlbum.recordLabel}" required="true" requiredMessage="#{bundle.album_record_label_required}"/>
             <p:outputLabel value="#{bundle.album_num_tracks}:" for="numTracks" />
-            <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" required="true" requiredMessage="#{bundle.album_num_tracks_required}"/>
+            <p:inputText id="numTracks" value="#{theAlbums.selectedAlbum.numTracks}" required="true" requiredMessage="#{bundle.album_num_tracks_required}"
+                         validatorMessage="#{bundle.album_num_tracks_validator}" converterMessage="#{bundle.album_num_tracks_convertor}">
+                <f:validateLongRange minimum = "1"/>
+            </p:inputText>
+            
             <p:outputLabel value="#{bundle.album_created_at}:" for="createdAt" />
             <p:inputText id="createdAt" value="#{theAlbums.selectedAlbum.createdAt}" disabled="true"/>
             <p:outputLabel value="#{bundle.album_cost_price}:" for="costPrice" />
@@ -76,7 +81,10 @@
             <p:outputLabel value="#{bundle.album_available}:" for="available" />
             <p:selectBooleanButton id="available" value="#{theAlbums.selectedAlbum.available}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}" style="width:60px"  class="mgmt_btn" />
             <p:outputLabel value="#{bundle.album_artist}:" for="artist" />     
-            <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.selectedAlbum.artist}" var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" converter="#{artistConverter}"/>
+            <p:autoComplete id="artist" dropdown="true" value="#{theAlbums.selectedAlbum.artist}" var="artist" 
+                            itemLabel="#{artist.name}" itemValue="#{artist}" completeMethod="#{theArtists.suggest}" 
+                            converter="#{artistConverter}" required="true" requiredMessage="#{bundle.album_artist_required}"
+                            converterMessage="#{bundle.album_artist_convertor}"/>
 
             <p:commandButton id="save" actionListener="#{theAlbums.edit()}" class="mgmt_btn" value="#{bundle.mgmt_btn_save}" update="form,dialogForm">
                 <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />

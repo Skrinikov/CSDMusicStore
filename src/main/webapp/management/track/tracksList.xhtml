@@ -19,7 +19,7 @@
 
         <h:form id="form">           
            
-            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <p:growl id="growl" showDetail="false" sticky="true" /> 
             <h:outputText escape="false" value="#{bundle.list_track_empty}" rendered="#{theTracks.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">

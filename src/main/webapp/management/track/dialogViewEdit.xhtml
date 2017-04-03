@@ -114,7 +114,7 @@
                 </div>
                 <div class="form-group row">
                     <p:outputLabel value="#{bundle.track_duration}:" for="duration" class="control-label mgmt_detail_label col-sm-3"/>
-                    <p:inputText id="duration" value="#{theTracks.selectedTrack.duration}" required="true" requiredMessage="#{bundle.track_duraction_required}" class="col-sm-4"/>
+                    <p:inputMask id="duration" value="#{theTracks.selectedTrack.duration}" required="true" requiredMessage="#{bundle.track_duraction_required}" class="col-sm-4" mask="99:99"/>
                 </div>
                 <div class="form-group row">
                     <p:outputLabel value="#{bundle.track_album_num}:" for="albumNum" class="control-label mgmt_detail_label col-sm-3" />
@@ -164,13 +164,13 @@
                     <p:outputLabel value="#{bundle.track_album}:" for="album" class="control-label mgmt_detail_label col-sm-3"/>   
                     <p:autoComplete id="album" dropdown="true" value="#{theTracks.selectedTrack.album}" var="album" itemLabel="#{album.title}" 
                                     itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}" class="col-sm-4"
-                                    required="true" requiredMessage="#{bundle.track_album_required}"/>
+                                    required="true" requiredMessage="#{bundle.track_album_required}" converterMessage="#{bundle.track_album_convertor}"/>
                 </div>
                 <div class="form-group row">
                     <p:outputLabel value="#{bundle.track_artists}:" for="artists" />                       
                     <p:autoComplete id="artists" multiple="true" value="#{theTracks.selectedTrack.artists}" completeMethod="#{theArtists.suggest}"
                                     var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true" class="col-sm-4"
-                                    required="true" requiredMessage="#{bundle.track_artists_required}"/>             
+                                    required="true" requiredMessage="#{bundle.track_artists_required}" converterMessage="#{bundle.track_artists_convertor}"/>             
                 </div>
                 
                 <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form" class="mgmt_btn">
