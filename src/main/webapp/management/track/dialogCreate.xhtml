@@ -16,9 +16,11 @@
             <p:outputLabel value="#{bundle.track_duration}:" for="duration" />
             <p:inputText id="duration" value="#{theTracks.createdTrack.duration}" required="true" requiredMessage="#{bundle.track_duration_required}"/>
             <p:outputLabel value="#{bundle.track_album_num}:" for="albumNum" />
-            <p:inputText id="albumNum" value="#{theTracks.createdTrack.albumNum}"  required="true" requiredMessage="#{bundle.track_album_num_required}"/>
+            <p:inputText id="albumNum" value="#{theTracks.createdTrack.albumNum}"  required="true" requiredMessage="#{bundle.track_album_num_required}"
+                         validatorMessage="#{bundle.track_album_num_validation}"/>
             <p:outputLabel value="#{bundle.track_cover_file}:" for="coverFile" />
-            <p:autoComplete id="coverFile" dropdown="true" forceSelection="true" value="#{theTracks.createdTrack.coverFile}" var="cover" itemLabel="#{cover}" itemValue="#{cover}" completeMethod="#{theTracks.suggestCover}"/>
+            <p:autoComplete id="coverFile" dropdown="true" forceSelection="true" value="#{theTracks.createdTrack.coverFile}" var="cover" itemLabel="#{cover}"
+                            itemValue="#{cover}" completeMethod="#{theTracks.suggestCover}" required="true" requiredMessage="#{bundle.track_cover_file_required}"/>
             <p:outputLabel value="#{bundle.track_cost_price}:" for="costPrice" />
             <p:inputText id="costPrice" value="#{theTracks.createdTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}"/>
             <p:outputLabel value="#{bundle.track_list_price}:" for="listPrice" />
@@ -31,11 +33,16 @@
             <p:selectBooleanButton id="isIndividual" value="#{theTracks.createdTrack.isIndividual}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}"  class="mgmt_btn"/>         
             <p:outputLabel value="#{bundle.track_artists}:" for="artists" />                       
             <p:autoComplete id="artists" multiple="true" value="#{theTracks.createdTrack.artists}" completeMethod="#{theArtists.suggest}"
-                            var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"/>
+                            var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true"
+                            required="true" requiredMessage="#{bundle.track_artists_required}"/>
             <p:outputLabel value="#{bundle.track_genre}:" for="genre" />        
-            <p:autoComplete id="genre" dropdown="true" value="#{theTracks.createdTrack.genre}" var="genre" itemLabel="#{genre.name}" itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}"/>
+            <p:autoComplete id="genre" dropdown="true" value="#{theTracks.createdTrack.genre}" var="genre" itemLabel="#{genre.name}" 
+                            itemValue="#{genre}" completeMethod="#{theGenres.suggest}" converter="#{genreConverter}"
+                            required="true" requiredMessage="#{bundle.track_genre_required}"/>
             <p:outputLabel value="#{bundle.track_album}:" for="album" />   
-            <p:autoComplete id="album" dropdown="true" value="#{theTracks.createdTrack.album}" var="album" itemLabel="#{album.title}" itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"/>
+            <p:autoComplete id="album" dropdown="true" value="#{theTracks.createdTrack.album}" var="album" itemLabel="#{album.title}" 
+                            itemValue="#{album}" completeMethod="#{theAlbums.suggest}" converter="#{albumConverter}"
+                            required="true" requiredMessage="#{bundle.track_album_required}"/>
                        
             <p:commandButton id="create" actionListener="#{theTracks.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn" value="#{bundle.mgmt_btn_create}"/>
             <p:commandButton id="exit"  value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
