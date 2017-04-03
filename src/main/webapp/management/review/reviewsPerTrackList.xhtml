@@ -26,7 +26,7 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginator="true" rows="10" style="margin-bottom:20px"
                              selectionMode="single" selection="#{theReviews.selectedTrack}" 
-                             rowKey="#{item.id}" reflow="true"
+                             rowKey="#{item.id}" reflow="true" rowStyleClass="mgmt_table_row"
                              draggableColumns="true" resizableColumns="true" >                   
 
                     <p:ajax event="rowSelect" update="form" />
@@ -105,7 +105,7 @@
 
             <p:dataTable id="tbl2" value="#{theReviews.getReviewsByTrack()}" var="item2" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
+                         paginator="true" rows="10" style="margin-bottom:20px" rowStyleClass="mgmt_table_row"
                          selectionMode="single" selection="#{theReviews.selectedReview}" 
                          rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedTrack}"
                          draggableColumns="true" resizableColumns="true"  >

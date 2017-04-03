@@ -22,8 +22,7 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theReviews.selectedUser}" 
-                         rowKey="#{item.id}"
-                         reflow="true"
+                         rowKey="#{item.id}" rowStyleClass="mgmt_table_row" reflow="true"
                          draggableColumns="true" resizableColumns="true" >
 
                 <f:facet name="header">
@@ -118,7 +117,7 @@
 
             <p:dataTable id="tbl2" value="#{theReviews.getReviewsByUser()}" var="item2" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
+                         paginator="true" rows="10" style="margin-bottom:20px" rowStyleClass="mgmt_table_row"
                          selectionMode="single" selection="#{theReviews.selectedReview}" 
                          rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedUser}"
                          draggableColumns="true" resizableColumns="true" >
