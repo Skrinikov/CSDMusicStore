@@ -166,7 +166,7 @@
                                     var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true" class="col-sm-4"/>             
                 </div>
                 
-                    <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
+                <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form" class="mgmt_btn">
                         <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" class="mgmt_btn" />
                         
                     </p:commandButton>

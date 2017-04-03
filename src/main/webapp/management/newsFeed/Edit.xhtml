@@ -18,6 +18,10 @@
     <ui:define name="title">
         <h:outputText value="#{bundle.nf_title}"></h:outputText>
     </ui:define>
+    
+    <ui:define name="placeholder-css">
+        <h:outputStylesheet library="css" name="mgmt_crud.css" />
+    </ui:define>
 
     <ui:define name="content">
 
@@ -54,11 +58,11 @@
                     </h:selectOneRadio>	
                 </p:panelGrid>
                 
-                <p:commandButton id="save" value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" 
+                <p:commandButton class="mgmt_btn" id="save" value="#{bundle.saveBtn}" action="#{nfsBackingBean.persistChanges()}" 
                              update="growl">
                 </p:commandButton>
                 
-                <p:button id="back" value="#{bundle.backBtn}" outcome="List">
+                <p:button class="mgmt_btn" id="back" value="#{bundle.backBtn}" outcome="List">
                 </p:button>                
             </h:form>
 

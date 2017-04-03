@@ -23,11 +23,12 @@
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theReviews.selectedUser}" 
                          rowKey="#{item.id}"
+                         reflow="true"
                          draggableColumns="true" resizableColumns="true" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.list_user_title}"/>
-                    <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton class="mgmt_btn new_toggler" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
