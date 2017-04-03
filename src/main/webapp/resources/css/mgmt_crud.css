@@ -13,7 +13,7 @@
 
 .mgmt_edit{
     background-color: #edf0f5;
-    
+
 }
 
 .custDialogBox {
@@ -41,18 +41,18 @@
     opacity: 1;
 }
 
+.ui-datatable{
+
+}
+
 .mgmt_table_row {
-    background-color: #0a0a0a;
-    /**
-    color: #fbcdcf;
-    */
-    
-    color: #F8F3EE;
+
 }
 
 .mgmt_table_row:hover{
-    
+    color: #F8F3EE;
     background-color: #333333;
+    border-color: #F8F3EE;
 }
 
 
@@ -71,7 +71,7 @@
 }
 
 .newHeader{
-    padding: 4px 10px 35px 10px;
+    padding: 4px 10px 50px 10px;
 }
 
 
@@ -91,6 +91,40 @@
     .ui-datatable-reflow .ui-datatable-data tr.ui-widget-content {
         border-style: groove;
     }
+
+    #toggler{
+        visibility: collapse;
+    }
+
+    .new_toggler {
+        visibility: hidden;
+    }
+
+    .ui-widget-header{
+        background-color: #ecf9f9;
+        border-style: double;
+    }
+}
+
+.ui-paginator-first{
+
+    background-image: url("#{resource['images/mgmt_icons/Button-First-icon.png']}");
+    background-size: 100%;
+}
+
+.ui-paginator-prev {
+    background-image: url("#{resource['images/mgmt_icons/Button-Rewind-icon.png']}");
+    background-size: 100%;        
+}
+
+.ui-paginator-next{
+    background-image: url("#{resource['images/mgmt_icons/Button-Fast-Forward-icon.png']}");
+    background-size: 100%;
+}
+
+.ui-paginator-last{
+    background-image: url("#{resource['images/mgmt_icons/Button-Last-icon.png']}");
+    background-size: 100%;
 }
 
 .ui-paginator-page {
@@ -140,7 +174,7 @@
 .newContainer {
     padding-top: 15px;
     padding-bottom: 15px;
-    
+
     background-color: #fff;
     color: #121212;
     margin-top: 2%;
