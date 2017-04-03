@@ -2,6 +2,8 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.Order_;
+import com.fractals.beans.Review;
+import com.fractals.beans.Review_;
 import com.fractals.beans.User;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -51,5 +53,14 @@ public class UserController implements Serializable {
     public void refreshUser(User user) {
         em.refresh(user);
     }
-
+    
+    public Number getNumberOfReviews(User u){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        Root<Review> root = query.from(Review.class);
+        query.select(cb.count(root.get(Review_.id)));
+        query.where(cb.equal(root.get(Review_.user), u));
+        Number result = em.createQuery(query).getSingleResult();
+        return result == null ? 0 : result;
+    }
 }

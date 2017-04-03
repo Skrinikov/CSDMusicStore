@@ -19,7 +19,7 @@
 
         <h:form id="form">           
            
-            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <p:growl id="growl" showDetail="false" sticky="true" /> 
             <h:outputText escape="false" value="#{bundle.list_track_empty}" rendered="#{theTracks.isEmpty()}"/>
 
             <h:panelGroup rendered="#{!theTracks.isEmpty()}">
@@ -106,11 +106,6 @@
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
 
-                    <p:column headerText="#{bundle.track_total_sales}" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
-                        <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
-                            <f:convertNumber maxFractionDigits="2" />
-                        </h:outputText>
-                    </p:column>
                     <p:column headerText="#{bundle.track_number_sold}"  filterStyle="display:none" filterBy="#{theTracks.getTracksSold(item)}">
                         <h:outputText value="#{theTracks.getTracksSold(item)}">
                             <f:convertNumber maxFractionDigits="0" />

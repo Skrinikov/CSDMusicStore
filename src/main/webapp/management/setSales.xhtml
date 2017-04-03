@@ -70,12 +70,12 @@
                 <p:column headerText="#{bundle.album_available}" filterStyle="display:none" filterBy="#{item.available}">
                     <h:outputText value="#{item.available}"/>
                 </p:column>
-
-                <p:column headerText="#{bundle.album_total_sales}" >
-                    <h:outputText value="#{theAlbums.getTotalSalesByAlbum(item)}" >
-                        <f:convertNumber maxFractionDigits="2" /> 
-                    </h:outputText>
-                </p:column>
+                
+                <p:column headerText="#{bundle.album_albums_sold}">
+                        <h:outputText value="#{theAlbums.getAlbumsSold(item)}">
+                            <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
+                    </p:column>
 
                 <p:column headerText="#{bundle.set_sale_column}">
                     <p:commandButton id="columnButtonAlbum" class="mgmt_btn" onclick="PF('setSaleAlbum').show()" update="dialogForm" icon="fa fa-fw fa-edit">
@@ -166,12 +166,12 @@
                     <h:outputText value="#{item.genre.name}" />
                 </p:column>
 
-                <p:column headerText="#{bundle.track_total_sales}" filterStyle="display:none" filterBy="#{theTracks.getTotalSalesByTrack(item)}">
-                    <h:outputText value="#{theTracks.getTotalSalesByTrack(item)}" >
-                        <f:convertNumber maxFractionDigits="2" />
+                <p:column headerText="#{bundle.track_number_sold}"  filterStyle="display:none" filterBy="#{theTracks.getTracksSold(item)}">
+                    <h:outputText value="#{theTracks.getTracksSold(item)}">
+                        <f:convertNumber maxFractionDigits="0" />
                     </h:outputText>
                 </p:column>
-
+                
                 <p:column headerText="#{bundle.set_sale_price}">
                     <p:commandButton class="mgmt_btn" onclick="PF('setSaleTrack').show()" update="dialogForm2" icon="fa fa-fw fa-edit"> 
                         <f:setPropertyActionListener value="#{item}" target="#{theTracks.selectedTrack}" />   

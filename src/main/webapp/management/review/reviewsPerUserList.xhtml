@@ -22,12 +22,12 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginator="true" rows="10" style="margin-bottom:20px"
                          selectionMode="single" selection="#{theReviews.selectedUser}" 
-                         rowKey="#{item.id}"
+                         rowKey="#{item.id}" rowStyleClass="mgmt_table_row" reflow="true"
                          draggableColumns="true" resizableColumns="true" >
 
                 <f:facet name="header">
                     <h:outputText value="#{bundle.list_user_title}"/>
-                    <p:commandButton class="mgmt_btn" id="toggler" value="Change columns" style="float:right" />
+                    <p:commandButton class="mgmt_btn new_toggler" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
                     <p:columnToggler datasource="tbl" trigger="toggler" />
                 </f:facet>
 
@@ -102,16 +102,22 @@
                 </p:column>
 
                 <p:column headerText="#{bundle.user_total_sales}">
-                        <h:outputText value="#{theUsers.getTotalSales(item)}" >
-                            <f:convertNumber maxFractionDigits="2" />
-                        </h:outputText>
-                    </p:column>
+                    <h:outputText value="#{theUsers.getTotalSales(item)}" >
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{bundle.user_number_reviews}">
+                    <h:outputText value="#{theUsers.getNumberOfReviews(item)}" >
+                    <f:convertNumber maxFractionDigits="0" />
+                    </h:outputText>
+                </p:column>
                 
             </p:dataTable>
 
             <p:dataTable id="tbl2" value="#{theReviews.getReviewsByUser()}" var="item2" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         paginator="true" rows="10" style="margin-bottom:20px"
+                         paginator="true" rows="10" style="margin-bottom:20px" rowStyleClass="mgmt_table_row"
                          selectionMode="single" selection="#{theReviews.selectedReview}" 
                          rowKey="#{item2.id}" rendered="#{not empty theReviews.selectedUser}"
                          draggableColumns="true" resizableColumns="true" >
