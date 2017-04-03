@@ -128,7 +128,7 @@
                     <p:inputText id="createdAt" value="#{theTracks.selectedTrack.createdAt}" disabled="true" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
-                    <p:outputLabel value="#{bundle.track.cost_price}:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
+                    <p:outputLabel value="#{bundle.track_cost_price}:" for="costPrice" class="control-label mgmt_detail_label col-sm-3"/>
                     <p:inputText id="costPrice" value="#{theTracks.selectedTrack.costPrice}" required="true" requiredMessage="#{bundle.track_cost_price_required}" class="col-sm-4"/>
                 </div>
                 <div class="form-group row">
@@ -165,7 +165,7 @@
                                     var="artist" itemLabel="#{artist.name}" itemValue="#{artist}" converter="#{artistConverter}" dropdown="true" class="col-sm-4"/>             
                 </div>
                 
-                    <p:commandButton id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
+                <p:commandButton class="mgmt_btn" id="save" actionListener="#{theTracks.edit()}" value="#{bundle.mgmt_btn_save}" update="dialogForm,form">
                         <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" class="mgmt_btn" />
                         
                     </p:commandButton>

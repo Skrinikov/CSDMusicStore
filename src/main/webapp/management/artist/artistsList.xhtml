@@ -32,7 +32,7 @@
                              draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row">
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.list_artist_title}"/>
+                        <h1><h:outputText value="#{bundle.list_artist_title}"/></h1>
                         <p:outputPanel style="float:right">
                             <h:outputText value="#{bundle.row_search}" />
                             <p:inputText id="globalFilter" onkeyup="PF('artistTable').filter()" style="width:150px" placeholder="#{bundle.row_search_hint}"/>
