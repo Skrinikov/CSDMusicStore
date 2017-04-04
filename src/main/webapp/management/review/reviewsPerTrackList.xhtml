@@ -99,6 +99,10 @@
                     <p:column headerText="#{bundle.track_genre}">
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
+                    
+                    <p:column headerText="#{bundle.track_review_count}">
+                        <h:outputText value="#{theTracks.getReviewCountPerTrack(item)}" />
+                    </p:column>
 
                 </p:dataTable>
             </h:panelGroup>

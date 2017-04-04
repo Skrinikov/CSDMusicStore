@@ -193,6 +193,23 @@ public class ReviewJpaController implements Serializable {
 
     }
     
+    
+    /**
+     * Module to get the number of reviews of a Track
+     * @param track
+     * @return Count of Reviews of in Track
+     */
+    public Number getReviewsCountPerTrack(Track track){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Number> query = cb.createQuery(Number.class);
+        
+        Root<Review> root = query.from(Review.class);
+        query.select(cb.count(root));
+        query.where(cb.equal(root.get(Review_.track), track));
+        
+        return em.createQuery(query).getSingleResult();
+    }
+    
     /**
      * Module to get the approved comments of a Track
      * @param track
