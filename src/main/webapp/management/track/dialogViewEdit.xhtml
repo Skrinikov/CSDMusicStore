@@ -50,8 +50,26 @@
                         <h:outputText value="#{item.name}" />
                     </p:column>
                 </p:dataTable>       
+                
+                <h:outputText value="#{bundle.track_number_sale_individual}:" class="mgmt_detail_label"/>
+                <h:outputText value="#{theTracks.getTotalSalesPerTrack(theTracks.selectedTrack)}" >
+                    <f:convertNumber maxFractionDigits="2"/>
+                </h:outputText>
+                
                 <h:outputText value="#{bundle.track_number_sold}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theTracks.getTracksSold(theTracks.selectedTrack)}" >
+                    <f:convertNumber maxFractionDigits="0"/>
+                </h:outputText>
+                
+                
+                
+                <h:outputText value="#{bundle.track_number_sold_individual}:" class="mgmt_detail_label"/>
+                <h:outputText value="#{theTracks.getTracksSoldIndivually(theTracks.selectedTrack)}" >
+                    <f:convertNumber maxFractionDigits="0"/>
+                </h:outputText>
+                
+                <h:outputText value="#{bundle.track_number_sold_part_album}:" class="mgmt_detail_label"/>
+                <h:outputText value="#{theTracks.getTracksSoldSoldAsPartOfAlbum(theTracks.selectedTrack)}" >
                     <f:convertNumber maxFractionDigits="0"/>
                 </h:outputText>
 

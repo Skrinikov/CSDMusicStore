@@ -147,4 +147,23 @@ public class TrackBackingBean implements Serializable {
     public Number getReviewCountPerTrack(Track t){
         return reviewJpaController.getReviewsCountPerTrack(t);
     }
+    
+    /**
+     * Returns the total sales of a Track
+     * 
+     * @parem Track
+     */
+    public Number getTotalSalesPerTrack (Track t){
+        return trackJpaController.getTotalSales(t);
+    }
+    
+    public Number getTracksSoldIndivually (Track t){
+        return trackJpaController.getTracksSoldAsIndividualTrack(t);
+    }
+    
+    public Number getTracksSoldSoldAsPartOfAlbum (Track t){
+        return trackJpaController.getTracksSoldAsPartOfAlbum(t);
+    }
+    
+    
 }

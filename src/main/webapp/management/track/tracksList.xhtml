@@ -106,9 +106,27 @@
                         <h:outputText value="#{item.genre.name}"/>
                     </p:column>
 
+                    <p:column headerText="#{bundle.track_number_sale_individual_table}"  filterStyle="display:none" filterBy="#{theTracks.getTotalSalesPerTrack(item)}">
+                        <h:outputText value="#{theTracks.getTotalSalesPerTrack(item)}">
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    </p:column>
+                    
                     <p:column headerText="#{bundle.track_number_sold}"  filterStyle="display:none" filterBy="#{theTracks.getTracksSold(item)}">
                         <h:outputText value="#{theTracks.getTracksSold(item)}">
                             <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="#{bundle.track_number_sold_individual_table}"  filterStyle="display:none" filterBy="#{theTracks.getTracksSoldIndivually(item)}">
+                        <h:outputText value="#{theTracks.getTracksSoldIndivually(item)}">
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="#{bundle.track_number_sold_part_album_table}"  filterStyle="display:none" filterBy="#{theTracks.getTracksSoldSoldAsPartOfAlbum(item)}">
+                        <h:outputText value="#{theTracks.getTracksSoldSoldAsPartOfAlbum(item)}">
+                            <f:convertNumber maxFractionDigits="2" />
                         </h:outputText>
                     </p:column>
 
