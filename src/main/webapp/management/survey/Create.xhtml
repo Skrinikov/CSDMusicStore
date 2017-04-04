@@ -8,8 +8,8 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
      
      
-     <ui:define name="title">
-         <h:outputText value="Make Bun var"></h:outputText>
+     <ui:define name="windowTitle">
+            <h:outputText value="#{bundle.listHeader}"></h:outputText>
      </ui:define>
      
      <ui:define name="content">
@@ -21,16 +21,16 @@
                  <h1><h:outputText value="#{bundle.createHeader}"/></h1>
                  <p:panelGrid columns="2">
                      
-                     <p:outputLabel value="Id:" for="id" />
+                     <p:outputLabel value="#{bundle.nf_form_id}" for="id" />
                      <p:outputLabel id="id" value="#{surveyBacking.current.id}" title="Id"/>
                      
-                     <p:outputLabel value="Question:" for="question" />
+                     <p:outputLabel value="#{bundle.sur_question}" for="question" />
                      <p:inputText id="question" value="#{surveyBacking.current.question}" title="Question" required="true" requiredMessage="#{bundle.survey_error_msg1}"
                                   validatorMessage="#{bundle.error_msg4}">
                          <f:validateLength minimum="0" maximum="100" />
                      </p:inputText>
                      
-                     <p:outputLabel value="Visible:" />
+                     <p:outputLabel value="#{bundle.nf_form_visible}" />
                      <h:selectOneRadio value="#{surveyBacking.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			
@@ -43,7 +43,7 @@
              <p:dataTable id="choicesInput" value="#{surveyBacking.current.surveyChoices}" var="item">
                      <p:column>
                          <f:facet name="header">
-                             <h:outputText value="choice"/>
+                             <h:outputText value="#{bundle.sur_choice}"/>
                          </f:facet> 
                          <p:inputText id="choice" value="#{item.choice}" title="Choice" required="true" requiredMessage="#{bundle.survey_error_msg2}" 
                                       validatorMessage="#{bundle.error_msg4}">

@@ -14,7 +14,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.nf_title}"></h:outputText>
     </ui:define>
     
@@ -39,31 +39,31 @@
                              resizableColumns="true"  rowStyleClass="mgmt_table_row">
                     <p:column>                      
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
+                            <h:outputText value="#{bundle.nf_form_id}"/>
                         </f:facet>
                         <h:outputText value="#{item.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Link"/>
+                            <h:outputText value="#{bundle.nf_form_link}"/>
                         </f:facet>
                         <h:outputText value="#{item.link}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Source"/>
+                            <h:outputText value="#{bundle.nf_form_source}"/>
                         </f:facet>
                         <h:outputText value="#{item.source}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Visible"/>
+                            <h:outputText value="#{bundle.nf_form_visible}"/>
                         </f:facet>
                         <h:outputText value="#{item.visible}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Operation"/>
+                            <h:outputText value="#{bundle.nf_form_opertaion}"/>
                         </f:facet>
 
                         <p:commandButton styleClass="mgmt_btn" id="delete" update="data" value="#{bundle.deleteBtn}" action="#{nfsBackingBean.deleteNews(item.id)}">               
