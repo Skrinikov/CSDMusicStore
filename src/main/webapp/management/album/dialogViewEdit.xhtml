@@ -40,6 +40,12 @@
                 </p:column>              
             </p:dataTable>
             
+            <h:outputText value="${bundle.album_albums_sale}" class="mgmt_detail_label"/>
+            <h:outputText value="#{theAlbums.getAlbumsSales(theAlbums.selectedAlbum)}">
+                <f:convertNumber maxFractionDigits="2" />
+                <f:convertNumber minFractionDigits="2" />
+            </h:outputText>
+            
             <h:outputText value="${bundle.album_albums_sold}" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.getAlbumsSold(theAlbums.selectedAlbum)}">
                 <f:convertNumber maxFractionDigits="0" />
