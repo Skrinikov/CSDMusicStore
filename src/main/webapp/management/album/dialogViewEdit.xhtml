@@ -8,39 +8,45 @@
     <h:form id="dialogForm">
         <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theAlbums.selectedAlbum}"/>
 
-        <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}">
-            <h:outputText value="#{bundle.album_id}:"/>
+        <h:panelGrid columns="2" rendered="#{not theAlbums.editable and not empty theAlbums.selectedAlbum}" styleClass="customgrid" columnClasses="columnInfo">
+            <h:outputText value="#{bundle.album_id}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.id}" />
-            <h:outputText value="#{bundle.album_title}:"/>
+            <h:outputText value="#{bundle.album_title}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.title}" />
-            <h:outputText value="#{bundle.album_release_date}:"/>
+            <h:outputText value="#{bundle.album_release_date}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.releaseDate}" />
-            <h:outputText value="#{bundle.album_record_label}:"/>
+            <h:outputText value="#{bundle.album_record_label}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.recordLabel}" />
-            <h:outputText value="#{bundle.album_num_tracks}:"/>
+            <h:outputText value="#{bundle.album_num_tracks}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.numTracks}" />
-            <h:outputText value="#{bundle.album_created_at}:"/>
+            <h:outputText value="#{bundle.album_created_at}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.createdAt}" />
-            <h:outputText value="#{bundle.album_cost_price}:"/>
+            <h:outputText value="#{bundle.album_cost_price}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.costPrice}" />
-            <h:outputText value="#{bundle.album_list_price}:"/>
+            <h:outputText value="#{bundle.album_list_price}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.listPrice}" />
-            <h:outputText value="#{bundle.album_sale_price}:"/>
+            <h:outputText value="#{bundle.album_sale_price}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.salePrice}"/>
-            <h:outputText value="#{bundle.album_removed_at}:"/>
+            <h:outputText value="#{bundle.album_removed_at}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.removedAt}"/>
-            <h:outputText value="#{bundle.album_available}:"/>
+            <h:outputText value="#{bundle.album_available}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.available}"/>
-            <h:outputText value="#{bundle.album_artist}:"/>
+            <h:outputText value="#{bundle.album_artist}:" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.selectedAlbum.artist.name}" />
-            <h:outputText value="#{bundle.album_tracks}:"/>
+            <h:outputText value="#{bundle.album_tracks}:" class="mgmt_detail_label"/>
             <p:dataTable id="tbl" value="#{theAlbums.selectedAlbum.tracks}" var="item" rows="20" style="width:100px;">
                 <p:column headerText="#{bundle.track_id}">
                     <h:outputText value="#{item.title}"/>
                 </p:column>              
             </p:dataTable>
             
-            <h:outputText value="${bundle.album_albums_sold}" />
+            <h:outputText value="${bundle.album_albums_sale}" class="mgmt_detail_label"/>
+            <h:outputText value="#{theAlbums.getAlbumsSales(theAlbums.selectedAlbum)}">
+                <f:convertNumber maxFractionDigits="2" />
+                <f:convertNumber minFractionDigits="2" />
+            </h:outputText>
+            
+            <h:outputText value="${bundle.album_albums_sold}" class="mgmt_detail_label"/>
             <h:outputText value="#{theAlbums.getAlbumsSold(theAlbums.selectedAlbum)}">
                 <f:convertNumber maxFractionDigits="0" />
             </h:outputText>

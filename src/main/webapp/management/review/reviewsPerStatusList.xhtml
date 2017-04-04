@@ -17,6 +17,7 @@
 
     <ui:define name="content">
                     
+        <h1><h:outputText value="#{bundle.reviews_per_status_title}" /></h1>
 
         <h:outputText escape="false" value="#{bundle.ListReviewsEmpty}" rendered="#{theReviews.getReviews().size() == 0}"/>
         <h:panelGroup rendered="#{theReviews.getReviews().size() != 0}">    

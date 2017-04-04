@@ -1,6 +1,7 @@
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Track;
+import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.TrackJpaController;
 import java.io.File;
 import java.io.Serializable;
@@ -25,6 +26,10 @@ public class TrackBackingBean implements Serializable {
 
     @Inject
     private TrackJpaController trackJpaController;
+    
+    @Inject
+    private ReviewJpaController reviewJpaController;
+    
     private boolean editable = false;
     private Track createdTrack, selectedTrack;
 
@@ -131,4 +136,34 @@ public class TrackBackingBean implements Serializable {
         return suggestions;
                 
     }
+    
+    /**
+     * Returns the count of reviews in a Track
+     * 
+     * @param Track
+     * @return Count of reviews of a Track
+     * @author Thai-Vu Nguyen
+     */
+    public Number getReviewCountPerTrack(Track t){
+        return reviewJpaController.getReviewsCountPerTrack(t);
+    }
+    
+    /**
+     * Returns the total sales of a Track
+     * 
+     * @parem Track
+     */
+    public Number getTotalSalesPerTrack (Track t){
+        return trackJpaController.getTotalSales(t);
+    }
+    
+    public Number getTracksSoldIndivually (Track t){
+        return trackJpaController.getTracksSoldAsIndividualTrack(t);
+    }
+    
+    public Number getTracksSoldSoldAsPartOfAlbum (Track t){
+        return trackJpaController.getTracksSoldAsPartOfAlbum(t);
+    }
+    
+    
 }
