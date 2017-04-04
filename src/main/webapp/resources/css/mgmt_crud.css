@@ -188,7 +188,18 @@
     font-size: 1.2em;
 }
 
+.columnInfo {
+    font-size: 1.2em;
+    padding-right: 2px;
+}
 
+.customgrid tr{
+    margin-bottom: 20px;
+}
+
+.customgrid tr td{
+    padding-right: 30px;
+}
 
 .mgmt-inner-contnet{
     margin: 0 auto;

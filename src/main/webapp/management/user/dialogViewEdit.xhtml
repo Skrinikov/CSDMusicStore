@@ -9,42 +9,42 @@
 
         <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theUsers.selectedUser}"/>
 
-            <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}">
-                <h:outputText value="#{bundle.user_id}:"/>
+            <h:panelGrid columns="2" rendered="#{not theUsers.editable and not empty theUsers.selectedUser}" styleClass="customgrid" >
+                <h:outputText value="#{bundle.user_id}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.id}"/>
-                <h:outputText value="#{bundle.user_username}:"/>
+                <h:outputText value="#{bundle.user_username}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.username}"/>            
-                <h:outputText value="#{bundle.user_title}:"/>
+                <h:outputText value="#{bundle.user_title}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.title}"/>
-                <h:outputText value="#{bundle.user_first_name}:"/>
+                <h:outputText value="#{bundle.user_first_name}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.firstName}"/>
-                <h:outputText value="#{bundle.user_last_name}:"/>
+                <h:outputText value="#{bundle.user_last_name}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.lastName}" />
-                <h:outputText value="#{bundle.user_company}:"/>
+                <h:outputText value="#{bundle.user_company}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.company}"/>
-                <h:outputText value="#{bundle.user_address_1}:"/>
+                <h:outputText value="#{bundle.user_address_1}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.address1}" />
-                <h:outputText value="#{bundle.user_address_2}:"/>
+                <h:outputText value="#{bundle.user_address_2}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.address2}"/>
-                <h:outputText value="#{bundle.user_city}:"/>
+                <h:outputText value="#{bundle.user_city}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.city}"/>
-                <h:outputText value="#{bundle.user_country}:"/>
+                <h:outputText value="#{bundle.user_country}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.country}"/>
-                <h:outputText value="#{bundle.user_postal_code}:"/>
+                <h:outputText value="#{bundle.user_postal_code}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.postalCode}"/>
-                <h:outputText value="#{bundle.user_home_tel}:"/>
+                <h:outputText value="#{bundle.user_home_tel}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.homeTel}"/>
-                <h:outputText value="#{bundle.user_cell_tel}:"/>
+                <h:outputText value="#{bundle.user_cell_tel}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.cellTel}" />
-                <h:outputText value="#{bundle.user_email}:"/>
+                <h:outputText value="#{bundle.user_email}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.email}" />
-                <h:outputText value="#{bundle.user_is_admin}:"/>
+                <h:outputText value="#{bundle.user_is_admin}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.isAdmin}"/>
-                <h:outputText value="#{bundle.user_province}:"/>
+                <h:outputText value="#{bundle.user_province}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.province}" />               
-                <h:outputText value="#{bundle.user_last_genre}:"/>
+                <h:outputText value="#{bundle.user_last_genre}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.selectedUser.lastGenre}" />
-                <h:outputText value="#{bundle.user_total_sales}:"/>
+                <h:outputText value="#{bundle.user_total_sales}:" class="mgmt_detail_label"/>
                 <h:outputText value="#{theUsers.getTotalSales()}">
                     <f:convertNumber maxFractionDigits="2" />
                 </h:outputText>
