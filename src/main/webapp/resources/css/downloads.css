@@ -4,9 +4,7 @@
 */
 
 .background{
-    /*background:#0a0a0a;*/
-    background: url("#{resource['images/lib.jpeg']}");
-    background-position:center;
+    background:#0a0a0a;
 }
 
 ::selection {
