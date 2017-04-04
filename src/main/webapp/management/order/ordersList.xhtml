@@ -30,8 +30,8 @@
                              draggableColumns="true" reflow="true" resizableColumns="true" rowStyleClass="mgmt_table_row" >
 
                     <f:facet name="header" class="mgmt_table_header">
-                        <h:outputText value="#{bundle.list_order_title}"/>
-                        <p:commandButton id="toggler" value="#{bundle.col_toggler}" style="float:right"  class="mgmt_btn"/>
+                        <h1><h:outputText value="#{bundle.list_order_title}"/></h1>
+                        <p:commandButton id="toggler" value="#{bundle.col_toggler}"  class="mgmt_btn"/>
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
 

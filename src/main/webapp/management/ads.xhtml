@@ -28,7 +28,7 @@
                             rowsPerPageTemplate="6,12,16">
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.list_banner_ad_title}"/>
+                        <h1><h:outputText value="#{bundle.list_banner_ad_title}"/></h1>
                     </f:facet>
 
                     <p:panel header="#{item.id}" style="text-align:center">
@@ -73,7 +73,7 @@
                     <p:outputLabel value="#{bundle.banner_visible}:" for="visible" />
                     <p:selectBooleanButton id="visible" value="#{theBannerAds.selectedBannerAd.visible}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}" style="width:60px"  class="mgmt_btn"/>
 
-                    <p:commandButton actionListener="#{theBannerAds.edit()}" value="Save" update="form,dialogForm" class="mgmt_btn" oncomplete="PF('dialogViewEdit').hide()">
+                    <p:commandButton actionListener="#{theBannerAds.edit()}" value="#{bundle.mgmt_btn_save}" update="form,dialogForm" class="mgmt_btn" oncomplete="PF('dialogViewEdit').hide()">
                         <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
                     </p:commandButton>
 
@@ -97,22 +97,22 @@
             <h:form id="dialogForm2">
 
                 <p:panelGrid columns="2">
-                    <p:outputLabel value="Link:" for="link" />
-                    <p:inputText id="link" value="#{theBannerAds.createdBannerAd.link}" title="Link" required="true" 
+                    <p:outputLabel value="#{bundle.banner_link}:" for="link" />
+                    <p:inputText id="link" value="#{theBannerAds.createdBannerAd.link}" required="true" 
                                  requiredMessage="#{bundle.empty_link_message}" validatorMessage="#{bundle.invalid_link_message}">
                         <f:validateRegex pattern="^https?:\/\/.*$" />
                     </p:inputText>
 
-                    <p:outputLabel value="Source:" for="source" />
-                    <p:inputText id="source" value="#{theBannerAds.createdBannerAd.source}" title="Source" required="true" 
+                    <p:outputLabel value="#{bundle.banner_source}:" for="source" />
+                    <p:inputText id="source" value="#{theBannerAds.createdBannerAd.source}" required="true" 
                                  requiredMessage="#{bundle.empty_source_message}" validatorMessage="#{bundle.invalid_source_message}">
                         <f:validateRegex pattern="^https?:\/\/.*$" />
                     </p:inputText>
-                    <p:outputLabel value="Visible:" for="visible" />
-                    <p:selectBooleanButton id="visible" value="#{theBannerAds.createdBannerAd.visible}" onLabel="Yes" offLabel="No" style="width:60px"  class="mgmt_btn"/>
+                    <p:outputLabel value="#{bundle.banner_visible}:" for="visible" />
+                    <p:selectBooleanButton id="visible" value="#{theBannerAds.createdBannerAd.visible}" onLabel="#{bundle.yes}" offLabel="#{bundle.no}" style="width:60px"  class="mgmt_btn"/>
 
-                    <p:commandButton  value="Create" actionListener="#{theBannerAds.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn"/>
-                    <p:commandButton  value="Exit" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
+                    <p:commandButton  value="#{bundle.mgmt_btn_create}" actionListener="#{theBannerAds.create()}" update="form,dialogForm,dialogForm2" class="mgmt_btn"/>
+                    <p:commandButton  value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogCreate').hide()" class="mgmt_btn"/>
 
                     <h:panelGroup>
                         <script>

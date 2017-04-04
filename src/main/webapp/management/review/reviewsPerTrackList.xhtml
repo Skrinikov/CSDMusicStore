@@ -32,8 +32,8 @@
                     <p:ajax event="rowSelect" update="form" />
 
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.list_track_title}"/>
-                        <p:commandButton class="mgmt_btn new_toggler" id="toggler" value="#{bundle.col_toggler}" style="float:right" />
+                        <h1><h:outputText value="#{bundle.reviews_per_track_title}"/></h1>
+                        <p:commandButton class="mgmt_btn new_toggler" id="toggler" value="#{bundle.col_toggler}"  />
                         <p:columnToggler datasource="tbl" trigger="toggler" />
                     </f:facet>
                     

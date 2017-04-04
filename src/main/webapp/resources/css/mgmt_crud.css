@@ -108,23 +108,27 @@
 
 .ui-paginator-first{
 
-    background-image: url("#{resource['images/mgmt_icons/Button-First-icon.png']}");
+    background: url("#{resource['images/mgmt_icons/Button-First-icon.png']}") no-repeat;
     background-size: 100%;
+    min-width: 18px;
 }
 
 .ui-paginator-prev {
-    background-image: url("#{resource['images/mgmt_icons/Button-Rewind-icon.png']}");
-    background-size: 100%;        
+    background: url("#{resource['images/mgmt_icons/Button-Rewind-icon.png']}") no-repeat;
+    background-size: 100%;    
+    min-width: 18px;  
 }
 
 .ui-paginator-next{
-    background-image: url("#{resource['images/mgmt_icons/Button-Fast-Forward-icon.png']}");
+    background: url("#{resource['images/mgmt_icons/Button-Fast-Forward-icon.png']}") no-repeat;
     background-size: 100%;
+    min-width: 18px;
 }
 
 .ui-paginator-last{
-    background-image: url("#{resource['images/mgmt_icons/Button-Last-icon.png']}");
+    background: url("#{resource['images/mgmt_icons/Button-Last-icon.png']}") no-repeat;
     background-size: 100%;
+    min-width: 18px;
 }
 
 .ui-paginator-page {
