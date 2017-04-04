@@ -134,7 +134,7 @@
 }
 
 .album-jumbotron{
-    background-image: url("#{resource['images/ambiance/track_bg.jpeg']}");
+    background-image: url("#{resource['images/ambiance/track_bg.jpg']}");
     background-position:center;
 }
 

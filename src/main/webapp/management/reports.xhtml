@@ -31,43 +31,16 @@
             <div class="col-lg-4 col-md-4 col-xs-12 small-margin-bottom">
                 <p:outputPanel deferred="true" styleClass="box-item">
                     <h3>#{bundle.reports_sales} <span class="count sales">#{reportsBacking.salesCount}</span></h3>
-                    <p class="subtitle">#{bundle.reports_sales_amount} <span id="sales_daterange" class="daterange-link">today</span></p>
+                    <p class="subtitle">#{bundle.reports_sales_amount} <span id="sales_daterange" class="daterange-link">#{bundle.reports_today}</span></p>
                 </p:outputPanel>
             </div>
             <div class="col-lg-4 col-md-4 col-xs-12 small-margin-bottom">
                 <p:outputPanel deferred="true" styleClass="box-item">
                     <h3>#{bundle.reports_revenue} <span class="count income">$#{reportsBacking.totalRevenue}</span></h3>
-                    <p class="subtitle">#{bundle.reports_revenue_total} <span id="revenue_daterange" class="daterange-link">today</span></p>
+                    <p class="subtitle">#{bundle.reports_revenue_total} <span id="revenue_daterange" class="daterange-link">#{bundle.reports_today}</span></p>
                 </p:outputPanel>
             </div>
         </div> 
-
-        <div id="sales_range_picker" class="row" style="display:none">
-            <div class="container top-buffer" style="background-color:#fff;padding:1em;">
-
-                <h:form id="form">
-                    <p:growl id="msgs" showDetail="true" />
-
-                    <h:panelGrid columns="2" cellpadding="200">
-                        <h:panelGrid columns="1" cellpadding="5">
-                            <p:outputLabel for="salesBegin" value="Start date:" />
-                            <p:calendar id="salesBegin" value="#{reportsBacking.salesBegin}" mode="inline">
-                                <p:ajax event="dateSelect" listener="#{reportsBacking.onDateSelect}" update="msgs" />
-                            </p:calendar>
-
-                        </h:panelGrid>    
-
-                        <h:panelGrid columns="1" cellpadding="5" style="margin-left: 50px;">
-                            <p:outputLabel for="salesEnd" value="End date:" />
-                            <p:calendar id="salesEnd" value="#{reportsBacking.salesEnd}" mode="inline">
-                                <p:ajax event="dateSelect" listener="#{reportsBacking.onDateSelect}" update="msgs" />
-                            </p:calendar>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                </h:form>
-
-            </div>
-        </div>
 
         <!-- Secondary Reports -->
         <div class="row top-buffer">
