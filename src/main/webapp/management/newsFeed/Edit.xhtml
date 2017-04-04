@@ -15,7 +15,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 
-    <ui:define name="title">
+    <ui:define name="windowTitle">
         <h:outputText value="#{bundle.nf_title}"></h:outputText>
     </ui:define>
     
@@ -32,11 +32,11 @@
                 <h1><h:outputText id="pageHeader" value="#{bundle.nf_insertMsg}"/></h1>
                 <p:panelGrid columns="2">
                     
-                    <p:outputLabel value="Id:" for="id" />
+                    <p:outputLabel value="#{bundle.nf_form_id}" for="id" />
                     <p:outputLabel id="id" value="#{nfsBackingBean.current.id}" title="Id"/>
 
                     
-                    <p:outputLabel value="Link" for="link" />
+                    <p:outputLabel value="#{bundle.nf_form_link}" for="link" />
                     <p:inputText id="link" value="#{nfsBackingBean.current.link}" title="link" required="true" 
                                  requiredMessage="#{bundle.error_msg1}" validatorMessage="#{bundle.error_msg3}">
                         <f:validateRegex pattern=".*.xml"/>
@@ -44,14 +44,14 @@
                     </p:inputText>
   
                     
-                    <p:outputLabel value="Source" for="source" />
+                    <p:outputLabel value="#{bundle.nf_form_source}" for="source" />
                     <p:inputText id="source" value="#{nfsBackingBean.current.source}" title="source" required="true" requiredMessage="#{bundle.error_msg2}"
                                  validatorMessage="#{bundle.error_msg4}">
                         <f:validateLength minimum="0" maximum="100" />
                     </p:inputText>
 
                     
-                    <p:outputLabel value="Visible:" />
+                    <p:outputLabel value="#{bundle.nf_form_visible}" />
                     <h:selectOneRadio value="#{nfsBackingBean.current.visible}">
                         <f:selectItem itemValue="true" itemLabel="#{bundle.nf_visible}" />
                         <f:selectItem itemValue="false" itemLabel="#{bundle.nf_hidden}" />	   			

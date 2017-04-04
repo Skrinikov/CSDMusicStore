@@ -15,6 +15,7 @@
     </ui:define>
 
     <ui:define name="content">
+        
 
         <h:form id="form">
 
@@ -48,8 +49,8 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton value="#{bundle.mgmt_btn_create}" icon="fa fa-plus" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
-                        <p:commandButton value="#{bundle.mgmt_btn_preview}" icon="fa fa-search" onclick="PF('dialogViewEdit').show()" update="dialogForm" class="mgmt_btn" />
+                        <p:commandButton id="preview" value="#{bundle.mgmt_btn_preview}" icon="fa fa-folder-open" onclick="PF('dialogViewEdit').show()" update="dialogForm" class="mgmt_btn" />
+                        <p:commandButton id="create" value="#{bundle.mgmt_btn_create}" icon="fa fa-search" onclick="PF('dialogCreate').show()" class="mgmt_btn" />
                     </f:facet>  
 
                 </p:dataTable>
@@ -58,11 +59,11 @@
 
         </h:form>
 
-        <p:dialog header="#{bundle.create_artist}" widgetVar="dialogCreate">
+        <p:dialog id="dial1" header="#{bundle.create_artist}" widgetVar="dialogCreate">
             <ui:include src="/management/artist/dialogCreate.xhtml" />
         </p:dialog>
 
-        <p:dialog header="#{bundle.view_edit_artist}" widgetVar="dialogViewEdit" dynamic="true">
+        <p:dialog id="dial2" header="#{bundle.view_edit_artist}" widgetVar="dialogViewEdit" dynamic="true">
             <ui:include src="/management/artist/dialogViewEdit.xhtml" />
         </p:dialog>
 
