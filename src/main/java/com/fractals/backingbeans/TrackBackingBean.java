@@ -113,6 +113,7 @@ public class TrackBackingBean implements Serializable {
      * The number of copies sold by a track
      * @param track
      * @return number of copies sold
+     * @author Thai-Vu Nguyen
      */
     public Number getTracksSold (Track track){
         Number number = trackJpaController.getTracksSold(track);
@@ -152,15 +153,29 @@ public class TrackBackingBean implements Serializable {
      * Returns the total sales of a Track
      * 
      * @parem Track
+     * @return Total sales of a Track
+     * @author Thai- Vu Nguyen
      */
     public Number getTotalSalesPerTrack (Track t){
         return trackJpaController.getTotalSales(t);
     }
     
+    /**
+     * Returns the total number of individual sales by a Track 
+     * @param t Track
+     * @return  Total number of sales by a Track
+     * @author Thai- Vu Nguyen
+     */
     public Number getTracksSoldIndivually (Track t){
         return trackJpaController.getTracksSoldAsIndividualTrack(t);
     }
     
+    /**
+     * Returns the total number of sales by a Track sold as part of an Album
+     * @param t Track
+     * @return Total number of sales by a Track sold as part of an Album
+     * @author Thai- Vu Nguyen
+     */
     public Number getTracksSoldSoldAsPartOfAlbum (Track t){
         return trackJpaController.getTracksSoldAsPartOfAlbum(t);
     }

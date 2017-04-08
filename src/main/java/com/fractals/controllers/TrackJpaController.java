@@ -249,7 +249,7 @@ public class TrackJpaController implements Serializable {
         CriteriaQuery<Track> query = cb.createQuery(Track.class);
         Root<Track> root = query.from(Track.class);
         query.select(root);
-        query.where(cb.equal(root.get("genre"), genre));
+        query.where(cb.equal(root.get(Track_.genre), genre));
         
         List<Track> tracks = new ArrayList<>();
         
@@ -302,6 +302,7 @@ public class TrackJpaController implements Serializable {
      * @param track
      * @param count amount of tracks to return
      * @return list of similar tracks
+     * @author Thai-Vu Nguyen
      */
     public List<Track> getSimilarTracks (Track track, int count){
          if (count < 1){
@@ -315,8 +316,8 @@ public class TrackJpaController implements Serializable {
         query.select(root);
         query.where(cb
                 .and(
-                    cb.equal(root.get("genre"), track.getGenre()),
-                    cb.notEqual(root.get("id"), track.getId()),
+                    cb.equal(root.get(Track_.genre), track.getGenre()),
+                    cb.notEqual(root.get(Track_.id), track.getId()),
                     cb.isNotMember(track.getArtists().get(0), root.get(Track_.artists) )
                     
                 )
@@ -354,8 +355,6 @@ public class TrackJpaController implements Serializable {
       * @author Thai-Vu Nguyen
       */
      public Number getTotalSales(Track track){
-         //Module is mostly not perfect, since there's no way to accurately
-         //get how much much money Track has sold
          
          if (track == null)
              return 0;
@@ -366,8 +365,11 @@ public class TrackJpaController implements Serializable {
          //Select sum(cost) from OrderItem where album_id = ?
          
          Root<OrderItem> root = query.from(OrderItem.class);
-         query.select(cb.sum(root.get("cost")));
-         query.where(cb.equal(root.get("track"), track));
+         query.select(cb.sum(root.get(OrderItem_.cost)));
+         query.where(cb.and(
+                 cb.equal(root.get(OrderItem_.track), track),
+                 cb.equal(root.get(OrderItem_.cancelled), false)
+         ));
          
          return em.createQuery(query).getSingleResult();
      }
@@ -387,42 +389,70 @@ public class TrackJpaController implements Serializable {
         Root<OrderItem> root = query.from(OrderItem.class);
         
         query.select(cb.count(root));
-        query.where(cb.or(
-                cb.equal(root.get(OrderItem_.track), track),
-                cb.equal(root.get(OrderItem_.album), track.getAlbum())
-            )
-        );
+//        query.where(cb.or(
+//                cb.equal(root.get(OrderItem_.track), track),
+//                cb.equal(root.get(OrderItem_.album), track.getAlbum())
+//            )
+//        );
+        
+         query.where(cb.and(
+                 cb.and(
+                         cb.or(
+                                 cb.equal(root.get(OrderItem_.track), track),
+                                 cb.equal(root.get(OrderItem_.album), track.getAlbum())
+                         ),
+                         cb.equal(root.get(OrderItem_.cancelled), false)
+                 )
+         ));
+        
+        
         return em.createQuery(query).getSingleResult();
         
     }
      
+     /**
+      * Module to get number of time a track was sold individually
+      * @param track Track
+      * @return number of time a track was sold individually
+      * @author Thai-Vu Nguyen
+      */
      public Number getTracksSoldAsIndividualTrack(Track track){
          CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Number> query = cb.createQuery(Number.class);
-        
-        
-        Root<OrderItem> root = query.from(OrderItem.class);
-        
-        query.select(cb.count(root));
-        query.where(
-                cb.equal(root.get(OrderItem_.track), track)
-        );
-        return em.createQuery(query).getSingleResult();
+         CriteriaQuery<Number> query = cb.createQuery(Number.class);
+
+         Root<OrderItem> root = query.from(OrderItem.class);
+
+         query.select(cb.count(root));
+         query.where(
+                 cb.and(
+                         cb.equal(root.get(OrderItem_.track), track),
+                         cb.equal(root.get(OrderItem_.cancelled), false)
+                 )
+         );
+         return em.createQuery(query).getSingleResult();
      }
      
+     /**
+      * Module to get the number of time a track was sold as part of an album
+      * 
+      * @param track Track
+      * @return Number of time a track was sold as part of an album
+      * @author Thai-Vu Nguyen
+      */
      public Number getTracksSoldAsPartOfAlbum (Track track){
          CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Number> query = cb.createQuery(Number.class);
-        
-  
-        
-        Root<OrderItem> root = query.from(OrderItem.class);
-        
-        query.select(cb.count(root));
-        query.where(
-                cb.equal(root.get(OrderItem_.album), track.getAlbum())
-        );
-        return em.createQuery(query).getSingleResult();
+         CriteriaQuery<Number> query = cb.createQuery(Number.class);
+
+         Root<OrderItem> root = query.from(OrderItem.class);
+
+         query.select(cb.count(root));
+         query.where(
+                 cb.and(
+                         cb.equal(root.get(OrderItem_.album), track.getAlbum()),
+                         cb.equal(root.get(OrderItem_.cancelled), false)
+                 )
+         );
+         return em.createQuery(query).getSingleResult();
      }
     
     /**

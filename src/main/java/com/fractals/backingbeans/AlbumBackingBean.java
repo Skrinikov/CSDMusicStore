@@ -119,6 +119,12 @@ public class AlbumBackingBean implements Serializable {
         return (number != null)? number : 0;
     }
     
+    /**
+     * Total sales of an Album
+     * @param album
+     * @return Total sales of an Album
+     * @return Thai-Vu Nguyen
+     */
     public Number getAlbumsSales(Album album){
         Number number = albumJpaController.getTotalSales(album);
         return (number != null)? number : 0;
