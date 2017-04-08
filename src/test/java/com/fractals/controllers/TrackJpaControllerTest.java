@@ -55,6 +55,7 @@ public class TrackJpaControllerTest {
                 .addPackage(Genre.class.getPackage())
                 .addPackage(BrowseGenreBacking.class.getPackage())
                 .addPackage(EmailCheck.class.getPackage())
+                .addPackage(org.primefaces.model.StreamedContent.class.getPackage())
                 .addPackage(RollbackFailureException.class.getPackage())
                 .addPackage(IllegalOrphanException.class.getPackage())
                 .addPackage(PaginationHelper.class.getPackage())
@@ -168,7 +169,48 @@ public class TrackJpaControllerTest {
      */
     @Test
     public void testGetTotalSales() {
-        //TODO
+        double expectedTotalSales = 10.98;
+        int track_id = 70;
+        Track track = tracksControl.findTrack(track_id);
+        Number totalSales = tracksControl.getTotalSales(track);
+        
+        assertEquals (expectedTotalSales, totalSales.doubleValue(), 0.01);
+        
+    }
+    
+    @Test
+    public void testGetSaleNumberOfTrack(){
+        int track_id = 26;
+        //In db, track, with id == 26, 
+        //should have 1 individual sale count and 3 album sale count
+        int expectedNumberSold = 4;
+        Track track = tracksControl.findTrack(track_id);
+        
+        Number numberSold = tracksControl.getTracksSold(track);
+        
+        assertEquals (expectedNumberSold, numberSold.intValue());
+    }
+    
+    @Test
+    public void testGetSaleNumberOfTrackAsPartOfAlbum(){
+        int track_id = 123;
+        int expectedNumberSold = 3;
+        Track track = tracksControl.findTrack(track_id);
+        
+        Number numberSold = tracksControl.getTracksSoldAsPartOfAlbum(track);
+        
+        assertEquals (expectedNumberSold, numberSold.intValue());
+    }
+    
+    @Test
+    public void testSaleNumberOfTrackIndividual(){
+        int track_id = 72;
+        int expectedNumberSold = 3;
+        Track track = tracksControl.findTrack(track_id);
+        
+        Number numberSold = tracksControl.getTracksSoldAsIndividualTrack(track);
+        
+        assertEquals (expectedNumberSold, numberSold.intValue());
     }
     
 }
