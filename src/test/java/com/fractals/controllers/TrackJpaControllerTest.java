@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
  *
  * @author Thai-Vu Nugyen
  */
-@Ignore
+
 @RunWith(Arquillian.class)
 public class TrackJpaControllerTest {
     
@@ -169,8 +169,8 @@ public class TrackJpaControllerTest {
      */
     @Test
     public void testGetTotalSales() {
-        double expectedTotalSales = 10.98;
-        int track_id = 70;
+        double expectedTotalSales = 2.97;
+        int track_id = 13;
         Track track = tracksControl.findTrack(track_id);
         Number totalSales = tracksControl.getTotalSales(track);
         
@@ -180,10 +180,10 @@ public class TrackJpaControllerTest {
     
     @Test
     public void testGetSaleNumberOfTrack(){
-        int track_id = 26;
-        //In db, track, with id == 26, 
-        //should have 1 individual sale count and 3 album sale count
-        int expectedNumberSold = 4;
+        int track_id = 14;
+        //In db, track, with id == 14, 
+        //should have 1 individual sale count and 2 album sale count
+        int expectedNumberSold = 3;
         Track track = tracksControl.findTrack(track_id);
         
         Number numberSold = tracksControl.getTracksSold(track);

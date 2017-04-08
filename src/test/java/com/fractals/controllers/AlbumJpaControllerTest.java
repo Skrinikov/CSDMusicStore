@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
  *
  * @author Thai-Vu Nguyen
  */
-@Ignore
+
 @RunWith(Arquillian.class)
 public class AlbumJpaControllerTest {
     
