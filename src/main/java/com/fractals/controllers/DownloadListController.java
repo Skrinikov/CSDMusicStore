@@ -20,6 +20,7 @@ import org.primefaces.model.StreamedContent;
  * purchased, in order to download the mp3 file
  * 
  * @author Danieil Skrinikov
+ * @author Renuchan Thambirajah
  * @version 1.2.0
  * 
  */
