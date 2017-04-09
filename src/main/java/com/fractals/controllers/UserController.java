@@ -2,8 +2,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.Order_;
-import com.fractals.beans.Review;
-import com.fractals.beans.Review_;
 import com.fractals.beans.User;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;

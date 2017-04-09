@@ -95,7 +95,7 @@ public class ArtistBackingBean implements Serializable {
     /**
      * Suggests Artists whose name starts with String s for autocomplete tags
      * @param s
-     * @return 
+     * @return a list of suggested artists
      */
       public List<Artist> suggest(String s) {
           ArrayList<Artist> similar = new ArrayList<>();

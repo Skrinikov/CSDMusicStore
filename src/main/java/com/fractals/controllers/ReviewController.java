@@ -13,16 +13,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Controller for reviews
  * @author MOUFFOK Sarah
  */
 @Named
 @RequestScoped
 public class ReviewController implements Serializable {
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
+    /**
+     * @return a list of all pending reviews
+     */
     public List<Review> getPendingReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
@@ -32,6 +35,9 @@ public class ReviewController implements Serializable {
         return em.createQuery(query).getResultList();
     }
 
+    /**
+     * @return a list of all approved reviews
+     */
     public List<Review> getApprovedReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
@@ -46,6 +52,9 @@ public class ReviewController implements Serializable {
         return em.createQuery(query).getResultList();
     }
 
+    /**
+     * @return a list of all disapproved reviews
+     */
     public List<Review> getDisapprovedReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
