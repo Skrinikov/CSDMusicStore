@@ -1,3 +1,4 @@
+<!-- @author MOUFFOK Sarah -->
 <ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,40 +11,27 @@
         <h:outputText value="#{bundle.NothingSelected}" rendered="#{empty theOrders.selectedOrder}"/>               
 
         <h:panelGroup rendered="#{not empty theOrders.selectedOrder}">
-
-            <div class="container">              
-
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_id}:" class="control-label mgmt_detail_label col-sm-2"/>
+            <div class="container">
+                <p:panelGrid columns="8" style="border:none;">
+                    <h:outputText value="#{bundle.order_id}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.id}" />
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_date}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_date}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.orderDate}"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_net_cost}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_net_cost}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.netCost}" id="netCost"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_gross_cost}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_gross_cost}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.grossCost}"/>
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_user}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_user}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.user.username}" />
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_cancelled}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_cancelled}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.isCancelled()}" />
-                </div>
-                <div class="form-group row">
-                    <h:outputText value="#{bundle.order_number_order_items}:" class="control-label mgmt_detail_label col-sm-2"/>
+                    <h:outputText value="#{bundle.order_number_order_items}:" class="control-label mgmt_detail_label"/>
                     <h:outputText value="#{theOrders.selectedOrder.orderItems.size()}" id="nbOrderItems"/>
-                </div>
-
+                </p:panelGrid>
             </div>
-
+            
+            <br/><br/>
+            
             <div class="container">
 
                 <p:dataTable id="orderItemTbl" draggableColumns="true" resizableColumns="true" reflow="true" rowStyleClass="mgmt_table_row"  value="#{theOrders.orderItemsOfOrder}" var="item">
@@ -63,23 +51,13 @@
                         <h:outputText value="#{item.cancelled}" id="cancelledBoolean"/>   
                     </p:column>
                     <p:column headerText="#{bundle.mgmt_btn_delete_order_item}">
-                        <p:commandButton id="deleteOrderItem" class="mgmt_btn" icon="fa fa-trash" actionListener="#{theOrders.deleteOrderItem(item)}" update="form,dialogForm">
-                            <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
-                        </p:commandButton>
+                        <p:commandButton id="deleteOrderItem" class="mgmt_btn" icon="fa fa-trash" actionListener="#{theOrders.deleteOrderItem(item)}" update="form,dialogForm"/>
                     </p:column>
                 </p:dataTable>
 
             </div>
 
-            <p:commandButton id="deleteOrderButton" icon="fa fa-trash-o" class="mgmt_btn" value="#{bundle.mgmt_btn_delete_order}" actionListener="#{theOrders.deleteOrder()}" update="form,dialogForm">
-                <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
-            </p:commandButton>
-
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" id="confirmDialog">
-                <p:commandButton id="yes" value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton id="no" value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
-
+            <p:commandButton id="deleteOrderButton" icon="fa fa-trash-o" class="mgmt_btn" value="#{bundle.mgmt_btn_delete_order}" actionListener="#{theOrders.deleteOrder()}" update="form,dialogForm"/>
         </h:panelGroup>
 
         <p:commandButton id="exitButton" class="mgmt_btn" value="#{bundle.mgmt_btn_exit}" onclick="PF('dialogViewEdit').hide()"/>

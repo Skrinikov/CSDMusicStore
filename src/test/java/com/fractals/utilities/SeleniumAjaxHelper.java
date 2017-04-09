@@ -113,11 +113,11 @@ public class SeleniumAjaxHelper {
         
         WebElement inputElement = driver.findElement(By.id("loginForm:username"));
         inputElement.clear();        
-        inputElement.sendKeys("selenium");
+        inputElement.sendKeys("a");
         
         inputElement = driver.findElement(By.id("loginForm:password"));         
         inputElement.clear();         
-        inputElement.sendKeys("abcd");
+        inputElement.sendKeys("a");
         
         driver.findElement(By.id("loginForm:login")).click();
     }

@@ -8,7 +8,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.fractals.beans.User;
 import com.fractals.beans.OrderItem;
-import com.fractals.beans.Order_;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**

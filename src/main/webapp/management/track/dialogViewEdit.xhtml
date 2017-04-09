@@ -1,3 +1,4 @@
+<!-- @author MOUFFOK Sarah -->
 <ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -78,7 +79,7 @@
                 <p:commandButton id="edit" actionListener="#{theTracks.makeEditable()}" class="mgmt_btn" value="#{bundle.mgmt_btn_edit}" update="dialogForm"/>                                           
 
                 <p:commandButton id="delete" actionListener="#{theTracks.delete()}" class="mgmt_btn" value="#{bundle.mgmt_btn_delete}" update="dialogForm,form">
-                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confimation_text}" icon="ui-icon-alert" />
+                    <p:confirm header="#{bundle.confirmation_header}" message="#{bundle.confirmation_text}" icon="ui-icon-alert" />
                 </p:commandButton>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

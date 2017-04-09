@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.selenium.management;
 
 import com.fractals.utilities.SeleniumAjaxHelper;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import java.util.Random;
 import java.util.ResourceBundle;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,15 +9,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
- * @author Sarah
+ * @author MOUFFOK Sarah
  */
 public class OrderManagementSelenium {
 
@@ -31,7 +23,8 @@ public class OrderManagementSelenium {
     private SeleniumAjaxHelper helper;
     private WebDriverWait wait;
     private ResourceBundle bundle;
-    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("OrderManagementSelenium.class");
+    private static final java.util.logging.Logger log = 
+            java.util.logging.Logger.getLogger("OrderManagementSelenium.class");
    
     @Before
     public void setUp() {
@@ -43,7 +36,6 @@ public class OrderManagementSelenium {
         bundle = ResourceBundle.getBundle("Bundle");
     }
 
-    @Ignore
     @Test
     public void getOrderPage() {
         String title = bundle.getString("list_order_title");
@@ -51,8 +43,7 @@ public class OrderManagementSelenium {
         wait.until(ExpectedConditions.titleIs(title));
         driver.quit();
     }
-
-    @Ignore
+    
     @Test
     public void noOrderSelected() {
         String s = bundle.getString("NothingSelected");
@@ -66,8 +57,6 @@ public class OrderManagementSelenium {
         driver.quit();
     }
 
-
-    @Ignore
     @Test
     public void deleteItemCheckNetCost() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
@@ -95,7 +84,6 @@ public class OrderManagementSelenium {
         beforeOrderPrice = Double.valueOf(helper.retryFindGetText(By.id("dialogForm:netCost")));
 
         helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + (i - 1) + ":deleteOrderItem"));
-        helper.retryFindClick(By.id("dialogForm:yes"));
 
         deletedOrderItemPrice = Double.valueOf(helper.retryFindGetText(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[4]")));
         afterOrderPrice = Double.valueOf(helper.retryFindGetText(By.id("dialogForm:netCost")));
@@ -104,7 +92,7 @@ public class OrderManagementSelenium {
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr[" + i + "]/td[5]"), "true"));
         driver.quit();
     }
-   
+  
     @Test
     public void deleteOrderItemTwice() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
@@ -129,27 +117,18 @@ public class OrderManagementSelenium {
         }
 
         helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem"));
-        helper.retryFindClick(By.id("dialogForm:yes"));
-        wait.until(ExpectedConditions.and(
-                ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr" + s2 + "/td[5]"), "true"),
-                ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog"))
-        ));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"dialogForm:orderItemTbl_data\"]/tr" + s2 + "/td[5]"), "true"));
         helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem"));
-        helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem")); //weird that click has to be done twice
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dialogForm:confirmDialog")));        
-        new Actions(driver).moveToElement(driver.findElement(By.id("dialogForm:yes"))).click().perform(); //regular click doesnt work   
+        //helper.retryFindClick(By.id("dialogForm:orderItemTbl:" + s + ":deleteOrderItem")); //weird that click has to be done twice
         
          wait.until(
                 ExpectedConditions.and(            
-                    ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),  
                     ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
                     ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("order_item_already_deleted"))
                 )
         );
          driver.quit();
     }
-    
-    @Ignore
     @Test
     public void deleteOrderTwice() {
         driver.get("http://localhost:8080/CSDMusicStore/management/order/ordersList.xhtml");
@@ -162,22 +141,13 @@ public class OrderManagementSelenium {
 
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("dialogForm")));
         helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
-        helper.retryFindClick(By.id("dialogForm:yes"));
         
-        
-        //DOESNT WORK FROM HERE
-        wait.until(ExpectedConditions.and(              
-                //ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),
-                //ExpectedConditions.textToBe(By.xpath("//*[@id=\"dialogForm\"]/div[1]/div[6]/span"), "true"),
-                ExpectedConditions.textToBe(By.id("dialogForm:netCost"), "0.0")
-        ));
+        wait.until(ExpectedConditions.textToBe(By.id("dialogForm:netCost"), "0.0"));
        
         helper.retryFindClick(By.id("dialogForm:deleteOrderButton"));
-        //helper.retryFindClick(By.id("dialogForm:yes")); //regular click doesnt work   
         
         wait.until(
                 ExpectedConditions.and(            
-                    ExpectedConditions.invisibilityOfElementLocated(By.id("dialogForm:confirmDialog")),  
                     ExpectedConditions.visibilityOfElementLocated(By.id("form:growl_container")), 
                     ExpectedConditions.textToBe(By.className("ui-growl-title"), bundle.getString("order_already_deleted"))
                 )

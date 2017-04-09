@@ -69,9 +69,9 @@ public class ProvinceConverter implements Converter {
     }
     
     /**
-     * 
-     * @param s
-     * @return 
+     * Suggests Provinces that start with the String s
+     * @param s, the String
+     * @return a list of suggest Provinces
      * @author MOUFFOK Sarah
      */
     public List<Province> suggest(String s) {

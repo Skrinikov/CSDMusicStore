@@ -29,12 +29,25 @@ public class ReviewBackingBean implements Serializable {
     private ReviewController reviewController;
     
     private static final Logger log = Logger.getLogger("ReviewBackingBean.class");
+    /**
+     * For all the pages, this represents the selected review 
+     * to view/approve/disapprove
+     */
     private Review selectedReview;
+     /**
+     * For the reviewPerTrack Page, this is the track selected by the manager
+     */
     private Track selectedTrack;
+    /**
+     * For the reviewPerUser Page, this is the user selected by the manager
+     */
     private User selectedUser;  
+    /**
+     * For the reviewPerStatus Page, this String represents the status selected
+     * by the manager
+     */
     private String selection;
 
-    
     public void setSelection(String s){selection = s;}
     public String getSelection(){return selection;}
     
@@ -63,41 +76,69 @@ public class ReviewBackingBean implements Serializable {
         selectedTrack = t;   
         selectedReview = null;
     }
-
+    
+    /**
+     * @return a list of all existing reviews
+     */
     public List<Review> getReviews() {
         return reviewJpaController.findReviewEntities();
     }
-
+    
+    /**
+     * Disapproves the selectedReview
+     * @throws Exception 
+     */
     public void disapproveReview() throws Exception {
         editReview(false);
     }
-
+    /**
+     * Approves the selectedReview
+     * @throws Exception 
+     */
     public void approveReview() throws Exception {
         editReview(true);
     }
 
+    /**
+     * Method used to approve or disapprove a review
+     * @param b, boolean that says if the review is being approved 
+     * or disapproved
+     * @throws Exception 
+     */
     private void editReview(boolean b) throws Exception {
         selectedReview.setApproved(b);
         selectedReview.setPending(false);
         reviewJpaController.edit(selectedReview);
     }
-    
+    /**
+     * Depending on the status (selection String) choice,
+     * returns the appropriate list of reviews to display in a datatable
+     * @return a list of Reviews
+     */
     public List<Review> selectedReviews() {
-        if (selection.equals("APPROVED")) 
-            return reviewController.getApprovedReviews();
-        if (selection.equals("PENDING")) 
-            return reviewController.getPendingReviews();
-        if (selection.equals("DISAPPROVED"))
-            return reviewController.getDisapprovedReviews();
-        return null;
+        switch(selection){
+            case "APPROVED":
+                return reviewController.getApprovedReviews();
+            case "DISAPPROVED":
+                return reviewController.getDisapprovedReviews();
+            case "PENDING":
+                return reviewController.getPendingReviews();
+            default: 
+                return null;
+        }
     }
     
+    /**
+     * @return all the Reviews written by the user selectedUser
+     */
     public List<Review> getReviewsByUser() {
-        return reviewController.getReviewsByUser(selectedUser);
+        return selectedUser.getReviews();
     }
-
+    /**
+     * @return all the Reviews for the track selectedTrack
+     */
     public List<Review> getReviewsByTrack() {
-        return reviewController.getReviewsByTrack(selectedTrack);
+        return selectedTrack.getReviews();
     }
 
        /**

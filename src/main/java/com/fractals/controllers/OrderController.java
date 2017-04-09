@@ -194,5 +194,22 @@ public class OrderController {
         query.select(root);
         query.where(cb.equal(root.get(OrderItem_.order), o));
         return entityManager.createQuery(query).getResultList();
+   } 
+    
+    /**
+     * Returns all orders for the specific user.
+     * @param u A user, whose orders are queried.
+     * @return all orders for the specific user.
+     */
+    public List<Order> findOrdersByUser(User u) {
+        if(u == null)
+            throw new NullPointerException();
+        
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> cqO = cb.createQuery(Order.class);      
+        Root<Order> order = cqO.from(Order.class);       
+        cqO.where(cb.equal(order.get(Order_.user), u));
+        TypedQuery<Order> tqO = entityManager.createQuery(cqO);      
+        return (List<Order>)tqO.getResultList();  
     }
 }

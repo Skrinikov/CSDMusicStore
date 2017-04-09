@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +36,7 @@ public class GenreManageTestSelenium {
         new SeleniumAjaxHelper(driver).login();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);         
-        wait.until(ExpectedConditions.titleIs("Fractals"));
+        wait.until(ExpectedConditions.titleIs(ResourceBundle.getBundle("bundle").getString("reports_page_title")));
         
         wait = new WebDriverWait(driver, 2000);
     }

@@ -2,8 +2,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Review;
 import com.fractals.beans.Review_;
-import com.fractals.beans.Track;
-import com.fractals.beans.User;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -15,16 +13,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Controller for reviews
  * @author MOUFFOK Sarah
  */
 @Named
 @RequestScoped
 public class ReviewController implements Serializable {
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
+    /**
+     * @return a list of all pending reviews
+     */
     public List<Review> getPendingReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
@@ -34,6 +35,9 @@ public class ReviewController implements Serializable {
         return em.createQuery(query).getResultList();
     }
 
+    /**
+     * @return a list of all approved reviews
+     */
     public List<Review> getApprovedReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
@@ -48,6 +52,9 @@ public class ReviewController implements Serializable {
         return em.createQuery(query).getResultList();
     }
 
+    /**
+     * @return a list of all disapproved reviews
+     */
     public List<Review> getDisapprovedReviews() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
@@ -62,21 +69,4 @@ public class ReviewController implements Serializable {
         return em.createQuery(query).getResultList();
     }
 
-    public List<Review> getReviewsByUser(User u) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(cb.equal(root.get(Review_.user), u));
-        return em.createQuery(query).getResultList();
-    }
-
-    public List<Review> getReviewsByTrack(Track t) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Review> query = cb.createQuery(Review.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(root);
-        query.where(cb.equal(root.get(Review_.track), t));
-        return em.createQuery(query).getResultList();
-    }
 }

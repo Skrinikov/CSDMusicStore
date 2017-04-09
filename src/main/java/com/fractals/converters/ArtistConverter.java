@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Converter for the use of selectOneMenu containing Artists
  * @author Sarah
  */
 @Named("artistConverter")
@@ -22,7 +22,13 @@ public class ArtistConverter implements Converter {
  
     @Inject
     ArtistJpaController service;
-    
+    /**
+     * Gets the Artist object corresponding to the String
+     * @param fc
+     * @param uic
+     * @param value, the String
+     * @return 
+     */
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if (value != null && value.trim().length() > 0) {
             try {       
@@ -34,7 +40,14 @@ public class ArtistConverter implements Converter {
             return null;
         }
     }
-
+    
+    /**
+     * Gets the String value of an Artist, here its id
+     * @param fc
+     * @param uic
+     * @param object, the Artist
+     * @return 
+     */
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
             return String.valueOf(((Artist) object).getId());

@@ -219,7 +219,7 @@ public class OrderItemJpaController implements Serializable {
     {
         String query = 
         "SELECT p FROM OrderItem p JOIN p.order o WHERE o.user = ?1";
-                              
+                             
         TypedQuery<OrderItem> q = em.createQuery(query, OrderItem.class);
         q.setParameter(1, user);
        

@@ -2,8 +2,6 @@ package com.fractals.controllers;
 
 import com.fractals.beans.Order;
 import com.fractals.beans.Order_;
-import com.fractals.beans.Review;
-import com.fractals.beans.Review_;
 import com.fractals.beans.User;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -16,7 +14,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author MOUFFOK Sarah
+ * @author MOUFFOK Sarah, Aline Shulzhenko
  */
 @Named
 @RequestScoped
@@ -25,6 +23,11 @@ public class UserController implements Serializable {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Gets the net cost of all the orders made by a user
+     * @param user, the user
+     * @return the total net cost paid by the user
+     */
     public Number getTotalSalesByUser(User user) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
@@ -54,13 +57,4 @@ public class UserController implements Serializable {
         em.refresh(user);
     }
     
-    public Number getNumberOfReviews(User u){
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Number> query = cb.createQuery(Number.class);
-        Root<Review> root = query.from(Review.class);
-        query.select(cb.count(root.get(Review_.id)));
-        query.where(cb.equal(root.get(Review_.user), u));
-        Number result = em.createQuery(query).getSingleResult();
-        return result == null ? 0 : result;
-    }
 }
