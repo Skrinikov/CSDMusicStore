@@ -222,8 +222,8 @@ public class ReviewJpaController implements Serializable {
         Root<Review> root = query.from(Review.class);
         query.select(root);
         query.where(cb.and(
-                cb.equal(root.get("track"), track),
-                cb.equal(root.get("approved"), true)
+                cb.equal(root.get(Review_.track), track),
+                cb.equal(root.get(Review_.approved), true)
         ));
         
         return em.createQuery(query).getResultList();

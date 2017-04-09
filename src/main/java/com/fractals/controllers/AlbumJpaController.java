@@ -1,10 +1,14 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Album_;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Genre;
+import com.fractals.beans.Genre_;
 import com.fractals.beans.OrderItem;
+import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
@@ -26,7 +30,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author MOUFFOK Sarah, Danieil Skrinikov
+ * @author MOUFFOK Sarah, Danieil Skrinikov, Thai-Vu Nguyen
  */
 
 @Named
@@ -272,6 +276,14 @@ orderItemsCollectionOrderItemToAttach.getId());
         return ((Long) q.getSingleResult()).intValue();
     }
     
+    /**
+     * Get the list of Albums by Genre
+     * @param genre
+     * @param count
+     * @param random
+     * @return List of albums by genre
+     * @author Thai-Vu Nguyen
+     */
     public List<Album> findAlbumsByGenre(Genre genre, int count, boolean random){
         if (genre == null || count <= 0)
             return null;
@@ -279,10 +291,9 @@ orderItemsCollectionOrderItemToAttach.getId());
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Album> query = cb.createQuery(Album.class);
         Root<Album> root = query.from(Album.class);
-        Join genreJoin = root.join("tracks").join("genre");
-        query.where(cb.equal(genreJoin.get("id"), genre.getId()))
+        Join genreJoin = root.join(Album_.tracks).join(Track_.genre);
+        query.where(cb.equal(genreJoin.get(Genre_.id), genre.getId()))
                 .distinct(true);
-        
         
         
         List<Album> albums = new ArrayList<>();
@@ -345,19 +356,21 @@ orderItemsCollectionOrderItemToAttach.getId());
      * Module that returns the total sales of an album
      * @param album Album
      * @return total sales of an album
+     * @author Thai-Vu Nguyen
      */
     public Number getTotalSales(Album album){
-        //Module is mostly not perfect, since there's no way to accurately
-        //get how much much money Album has sold
         
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         
-        //Select sum (cost) from from OrderItem where album_id = ?
+        //Select sum (cost) from from OrderItem where album_id = ? AND cancelled = false
         
         Root<OrderItem> root = query.from(OrderItem.class);
-        query.select(cb.sum(root.get("cost")));
-        query.where(cb.equal(root.get("album"), album));
+        query.select(cb.sum(root.get(OrderItem_.cost)));
+        query.where(cb.and(
+                cb.equal(root.get(OrderItem_.album), album),
+                cb.equal(root.get(OrderItem_.cancelled), false)
+        ));
         
         return em.createQuery(query).getSingleResult();
     }
@@ -372,12 +385,15 @@ orderItemsCollectionOrderItemToAttach.getId());
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Number> query = cb.createQuery(Number.class);
         
-        //Select count (*) from OrderItem where album_id = ?
+        //Select count (*) from OrderItem where album_id = ? AND cancelled = FALSE
         
         Root<OrderItem> root = query.from(OrderItem.class);
         
         query.select(cb.count(root));
-        query.where(cb.equal(root.get("album"), album));
+        query.where(cb.and(
+                cb.equal(root.get(OrderItem_.album), album),
+                cb.equal(root.get(OrderItem_.cancelled), false)
+        ));
         return em.createQuery(query).getSingleResult();
         
     }
@@ -388,6 +404,7 @@ orderItemsCollectionOrderItemToAttach.getId());
      * @param albums
      * @param limit
      * @return Randomized List of n limit of Tracks
+     * @author Thai-Vu Nguyen
      */
     private List<Album> getRandomAlbums(List<Album> albums, int limit){
         Collections.shuffle(albums);
