@@ -1,11 +1,14 @@
 package com.fractals.controllers;
 
 import com.fractals.beans.Album;
+import com.fractals.beans.Album_;
 import com.fractals.beans.Artist;
 import com.fractals.beans.Genre;
+import com.fractals.beans.Genre_;
 import com.fractals.beans.OrderItem;
 import com.fractals.beans.OrderItem_;
 import com.fractals.beans.Track;
+import com.fractals.beans.Track_;
 import com.fractals.controllers.exceptions.IllegalOrphanException;
 import com.fractals.controllers.exceptions.NonexistentEntityException;
 import com.fractals.controllers.exceptions.RollbackFailureException;
@@ -289,8 +292,8 @@ orderItemsCollectionOrderItemToAttach.getId());
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Album> query = cb.createQuery(Album.class);
         Root<Album> root = query.from(Album.class);
-        Join genreJoin = root.join("tracks").join("genre");
-        query.where(cb.equal(genreJoin.get("id"), genre.getId()))
+        Join genreJoin = root.join(Album_.tracks).join(Track_.genre);
+        query.where(cb.equal(genreJoin.get(Genre_.id), genre.getId()))
                 .distinct(true);
         
         
