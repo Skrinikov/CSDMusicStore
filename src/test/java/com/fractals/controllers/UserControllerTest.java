@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -27,12 +28,13 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Test class for UserController
  * @author MOUFFOK Sarah
  */
-
+@RunWith(Arquillian.class)
 public class UserControllerTest {
        private static final Logger log = Logger.getLogger("UserControllerTest.class");
     
@@ -79,13 +81,8 @@ public class UserControllerTest {
     
     @Before
     public void init(){
-        log.info("XXXXXXXXXXXXXXXXXX" + (ds==null));
         DatabaseSeedManager dsm = new DatabaseSeedManager(ds);
-        
-        log.info("XXXXXXXXXXXXXXXXXX" + (dsm==null));
-        try{
-             dsm.seed();
-        }catch(NullPointerException e){e.printStackTrace();}
+        dsm.seed();
     }
     
     @Test

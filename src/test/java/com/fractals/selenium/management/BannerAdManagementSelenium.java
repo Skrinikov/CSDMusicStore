@@ -41,7 +41,7 @@ public class BannerAdManagementSelenium {
         String title = bundle.getString("list_banner_ad_title");
         driver.get("http://localhost:8080/CSDMusicStore/management/ads.xhtml");
         wait.until(ExpectedConditions.titleIs(title));
-        //driver.quit();
+        driver.quit();
                 
     }
     

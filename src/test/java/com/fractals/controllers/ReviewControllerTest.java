@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 import org.eclipse.persistence.jpa.jpql.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -25,13 +26,14 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Test class for ReviewController
  * @author MOUFFOK Sarah
  */
-@Ignore
 
+@RunWith(Arquillian.class)
 public class ReviewControllerTest {
        private static final Logger log = Logger.getLogger("ReviewControllerTest.class");
     
@@ -76,7 +78,6 @@ public class ReviewControllerTest {
     
     @Before
     public void init(){
-        //log.info("++++++++++++++++++++++++" +(ds == null));
         DatabaseSeedManager dsm = new DatabaseSeedManager(ds);
         dsm.seed();
     }
