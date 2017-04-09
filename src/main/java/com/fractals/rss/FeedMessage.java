@@ -1,8 +1,9 @@
 package com.fractals.rss;
 
 /**
- *
- * @author 1430468
+ * Bean which can be used as a instance of one rss entry.
+ * 
+ * @author Danieil Skrinikov
  */
 public class FeedMessage {
 

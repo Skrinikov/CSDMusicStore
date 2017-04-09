@@ -6,8 +6,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- *
- * @author Danieil
+ * General utilities or the pages. 
+ * 
+ * @author Danieil Skrinikov
  */
 @Named("utilBacking")
 @RequestScoped

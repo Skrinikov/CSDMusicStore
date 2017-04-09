@@ -19,7 +19,6 @@ import javax.xml.stream.events.XMLEvent;
  *
  * @author Danieil Skrinikov
  * @version
- * @since 2017-02-07
  */
 public class RSSFeedParser {
 

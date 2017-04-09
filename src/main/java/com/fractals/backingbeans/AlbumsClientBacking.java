@@ -22,7 +22,8 @@ import javax.inject.Named;
 /**
  * The Backing bean for the client side Album page
  *
- * @author Thai-Vu Nguyen, Danieil Skrinikov
+ * @author Danieil Skrinikov
+ * @author Thai-Vu Nguyen
  */
 @Named("albumsCLBack")
 @SessionScoped
@@ -64,6 +65,8 @@ public class AlbumsClientBacking implements Serializable {
 
     /**
      * Initializes the Album entity
+     * @author Danieil Skrinikov
+     * @author Thai Vu Nguyen
      */
     public void init() {
         reviews = new ArrayList<>();
@@ -154,6 +157,7 @@ public class AlbumsClientBacking implements Serializable {
      *
      * @param album Album to fetch the information from.
      * @return Real price for the album.
+     * @author Danieil Skrinikov
      */
     public double getPrice(Album album) {
         return (album.getSalePrice() <= 0) ? album.getListPrice() : album.getSalePrice();
@@ -163,6 +167,7 @@ public class AlbumsClientBacking implements Serializable {
      * returns the cover image name of the album.
      *
      * @return
+     * @author Danieil Skrinikov
      */
     public String getAlbumCover() {
         if (!album.getTracks().isEmpty()) {
@@ -197,11 +202,13 @@ public class AlbumsClientBacking implements Serializable {
     }
 
     /**
-     *
+     * Adds a review to the database and rereshes the page
+     * 
      * @param trackId
      * @param reviewText
      * @param rating
      * @return location where to go after this action is completed.
+     * @author Danieil Skriniov
      */
     public String addReview(int trackId, String reviewText, int rating) {
         Track track = trackController.findTrack(trackId);

@@ -10,28 +10,22 @@ import com.fractals.controllers.ReportsController;
 import com.fractals.jsf.util.MessageProvider;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 
 /**
- *
- * @author Danieil
+ * Handles all the interactions with the reports page.
+ * 
+ * @author Danieil Skrinikov
  */
 @Named("reportsBacking")
 @SessionScoped

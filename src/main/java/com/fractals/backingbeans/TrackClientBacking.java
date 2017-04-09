@@ -23,7 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Backing bean for the Track client view
  *
- * @author Thai-Vu Nguyen, Danieil Skrinikov
+ * @author Thai-Vu Nguyen
+ * @author Danieil Skrinikov
  */
 @Named("trackCLBack")
 @SessionScoped
@@ -62,6 +63,7 @@ public class TrackClientBacking implements Serializable {
 
     /**
      * Initialize the Track entity based on the trackId
+     * @author Danieil Skrinikov
      */
     public void init() {
         if (trackId == null || trackControl.getTrackCount() < trackId+1) {
@@ -79,6 +81,7 @@ public class TrackClientBacking implements Serializable {
     /**
      * Action to add a review to a track
      *
+     * @author Danieil Skrinikov
      * @return
      */
     public String addReview() throws Exception {
@@ -216,6 +219,7 @@ public class TrackClientBacking implements Serializable {
      *
      * @param track track to fetch the information from.
      * @return the display price of the track.
+     * @author Danieil Skrinikov
      */
     public double getPrice(Track track) {
         log.info("Track Backing - track sale check:" + track.getTitle());

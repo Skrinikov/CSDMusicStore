@@ -35,8 +35,9 @@ public class DownloadListController implements Serializable {
      * Fetches all the tracks that a given user bought. Orders them by descending
      * order date.
      * 
+     * @author Danieil Skrinikov
      * @param user user 
-     * @return 
+     * @return tracks that the client has bought.
      */
     public List<Track> getClientTracks(User user){
         if(user == null){

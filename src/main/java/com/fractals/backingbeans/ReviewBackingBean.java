@@ -130,12 +130,14 @@ public class ReviewBackingBean implements Serializable {
     
     /**
      * @return all the Reviews written by the user selectedUser
+     * @author Danieil Skrinikov
      */
     public List<Review> getReviewsByUser() {
         return selectedUser.getReviews();
     }
     /**
      * @return all the Reviews for the track selectedTrack
+     * @author Danieil Skrinikov
      */
     public List<Review> getReviewsByTrack() {
         return selectedTrack.getReviews();
@@ -147,6 +149,7 @@ public class ReviewBackingBean implements Serializable {
      *
      * @param r review for which to find a graphic representation of stars
      * @return html <span> tags.
+     * @author Danieil Skrinikov
      */
     public String getReviewStars(Review r) {
         String star = "<span class=fa fa-star></span>";
@@ -169,6 +172,7 @@ public class ReviewBackingBean implements Serializable {
      *
      * @param local date to format
      * @return string representation of the formated date
+     * @author Danieil SKrinikov
      */
     public String formatDate(LocalDateTime local) {
         return local.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a", Locale.CANADA));
