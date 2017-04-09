@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Converter for the use of selectOneMenu containing Albums
  * @author MOUFFOK Sarah
  */
 @Named("albumConverter")
@@ -28,6 +28,13 @@ public class AlbumConverter implements Converter {
     @Inject
     AlbumJpaController service;
     
+    /**
+     * Gets the Album object corresponding the String value
+     * @param fc
+     * @param uic
+     * @param value, the String
+     * @return 
+     */
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if (value != null && value.trim().length() > 0) {
             try {       
@@ -39,7 +46,13 @@ public class AlbumConverter implements Converter {
             return null;
         }
     }
-
+    /**
+     * Gets the String value of an Album, here its id
+     * @param fc
+     * @param uic
+     * @param object, the Album
+     * @return 
+     */
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
             return String.valueOf(((Album) object).getId());

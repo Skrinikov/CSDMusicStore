@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Class containing the methods and variables for managing Artists
  * @author MOUFFOK Sarah
  */
 @Named("theArtists")
@@ -20,6 +20,10 @@ public class ArtistBackingBean implements Serializable {
     @Inject
     private ArtistJpaController artistJpaController;
     private Artist selectedArtist, createdArtist;
+    /**
+    * Boolean that indicates if the manager is editing or viewing the 
+    * selectedArtist
+    */
     private boolean editable = false;
 
     public Artist getSelectedArtist() {
@@ -56,15 +60,23 @@ public class ArtistBackingBean implements Serializable {
     public void makeUneditable() {
         setEditable(false);
     }
-
+    /**
+     * @return all the existing artists
+     */
     public List<Artist> getArtists() {
         return artistJpaController.findArtistEntities();
     }
-
+    /**
+     * @return whether there are any artists in the database
+     */
     public boolean isEmpty() {
         return artistJpaController.isEmpty();
     }
-
+    
+    /**
+     * Creates the createdArtist
+     * @throws Exception 
+     */
     public void create() throws Exception {
         artistJpaController.create(createdArtist);
         selectedArtist = createdArtist;
@@ -80,6 +92,11 @@ public class ArtistBackingBean implements Serializable {
         return artistJpaController.getArtistCount() / 10;
     }
     
+    /**
+     * Suggests Artists whose name starts with String s for autocomplete tags
+     * @param s
+     * @return 
+     */
       public List<Artist> suggest(String s) {
           ArrayList<Artist> similar = new ArrayList<>();
         for (Artist a : artistJpaController.findArtistEntities()) 

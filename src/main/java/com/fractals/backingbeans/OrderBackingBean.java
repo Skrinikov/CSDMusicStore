@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.Order;
@@ -21,7 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Class containing the methods and variables for managing Orders
  * @author MOUFFOK Sarah
  */
 @Named("theOrders")
@@ -60,6 +55,12 @@ public class OrderBackingBean implements Serializable {
         return orderJpaController.findOrderEntities().isEmpty();
     }
 
+    /**
+     * Deletes order item, + updates order price.
+     * Error message if order item already deleted
+     * @param o, the order item to delete
+     * @throws Exception 
+     */
     public void deleteOrderItem(OrderItem o) throws Exception {
         if (o.isCancelled()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
@@ -72,6 +73,11 @@ public class OrderBackingBean implements Serializable {
         }
     }
 
+    /**
+     * Delete order by deleting all the contained order items 
+     * Error message if order already cancelled
+     * @throws Exception 
+     */
     public void deleteOrder() throws Exception {
         List<OrderItem> allItems = getOrderItemsOfOrder();
         
@@ -89,17 +95,18 @@ public class OrderBackingBean implements Serializable {
             }
         }          
     }
-
+    /**
+     * @return a list of all the existing orders
+     */
     public List<Order> getOrders() {
         return orderJpaController.findOrderEntities();
     }
-
+    
+    /**
+     * @return a list of all the order items of the selected order
+     */
     public List<OrderItem> getOrderItemsOfOrder() {
-        return orderController.getOrderItemsOfOrder(selectedOrder);
-    }
-
-    public void removeOrder() throws Exception {
-        orderJpaController.destroy(selectedOrder.getId());
+       return selectedOrder.getOrderItems();
     }
 
     /**

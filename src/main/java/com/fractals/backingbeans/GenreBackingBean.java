@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ *  Class containing the methods and variables for managing Genres
  * @author MOUFFOK Sarah
  */
 @Named("theGenres")
@@ -20,12 +20,19 @@ public class GenreBackingBean implements Serializable {
     @Inject
     private GenreJpaController genreJpaController;
     private Genre selectedGenre, createdGenre;
+    /**
+     * Whether the manager is viewing or editing the selectedGenre
+     */
     private boolean editable = false;
-
+    /**
+     * @return a list of all the existing genres
+     */
     public List<Genre> getGenres() {
         return genreJpaController.findGenreEntities();
     }
-
+    /**
+     * @return whether there are any genres in the database
+     */
     public boolean isEmpty() {
         return genreJpaController.isEmpty();
     }
@@ -65,26 +72,35 @@ public class GenreBackingBean implements Serializable {
     public void makeUneditable() {
         setEditable(false);
     }
-
+    /**
+     * Creates the createdGenre
+     * @throws Exception 
+     */
     public void create() throws Exception {
         genreJpaController.create(createdGenre);
         selectedGenre = createdGenre;
         createdGenre = null;
     }
-
+    /**
+     * Edits the selectedGenre 
+     * @throws Exception 
+     */
     public void edit() throws Exception {
         makeUneditable();
         genreJpaController.edit(selectedGenre);
     }
-
-    public void delete() throws Exception {
-        genreJpaController.destroy(selectedGenre.getId());
-    }
-
+    /**
+     * @return the number of pages of a 10 row datatable containing 
+     *all the genres
+     */
     public int getPageCount() {
         return genreJpaController.getGenreCount() / 10;
     }
-
+    /**
+     * Suggests genres that start with the String s for autocomplete tags
+     * @param s
+     * @return a list of Genres that start with the String s
+     */
     public List<Genre> suggest(String s) {
         ArrayList<Genre> similar = new ArrayList<>();
         for (Genre g : genreJpaController.findGenreEntities()) 

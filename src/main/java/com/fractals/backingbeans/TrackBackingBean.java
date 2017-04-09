@@ -3,7 +3,6 @@ package com.fractals.backingbeans;
 import com.fractals.beans.Track;
 import com.fractals.controllers.ReviewJpaController;
 import com.fractals.controllers.TrackJpaController;
-import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,11 +30,15 @@ public class TrackBackingBean implements Serializable {
     
     private boolean editable = false;
     private Track createdTrack, selectedTrack;
-
+    /**
+     * @return a list of all the existing tracks
+     */
     public List<Track> getTracks() {
         return trackJpaController.findTrackEntities();
     }
-
+    /**
+     * @return whether there are any tracks in the database
+     */
     public boolean isEmpty() {
         return trackJpaController.isEmpty();
     }
@@ -76,17 +78,26 @@ public class TrackBackingBean implements Serializable {
     public void makeUneditable() {
         setEditable(false);
     }
+    /**
+     * Edits the track & makes sure the available and removedAt attributes are
+     * in sync
+     * @throws Exception 
+     */
 
     public void edit() throws Exception {
-        if (selectedTrack.getAvailable() == false && selectedTrack.getRemovedAt() == null) 
+        if (!selectedTrack.getAvailable() && selectedTrack.getRemovedAt() == null) 
             selectedTrack.setRemovedAt(LocalDateTime.now());
-        if (selectedTrack.getAvailable() == true && selectedTrack.getRemovedAt() != null) 
+        if (selectedTrack.getAvailable() && selectedTrack.getRemovedAt() != null) 
             selectedTrack.setRemovedAt(null);    
         
         makeUneditable();
         trackJpaController.edit(selectedTrack);
     }
-
+    /**
+     * Delete the selectedTrack. Updates the removedAt field and available field
+     * Error message if the track has already been removed
+     * @throws Exception
+     */
     public void delete() throws Exception {
         if(selectedTrack.getRemovedAt() == null){
           selectedTrack.setRemovedAt(LocalDateTime.now());
@@ -97,14 +108,19 @@ public class TrackBackingBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
                     ResourceBundle.getBundle("bundle").getString("track_already_removed")) );                    
     }
-
+    /**
+     * Creates the createdTracks
+     * @throws Exception 
+     */
     public void create() throws Exception {
         createdTrack.setCreatedAt(LocalDateTime.now());
         trackJpaController.create(createdTrack);
         selectedTrack = createdTrack;
         createdTrack = null;
     }
-
+    /**
+     * @return the number of pages for a 10 row datatable containing tracks
+     */
     public int getPageCount() {
         return trackJpaController.getTrackCount() / 10;
     }
@@ -119,6 +135,9 @@ public class TrackBackingBean implements Serializable {
         return (number != null) ? number : 0;
     }
     
+    /**
+     * @return all the cover file names
+     */
     private List<String> getAllCoverFiles(){
         ArrayList<String> allCovers = new ArrayList<>();
         for(Track t :getTracks())
@@ -127,6 +146,13 @@ public class TrackBackingBean implements Serializable {
         return allCovers;
     }
     
+    /**
+     * For track creation/editing, returns a list of cover names that start
+     * with the String s for the autocomplete tag. Selection is forced so 
+     * if nothing is suggested, they have to pick the default_cover
+     * @param s, the entered string by the user
+     * @return returns a list of suggested cover 
+     */
     public List<String> suggestCover(String s){
         ArrayList<String> suggestions = new ArrayList<>();
         suggestions.add("default_cover.jpg");
@@ -151,7 +177,7 @@ public class TrackBackingBean implements Serializable {
     /**
      * Returns the total sales of a Track
      * 
-     * @parem Track
+     * @param Track
      */
     public Number getTotalSalesPerTrack (Track t){
         return trackJpaController.getTotalSales(t);

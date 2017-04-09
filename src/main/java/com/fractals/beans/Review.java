@@ -193,7 +193,7 @@ public class Review implements Serializable {
     public String toString() {
         return "com.fractals.beans.Review[ id=" + id + " ]";
     }
-    
+
     public String status(){
         if(pending)
             return "PENDING";

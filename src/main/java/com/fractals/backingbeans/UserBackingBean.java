@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fractals.backingbeans;
 
 import com.fractals.beans.User;
@@ -15,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ *Class containing the methods and variables for managing Users
  * @author MOUFFOK Sarah
  */
 @Named("theUsers")
@@ -27,6 +22,9 @@ public class UserBackingBean implements Serializable {
     @Inject
     private UserController userController;
     private User selectedUser;
+    /**
+    * Boolean that indicates if the manager is editing or viewing the selectedUser
+    */
     private boolean editable = false;
 
     public User getSelectedUser() {
@@ -37,11 +35,15 @@ public class UserBackingBean implements Serializable {
         selectedUser = u;
         makeUneditable();
     }
-
+    /**
+     * @return a list of all the existing Users
+     */
     public List<User> getUsers() {
         return userJpaController.findUserEntities();
     }
-
+    /**
+     * @return whether there are any users in the database
+     */
     public boolean isEmpty() {
         return userJpaController.isEmpty();
     }
@@ -61,11 +63,21 @@ public class UserBackingBean implements Serializable {
     public void makeUneditable() {
         setEditable(false);
     }
-
+    
+    /**
+     * Returns the total sales made by a user
+     * @param u, the user passed down by the datatable
+     * @return t
+     */
     public Number getTotalSales(User u) {
         return userController.getTotalSalesByUser(u);
     }
     
+    /**
+     * Returns the total sales made by a user, 
+     * after the user has been selected and displayed separately
+     * @return 
+     */
     public Number getTotalSales() {
         return getTotalSales(selectedUser);
     }
@@ -75,7 +87,4 @@ public class UserBackingBean implements Serializable {
         userJpaController.edit(selectedUser);
     }
     
-    public Number getNumberOfReviews(User u){
-        return userController.getNumberOfReviews(u);
-    }
 }
