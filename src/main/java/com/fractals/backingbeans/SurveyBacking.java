@@ -49,6 +49,8 @@ public class SurveyBacking implements Serializable {
     /**
      * This method will be used to load the survey information and present 
      * the manager with the survey edit page so he can edited it. 
+     * 
+     * @return page to return to after the action
      */
     public String redirectToSurveyEdit(Integer id)
     {
@@ -75,6 +77,10 @@ public class SurveyBacking implements Serializable {
         }      
     }
     
+    /**
+     * Method used setup the system to preform a create action
+     * @return page to return to after the action 
+     */
     public String redirectCreate()
     {
         Survey sur = new Survey();

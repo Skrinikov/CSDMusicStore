@@ -37,7 +37,7 @@ public class NewsFeedBacking implements Serializable{
       
     /**
      * This method will be used to obtain the current newsFeed 
-     * @return 
+     * @return the current newsfeed object 
      */
     public NewsFeed getCurrent()
     {
@@ -47,7 +47,7 @@ public class NewsFeedBacking implements Serializable{
 
     /**
      * This method is used ti obtain all the news feeds in the database 
-     * @return 
+     * @return page to return to after the action
      */
     public List<NewsFeed> getAllNews()
     {
@@ -60,7 +60,7 @@ public class NewsFeedBacking implements Serializable{
     /**
      * This method is used to prepare the page for a create or edit 
      * @param id
-     * @return 
+     * @return page to return to after the action
      */
     public String prepareChange(Integer id)
     {
@@ -75,7 +75,7 @@ public class NewsFeedBacking implements Serializable{
 
     /**
      * Creates or Edits a newsFeed
-     * @return 
+     * @return page to return to after the action
      */
     public String persistChanges()
     {
@@ -101,7 +101,7 @@ public class NewsFeedBacking implements Serializable{
     /**
      * This method will be used to delete a newsFeed in the database.  
      * @param id        id of the newsFeed to delete
-     * @return 
+     * @return page to return to after the action
      */
     public String deleteNews(Integer id)
     {   

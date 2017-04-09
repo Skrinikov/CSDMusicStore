@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.fractals.controllers;
 
 import javax.enterprise.context.RequestScoped;
@@ -55,6 +51,10 @@ public class RssFeedController {
         return rfp.readFeed(links.toArray(array));
     }
     
+    /*
+     * Gets the links assoicated to a particular news Feed link. 
+     * @return a list of links for that news feed 
+     */
     private List<String> getLinks()
     {
         String query = "select nf from NewsFeed nf where nf.visible = TRUE"; 
@@ -71,6 +71,11 @@ public class RssFeedController {
         
     }
 
+    /**
+     * Gets the image link of a feed Message
+     * @param fm
+     * @return img path of the feedMessage
+     */
     public String getImgLink(FeedMessage fm)
     {
         String content = fm.getDescription();
@@ -81,6 +86,11 @@ public class RssFeedController {
         return content.substring(start, end); 
     }
     
+    /**
+     * Extracts the description information within the html tags. 
+     * @param fm
+     * @return the content without any tags.
+     */
     public String getDescription(FeedMessage fm)
     {
         String content = fm.getDescription();
