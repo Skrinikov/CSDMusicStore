@@ -71,7 +71,7 @@ public class AlbumsClientBacking implements Serializable {
     public void init() {
         reviews = new ArrayList<>();
         
-        if (albumId == null || albumControl.getAlbumCount()-1 < albumId) {
+        if (albumId == null || albumControl.findAlbum(albumId) == null) {
             log.info("Album is NULL or id is invalid: " + albumId);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "/error.xhtml";

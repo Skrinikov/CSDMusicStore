@@ -34,6 +34,7 @@ import org.junit.runner.RunWith;
  * Test class for UserController
  * @author MOUFFOK Sarah
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class UserControllerTest {
        private static final Logger log = Logger.getLogger("UserControllerTest.class");

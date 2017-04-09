@@ -66,7 +66,7 @@ public class TrackClientBacking implements Serializable {
      * @author Danieil Skrinikov
      */
     public void init() {
-        if (trackId == null || trackControl.getTrackCount() < trackId+1) {
+        if (trackId == null || trackControl.findTrack(trackId) == null) {
             log.info("Track is NULL or id is invalid: " + trackId);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "/error.xhtml";

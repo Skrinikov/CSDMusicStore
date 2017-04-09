@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
  *
  * @author Thai-Vu Nugyen
  */
-
+@Ignore
 @RunWith(Arquillian.class)
 public class TrackJpaControllerTest {
     
