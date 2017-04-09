@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -31,7 +32,7 @@ import org.junit.Test;
  * Test class for UserController
  * @author MOUFFOK Sarah
  */
-@Ignore
+
 public class UserControllerTest {
        private static final Logger log = Logger.getLogger("UserControllerTest.class");
     
@@ -46,7 +47,7 @@ public class UserControllerTest {
                 .asFile();
 
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
-                          .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
+                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addPackage(UserJpaController.class.getPackage())
                 .addPackage(User.class.getPackage())
                 .addPackage(BrowseGenreBacking.class.getPackage())
@@ -78,8 +79,13 @@ public class UserControllerTest {
     
     @Before
     public void init(){
+        log.info("XXXXXXXXXXXXXXXXXX" + (ds==null));
         DatabaseSeedManager dsm = new DatabaseSeedManager(ds);
-        dsm.seed();
+        
+        log.info("XXXXXXXXXXXXXXXXXX" + (dsm==null));
+        try{
+             dsm.seed();
+        }catch(NullPointerException e){e.printStackTrace();}
     }
     
     @Test
