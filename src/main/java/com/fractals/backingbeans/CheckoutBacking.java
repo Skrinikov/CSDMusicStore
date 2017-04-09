@@ -165,7 +165,7 @@ public class CheckoutBacking implements Serializable {
         List<Track> tracks = cart.getAllTracks();
         List<Album> albums = cart.getAllAlbums();
         User user = login.getCurrentUser();
-        List<Order> orders = orderJpa.findOrdersByUser(user);
+        List<Order> orders = user.getOrders();
         String removed = "";
         for(Order o : orders) {
             for(OrderItem oi : o.getOrderItems()) {
