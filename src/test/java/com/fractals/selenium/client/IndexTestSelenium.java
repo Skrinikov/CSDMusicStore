@@ -37,7 +37,7 @@ public class IndexTestSelenium {
      */
     @Test     
     public void testIndexFormTitle() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/client/index.xhtml");
+        driver.get("http://localhost/8080/CSDMusicStore/client/index.xhtml");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         driver.quit();
@@ -49,7 +49,7 @@ public class IndexTestSelenium {
      */
     @Test     
     public void testIndexFormNormalUrl() throws Exception {
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         driver.quit();
@@ -61,7 +61,7 @@ public class IndexTestSelenium {
      */   
     @Test
     public void testIndexToLoginBtn() throws Exception{
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         
@@ -79,7 +79,7 @@ public class IndexTestSelenium {
      */
     @Test
     public void testIndexSurveyOptions() throws Exception{
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         
@@ -101,7 +101,7 @@ public class IndexTestSelenium {
      */
     @Test
     public void testIndexSurveyOptionsWithRefresh() throws Exception{
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         
@@ -124,7 +124,7 @@ public class IndexTestSelenium {
      */
     @Test
     public void testReleaseCount() throws Exception{
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         
@@ -142,7 +142,7 @@ public class IndexTestSelenium {
      */
     @Test
     public void testIndexRss() throws Exception{
-        driver.get("http://localhost:10860/CSDMusicStore/");
+        driver.get("http://localhost/8080/CSDMusicStore/");
         WebDriverWait wait = new WebDriverWait(driver, 10);         
         wait.until(ExpectedConditions.titleIs("Fractals"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("rss")));
