@@ -104,7 +104,7 @@ public class SearchJPAControllerTest {
         List<Album> items = search.searchByArtistNameAlbums("tu");
         assertThat(items).hasSize(3);
     }
- 
+
     @Test
     public void searchByArtistNameTracksTest() throws SQLException {
         log.info("searchByArtistNameTracksTest");
@@ -115,8 +115,8 @@ public class SearchJPAControllerTest {
     @Test
     public void searchByDateAlbumsTest() throws SQLException {
         log.info("searchByDateAlbumsTest");      
-        LocalDateTime to = LocalDateTime.now();
-        LocalDateTime from = to.minusDays(1);
+        LocalDateTime to = LocalDateTime.now().plusDays(2);
+        LocalDateTime from = to.minusDays(7);
         List<Album> items = search.searchByDateAlbums(from, to);
         assertThat(items).hasSize(73);
     }
@@ -124,8 +124,8 @@ public class SearchJPAControllerTest {
     @Test
     public void searchByDateTracksTest() throws SQLException {
         log.info("searchByDateTracksTest");      
-        LocalDateTime to = LocalDateTime.now();
-        LocalDateTime from = to.minusDays(1);
+        LocalDateTime to = LocalDateTime.now().plusDays(2);
+        LocalDateTime from = to.minusDays(7);
         List<Track> items = search.searchByDateTracks(from, to);
         assertThat(items).hasSize(138);
     }

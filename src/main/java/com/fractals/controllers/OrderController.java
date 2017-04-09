@@ -202,9 +202,9 @@ public class OrderController {
     }
 
     /**
-     * 
-     * @param o
-     * @return 
+     * Gets the list of order items for an order.
+     * @param o The order.
+     * @return the list of order items for an order.
      * @author MOUFFOK Sarah
      */
     public List<OrderItem> getOrderItemsOfOrder(Order o) {

@@ -1,3 +1,5 @@
+use test;
+
 insert into genres (name) values ('rock');
 insert into genres (name) values ('hip hop');
 insert into genres (name) values ('pop');

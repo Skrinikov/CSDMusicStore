@@ -4,7 +4,6 @@ import com.fractals.beans.Province;
 import com.fractals.controllers.ProvinceController;
 import com.fractals.utilities.BundleLocaleResolution;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;

@@ -145,6 +145,13 @@ public class SeleniumAjaxHelper {
         driver.findElement(By.id("checkoutForm:checkout")).click();
     }
     
+    /**
+     * Returns false if TimeoutException happens.
+     * @param e ExpectedCondition
+     * @param wait WebDriverWait
+     * @return false if TimeoutException happens.
+     * @author MOUFFOK Sarah
+     */
     public boolean toBoolean(ExpectedCondition e, WebDriverWait wait) {
         try {
             wait.until(e);

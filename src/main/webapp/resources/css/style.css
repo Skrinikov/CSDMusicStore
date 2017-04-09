@@ -469,27 +469,28 @@ body.navbar-more-show  {
 
 
 @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr { 
+
+    #cart-form table, #cart-form thead, #cart-form tbody, #cart-form th, 
+    #cart-form td, #cart-form tr { 
         display: block; 
     }
     
-    thead tr { 
-        display: none;
+    #cart-form  thead tr { 
+        display: none !important;
     }
     
-    tr {
+    #cart-form tr {
         border-bottom: 1px solid #333;
         margin-bottom: 10px;
     }
 	
-    td { 
+    #cart-form td { 
         border: none;
         border-bottom: 1px solid #333; 
-        position: relative;
-        padding-left: 50%; 
+        position: relative; 
     }
 
-    td:before { 
+    #cart-form td:before { 
         position: absolute;
         top: 6px;
         left: 6px;
@@ -1185,6 +1186,7 @@ body.navbar-more-show  {
 .ui-datepicker-current-day a, ui-corner-all span {
     font-weight: bold;
     color: #0061FC;
+    display: inline;
 }
 
 .ui-state-default {
@@ -1237,4 +1239,3 @@ body.navbar-more-show  {
     color:#CCC;
     text-decoration: none;
 }
-

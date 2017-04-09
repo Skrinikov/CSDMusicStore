@@ -22,7 +22,11 @@ public class BundleLocaleResolution {
      */
     public ResourceBundle returnBundleWithCurrentLocale() {
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, Object> cookieMap = context.getExternalContext().getRequestCookieMap();
+        Map<String, Object> cookieMap = null;
+        if(context != null)
+            cookieMap = context.getExternalContext().getRequestCookieMap();
+        else
+            return ResourceBundle.getBundle("Bundle");
        
         Object localeCookie = cookieMap.get("localeCookie");
         

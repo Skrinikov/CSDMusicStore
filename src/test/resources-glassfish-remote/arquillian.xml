@@ -6,10 +6,8 @@
      
     <container qualifier="glassfish" default="true">
         <configuration>
-            <!--10828-->
             <property name="adminPort">4848</property>
         </configuration>
     </container>
  
-    <!--    </group>-->
 </arquillian>

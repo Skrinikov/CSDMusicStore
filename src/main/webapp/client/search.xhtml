@@ -57,8 +57,9 @@
                                         class="control-label col-sm-4"/>
                         <div class="col-sm-4">
                             <h:panelGrid columns="2">
-                                <p:calendar id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" mode="inline"/>
-                                <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}" mode="inline"/>
+                                <p:calendar id="dateStart"  rendered="#{search.dateSelected}" value="#{search.dateStart}" />
+                                <br/>
+                                <p:calendar rendered="#{search.dateSelected}" id="dateEnd" value="#{search.dateEnd}"/>
                             </h:panelGrid>
                         </div>
                         <h:message class="error" for="date"  rendered="#{search.dateSelected}"/>

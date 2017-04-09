@@ -19,6 +19,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * N.B. The data in orders table for selenium user should be cleaned up each time
  * before this test class executes to ensure that all tracks were never bought before, which
  * can create anomalies in test results.
+ * Since the database is not reset after each test and the tests happen in the random order,
+ * some errors are possible because of the leftover data from the previous tests 
+ * (e.g. items staying in the shopping cart).
  * 
  * @author Aline Shulzhenko
  */

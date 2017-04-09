@@ -162,13 +162,5 @@ public class TrackJpaControllerTest {
         }
         assertTrue (valid);
     }
-
-    /**
-     * Test of getTotalSales method, of class TrackJpaController.
-     */
-    @Test
-    public void testGetTotalSales() {
-        //TODO
-    }
     
 }
