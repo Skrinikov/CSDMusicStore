@@ -467,6 +467,42 @@ body.navbar-more-show  {
     margin-bottom: 20px;
 }
 
+
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    thead tr { 
+        display: none;
+    }
+    
+    tr {
+        border-bottom: 1px solid #333;
+        margin-bottom: 10px;
+    }
+	
+    td { 
+        border: none;
+        border-bottom: 1px solid #333; 
+        position: relative;
+        padding-left: 50%; 
+    }
+
+    td:before { 
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
+    .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th,
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        border-top: none;
+    }
+}
+
 .btn-continue {
     color: #F8F3EE;
     background-color: black;
@@ -523,7 +559,7 @@ body.navbar-more-show  {
     border-bottom: 1px solid #333333;
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    width: 60%;
 }
 
 .space {

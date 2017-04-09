@@ -37,7 +37,7 @@
                         </h:link>
                     </li>
                 </ui:fragment>
-                <li>
+                <li class="hide-cart">
                     <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart">
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)
@@ -125,7 +125,7 @@
                     </h:link>
                 </li>
 
-                <li class="hidden-xs">
+                <li class="hidden-xs hide-cart">
                     <h:link outcome="/client/shopping_cart.xhtml" id="shop-cart-2">
                         <span class="menu-icon fa fa-shopping-cart"></span>
                         #{bundle.shopcart} (<ui:fragment>#{cart.totalItems()}</ui:fragment>)

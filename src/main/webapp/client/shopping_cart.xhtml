@@ -27,7 +27,7 @@
             <div class="panel-body">
                 <h:message  class="error text-center space" for="cart-form" id="cartFormMessage" />
                 <ui:fragment rendered="#{cart.all.size() != 0}">
-                    <h:form id="cart-form">                       
+                    <h:form id="cart-form">      
                         <h:dataTable value="#{cart.all}" var="item" id="cart-table"
                                      class="table table-cart table-condensed">
                             <h:column>    
